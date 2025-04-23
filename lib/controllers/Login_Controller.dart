@@ -139,7 +139,7 @@ class LoginController extends GetxController {
 
           saveLoginTime();
 
-          // await postUserFCMtoken(userId, token);
+          await postUserFCMtoken(userId, token);
           await globalController.getMenus();
           financialYear();
           GetGlobalSettings();

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:suktha_crm/Model/transaction_type_model.dart';
 import 'package:suktha_crm/controllers/Home_controller.dart';
 import 'package:suktha_crm/controllers/global_controller.dart';
 import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainScreen.dart';
@@ -234,7 +235,7 @@ class InitialController extends GetxController {
 //     }
 //   }
 
-//   RxList<TransactionTypeModel> transactionTypeList = <TransactionTypeModel>[].obs;
+  RxList<TransactionTypeModel> transactionTypeList = <TransactionTypeModel>[].obs;
 
 //   Future<List<TransactionTypeModel>> transactionType() async {
 //     Dio dio = Dio();

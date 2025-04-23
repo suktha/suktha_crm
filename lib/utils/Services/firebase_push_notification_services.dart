@@ -1,203 +1,205 @@
-// import 'dart:convert';
-// import 'dart:developer';
-// import 'dart:io';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+// ignore_for_file: prefer_const_constructors, avoid_print, non_constant_identifier_names
 
-// @pragma('vm:entry-point')
-// Future<void> handleBackgroundMessage(RemoteMessage message) async {
-//   print('-----hello------: ${message.notification?.title} - ${message.notification?.body}');
-//   print("--message-$message");
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-//   // try {
-//   //   String? transTypeId = message.data['transTypeId'];
-//   //   String? transNum = message.data['transNumber'];
+@pragma('vm:entry-point')
+Future<void> handleBackgroundMessage(RemoteMessage message) async {
+  print('-----hello------: ${message.notification?.title} - ${message.notification?.body}');
+  print("--message-$message");
 
-//   //   log("Transaction Type ID: $transTypeId");
-//   //   log("Transaction Number: $transNum");
+  // try {
+  //   String? transTypeId = message.data['transTypeId'];
+  //   String? transNum = message.data['transNumber'];
 
-//   //   if (transTypeId != null && transNum != null) {
-//   //     print("hello civics");
-//   //     checkTransType(int.parse(transTypeId), transNum);
-//   //   }
-//   // } catch (e) {
-//   //   print(e);
-//   // }
-// }
+  //   log("Transaction Type ID: $transTypeId");
+  //   log("Transaction Number: $transNum");
 
-// class FirebasePushNotificationServices {
-//   static final FirebasePushNotificationServices _instance = FirebasePushNotificationServices._internal();
+  //   if (transTypeId != null && transNum != null) {
+  //     print("hello civics");
+  //     checkTransType(int.parse(transTypeId), transNum);
+  //   }
+  // } catch (e) {
+  //   print(e);
+  // }
+}
 
-//   factory FirebasePushNotificationServices() {
-//     return _instance;
-//   }
+class FirebasePushNotificationServices {
+  static final FirebasePushNotificationServices _instance = FirebasePushNotificationServices._internal();
 
-//   FirebasePushNotificationServices._internal();
+  factory FirebasePushNotificationServices() {
+    return _instance;
+  }
 
-//   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-//   final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
+  FirebasePushNotificationServices._internal();
 
-//   final AndroidNotificationChannel _androidChannel = const AndroidNotificationChannel(
-//     'high_important_channel',
-//     'High Importance Notifications',
-//     description: 'This channel is used for important notifications',
-//     importance: Importance.max,
-//   );
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
 
-//   final DarwinNotificationDetails _iosChannel = const DarwinNotificationDetails();
+  final AndroidNotificationChannel _androidChannel = const AndroidNotificationChannel(
+    'high_important_channel',
+    'High Importance Notifications',
+    description: 'This channel is used for important notifications',
+    importance: Importance.max,
+  );
 
-//   Future<void> initNotification() async {
-//     await _firebaseMessaging.requestPermission();
+  final DarwinNotificationDetails _iosChannel = const DarwinNotificationDetails();
 
-//     FirebaseMessaging messaging = FirebaseMessaging.instance;
-//     String? FCMToken;
+  Future<void> initNotification() async {
+    await _firebaseMessaging.requestPermission();
 
-//     if (Platform.isIOS) {
-//       FCMToken = await messaging.getAPNSToken();
-//     } else {
-//       FCMToken = await messaging.getToken();
-//     }
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? FCMToken;
 
-//     log('FCM Token: $FCMToken');
+    if (Platform.isIOS) {
+      FCMToken = await messaging.getAPNSToken();
+    } else {
+      FCMToken = await messaging.getToken();
+    }
 
-//     String fcmToken = FCMToken ?? "";
+    log('FCM Token: $FCMToken');
 
-//     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String fcmToken = FCMToken ?? "";
 
-//     sharedPreferences.setString('fcmToken', fcmToken);
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-//     await _initLocalNotifications();
-//     _initPushNotifications();
-//   }
+    sharedPreferences.setString('fcmToken', fcmToken);
 
-//   /// 🔹 Initialize Push Notifications (FCM)
-//   void _initPushNotifications() {
-//     FirebaseMessaging.onMessage.listen((message) {
-//       print('Got a message whilst in the foreground!');
-//       log('📩 Full Message: ${jsonEncode(message.toMap())}');
+    await _initLocalNotifications();
+    _initPushNotifications();
+  }
 
-//       if (message.notification != null) {
-//         print('Message also contained a notification: ${message.toString()}');
-//       }
+  /// 🔹 Initialize Push Notifications (FCM)
+  void _initPushNotifications() {
+    FirebaseMessaging.onMessage.listen((message) {
+      print('Got a message whilst in the foreground!');
+      log('📩 Full Message: ${jsonEncode(message.toMap())}');
 
-//       _handleForegroundNotification(message);
-//     });
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.toString()}');
+      }
 
-//     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-//       print("hello onmesssageopened");
-//       _handleNotificationTap(message);
-//     });
+      _handleForegroundNotification(message);
+    });
 
-//     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print("hello onmesssageopened");
+      _handleNotificationTap(message);
+    });
 
-//     FirebaseMessaging.instance.getInitialMessage().then((message) {
-//       if (message != null) {
-//         _handleNotificationTap(message);
-//       }
-//     });
-//   }
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
 
-//   /// 🔹 Initialize Local Notifications
-//   Future<void> _initLocalNotifications() async {
-//     const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@drawable/ic_notification');
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        _handleNotificationTap(message);
+      }
+    });
+  }
 
-//     final DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
-//       requestAlertPermission: true,
-//       requestBadgePermission: true,
-//       requestSoundPermission: true,
-//     );
+  /// 🔹 Initialize Local Notifications
+  Future<void> _initLocalNotifications() async {
+    const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@drawable/ic_notification');
 
-//     final InitializationSettings settings = InitializationSettings(android: androidSettings, iOS: iosSettings);
+    final DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
 
-//     await _localNotifications.initialize(settings, onDidReceiveNotificationResponse: (response) {
-//       print(response);
-//       print("ontapped");
-//       if (response.payload != null) {
-//         print("ontapped");
-//         _handleNotificationPayload(jsonDecode(response.payload!));
-//       }
-//     });
+    final InitializationSettings settings = InitializationSettings(android: androidSettings, iOS: iosSettings);
 
-//     final androidImplementation = _localNotifications.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
-//     await androidImplementation?.createNotificationChannel(_androidChannel);
-//   }
+    await _localNotifications.initialize(settings, onDidReceiveNotificationResponse: (response) {
+      print(response);
+      print("ontapped");
+      if (response.payload != null) {
+        print("ontapped");
+        _handleNotificationPayload(jsonDecode(response.payload!));
+      }
+    });
 
-//   /// 🔹 Handle Foreground Notifications
-//   void _handleForegroundNotification(RemoteMessage message) {
-//     final RemoteNotification? notification = message.notification;
-//     final Map<String, dynamic> data = message.data;
-//     print("hii");
+    final androidImplementation = _localNotifications.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+    await androidImplementation?.createNotificationChannel(_androidChannel);
+  }
 
-//     if (notification != null) {
-//       String? imageUrl;
-//       if (data.containsKey('image')) {
-//         imageUrl = data['image'];
-//         print(imageUrl);
-//       }
+  /// 🔹 Handle Foreground Notifications
+  void _handleForegroundNotification(RemoteMessage message) {
+    final RemoteNotification? notification = message.notification;
+    final Map<String, dynamic> data = message.data;
+    print("hii");
 
-//       _showLocalNotification(notification.title ?? "No Title", notification.body ?? "No Body", data, imageUrl);
-//     }
-//   }
+    if (notification != null) {
+      String? imageUrl;
+      if (data.containsKey('image')) {
+        imageUrl = data['image'];
+        print(imageUrl);
+      }
 
-//   void _handleNotificationTap(RemoteMessage message) {
-//     log("🔔 Notification Clicked: ${message.data}");
-//     _handleNotificationPayload(message.data);
-//   }
+      _showLocalNotification(notification.title ?? "No Title", notification.body ?? "No Body", data, imageUrl);
+    }
+  }
 
-//   /// 🔹 Show Local Notification (With Optional Image)
-//   Future<void> _showLocalNotification(String title, String body, Map<String, dynamic> data, String? imageUrl) async {
-//     BigPictureStyleInformation? bigPictureStyle;
+  void _handleNotificationTap(RemoteMessage message) {
+    log("🔔 Notification Clicked: ${message.data}");
+    _handleNotificationPayload(message.data);
+  }
 
-//     if (imageUrl != null && imageUrl.isNotEmpty) {
-//       bigPictureStyle = BigPictureStyleInformation(
-//         FilePathAndroidBitmap(imageUrl), // Use network image or local path
-//         contentTitle: title,
-//         summaryText: body,
-//       );
-//     }
+  /// 🔹 Show Local Notification (With Optional Image)
+  Future<void> _showLocalNotification(String title, String body, Map<String, dynamic> data, String? imageUrl) async {
+    BigPictureStyleInformation? bigPictureStyle;
 
-//     final AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
-//       _androidChannel.id,
-//       _androidChannel.name,
-//       channelDescription: _androidChannel.description,
-//       importance: Importance.max,
-//       priority: Priority.high,
-//       icon: '@drawable/ic_notification',
-//       styleInformation: bigPictureStyle,
-//     );
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      bigPictureStyle = BigPictureStyleInformation(
+        FilePathAndroidBitmap(imageUrl), // Use network image or local path
+        contentTitle: title,
+        summaryText: body,
+      );
+    }
 
-//     final NotificationDetails notificationDetails = NotificationDetails(
-//       android: androidDetails,
-//       iOS: _iosChannel,
-//     );
+    final AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
+      _androidChannel.id,
+      _androidChannel.name,
+      channelDescription: _androidChannel.description,
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@drawable/ic_notification',
+      styleInformation: bigPictureStyle,
+    );
 
-//     await _localNotifications.show(
-//       title.hashCode,
-//       title,
-//       body,
-//       notificationDetails,
-//       payload: jsonEncode(data),
-//     );
-//   }
+    final NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+      iOS: _iosChannel,
+    );
 
-//   void _handleNotificationPayload(Map<String, dynamic> data) {
-//     print("🔔 Notification Payload: $data");
-//     print("typeid ${data['transTypeId']}");
+    await _localNotifications.show(
+      title.hashCode,
+      title,
+      body,
+      notificationDetails,
+      payload: jsonEncode(data),
+    );
+  }
 
-//     try {
-//       String? transTypeId = data['transTypeId'];
-//       String? transNum = data['transNumber'];
+  void _handleNotificationPayload(Map<String, dynamic> data) {
+    print("🔔 Notification Payload: $data");
+    print("typeid ${data['transTypeId']}");
 
-//       log("Transaction Type ID: $transTypeId");
-//       log("Transaction Number: $transNum");
+    try {
+      String? transTypeId = data['transTypeId'];
+      String? transNum = data['transNumber'];
 
-//       if (transTypeId != null && transNum != null) {
-//         print("hello civics");
-//         checkTransType(int.parse(transTypeId), transNum);
-//       }
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-// }
+      log("Transaction Type ID: $transTypeId");
+      log("Transaction Number: $transNum");
+
+      if (transTypeId != null && transNum != null) {
+        print("hello civics");
+        // checkTransType(int.parse(transTypeId), transNum);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+}

@@ -32,6 +32,8 @@
 // import 'package:suktha/View/Modules/Transactions/Subcontracting/Subcontracting%20Items/Subcontracting%20Proforma%20Invoice/view%20Subcontracting%20proforma%20Invoice/list_subcontracting_proforma_invoice.dart';
 // import 'package:suktha/View/Modules/Transactions/Subcontracting/Subcontracting%20Items/Subcontracting%20Quotation/View%20Subcontracting%20Quotation/subcontracting_quotation_list.dart';
 // import 'package:suktha/View/Modules/Transactions/transaction_controller.dart';
+// import 'package:suktha_crm/Model/transaction_type_model.dart';
+// import 'package:suktha_crm/controllers/initial_controller.dart';
 
 // class TransactionNavigationService {
 //   static final TransactionNavigationService _instance = TransactionNavigationService._internal();
@@ -75,8 +77,7 @@
 //       "Jobwork Quotation": (String num) => Get.to(JobWorkQuotationScreen(isFromHomeScreen: true, transactionNumber: num)),
 //       "Subcontracting Quotation": (String num) => Get.to(SubcontractingQuotationScreen(isFromHomeScreen: true, transactionNumber: num)),
 //       "Jobwork Proforma Invoice": (String num) => Get.to(JobworkProformaInvoiceScreen(isFromHomeScreen: true, transactionNumber: num)),
-//       "Subcontracting Proforma Invoice": (String num) =>
-//           Get.to(SubcontractingProformaInvoiceScreen(isFromHomeScreen: true, transactionNumber: num)),
+//       "Subcontracting Proforma Invoice": (String num) => Get.to(SubcontractingProformaInvoiceScreen(isFromHomeScreen: true, transactionNumber: num)),
 //       "Advance Receipt": (String num) => Get.to(AdvanceReceiptScreen(isFromHomeScreen: true, transactionNumber: num)),
 //     };
 
