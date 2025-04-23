@@ -1,0 +1,2 @@
+D:/prasidhi/suktha_crm/android/app/.cxx/RelWithDebInfo/6b242j1q/x86/CMakeFiles/edit_cache.dir
+D:/prasidhi/suktha_crm/android/app/.cxx/RelWithDebInfo/6b242j1q/x86/CMakeFiles/rebuild_cache.dir
