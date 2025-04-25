@@ -11,6 +11,7 @@
 
     <application
         android:label="suktha_crm"
+        android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         

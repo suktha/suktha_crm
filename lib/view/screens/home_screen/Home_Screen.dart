@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:async';
 import 'dart:convert';
@@ -15,13 +15,17 @@ import 'package:sizer/sizer.dart';
 import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Constants/images.dart';
 import 'package:suktha_crm/Constants/shared_pref_keys.dart';
+import 'package:suktha_crm/Model/company_model.dart';
 import 'package:suktha_crm/controllers/Home_controller.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
+import 'package:suktha_crm/controllers/global_controller.dart';
 import 'package:suktha_crm/controllers/initial_controller.dart';
 import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
+import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
-import 'package:suktha_crm/validations/Date.dart';
-import 'package:suktha_crm/validations/responsive_utils.dart';
+import 'package:suktha_crm/utils/Date.dart';
+import 'package:suktha_crm/utils/responsive_utils.dart';
+import 'package:suktha_crm/view/Account%20Settings/company_details_screen.dart';
 import 'package:suktha_crm/view/screens/home_screen/controller/home_screen_text_controller.dart';
 import 'package:suktha_crm/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
@@ -46,16 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final textWidgetController = Get.put(HomeScreenTextController());
   final leadController = Get.put(GetLeadController());
   final contactController = Get.put(LeadContactDetaisController());
+  final settingsController = Get.put(SettingsController());
 
   // final GlobalController globalController = Get.find();
 
-  // final globalController = Get.put(GlobalController());
+  final globalController = Get.put(GlobalController());
   // final settingsController = Get.put(SettingsController());
   // final generalMasterController = Get.put(GeneralMasterController());
 
   @override
   void initState() {
     super.initState();
+
     homeController.getCompanyDetails();
     homeController.getCompanyLogoName();
     // settingsController.onInit();
@@ -63,13 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // globalController.onInit();
     getdata();
     todayDetails();
-
-    textWidgetController.GetLastThreeInvoiceData();
-    textWidgetController.GetAdvanceReceiptData();
-    textWidgetController.GetSupplierPendingAmount();
-    textWidgetController.GetCustomerPendingAmount();
-    textWidgetController.GetfastMovingMaterial();
-    textWidgetController.GetSlowMovingMaterial();
+    setState(() {
+      Timer(Duration.zero, () => getCompanyLogo());
+    });
   }
 
   todayDetails() async {
@@ -98,16 +100,17 @@ class _HomeScreenState extends State<HomeScreen> {
     print("username ------------- ${homeController.username.value}");
   }
 
-  getCompanyLogo() {
-    String newvalue = SharedPreferencesService.instance.getValue(SharedPrefKeys().CompanyLogoKey);
+  CompanyModel? companyDetails;
 
+  getCompanyLogo() async {
+    print("inside--company logo loading ");
+    String newvalue = SharedPreferencesService.instance.getValue(SharedPrefKeys().CompanyLogoKey);
     //decoding string to uint8list
     homeController.companyLogo.value = base64Decode(newvalue);
   }
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration.zero, () => getCompanyLogo());
     return WillPopScope(
         onWillPop: () async {
           final value = await popupWithLottie(
@@ -162,8 +165,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
-                                      print("company profile loading");
+                                    onTap: () async {
+                                      // print("company profile loading");
+                                      // await Get.to(CompanyDetailsScreen(
+                                      //   companyDetails: companyDetails!,
+
+                                      //   // companyLogo: companyLogo,
+                                      // ));
                                       // ZoomDrawer.of(context)!.toggle();
                                     },
                                     child: Row(
@@ -423,14 +431,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         customLeadCreateButton(Icons.contact_page_rounded, "Import From Contacts", () async {
                                           await contactController.fetchContacts();
-                                          Get.to(() => ContactListScreen(materialList: leadController.materialLists, serviceList: leadController.serviceLists));
+                                          Get.to(
+                                            () => ContactListScreen(
+                                              materialList: leadController.materialLists,
+                                              serviceList: leadController.serviceLists,
+                                              isFromHomeScreen: true,
+                                            ),
+                                          );
                                         }),
                                         customLeadCreateButton(Icons.add, "Create New Lead", () {
-                                          Get.to(() => NewLeadManagementAddScreen(isEdit: false, materialList: leadController.materialLists, serviceList: leadController.serviceLists),
-                                              duration: const Duration(milliseconds: 500), transition: Transition.fadeIn);
+                                          Get.to(
+                                              () => NewLeadManagementAddScreen(
+                                                    isEdit: false,
+                                                    materialList: leadController.materialLists,
+                                                    serviceList: leadController.serviceLists,
+                                                    isFromHomeScreen: true,
+                                                  ),
+                                              duration: const Duration(milliseconds: 500),
+                                              transition: Transition.fadeIn);
                                         }),
                                         customLeadCreateButton(Icons.arrow_forward_ios_rounded, " View Lead Management", () {
-                                          Get.to(LeadManagementListScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
+                                          Get.to(
+                                              LeadManagementListScreen(
+                                                isFromHomeScreen: true,
+                                              ),
+                                              transition: Transition.fade,
+                                              duration: const Duration(milliseconds: 600));
                                         }),
                                       ],
                                     ),

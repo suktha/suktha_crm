@@ -10,6 +10,8 @@ import 'package:sizer/sizer.dart';
 import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
+import 'package:suktha_crm/utils/share_helper.dart';
+import 'package:suktha_crm/view/Account%20Settings/widgets/pdfviewScreen.dart';
 import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 
@@ -113,6 +115,11 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                                             controller.isSelectedDocuments[index] = !controller.isSelectedDocuments[index];
                                             controller.multiSelectMode.value = controller.isSelectedDocuments.contains(true);
                                           } else {
+                                            print("object");
+                                            print(controller.documentWalletList[index].fileURL!);
+                                            Get.to(PDFScreen(
+                                              url: controller.documentWalletList[index].fileURL!,
+                                            ));
                                             // Get.to(PDFScreen(
                                             //   url: controller.documentWalletList[index].fileURL!,
                                             // ));
@@ -134,7 +141,7 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                                                   width: 1.w,
                                                 ),
                                                 SizedBox(
-                                                    width: 60.w,
+                                                    width: controller.multiSelectMode.value ? 54.w : 60.w,
                                                     child: Text(
                                                       walletItem.name ?? "",
                                                       style: TextStyle(fontSize: 17),
@@ -147,6 +154,17 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                                                       controller.isSelectedDocuments[index] = value!;
                                                     },
                                                   ),
+                                                IconButton(
+                                                    onPressed: () async {
+                                                      final filePath = walletItem.fileURL!;
+
+                                                      ShareHelper.share(filePath, "file");
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.share_outlined,
+                                                      color: kColorblack,
+                                                      size: 20,
+                                                    )),
                                               ],
                                             ),
                                           ),

@@ -10,7 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/validations/responsive_utils.dart';
+import 'package:suktha_crm/utils/responsive_utils.dart';
 
 class loadingScreenWithText extends StatefulWidget {
   bool? isPageLoading;

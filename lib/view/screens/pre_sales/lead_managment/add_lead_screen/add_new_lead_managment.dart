@@ -25,9 +25,11 @@ import 'package:suktha_crm/Model/user_model.dart';
 import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
 import 'package:suktha_crm/controllers/lead_controller.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
-import 'package:suktha_crm/validations/Date.dart';
-import 'package:suktha_crm/validations/validations.dart';
+import 'package:suktha_crm/utils/Date.dart';
+import 'package:suktha_crm/utils/validations/validations.dart';
+import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
+import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:suktha_crm/view/widget/custom_button.dart';
 import 'package:suktha_crm/view/widget/custom_textfield.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
@@ -37,6 +39,7 @@ class NewLeadManagementAddScreen extends StatefulWidget {
   final bool? isEditFromLeadGen;
   final bool? AddFromContacts;
   final bool? editFromContacts;
+  bool? isFromHomeScreen;
 
   LeadModel? leadValue;
 
@@ -57,6 +60,7 @@ class NewLeadManagementAddScreen extends StatefulWidget {
     this.AddFromContacts,
     this.IndexOfMandatoryField,
     this.editFromContacts,
+    this.isFromHomeScreen,
   });
 
   @override
@@ -168,7 +172,9 @@ class _NewLeadManagementAddScreenState extends State<NewLeadManagementAddScreen>
                     size: 25.sp,
                   ),
                   onPressed: (() {
-                    Get.back();
+                    // Get.back();
+                    widget.isFromHomeScreen == true ? Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => LeadManagementListScreen());
+
                     controller.leadGenerationNumController.clear();
                     controller.leadDateController.clear();
                     controller.nameController.clear();
@@ -628,6 +634,7 @@ class _NewLeadManagementAddScreenState extends State<NewLeadManagementAddScreen>
                                                     focusNode: fieldFocusNode,
                                                     decoration: InputDecoration(
                                                       labelText: "Lead Status*",
+                                                      suffixIcon: Icon(Icons.list),
                                                     ),
                                                   );
                                                 },
@@ -1387,6 +1394,7 @@ class _NewLeadManagementAddScreenState extends State<NewLeadManagementAddScreen>
                                                               focusNode: fieldFocusNode,
                                                               decoration: InputDecoration(
                                                                 labelText: "Lead Status*",
+                                                                suffixIcon: Icon(Icons.list),
                                                               ),
                                                             );
                                                           },

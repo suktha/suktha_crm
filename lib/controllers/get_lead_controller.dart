@@ -41,6 +41,8 @@ class GetLeadController extends GetxController {
   List isStatusSelected = <bool>[].obs;
   var selectedIndex = (-1).obs;
 
+  RxBool isNavigateFromHome = false.obs;
+
   RxString selectedStatusId = "0".obs;
   RxString currentMonth = "".obs;
   RxString TodayDate = "".obs;

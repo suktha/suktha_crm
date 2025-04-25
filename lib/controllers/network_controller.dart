@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
-import 'package:suktha_crm/validations/check_internet_connection.dart';
+import 'package:suktha_crm/utils/check_internet_connection.dart';
 
 class NetworkController extends GetxController {
   final Connectivity _connectivity = Connectivity();

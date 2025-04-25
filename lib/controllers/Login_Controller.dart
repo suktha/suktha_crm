@@ -153,7 +153,7 @@ class LoginController extends GetxController {
             () {
               Get.offAll(
                   () => const BottomNavigationMainscreen(
-                        initialIndex: 0,
+                        initialIndex: 1,
                       ),
                   transition: Transition.fade,
                   duration: const Duration(milliseconds: 700));

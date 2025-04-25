@@ -125,7 +125,7 @@ class InitialController extends GetxController {
     Future.delayed(const Duration(seconds: 1), () async {
       Get.offAll(
           () => const BottomNavigationMainscreen(
-                initialIndex: 0,
+                initialIndex: 1,
               ),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 700));

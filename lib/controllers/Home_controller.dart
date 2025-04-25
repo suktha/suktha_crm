@@ -205,7 +205,7 @@ class HomeController extends GetxController {
 
     // CompanyModel companyDetails = CompanyModel.fromJson(jsonDecode(companyEncodedDetails!));
 
-    // print("-company details get- ${companyDetails.name}");
+    // print("-company details get-name ${companyDetails.name}");
     update();
   }
 

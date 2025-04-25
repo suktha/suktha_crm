@@ -8,6 +8,7 @@ import 'package:suktha_crm/Constants/images.dart';
 import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/Model/material_models.dart';
 import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
+import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/add_lead_from_contacts/selected_contact_screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:suktha_crm/view/widget/shimmer_loading.dart';
@@ -15,12 +16,9 @@ import 'package:suktha_crm/view/widget/shimmer_loading.dart';
 class ContactListScreen extends StatefulWidget {
   final List<MaterialModel>? materialList;
   final List<MaterialModel>? serviceList;
+  bool? isFromHomeScreen;
 
-  ContactListScreen({
-    super.key,
-    this.materialList,
-    this.serviceList,
-  });
+  ContactListScreen({super.key, this.materialList, this.serviceList, this.isFromHomeScreen});
 
   @override
   State<ContactListScreen> createState() => _ContactListScreenState();
@@ -109,7 +107,9 @@ class _ContactListScreenState extends State<ContactListScreen> {
             contactController.contactNames.clear();
             contactController.contactNumbers.clear();
             contactController.isListLoading.value = true;
-            Get.to(() => LeadManagementListScreen());
+
+            widget.isFromHomeScreen == true ? Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => LeadManagementListScreen());
+            // Get.to(() => LeadManagementListScreen());
           }),
         ),
       ),

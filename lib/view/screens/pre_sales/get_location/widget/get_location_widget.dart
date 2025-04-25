@@ -7,7 +7,7 @@ import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/Model/material_models.dart';
 import 'package:suktha_crm/controllers/lead_controller.dart';
-import 'package:suktha_crm/validations/Date.dart';
+import 'package:suktha_crm/utils/Date.dart';
 
 import '../controller/get_location_controller.dart';
 

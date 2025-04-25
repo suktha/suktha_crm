@@ -30,7 +30,7 @@ import 'package:suktha_crm/utils/Services/rest_api_services.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
 import 'package:suktha_crm/utils/api/common_api.dart';
 import 'package:suktha_crm/utils/check_token_expired.dart';
-import 'package:suktha_crm/validations/Date.dart';
+import 'package:suktha_crm/utils/Date.dart';
 import 'package:suktha_crm/view/screens/pre_sales/card%20reader/MlkitText.dart';
 import 'package:suktha_crm/view/screens/pre_sales/card%20reader/RecognitionResponse.dart';
 import 'package:suktha_crm/view/screens/pre_sales/card%20reader/card_reader.dart';
@@ -583,12 +583,9 @@ class LeadController extends GetxController {
     final financialYearDetailDEcoded = json.decode(prefs.getValue('financialYear')!);
     final financialYear = FinancialYearModel.fromJson(financialYearDetailDEcoded);
 
-    print("leadname - ${nameController.text}");
-    print("created date - ${leadValues!.createdDate != null ? leadValues.createdDate : DateClass().parseDate(leadDateController.text)}");
-
     var leadData = LeadModel(
         address: addressController.text.isNotEmpty ? addressController.text : null,
-        amount: amountController.text.isNotEmpty ? double.tryParse(amountController.text) ?? 0.0 : 0.0,
+        amount: amountController.text.isNotEmpty ? double.tryParse(amountController.text) ?? null : null,
         areaId: selectedAreaValue.id,
         assignedToId: selectedUserValue.id,
         cityId: selectedCityValue.id,
@@ -603,13 +600,13 @@ class LeadController extends GetxController {
         financialYearId: financialYear.id,
         followUpDate: followUpDateController.text.isNotEmpty ? DateClass().parseDate(followUpDateController.text) : null,
         followUpTime: followUpId.value != 0 ? followUpId.value : null,
-        id: isEdit ? leadValues.id : null,
+        id: isEdit ? leadValues!.id : null,
         interestedProductId: selectedMaterialItem.isNotEmpty ? selectedMaterialItem.map<int>((material) => material.id ?? 0).toList() : null,
         isExistingCustomer: isNewcustomer.value ? 0 : 1,
         leadComments: leadCommentsControler.text.isNotEmpty ? leadCommentsControler.text : null,
         leadGenerationDate: leadDateController.text.isNotEmpty ? DateClass().parseDate(leadDateController.text) : null,
-        leadGenerationId: isEdit ? leadValues.leadGenerationId : null,
-        leadGenerationNumber: isEdit ? leadValues.leadGenerationNumber : null,
+        leadGenerationId: isEdit ? leadValues!.leadGenerationId : null,
+        leadGenerationNumber: isEdit ? leadValues!.leadGenerationNumber : null,
         leadGenerationType: 35,
         leadName: nameController.text.isNotEmpty ? nameController.text : null,
         mobileNo: mobileNoController.text.isNotEmpty ? mobileNoController.text : null,
@@ -626,7 +623,7 @@ class LeadController extends GetxController {
         leadGeoLocation: latLong?.text.isNotEmpty == true ? latLong!.text : null,
         interestedServiceId: selectedServiceItem.isNotEmpty ? selectedServiceItem.map<int>((material) => material.id ?? 0).toList() : null,
         competitors: competitorsController.text.isNotEmpty ? competitorsController.text : null,
-        createdDate: isEdit ? leadValues.createdDate : (leadDateController.text.isNotEmpty ? DateClass().parseDate(leadDateController.text) : null),
+        createdDate: isEdit ? leadValues!.createdDate : (leadDateController.text.isNotEmpty ? DateClass().parseDate(leadDateController.text) : null),
         customerBudget: customerBudgetControler.text.isNotEmpty ? customerBudgetControler.text : null,
         customerPainPoints: customerPainPointscontroller.text.isNotEmpty ? customerPainPointscontroller.text : null,
         designationId: selectedDesignationValue.id,
@@ -688,7 +685,7 @@ class LeadController extends GetxController {
 
     var leadData = LeadModel(
       address: addressController.text.isNotEmpty ? addressController.text : null,
-      amount: amountController.text.isNotEmpty ? double.tryParse(amountController.text) ?? 0.0 : 0.0,
+      amount: amountController.text.isNotEmpty ? double.tryParse(amountController.text) ?? null : null,
       areaId: selectedAreaValue.id ?? null,
       assignedToId: selectedUserValue.id ?? null,
       cityId: selectedCityValue.id ?? null,

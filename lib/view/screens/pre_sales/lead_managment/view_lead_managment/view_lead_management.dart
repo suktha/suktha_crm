@@ -11,7 +11,7 @@ import 'package:suktha_crm/Constants/images.dart';
 import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
 import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
-import 'package:suktha_crm/validations/Date.dart';
+import 'package:suktha_crm/utils/Date.dart';
 import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
@@ -51,9 +51,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
   void initState() {
     super.initState();
 
-    if (widget.isFromHomeScreen == true) {
-      controller.getLeadList(widget.quotationNumber!, 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
-    } else if (controller.isCalledGetAllLeads.value == true) {
+    if (controller.isCalledGetAllLeads.value == true) {
       // print("inside --- missed follow up id-- ${widget.missedUpId}");
       controller.isPageLoading.value = true;
 
@@ -69,7 +67,6 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
         print("search name--${controller.searchValue.value}");
         setState(() {
           page++;
-          widget.isFromHomeScreen = false;
           controller.getLeadList(controller.searchValue.value, page, controller.sortdirection.value, controller.sortwith.value, controller.filter.value, controller.isFilter.value,
               controller.financialYearId.value, controller.selectedStatusId.value, "");
           print("hello----222");
@@ -140,7 +137,6 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 controller.isPageLoading.value = false;
                 controller.listLoad.value = false;
                 controller.hasMore.value = true;
-                widget.isFromHomeScreen = false;
                 controller.isCalledGetAllLeads.value = false;
                 controller.sortdirection.value = "desc";
                 controller.sortwith.value = "leadGenerationDate";
@@ -149,12 +145,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 controller.selectedStatusId.value = "0";
                 controller.leadList.clear();
                 controller.fromPreSalesScreen.value = false;
-                Get.offAll(
-                    () => const BottomNavigationMainscreen(
-                          initialIndex: 1,
-                        ),
-                    transition: Transition.fade,
-                    duration: const Duration(milliseconds: 700));
+                widget.isFromHomeScreen == true ? Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 0));
               }),
             ),
           ),

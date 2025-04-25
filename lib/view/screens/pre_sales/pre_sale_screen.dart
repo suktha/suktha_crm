@@ -12,7 +12,7 @@ import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Constants/images.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
 import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
-import 'package:suktha_crm/validations/Date.dart';
+import 'package:suktha_crm/utils/Date.dart';
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/open_lead_management.dart';
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:suktha_crm/view/widget/popup_with_lottie.dart';

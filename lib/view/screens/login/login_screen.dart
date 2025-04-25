@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
@@ -14,7 +16,7 @@ import 'package:suktha_crm/view/widget/custom_loading_button.dart';
 import 'package:suktha_crm/view/widget/custom_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -22,11 +24,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  SubscriptionController Subcontroller = Get.put(SubscriptionController());
+  SubscriptionController subcontroller = Get.put(SubscriptionController());
   @override
   void initState() {
-    Subcontroller.getSubscriptionDetails();
-
+    subcontroller.getSubscriptionDetails();
     super.initState();
   }
 
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: controller.usernameController,
                           obscure: false,
                           label: "Username",
-                          autofillHints: [AutofillHints.username],
+                          autofillHints: const [AutofillHints.username],
                         ),
                       ),
                       FadeIn(
@@ -94,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                             multilines: 1,
                             textCapitalization: TextCapitalization.none,
                             textInputAction: TextInputAction.done,
-                            autofillHints: [AutofillHints.password],
+                            autofillHints: const [AutofillHints.password],
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please Enter Password';
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                             suffixIcon: IconButton(
                                 splashColor: kColortransparent,
                                 highlightColor: kColortransparent,
-                                icon: Icon(controller.obscureText == true ? Icons.visibility : Icons.visibility_off),
+                                icon: Icon(controller.obscureText.value == true ? Icons.visibility : Icons.visibility_off),
                                 onPressed: () {
                                   controller.obscureText.value = !controller.obscureText.value;
                                 }),
@@ -246,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
 //                 GestureDetector(
 //                   onTap: () async {
 //                     print("Subscription Details");
-//                     await Subcontroller.getSubscriptionDetails();
+//                     await subcontroller.getSubscriptionDetails();
 //                     Get.to(() => SunscriptionDetailsScreen(isSubscribtionEnded: controller.isSubscriptionEnded.value),
 //                         transition: Transition.leftToRightWithFade, duration: Duration(milliseconds: 1000));
 //                   },

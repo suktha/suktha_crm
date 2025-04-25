@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:suktha_crm/Constants/shared_pref_keys.dart';
 import 'package:suktha_crm/Model/login_model.dart';
+import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/utils/check_token_expired.dart';
 import 'package:suktha_crm/view/screens/login/login_screen.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
@@ -31,9 +32,9 @@ class GlobalController extends GetxController {
 
   loginModel.LoginModel? loginDetails;
 
+  @override
   onInit() {
     super.onInit();
-
     loadSharedPreferencesUserMenuData();
     loadSharedPrefCompanyDetails();
   }
@@ -93,7 +94,7 @@ class GlobalController extends GetxController {
 
     companyDetails = CompanyModel.fromJson(jsonDecode(companyEncodedDetails!));
 
-    print("-company details- ${companyDetails!.name}");
+    print("-company details-name-- ${companyDetails!.name}");
   }
 
   Future logoutData() async {
@@ -124,6 +125,7 @@ class GlobalController extends GetxController {
         await sharedPreferences.clear();
 
         sharedPreferences.setBool("onboardKey", true);
+        Get.delete<SettingsController>();
 
         Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
       }

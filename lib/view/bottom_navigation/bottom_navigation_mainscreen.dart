@@ -17,8 +17,8 @@ class BottomNavigationMainscreen extends StatefulWidget {
 class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen> {
   late int currentIndex;
   final List<Widget> _screens = [
-    HomeScreen(),
     PreSaleScreen(),
+    HomeScreen(),
     SettingsScreen(),
   ];
 
@@ -43,12 +43,12 @@ class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen>
         onTap: onTabTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.leaderboard_rounded),
             label: 'Lead',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
