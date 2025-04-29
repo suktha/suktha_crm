@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 import 'dart:developer';
@@ -120,7 +120,7 @@ class GetLeadController extends GetxController {
     tomorrowdate.value = DateFormat('dd/MM/yyyy').format(tomorrow);
 
     print("Tomorrow's date: ${tomorrowFormatted.value}");
-    print("Tomorrow's date: ${tomorrowdate}");
+    print("Tomorrow's date: ${tomorrowdate.value}");
   }
 
   todayDate() {
@@ -270,15 +270,14 @@ class GetLeadController extends GetxController {
 
     if (todayIndex != -1) {
       scrollController.animateTo(
-        todayIndex * 60.0, // Assumes each date box is 60px wide + margin (8px)
-        duration: Duration(milliseconds: 500),
+        todayIndex * 60.0,
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
     }
   }
 
   void fetchDataForDate(DateTime date) {
-    // Fetch data based on the selected date (replace with your API or logic)
     dataForSelectedDate.value = DateFormat('dd/MM/yyyy').format(date);
   }
 
@@ -668,14 +667,6 @@ class GetLeadController extends GetxController {
 
     return userList;
   }
-
-  /////-------------------Upload documetns ----------------------------------------------------------------/////////////////////////
-  ///
-  ///
-  ///
-  ///
-  ///
-  ///
 
   TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();

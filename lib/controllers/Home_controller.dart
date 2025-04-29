@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -34,7 +36,7 @@ class HomeController extends GetxController {
     getCompanyLogoName();
     getCompanyDetails();
     transactionType();
-    GetGlobalSettings();
+    getGlobalSettings();
   }
 
   RxBool loading = false.obs;
@@ -73,7 +75,7 @@ class HomeController extends GetxController {
 
   GlobalSetting? globalSettings;
 
-  Future GetGlobalSettings() async {
+  Future getGlobalSettings() async {
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
       Map<String, dynamic> response = await apiCallService(SettingsUrl, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
@@ -157,7 +159,7 @@ class HomeController extends GetxController {
 
         sharedPreferences.setBool("onboardKey", true);
 
-        Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+        Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
       }
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);

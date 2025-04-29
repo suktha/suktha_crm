@@ -340,7 +340,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                                               FadeIn(
                                                 delay: const Duration(milliseconds: 300),
                                                 duration: const Duration(milliseconds: 300),
-                                                child: Container(
+                                                child: SizedBox(
                                                   child: TypeAheadField<BankModel>(
                                                     autoFlipDirection: true,
                                                     debounceDuration: Duration(milliseconds: 500),
@@ -361,8 +361,8 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                                                               Icons.arrow_drop_down,
                                                               color: kColorblack,
                                                             ),
-                                                            contentPadding: EdgeInsets.only(left: 2.w),
-                                                            labelStyle: TextStyle(overflow: TextOverflow.fade, fontSize: 11.sp, color: Color.fromARGB(213, 78, 78, 78), fontWeight: FontWeight.w700),
+                                                            contentPadding: EdgeInsets.only(left: 3.w),
+                                                            labelStyle: TextStyle(overflow: TextOverflow.fade, fontSize: 16.sp, color: Color.fromARGB(213, 78, 78, 78), fontWeight: FontWeight.normal),
                                                             errorBorder: UnderlineInputBorder(
                                                               borderSide: BorderSide(color: kColorRed),
                                                             ),

@@ -18,7 +18,7 @@ import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_manag
 import 'package:suktha_crm/view/widget/popup_with_lottie.dart';
 
 class PreSaleScreen extends StatefulWidget {
-  PreSaleScreen({super.key});
+  const PreSaleScreen({super.key});
 
   @override
   State<PreSaleScreen> createState() => _PreSaleScreenState();
@@ -34,7 +34,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
   void initState() {
     controller.fromPreSalesScreen.value = true;
     controller.StatusfromPreSalesScreen.value = false;
-    TodayDetails();
+    todayDetails();
     super.initState();
   }
 
@@ -118,7 +118,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                   controller.isSelectedCustom.value = false;
                                   controller.isSelectedThisWeek.value = false;
                                 });
-                                await TodayDetails();
+                                await todayDetails();
                               },
                               "Today",
                             ),
@@ -185,7 +185,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedCustom.value = false;
                                 controller.isSelectedThisWeek.value = false;
                               });
-                              await LastWeekList(controller.lastWeekStartDate.value, controller.lastWeekEndDate.value);
+                              await lastWeekList(controller.lastWeekStartDate.value, controller.lastWeekEndDate.value);
                             }, "Last Week"),
                             SizedBox(
                               width: 1.h,
@@ -206,7 +206,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedNextWeek.value = false;
                                 controller.isSelectedCustom.value = false;
                               });
-                              await LastWeekList(controller.thisWeekStartDate.value, controller.thisWeekEndDate.value);
+                              await lastWeekList(controller.thisWeekStartDate.value, controller.thisWeekEndDate.value);
                             }, "This Week"),
                             SizedBox(
                               width: 1.h,
@@ -227,7 +227,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedCustom.value = false;
                                 controller.isSelectedThisWeek.value = false;
                               });
-                              await LastWeekList(controller.nextWeekStartDate.value, controller.nextWeekEndDate.value);
+                              await lastWeekList(controller.nextWeekStartDate.value, controller.nextWeekEndDate.value);
                             }, "Next Week"),
                             SizedBox(
                               width: 1.h,
@@ -248,7 +248,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedLastMonth.value = false;
                                 controller.isSelectedThisMonth.value = true;
                               });
-                              await LastWeekList(controller.thisMonthStartDate.value, controller.thisMonthEndDate.value);
+                              await lastWeekList(controller.thisMonthStartDate.value, controller.thisMonthEndDate.value);
                             }, "This Month"),
                             SizedBox(
                               width: 1.h,
@@ -269,7 +269,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedThisMonth.value = false;
                                 controller.isSelectedLastMonth.value = true;
                               });
-                              await LastWeekList(controller.lastMonthStartDate.value, controller.lastMonthEndDate.value);
+                              await lastWeekList(controller.lastMonthStartDate.value, controller.lastMonthEndDate.value);
                             }, "Last Month"),
                             SizedBox(
                               width: 1.h,
@@ -499,7 +499,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                               child: Row(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     child: Column(
                                       children: [
                                         GestureDetector(
@@ -607,7 +607,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 20.h,
                                           child: Obx(() {
                                             List<Map<String, dynamic>> sections = [
@@ -965,7 +965,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
     );
   }
 
-  TodayDetails() async {
+  todayDetails() async {
     await controller.getLeadList("", 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
     print("lead length--${controller.leadList.length}");
     controller.filteredLeadList.value = controller.leadList.where((item) {
@@ -1014,7 +1014,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
     print("totalAmount--${controller.totalLeadAmt.value}");
   }
 
-  LastWeekList(var firstDate, var lastDate) {
+  lastWeekList(var firstDate, var lastDate) {
     controller.filteredLeadList.clear();
     DateTime startDate = DateFormat('dd/MM/yyyy').parse(firstDate);
     DateTime endDate = DateFormat('dd/MM/yyyy').parse(lastDate);
@@ -1054,7 +1054,7 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
     isScrollControlled: true,
     useSafeArea: true,
     builder: (context) {
-      return Container(
+      return SizedBox(
         child: Column(
           children: [
             SizedBox(
@@ -1184,7 +1184,7 @@ class ContainerCustom extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

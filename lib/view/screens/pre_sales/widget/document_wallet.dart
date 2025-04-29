@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
+
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
@@ -16,7 +18,7 @@ import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 
 class LeadDocumentWalletScreen extends StatelessWidget {
-  LeadDocumentWalletScreen({super.key, required this.controller, required this.leadValue});
+  const LeadDocumentWalletScreen({super.key, required this.controller, required this.leadValue});
 
   final GetLeadController controller;
   final LeadModel leadValue;
@@ -38,7 +40,7 @@ class LeadDocumentWalletScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       "Document-Lists",
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -51,7 +53,6 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                             onPressed: () {
                               controller.multiSelectMode.value = false;
                               controller.isSelectedDocuments.fillRange(0, controller.isSelectedDocuments.length, false);
-
                               Get.back();
                             },
                             icon: Icon(
@@ -73,11 +74,11 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                           flex: 15,
                           child: ListView.builder(
                             itemCount: controller.documentWalletList.length,
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
                               var walletItem = controller.documentWalletList[index];
                               return FadeInRightBig(
-                                duration: Duration(milliseconds: 500), // Set the duration of each animation
+                                duration: const Duration(milliseconds: 500), // Set the duration of each animation
                                 delay: Duration(milliseconds: index * 100),
                                 child: Obx(() => SwipeActionCell(
                                       key: UniqueKey(),
@@ -144,9 +145,9 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                                                     width: controller.multiSelectMode.value ? 54.w : 60.w,
                                                     child: Text(
                                                       walletItem.name ?? "",
-                                                      style: TextStyle(fontSize: 17),
+                                                      style: const TextStyle(fontSize: 17),
                                                     )),
-                                                Spacer(),
+                                                const Spacer(),
                                                 if (controller.multiSelectMode.value)
                                                   Checkbox(
                                                     value: controller.isSelectedDocuments[index],
@@ -158,7 +159,7 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                                                     onPressed: () async {
                                                       final filePath = walletItem.fileURL!;
 
-                                                      ShareHelper.share(filePath, "file");
+                                                      ShareHelper.share(filePath, "url");
                                                     },
                                                     icon: Icon(
                                                       Icons.share_outlined,
@@ -175,9 +176,9 @@ class LeadDocumentWalletScreen extends StatelessWidget {
                             },
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ),
-                Spacer(),
+                const Spacer(),
                 Obx(
                   () => controller.multiSelectMode.value
                       ? InkWell(
