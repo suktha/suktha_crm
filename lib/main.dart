@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:suktha_crm/bindings/initial_bindings.dart';
 import 'package:suktha_crm/controllers/global_controller.dart';
 import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/controllers/theme_controller.dart';
@@ -11,17 +12,23 @@ import 'package:suktha_crm/utils/Services/local_notification_services.dart';
 import 'package:suktha_crm/utils/Services/permission_services.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
 import 'package:suktha_crm/utils/dependency_injection.dart';
+import 'package:suktha_crm/view/bottom_navigation/navbar_controller.dart';
 import 'package:suktha_crm/view/screens/login/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Get.putAsync(() => PermissionServices().init());
+    LocalNotificationService localNotificationService = LocalNotificationService();
+  await localNotificationService.init();
   await SharedPreferencesService.instance.init();
   await FirebasePushNotificationServices().initNotification();
 
   Get.put(GlobalController());
   Get.put(SettingsController());
+    Get.put<NavigationController>(NavigationController());
+
+
 
   runApp(const MyApp());
 }
@@ -45,6 +52,7 @@ class _MyAppState extends State<MyApp> {
     return Sizer(
       builder: (cMainScreenontext, orientation, deviceType) => GetMaterialApp(
         home: SplashScreen(),
+        initialBinding: InitialBinding(),
         theme: ThemeData(scaffoldBackgroundColor: Colors.white, useMaterial3: false),
         darkTheme: darkTheme,
         themeMode: ThemeMode.light,

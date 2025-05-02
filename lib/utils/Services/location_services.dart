@@ -1,124 +1,125 @@
-// import 'dart:async';
-// import 'dart:developer';
+// ignore_for_file: avoid_print
 
-// import 'package:flutter/material.dart';
-// import 'package:suktha/Controller/global_controller.dart';
-// import 'package:geolocator/geolocator.dart';
-// import 'package:get/get.dart';
-// import 'package:suktha/View/More%20Modules/user_profile/controller/location_controller.dart';
-// import 'package:suktha/utils/Services/permission_services.dart';
-// import '../../View/More Modules/user_profile/model/live_location_model.dart';
+import 'dart:async';
+import 'dart:developer';
 
-// class LocationServices with WidgetsBindingObserver {
-//   Timer? _timer;
-//   Position? _currentPosition;
-//   int? _userId;
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:suktha_crm/utils/Services/permission_services.dart';
+import 'package:suktha_crm/view/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:suktha_crm/view/settings_module/tracking/admin/model/live_location_model.dart';
 
-//   LocationService() {
-//     print("--location--locationservicetriggered");
-//     WidgetsBinding.instance.addObserver(this);
-//     _startLocationFetching();
-//   }
+class LocationServices with WidgetsBindingObserver {
+  Timer? _timer;
+  Position? _currentPosition;
+  int? _userId;
 
-//   void setUserId(int userId) {
-//     log("--location -- set id$userId");
-//     _userId = userId;
-//   }
+  LocationService() {
+    print("--location--locationservicetriggered");
+    WidgetsBinding.instance.addObserver(this);
+    _startLocationFetching();
+  }
 
-//   final PermissionServices permissionService = Get.find<PermissionServices>();
+  void setUserId(int userId) {
+    log("--location -- set id$userId");
+    _userId = userId;
+  }
 
-//   void _startLocationFetching() async {
-//     print("--location--startfetching location -- ");
+  final PermissionServices permissionService = Get.find<PermissionServices>();
 
-//     bool isGranted = await permissionService.checkLocationPermission();
+  void _startLocationFetching() async {
+    print("--location--startfetching location -- ");
 
-//     if (!isGranted) {
-//       isGranted = await permissionService.requestLocationPermission();
-//       if (isGranted) {
-//         Get.snackbar('Permission Granted', 'You can now access your location');
-//         if (isGranted) {
-//           // initBackgroundLocationFetch();
-//         }
-//       } else {
-//         Get.snackbar('Permission Denied', 'Location access is required for this feature');
-//       }
-//     } else {
-//       Get.snackbar('Permission Status', 'Location permission is already granted');
-//       if (isGranted) {
-//         // initBackgroundLocationFetch();
-//       }
-//     }
-//   }
+    bool isGranted = await permissionService.checkLocationPermission();
 
-//   // Method to initiate location fetching for foreground
-//   void _initForegroundLocationFetch() {
-//     _timer = Timer.periodic(Duration(minutes: 1), (timer) async {
-//       _fetchAndSendLocation();
-//     });
-//   }
+    if (!isGranted) {
+      isGranted = await permissionService.requestLocationPermission();
+      if (isGranted) {
+        Get.snackbar('Permission Granted', 'You can now access your location');
+        if (isGranted) {
+          // initBackgroundLocationFetch();
+        }
+      } else {
+        Get.snackbar('Permission Denied', 'Location access is required for this feature');
+      }
+    } else {
+      Get.snackbar('Permission Status', 'Location permission is already granted');
+      if (isGranted) {
+        // initBackgroundLocationFetch();
+      }
+    }
+  }
 
-//   // void initBackgroundLocationFetch() {
-//   //   print("--location--app in background location fetch");
-//   //   Workmanager().initialize(_fetchAndSendLocation, isInDebugMode: true);
-//   //   Workmanager().registerPeriodicTask(
-//   //     "1",
-//   //     fetchBackgroundTask,
-//   //     inputData: {"userId": _userId},
-//   //     frequency: Duration(minutes: 1),
-//   //   );
-//   // }
+  // Method to initiate location fetching for foreground
+  void _initForegroundLocationFetch() {
+    _timer = Timer.periodic(Duration(minutes: 1), (timer) async {
+      _fetchAndSendLocation();
+    });
+  }
 
-//   Future<void> _fetchAndSendLocation() async {
-//     try {
-//       Position position = await Geolocator.getCurrentPosition();
-//       _currentPosition = position;
+  // void initBackgroundLocationFetch() {
+  //   print("--location--app in background location fetch");
+  //   Workmanager().initialize(_fetchAndSendLocation, isInDebugMode: true);
+  //   Workmanager().registerPeriodicTask(
+  //     "1",
+  //     fetchBackgroundTask,
+  //     inputData: {"userId": _userId},
+  //     frequency: Duration(minutes: 1),
+  //   );
+  // }
 
-//       print("--location-- fetch and send location --" + _currentPosition!.latitude.toString());
+  Future<void> _fetchAndSendLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      _currentPosition = position;
 
-//       // _sendLocationToController(position);
-//     } catch (e) {
-//       print("Error fetching location: $e");
-//     }
-//   }
+      print("--location-- fetch and send location --" + _currentPosition!.latitude.toString());
 
-//   void _sendLocationToController(Position position) {
-//     GeoLocationModel location = GeoLocationModel(
-//       latitude: position.latitude,
-//       longitude: position.longitude,
-//       eventDateTime: null,
-//       userId: _userId!,
-//     );
+      // _sendLocationToController(position);
+    } catch (e) {
+      print("Error fetching location: $e");
+    }
+  }
 
-//     print("--location--inside send loc to controller -- $location");
+  void _sendLocationToController(Position position) {
+    GeoLocationModel location = GeoLocationModel(
+      latitude: position.latitude,
+      longitude: position.longitude,
+      eventDateTime: null,
+      userId: _userId!,
+    );
 
-//     GeoLocationController().saveLocation(location);
-//   }
+    print("--location--inside send loc to controller -- $location");
 
-//   void stopForegroundLocationFetch() {
-//     _timer?.cancel();
-//   }
+    GeoLocationController().saveLocation(location);
+  }
 
-//   // void stopBackgroundLocationFetch() {
-//   //   Workmanager().cancelAll();
-//   // }
+  void stopForegroundLocationFetch() {
+    _timer?.cancel();
+  }
 
-//   @override
-//   void didChangeAppLifecycleState(AppLifecycleState state) {
-//     super.didChangeAppLifecycleState(state);
+  // void stopBackgroundLocationFetch() {
+  //   Workmanager().cancelAll();
+  // }
 
-//     if (state == AppLifecycleState.paused) {
-//       stopForegroundLocationFetch();
-//       // initBackgroundLocationFetch();
-//     } else if (state == AppLifecycleState.resumed) {
-//       // stopBackgroundLocationFetch();
-//       _initForegroundLocationFetch();
-//     }
-//   }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
 
-// // Clean up observer
-//   void dispose() {
-//     WidgetsBinding.instance.removeObserver(this);
-//     stopForegroundLocationFetch();
-//     // stopBackgroundLocationFetch();
-//   }
-// }
+    if (state == AppLifecycleState.paused) {
+      stopForegroundLocationFetch();
+      // initBackgroundLocationFetch();
+    } else if (state == AppLifecycleState.resumed) {
+      // stopBackgroundLocationFetch();
+      _initForegroundLocationFetch();
+    }
+  }
+
+// Clean up observer
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    stopForegroundLocationFetch();
+    // stopBackgroundLocationFetch();
+  }
+}

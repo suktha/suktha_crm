@@ -3,7 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/view/screens/home_screen/Home_Screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:suktha_crm/view/screens/settings/settings_screen.dart';
+import 'package:suktha_crm/view/settings_module/settings_screen.dart';
 
 class BottomNavigationMainscreen extends StatefulWidget {
   final int initialIndex;

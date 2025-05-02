@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:suktha_crm/Model/transaction_type_model.dart';
 import 'package:suktha_crm/controllers/Home_controller.dart';
 import 'package:suktha_crm/controllers/global_controller.dart';
+import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:suktha_crm/view/bottom_navigation/navbar_controller.dart';
 import 'package:suktha_crm/view/screens/login/login_screen.dart';
@@ -118,7 +119,7 @@ class InitialController extends GetxController {
     Get.put(NavigationController());
     Get.put(GlobalController());
     // Get.put(GeoLocationController());
-    // Get.put(SettingsController());
+    Get.put(SettingsController());
     // Get.put(GeneralMasterController());
     Get.put(HomeController());
 

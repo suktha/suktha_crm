@@ -6,7 +6,7 @@ import 'package:suktha_crm/controllers/global_controller.dart';
 import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:suktha_crm/view/screens/home_screen/Home_Screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:suktha_crm/view/screens/settings/settings_screen.dart';
+import 'package:suktha_crm/view/settings_module/settings_screen.dart';
 
 class NavigationController extends GetxController {
   @override

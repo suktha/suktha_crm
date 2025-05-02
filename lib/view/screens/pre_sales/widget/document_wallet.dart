@@ -13,7 +13,7 @@ import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
 import 'package:suktha_crm/utils/share_helper.dart';
-import 'package:suktha_crm/view/Account%20Settings/widgets/pdfviewScreen.dart';
+import 'package:suktha_crm/view/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
 import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 

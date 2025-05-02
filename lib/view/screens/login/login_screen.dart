@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
 import 'dart:io';
 
@@ -12,6 +12,7 @@ import 'package:suktha_crm/Constants/colors.dart';
 import 'package:suktha_crm/Constants/images.dart';
 import 'package:suktha_crm/controllers/Login_Controller.dart';
 import 'package:suktha_crm/controllers/subscribtion_controller.dart';
+import 'package:suktha_crm/view/widget/custom_button.dart';
 import 'package:suktha_crm/view/widget/custom_loading_button.dart';
 import 'package:suktha_crm/view/widget/custom_textfield.dart';
 
@@ -143,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                               await controller.loginData(controller.btnController1, context);
 
                               if (controller.isSubscriptionEnded.value == true) {
-                                // susbcripionEndPopup(context, controller);
+                                susbcripionEndPopup(context, controller);
                               }
                             }
                           },
@@ -192,131 +193,131 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-//   // susbcripionEndPopup(BuildContext context, LoginController controller) {
-//     showModalBottomSheet(
-//         isScrollControlled: true,
-//         context: context,
-//         builder: (BuildContext context) {
-//           return Container(
-//             // height: MediaQuery.of(context).size.height,
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(20.0),
-//                 topRight: Radius.circular(20.0),
-//               ),
-//             ),
-//             padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
-//             margin: EdgeInsets.all(2.w),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 Text(
-//                   "Subscription Expired..!!!",
-//                   style: TextStyle(
-//                     fontSize: 18.sp,
-//                     color: kColorlightBlue,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.03,
-//                 ),
-//                 Center(
-//                   child: Lottie.asset(
-//                     subscriptionLottie,
-//                     height: MediaQuery.of(context).size.height * 0.4,
-//                     alignment: Alignment.centerLeft,
-//                     addRepaintBoundary: false,
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.04,
-//                 ),
-//                 Text(
-//                   "To continue enjoying our premium features and benefits, please renew your subscription. We appreciate your continued support! 🚀 ",
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontSize: 12.sp,
-//                     fontWeight: FontWeight.w400,
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 4.h,
-//                 ),
-//                 GestureDetector(
-//                   onTap: () async {
-//                     print("Subscription Details");
-//                     await subcontroller.getSubscriptionDetails();
-//                     Get.to(() => SunscriptionDetailsScreen(isSubscribtionEnded: controller.isSubscriptionEnded.value),
-//                         transition: Transition.leftToRightWithFade, duration: Duration(milliseconds: 1000));
-//                   },
-//                   child: Text(
-//                     "View Current Subscription Details",
-//                     style: TextStyle(
-//                       fontSize: 12.sp,
-//                       color: kColorlightBlue,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 2.h,
-//                 ),
-//                 CustomButton(
-//                   width: 50.w,
-//                   ontap: () async {
-//                     showDialog(
-//                       context: context,
-//                       builder: (BuildContext context) {
-//                         return AlertDialog(
-//                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-//                           title: Text('Notice!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-//                           content: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             mainAxisSize: MainAxisSize.min,
-//                             children: [
-//                               Text(
-//                                 'This feature is not available in our Mobile Application right now',
-//                                 style: TextStyle(fontSize: 13.sp),
-//                               ),
-//                               SizedBox(height: 2.w),
-//                             ],
-//                           ),
-//                           actions: [
-//                             TextButton(
-//                               onPressed: () {
-//                                 Navigator.of(context).pop();
-//                               },
-//                               child: Text('OK', style: TextStyle(fontSize: 18)),
-//                             ),
-//                           ],
-//                         );
-//                       },
-//                     );
-//                   },
-//                   title: "Renewal",
-//                   color: kColorlightBlue,
-//                   textcolor: kColorwhite,
-//                 ),
-//                 SizedBox(
-//                   height: 2.h,
-//                 ),
-//                 GestureDetector(
-//                   onTap: () {
-//                     Get.back();
-//                   },
-//                   child: Text(
-//                     "No, Thanks",
-//                     style: TextStyle(
-//                       fontSize: 12.sp,
-//                       fontWeight: FontWeight.w500,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           );
-//         });
-//   }
+  susbcripionEndPopup(BuildContext context, LoginController controller) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            // height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+            ),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.07),
+            margin: EdgeInsets.all(2.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Subscription Expired..!!!",
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                    color: kColorlightBlue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.03,
+                ),
+                Center(
+                  child: Lottie.asset(
+                    subscriptionLottie,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    alignment: Alignment.centerLeft,
+                    addRepaintBoundary: false,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
+                ),
+                Text(
+                  "To continue enjoying our premium features and benefits, please renew your subscription. We appreciate your continued support! 🚀 ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    print("Subscription Details");
+                    await subcontroller.getSubscriptionDetails();
+                    // Get.to(() => SunscriptionDetailsScreen(isSubscribtionEnded: controller.isSubscriptionEnded.value),
+                    //     transition: Transition.leftToRightWithFade, duration: Duration(milliseconds: 1000));
+                  },
+                  child: Text(
+                    "View Current Subscription Details",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: kColorlightBlue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                CustomButton(
+                  width: 50.w,
+                  ontap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
+                          title: Text('Notice!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'This feature is not available in our Mobile Application right now',
+                                style: TextStyle(fontSize: 13.sp),
+                              ),
+                              SizedBox(height: 2.w),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK', style: TextStyle(fontSize: 18)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  title: "Renewal",
+                  color: kColorlightBlue,
+                  textcolor: kColorwhite,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Text(
+                    "No, Thanks",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
 }

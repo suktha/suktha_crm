@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -18,7 +20,6 @@ import 'package:suktha_crm/utils/api/common_api.dart';
 import 'package:suktha_crm/utils/api/login.dart';
 import 'package:suktha_crm/utils/check_token_expired.dart';
 import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainscreen.dart';
-import 'package:suktha_crm/view/screens/pre_sales/pre_sale_screen.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 // import 'package:suktha/Constants/shared_pref_keys.dart';
 // import 'package:suktha/Controller/global_controller.dart';

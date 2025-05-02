@@ -6,6 +6,7 @@ import 'package:suktha_crm/Model/lead_model.dart';
 import 'package:suktha_crm/controllers/get_lead_controller.dart';
 import 'package:suktha_crm/controllers/lead_controller.dart';
 import 'package:suktha_crm/utils/Date.dart';
+import 'package:suktha_crm/utils/Services/websocket_location_services.dart';
 import 'package:suktha_crm/utils/responsive_utils.dart';
 import 'package:suktha_crm/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
 import 'package:suktha_crm/view/screens/pre_sales/get_location/widget/get_location_widget.dart';
@@ -13,6 +14,8 @@ import 'package:suktha_crm/view/screens/pre_sales/lead_managment/add_lead_screen
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:suktha_crm/view/screens/pre_sales/widget/document_wallet.dart';
 import 'package:suktha_crm/view/screens/pre_sales/widget/share_doc_nd_history.dart';
+import 'package:suktha_crm/view/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:suktha_crm/view/settings_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:suktha_crm/view/widget/custom_button.dart';
 import 'package:suktha_crm/view/widget/icon_button.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
@@ -49,7 +52,7 @@ class _OpenLeadManagementScreenState extends State<OpenLeadManagementScreen> {
   final getcontroller = Get.put(GetLeadController());
   final locController = Get.put(GetLocationController());
 
-  // final UserManagementController userManagementController = Get.put(UserManagementController());
+  final UserManagementController userManagementController = Get.put(UserManagementController());
 
   @override
   Widget build(BuildContext context) {
@@ -715,6 +718,108 @@ class _OpenLeadManagementScreenState extends State<OpenLeadManagementScreen> {
                     //     },
                     //     icon: Icons.account_circle_rounded,
                     //     bgcolor: Colors.lightBlue[500]),
+
+                     customIconButton(
+                        ontap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: false,
+                            context: context,
+                            builder: (context) {
+                              final isActive = userManagementController.isFieldWorkActive;
+                              final isForThisLead = userManagementController.isFieldWorkForThisLead(widget.leadValue.id!);
+
+                              return Container(
+                                margin: EdgeInsets.all(width * 0.03),
+                                padding: EdgeInsets.all(width * 0.02),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Field Work of ${widget.leadValue.leadGenerationNumber}",
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                    ),
+                                    SizedBox(height: height * 0.01),
+                                    if (isActive && !isForThisLead)
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 16),
+                                        child: Center(
+                                          child: Text(
+                                            "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
+                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      Center(
+                                        child: Row(
+                                          mainAxisAlignment: isForThisLead ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+                                          children: [
+                                            if (!isActive)
+                                              CustomButton(
+                                                title: "Start",
+                                                ontap: () async {
+                                                  await Get.find<WebSocketService>().initializeConnection(
+                                                    leadId: widget.leadValue.id!,
+                                                    userId: widget.leadValue.userId,
+                                                  );
+
+                                                  userManagementController.addTimelineItem(
+                                                    action: "Started",
+                                                    leadValue: widget.leadValue,
+                                                  );
+
+                                                  userManagementController.isLoading.value = true;
+                                                  userManagementController.startFieldWork(
+                                                    leadId: widget.leadValue.id!,
+                                                    leadName: widget.leadValue.leadName ?? '',
+                                                    leadNumber: widget.leadValue.leadGenerationNumber ?? '',
+                                                  );
+
+                                                  Get.to(() => UserManagementScreen(leadValue: widget.leadValue))!
+                                                      .then((value) => Get.back());
+                                                },
+                                                width: width * 0.3,
+                                                color: Colors.green,
+                                                textcolor: Colors.white,
+                                              ),
+                                            if (isForThisLead)
+                                              CustomButton(
+                                                title: "View",
+                                                ontap: () {
+                                                  Get.to(() => UserManagementScreen(leadValue: widget.leadValue))!.then((value) {
+                                                    userManagementController.isLoading.value = false;
+                                                    Get.back();
+                                                  });
+                                                },
+                                                width: width * 0.3,
+                                                color: kColorlightBlue,
+                                                textcolor: Colors.white,
+                                              ),
+                                            if (isForThisLead)
+                                              CustomButton(
+                                                title: "Stop",
+                                                ontap: () async {
+                                                  await userManagementController.logOut("location is bnglr");
+                                                  userManagementController.stopFieldWork();
+                                                  Get.back();
+                                                },
+                                                width: width * 0.3,
+                                                color: Colors.red,
+                                                textcolor: Colors.white,
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        icon: Icons.account_circle_rounded,
+                        bgcolor: Colors.lightBlue[500]),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),

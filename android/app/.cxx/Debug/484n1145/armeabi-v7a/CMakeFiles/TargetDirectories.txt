@@ -1,0 +1,2 @@
+D:/prasidhi/suktha_crm/android/app/.cxx/Debug/484n1145/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/prasidhi/suktha_crm/android/app/.cxx/Debug/484n1145/armeabi-v7a/CMakeFiles/rebuild_cache.dir

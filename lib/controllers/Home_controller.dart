@@ -47,6 +47,10 @@ class HomeController extends GetxController {
 
   RxString username = "".obs;
   RxString companyImage = "".obs;
+      RxBool isLoginIdIsAdmin = false.obs;
+        RxBool isLoginIdIsbranchmanger = false.obs;
+
+
 
   Future<List<TransactionTypeModel>> transactionType() async {
     Dio dio = Dio();

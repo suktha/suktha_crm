@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:animate_do/animate_do.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
 import 'package:suktha_crm/utils/Date.dart';
 import 'package:suktha_crm/utils/responsive_utils.dart';
-import 'package:suktha_crm/view/Account%20Settings/company_details_screen.dart';
+import 'package:suktha_crm/view/settings_module/Account%20Settings/company_details_screen.dart';
 import 'package:suktha_crm/view/screens/home_screen/controller/home_screen_text_controller.dart';
 import 'package:suktha_crm/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:suktha_crm/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
@@ -96,6 +97,34 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       homeController.username.value = loginDetails.user!.username ?? "";
     });
+
+     if (loginDetails!.user!.roles != null) {
+      for (var role in loginDetails!.user!.roles!) {
+        print("user role id-----${role.roleType!.id}");
+        // bool isAdminIdmatches = userList.any(
+        //   (element) => element.roleIds?.contains(role.id) ?? false,
+        // );
+
+        if (role.roleType!.id == 1) {
+          homeController.isLoginIdIsAdmin.value = true;
+          homeController.isLoginIdIsbranchmanger.value = true;
+          print("Role admin ${role.roleType!.id} exists in userList.");
+        } else if (role.roleType!.id == 4) {
+          homeController.isLoginIdIsbranchmanger.value = true;
+          print("Role branch  ${role.roleType!.id} exists in userList.");
+        } else {
+          homeController.isLoginIdIsAdmin.value = false;
+          homeController.isLoginIdIsbranchmanger.value = false;
+          print("Role ID ${role.roleType!.id} doesn't exist in userList.");
+        }
+
+        log("is admin logged in - " + homeController.isLoginIdIsAdmin.value.toString());
+
+        sharedPreferences.setBool("isAdmin", homeController.isLoginIdIsAdmin.value);
+      }
+    } else {
+      print("No roles assigned to the user.");
+    }
 
     print("username ------------- ${homeController.username.value}");
   }
