@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_null_in_if_null_operators
+// ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_null_in_if_null_operators, unnecessary_brace_in_string_interps, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';

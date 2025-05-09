@@ -13,7 +13,7 @@ import 'package:suktha_crm/view/widget/custom_textfield.dart';
 import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 
-class BankListScreen extends StatelessWidget {
+class BankListScreen extends StatefulWidget {
   final Widget expenseHeaderfield;
   final VoidCallback itemAddButton;
 
@@ -29,7 +29,19 @@ class BankListScreen extends StatelessWidget {
 
   final SettingsController controller;
 
+  @override
+  State<BankListScreen> createState() => _BankListScreenState();
+}
+
+class _BankListScreenState extends State<BankListScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    widget.controller.getPartyBankDetails();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +76,7 @@ class BankListScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    print("ontroller.isalreadyDefault.value${controller.isalreadyDefault.value}");
+                    print("ontroller.isalreadyDefault.value${widget.controller.isalreadyDefault.value}");
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -73,21 +85,21 @@ class BankListScreen extends StatelessWidget {
                               SizedBox(
                                 height: 1.5.h,
                               ),
-                              expenseHeaderfield
+                              widget.expenseHeaderfield
                             ],
                             title: "Add Bank List",
                             onCancelPressed: () {
                               Get.back();
 
-                              controller.bankNameController.clear();
-                              controller.branchController.clear();
-                              controller.ifscController.clear();
-                              controller.aCController.clear();
-                              controller.bankADCode.clear();
-                              controller.swiftCode.clear();
-                              controller.isDefault.value = false;
+                              widget.controller.bankNameController.clear();
+                              widget.controller.branchController.clear();
+                              widget.controller.ifscController.clear();
+                              widget.controller.aCController.clear();
+                              widget.controller.bankADCode.clear();
+                              widget.controller.swiftCode.clear();
+                              widget.controller.isDefault.value = false;
                             },
-                            onUpdatePressed: itemAddButton,
+                            onUpdatePressed: widget.itemAddButton,
                             saveButtonText: "Add");
                       },
                     );
@@ -111,7 +123,7 @@ class BankListScreen extends StatelessWidget {
           Expanded(
             flex: 6,
             child: Obx(
-              () => controller.partyBankList.isEmpty
+              () => widget.controller.partyBankList.isEmpty
                   ? Center(
                       child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -135,8 +147,8 @@ class BankListScreen extends StatelessWidget {
                         return Future.delayed(
                           Duration(seconds: 1),
                           () {
-                            controller.partyBankList.clear();
-                            controller.getPartyBankDetails();
+                            widget.controller.partyBankList.clear();
+                            widget.controller.getPartyBankDetails();
                           },
                         );
                       },
@@ -147,9 +159,9 @@ class BankListScreen extends StatelessWidget {
                           thickness: 1,
                           color: kColorgrey,
                         )),
-                        itemCount: controller.partyBankList.length,
+                        itemCount: widget.controller.partyBankList.length,
                         itemBuilder: (context, index) {
-                          controller.isalreadyDefault.value = controller.partyBankList[index].isChecked ?? 0;
+                          widget.controller.isalreadyDefault.value = widget.controller.partyBankList[index].isChecked ?? 0;
                           return SwipeActionCell(
                             key: UniqueKey(),
                             trailingActions: <SwipeAction>[
@@ -163,7 +175,7 @@ class BankListScreen extends StatelessWidget {
                                     customDeleteAlertDialogue(
                                       context,
                                       () async {
-                                        controller.partyBankList.removeAt(index);
+                                        widget.controller.partyBankList.removeAt(index);
                                         Get.back();
                                       },
                                     );
@@ -171,19 +183,19 @@ class BankListScreen extends StatelessWidget {
                                   color: Colors.red),
                             ],
                             child: ListTile(
-                              trailing: controller.partyBankList[index].isChecked == 1
+                              trailing: widget.controller.partyBankList[index].isChecked == 1
                                   ? Text(
                                       "Default",
                                       style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
                                     )
                                   : Text(""),
-                              title: Text(controller.partyBankList[index].bankname ?? ""),
-                              subtitle: Text(controller.partyBankList[index].ifsc ?? ""),
+                              title: Text(widget.controller.partyBankList[index].bankname ?? ""),
+                              subtitle: Text(widget.controller.partyBankList[index].ifsc ?? ""),
                               onLongPress: () {
                                 customDeleteAlertDialogue(
                                   context,
                                   () {
-                                    controller.partyBankList.removeAt(index);
+                                    widget.controller.partyBankList.removeAt(index);
                                     Get.back();
                                   },
                                 );
@@ -193,13 +205,13 @@ class BankListScreen extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    controller.bankNameController.text = controller.partyBankList[index].bankname ?? "";
-                                    controller.ifscController.text = controller.partyBankList[index].ifsc ?? "";
-                                    controller.branchController.text = controller.partyBankList[index].branch ?? "";
-                                    controller.aCController.text = controller.partyBankList[index].accountNumber ?? "";
-                                    controller.bankADCode.text = controller.partyBankList[index].bankAdCode?.toString() ?? "";
-                                    controller.swiftCode.text = controller.partyBankList[index].swiftCode?.toString() ?? "";
-                                    controller.isDefault.value = controller.partyBankList[index].isChecked == 1 ? true : false;
+                                    widget.controller.bankNameController.text = widget.controller.partyBankList[index].bankname ?? "";
+                                    widget.controller.ifscController.text = widget.controller.partyBankList[index].ifsc ?? "";
+                                    widget.controller.branchController.text = widget.controller.partyBankList[index].branch ?? "";
+                                    widget.controller.aCController.text = widget.controller.partyBankList[index].accountNumber ?? "";
+                                    widget.controller.bankADCode.text = widget.controller.partyBankList[index].bankAdCode?.toString() ?? "";
+                                    widget.controller.swiftCode.text = widget.controller.partyBankList[index].swiftCode?.toString() ?? "";
+                                    widget.controller.isDefault.value = widget.controller.partyBankList[index].isChecked == 1 ? true : false;
 
                                     return Form(
                                       key: formKey,
@@ -209,19 +221,19 @@ class BankListScreen extends StatelessWidget {
                                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), boxShadow: kElevationToShadow[2], color: kColorwhite),
                                               child: switchCustom(
                                                 Obx(() => Switch(
-                                                      value: controller.isDefault.value,
+                                                      value: widget.controller.isDefault.value,
                                                       onChanged: (value) {
                                                         if (value) {
-                                                          controller.isDefault.value = value;
-                                                          for (var i = 0; i < controller.partyBankList.length; i++) {
+                                                          widget.controller.isDefault.value = value;
+                                                          for (var i = 0; i < widget.controller.partyBankList.length; i++) {
                                                             if (i != index) {
-                                                              controller.partyBankList[i].isChecked = 0;
+                                                              widget.controller.partyBankList[i].isChecked = 0;
                                                             }
                                                           }
-                                                          controller.partyBankList[index].isChecked = 1;
+                                                          widget.controller.partyBankList[index].isChecked = 1;
                                                         } else {
-                                                          controller.partyBankList[index].isChecked = 0;
-                                                          controller.isDefault.value = false;
+                                                          widget.controller.partyBankList[index].isChecked = 0;
+                                                          widget.controller.isDefault.value = false;
                                                         }
                                                       },
                                                     )),
@@ -243,7 +255,7 @@ class BankListScreen extends StatelessWidget {
                                                 obscure: false,
                                                 readonly: true,
                                                 maxLength: 100,
-                                                controller: controller.bankNameController,
+                                                controller: widget.controller.bankNameController,
                                                 label: "Bank"),
                                             CustomTextField(
                                                 validator: (value) {
@@ -252,7 +264,7 @@ class BankListScreen extends StatelessWidget {
                                                 textInputAction: TextInputAction.next,
                                                 obscure: false,
                                                 maxLength: 100,
-                                                controller: controller.branchController,
+                                                controller: widget.controller.branchController,
                                                 label: "Branch "),
                                             CustomTextField(
                                                 validator: (value) {
@@ -261,7 +273,7 @@ class BankListScreen extends StatelessWidget {
                                                 textInputAction: TextInputAction.next,
                                                 obscure: false,
                                                 maxLength: 15,
-                                                controller: controller.ifscController,
+                                                controller: widget.controller.ifscController,
                                                 label: "IFSC Code "),
                                             CustomTextField(
                                                 validator: (value) {
@@ -269,7 +281,7 @@ class BankListScreen extends StatelessWidget {
                                                 },
                                                 textInputAction: TextInputAction.next,
                                                 obscure: false,
-                                                controller: controller.aCController,
+                                                controller: widget.controller.aCController,
                                                 label: "A/C Number"),
                                             CustomTextField(
                                                 validator: (value) {
@@ -279,7 +291,7 @@ class BankListScreen extends StatelessWidget {
                                                 textInputAction: TextInputAction.next,
                                                 textInputType: TextInputType.number,
                                                 obscure: false,
-                                                controller: controller.bankADCode,
+                                                controller: widget.controller.bankADCode,
                                                 label: "Bank AD Code"),
                                             CustomTextField(
                                                 validator: (value) {
@@ -289,37 +301,37 @@ class BankListScreen extends StatelessWidget {
                                                 obscure: false,
                                                 maxLength: 20,
                                                 textInputType: TextInputType.number,
-                                                controller: controller.swiftCode,
+                                                controller: widget.controller.swiftCode,
                                                 label: "Swift Code")
                                           ],
                                           title: 'Bank Details',
                                           onCancelPressed: () {
                                             Get.back();
-                                            controller.aCController.clear();
-                                            controller.ifscController.clear();
-                                            controller.bankADCode.clear();
-                                            controller.swiftCode.clear();
-                                            controller.branchController.clear();
-                                            controller.bankNameController.clear();
+                                            widget.controller.aCController.clear();
+                                            widget.controller.ifscController.clear();
+                                            widget.controller.bankADCode.clear();
+                                            widget.controller.swiftCode.clear();
+                                            widget.controller.branchController.clear();
+                                            widget.controller.bankNameController.clear();
                                           },
                                           onUpdatePressed: () async {
                                             if (formKey.currentState!.validate()) {
-                                              controller.partyBankList[index].accountNumber = controller.aCController.text.isEmpty ? "" : controller.aCController.text;
-                                              controller.partyBankList[index].ifsc = controller.ifscController.text;
-                                              controller.partyBankList[index].bankAdCode = controller.bankADCode.text.isNotEmpty ? int.parse(controller.bankADCode.text.toString()) : 0;
-                                              controller.partyBankList[index].branch = controller.branchController.text;
-                                              controller.partyBankList[index].swiftCode = controller.swiftCode.text;
-                                              controller.partyBankList[index].isChecked = controller.isDefault.value == true ? 1 : 0;
+                                              widget.controller.partyBankList[index].accountNumber = widget.controller.aCController.text.isEmpty ? "" : widget.controller.aCController.text;
+                                              widget.controller.partyBankList[index].ifsc = widget.controller.ifscController.text;
+                                              widget.controller.partyBankList[index].bankAdCode = widget.controller.bankADCode.text.isNotEmpty ? int.parse(widget.controller.bankADCode.text.toString()) : 0;
+                                              widget.controller.partyBankList[index].branch = widget.controller.branchController.text;
+                                              widget.controller.partyBankList[index].swiftCode = widget.controller.swiftCode.text;
+                                              widget.controller.partyBankList[index].isChecked = widget.controller.isDefault.value == true ? 1 : 0;
 
-                                              controller.partyBankList.refresh();
+                                              widget.controller.partyBankList.refresh();
 
                                               Get.back();
-                                              controller.aCController.clear();
-                                              controller.ifscController.clear();
-                                              controller.bankADCode.clear();
-                                              controller.branchController.clear();
-                                              controller.bankNameController.clear();
-                                              controller.swiftCode.clear();
+                                              widget.controller.aCController.clear();
+                                              widget.controller.ifscController.clear();
+                                              widget.controller.bankADCode.clear();
+                                              widget.controller.branchController.clear();
+                                              widget.controller.bankNameController.clear();
+                                              widget.controller.swiftCode.clear();
                                             } else {
                                               customSnackbar("Error", "message", "error");
                                             }

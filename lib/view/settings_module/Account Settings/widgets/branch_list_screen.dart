@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, avoid_print
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,13 @@ import 'package:suktha_crm/view/widget/custom_textfield.dart';
 import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
 import 'package:suktha_crm/view/widget/snackbar.dart';
 
-class BranchListScreen extends StatelessWidget {
+class BranchListScreen extends StatefulWidget {
   final Widget expenseHeaderfield;
   final VoidCallback itemAddButton;
-
   final bool isEdit;
+  final SettingsController controller;
 
-  BranchListScreen({
+  const BranchListScreen({
     super.key,
     required this.controller,
     required this.isEdit,
@@ -27,7 +27,15 @@ class BranchListScreen extends StatelessWidget {
     required this.itemAddButton,
   });
 
-  final SettingsController controller;
+  @override
+  State<BranchListScreen> createState() => _BranchListScreenState();
+}
+
+class _BranchListScreenState extends State<BranchListScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -64,7 +72,8 @@ class BranchListScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    print("ontroller.isalreadyDefault.value${controller.isalreadyDefault.value}");
+                    print(
+                        "ontroller.isalreadyDefault.value${widget.controller.isalreadyDefault.value}");
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -73,29 +82,35 @@ class BranchListScreen extends StatelessWidget {
                               SizedBox(
                                 height: 1.5.h,
                               ),
-                              expenseHeaderfield
+                              widget.expenseHeaderfield
                             ],
                             title: "Add Branch List",
                             onCancelPressed: () {
                               Get.back();
 
-                              controller.branchAdminController.clear();
-                              controller.branchId.value = "";
-                              controller.branchController.clear();
+                              widget.controller.branchAdminController.clear();
+                              widget.controller.branchId.value = "";
+                              widget.controller.branchController.clear();
                             },
-                            onUpdatePressed: itemAddButton,
+                            onUpdatePressed: widget.itemAddButton,
                             saveButtonText: "Add");
                       },
                     );
                   },
                   child: Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: kColorlightBlue),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kColorlightBlue),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text(
                         "Add Branch List",
-                        style: TextStyle(fontSize: 15, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold, color: kColorwhite),
+                        style: TextStyle(
+                            fontSize: 15,
+                            overflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.bold,
+                            color: kColorwhite),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -107,12 +122,17 @@ class BranchListScreen extends StatelessWidget {
           Expanded(
             flex: 6,
             child: Obx(
-              () => controller.partyBranchItems.isEmpty
+              () => widget.controller.partyBranchItems.isEmpty
                   ? Center(
                       child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FadeIn(delay: const Duration(milliseconds: 300), duration: const Duration(milliseconds: 300), child: LottieBuilder.asset("assets/lottie/empty.json", height: 15.h)),
+                        FadeIn(
+                            delay: const Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
+                            child: LottieBuilder.asset(
+                                "assets/lottie/empty.json",
+                                height: 15.h)),
                         SizedBox(
                           height: 3.h,
                         ),
@@ -121,7 +141,8 @@ class BranchListScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 500),
                           child: Text(
                             "Branch List is Empty",
-                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 15.sp),
                           ),
                         )
                       ],
@@ -131,21 +152,23 @@ class BranchListScreen extends StatelessWidget {
                         return Future.delayed(
                           Duration(seconds: 1),
                           () {
-                            controller.deletedbranchIds.value = [];
-                            controller.partyBranchItems.clear();
-                            controller.getPartyBankDetails();
-                            print("id-deleted-${controller.deletedbranchIds}");
+                            widget.controller.deletedbranchIds.value = [];
+                            widget.controller.partyBranchItems.clear();
+                            widget.controller.getPartyBankDetails();
+                            print(
+                                "id-deleted-${widget.controller.deletedbranchIds}");
                           },
                         );
                       },
                       child: ListView.separated(
-                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                        physics: BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
                         separatorBuilder: (context, index) => SizedBox(
                             child: Divider(
                           thickness: 1,
                           color: kColorgrey,
                         )),
-                        itemCount: controller.partyBranchItems.length,
+                        itemCount: widget.controller.partyBranchItems.length,
                         itemBuilder: (context, index) {
                           return SwipeActionCell(
                             key: UniqueKey(),
@@ -155,16 +178,23 @@ class BranchListScreen extends StatelessWidget {
                                   backgroundRadius: 6.w,
                                   widthSpace: 20.w,
                                   title: "Delete",
-                                  style: TextStyle(fontWeight: FontWeight.bold, color: kColorwhite),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: kColorwhite),
                                   onTap: (CompletionHandler handler) async {
-                                    print("id--${controller.partyBranchItems[index].id}");
+                                    print(
+                                        "id--${widget.controller.partyBranchItems[index].id}");
                                     customDeleteAlertDialogue(
                                       context,
                                       () async {
-                                        final idToDelete = controller.partyBranchItems[index].id!;
-                                        controller.deletedbranchIds.add(idToDelete);
-                                        print("deleted branch ids--${controller.deletedbranchIds}");
-                                        controller.partyBranchItems.removeAt(index);
+                                        final idToDelete = widget.controller
+                                            .partyBranchItems[index].id!;
+                                        widget.controller.deletedbranchIds
+                                            .add(idToDelete);
+                                        print(
+                                            "deleted branch ids--${widget.controller.deletedbranchIds}");
+                                        widget.controller.partyBranchItems
+                                            .removeAt(index);
                                         Get.back();
                                       },
                                     );
@@ -172,16 +202,25 @@ class BranchListScreen extends StatelessWidget {
                                   color: Colors.red),
                             ],
                             child: ListTile(
-                              title: Text(controller.partyBranchItems[index].name ?? ""),
-                              subtitle: Text(controller.partyBranchItems[index].branchAdminName?.toString() ?? ""),
+                              title: Text(widget.controller
+                                      .partyBranchItems[index].name ??
+                                  ""),
+                              subtitle: Text(widget.controller
+                                      .partyBranchItems[index].branchAdminName
+                                      ?.toString() ??
+                                  ""),
                               onLongPress: () {
                                 customDeleteAlertDialogue(
                                   context,
                                   () {
-                                    final idToDelete = controller.partyBranchItems[index].id!;
-                                    controller.deletedbranchIds.add(idToDelete);
-                                    print("deleted branch ids--${controller.deletedbranchIds}");
-                                    controller.partyBranchItems.removeAt(index);
+                                    final idToDelete = widget
+                                        .controller.partyBranchItems[index].id!;
+                                    widget.controller.deletedbranchIds
+                                        .add(idToDelete);
+                                    print(
+                                        "deleted branch ids--${widget.controller.deletedbranchIds}");
+                                    widget.controller.partyBranchItems
+                                        .removeAt(index);
                                     Get.back();
                                   },
                                 );
@@ -191,10 +230,22 @@ class BranchListScreen extends StatelessWidget {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    controller.branchAdminController.text = controller.partyBranchItems[index].branchAdminName ?? "";
-                                    controller.branchController.text = controller.partyBranchItems[index].name ?? "";
+                                    widget.controller.branchAdminController
+                                        .text = widget
+                                            .controller
+                                            .partyBranchItems[index]
+                                            .branchAdminName ??
+                                        "";
+                                    widget.controller.branchController.text =
+                                        widget.controller
+                                                .partyBranchItems[index].name ??
+                                            "";
 
-                                    controller.branchId.value = controller.partyBranchItems[index].branchAdminName ?? "";
+                                    widget.controller.branchId.value = widget
+                                            .controller
+                                            .partyBranchItems[index]
+                                            .branchAdminName ??
+                                        "";
 
                                     return Form(
                                       key: formKey,
@@ -204,7 +255,8 @@ class BranchListScreen extends StatelessWidget {
                                               height: 1.h,
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 5.0, right: 5),
+                                              padding: const EdgeInsets.only(
+                                                  left: 5.0, right: 5),
                                               child: Container(
                                                   // margin: EdgeInsets.all(2.w),
                                                   height: 7.h,
@@ -212,25 +264,38 @@ class BranchListScreen extends StatelessWidget {
                                                   child: DropdownButton(
                                                     isExpanded: true,
                                                     underline: Divider(
-                                                      color: Color.fromARGB(255, 220, 220, 220),
+                                                      color: Color.fromARGB(
+                                                          255, 220, 220, 220),
                                                       thickness: 1,
                                                       height: 1,
                                                     ),
-                                                    value: controller.branchId.value,
+                                                    value: widget.controller
+                                                        .branchId.value,
                                                     items: [
                                                       DropdownMenuItem<String>(
                                                         value: "",
-                                                        child: Text("Branch Admin*"),
+                                                        child: Text(
+                                                            "Branch Admin*"),
                                                       ),
-                                                      ...controller.userList.map((item) => DropdownMenuItem<String>(
-                                                            value: item.name.toString(),
-                                                            child: Text("${item.name}"),
-                                                          )),
+                                                      ...widget
+                                                          .controller.userList
+                                                          .map((item) =>
+                                                              DropdownMenuItem<
+                                                                  String>(
+                                                                value: item.name
+                                                                    .toString(),
+                                                                child: Text(
+                                                                    "${item.name}"),
+                                                              )),
                                                     ],
                                                     onChanged: (newValue) {
-                                                      customSnackbar("Can't Edit", "This branch admin is already assigned you can't edit.", "error");
+                                                      customSnackbar(
+                                                          "Can't Edit",
+                                                          "This branch admin is already assigned you can't edit.",
+                                                          "error");
                                                     },
-                                                    hint: Text('Select an item'),
+                                                    hint:
+                                                        Text('Select an item'),
                                                   )),
                                             ),
                                             CustomTextField(
@@ -241,18 +306,25 @@ class BranchListScreen extends StatelessWidget {
                                                     return null;
                                                   }
                                                 },
-                                                textInputAction: TextInputAction.next,
+                                                textInputAction:
+                                                    TextInputAction.next,
                                                 obscure: false,
-                                                textInputType: TextInputType.name,
-                                                controller: controller.branchController,
+                                                textInputType:
+                                                    TextInputType.name,
+                                                controller: widget.controller
+                                                    .branchController,
                                                 label: "Branch Name"),
                                           ],
                                           title: 'Edit Branch Details',
                                           onCancelPressed: () {
                                             Get.back();
-                                            controller.branchAdminController.clear();
-                                            controller.branchId.value = "";
-                                            controller.branchController.clear();
+                                            widget.controller
+                                                .branchAdminController
+                                                .clear();
+                                            widget.controller.branchId.value =
+                                                "";
+                                            widget.controller.branchController
+                                                .clear();
                                           },
                                           onUpdatePressed: () async {
                                             //   id: null,
@@ -260,19 +332,55 @@ class BranchListScreen extends StatelessWidget {
                                             // branchAdminName: controller.branchAdminController.text,
                                             // deleted: "N",
                                             // name: controller.branchController.text,
-                                            if (formKey.currentState!.validate()) {
-                                              controller.deletedbranchIds.value = [];
-                                              controller.partyBranchItems[index].branchAdminName = controller.branchAdminController.text.isEmpty ? "" : controller.branchAdminController.text;
-                                              controller.partyBranchItems[index].branchAdminId = int.parse(controller.selectedBranchId.value);
-                                              controller.partyBranchItems[index].name = controller.branchController.text.isNotEmpty ? controller.branchController.text.toString() : "";
-                                              controller.partyBranchItems.refresh();
+                                            if (formKey.currentState!
+                                                .validate()) {
+                                              widget.controller.deletedbranchIds
+                                                  .value = [];
+                                              widget
+                                                  .controller
+                                                  .partyBranchItems[index]
+                                                  .branchAdminName = widget
+                                                      .controller
+                                                      .branchAdminController
+                                                      .text
+                                                      .isEmpty
+                                                  ? ""
+                                                  : widget
+                                                      .controller
+                                                      .branchAdminController
+                                                      .text;
+                                              widget
+                                                      .controller
+                                                      .partyBranchItems[index]
+                                                      .branchAdminId =
+                                                  int.parse(widget.controller
+                                                      .selectedBranchId.value);
+                                              widget
+                                                  .controller
+                                                  .partyBranchItems[index]
+                                                  .name = widget
+                                                      .controller
+                                                      .branchController
+                                                      .text
+                                                      .isNotEmpty
+                                                  ? widget.controller
+                                                      .branchController.text
+                                                      .toString()
+                                                  : "";
+                                              widget.controller.partyBranchItems
+                                                  .refresh();
 
                                               Get.back();
-                                              controller.branchAdminController.clear();
-                                              controller.branchId.value = "";
-                                              controller.branchController.clear();
+                                              widget.controller
+                                                  .branchAdminController
+                                                  .clear();
+                                              widget.controller.branchId.value =
+                                                  "";
+                                              widget.controller.branchController
+                                                  .clear();
                                             } else {
-                                              customSnackbar("Error", "message", "error");
+                                              customSnackbar(
+                                                  "Error", "message", "error");
                                             }
                                           },
                                           saveButtonText: "Edit"),

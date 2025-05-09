@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -116,7 +118,7 @@ class SettingsController extends GetxController {
     List<BranchDTOList> branchDetails = branchJson.map((e) => BranchDTOList.fromJson(e)).toList();
     partyBranchItems.value = branchDetails;
     List<PartyBankMapDTOList> bankDetails = bankJson.map((e) => PartyBankMapDTOList.fromJson(e)).toList();
-    partyBankList.value = bankDetails;
+    partyBankList.value = bankDetails.reversed.toList();
     print("bank details ---- $partyBankList");
     partyBranchItems.value = branchDetails;
     print("branch details ---- $partyBranchItems");
@@ -667,7 +669,9 @@ class SettingsController extends GetxController {
 
     try {
       response = await apiCallService(apiUrl, "DELETE", {}, TheResponseType.map, {}, false);
-    } catch (e) {}
+    } catch (e) {
+      print("error ---- $e");
+    }
 
     ResponseStringModel responsevalue = ResponseStringModel.fromJson(response!);
 
@@ -693,7 +697,7 @@ class SettingsController extends GetxController {
 
     customSnackbar("Success", "Your account successfully deleted", "success");
 
-    Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+    Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
   }
 
   Future<void> deleteCacheDir() async {
@@ -746,7 +750,7 @@ class SettingsController extends GetxController {
 
         sharedPreferences.setBool("onboardKey", true);
 
-        Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+        Get.offAll(() =>const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
       }
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);

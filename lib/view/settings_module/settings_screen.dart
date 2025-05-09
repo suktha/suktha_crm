@@ -15,6 +15,7 @@ import 'package:suktha_crm/Constants/shared_pref_keys.dart';
 import 'package:suktha_crm/Model/company_model.dart';
 import 'package:suktha_crm/controllers/Home_controller.dart';
 import 'package:suktha_crm/controllers/global_controller.dart';
+import 'package:suktha_crm/controllers/settings_controller.dart';
 import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
 import 'package:suktha_crm/utils/responsive_utils.dart';
 import 'package:suktha_crm/view/settings_module/Account%20Settings/company_details_screen.dart';
@@ -34,13 +35,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final globalController = Get.find<GlobalController>();
 
   final homeController = Get.put(HomeController());
+  final settingsController = Get.put(SettingsController());
 
   CompanyModel? companyDetails;
 
   getCompanyLogo() async {
     print("inside--company logo loading ");
-    String newvalue = SharedPreferencesService.instance.getValue(SharedPrefKeys().CompanyLogoKey);
-    String? companyEncodedDetails = SharedPreferencesService.instance.getValue(SharedPrefKeys().CompanyDetailsKey);
+    String newvalue = SharedPreferencesService.instance
+        .getValue(SharedPrefKeys().CompanyLogoKey);
+    String? companyEncodedDetails = SharedPreferencesService.instance
+        .getValue(SharedPrefKeys().CompanyDetailsKey);
     print("companyEncodedDetails -- ${companyEncodedDetails}");
     if (companyEncodedDetails != null) {
       companyDetails = CompanyModel.fromJson(jsonDecode(companyEncodedDetails));
@@ -56,6 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     homeController.getCompanyDetails();
     homeController.getCompanyLogoName();
+    settingsController.getcurrencyDetails();
+
     setState(() {
       Timer(Duration.zero, () => getCompanyLogo());
     });
@@ -89,7 +95,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           backgroundColor: kColorwhite,
           title: Text(
             "Settings",
-            style: TextStyle(color: kColorblack, fontSize: 19.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                color: kColorblack,
+                fontSize: 19.sp,
+                fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
           elevation: 0,
@@ -105,17 +114,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       height: height,
                       width: width,
                       ontap: () {
-                        Get.to(() => CompanyDetailsScreen(companyDetails: companyDetails!), duration: const Duration(milliseconds: 400), transition: Transition.rightToLeft);
+                        Get.to(
+                            () => CompanyDetailsScreen(
+                                companyDetails: companyDetails!),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
                       },
                       title: "Company Profile",
                       icon: Icons.business_center_outlined)),
-                      FadeInUp(
+              FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
                       height: height,
                       width: width,
                       ontap: () {
-                        Get.to(() => const UserFieldWorkScreen(), duration: const Duration(milliseconds: 400), transition: Transition.rightToLeft,);
+                        Get.to(
+                          () => const UserFieldWorkScreen(),
+                          duration: const Duration(milliseconds: 400),
+                          transition: Transition.rightToLeft,
+                        );
                       },
                       title: "Field Work",
                       icon: Icons.person_pin_circle_sharp)),
