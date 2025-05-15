@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/Model/material_models.dart';
-import 'package:suktha_crm/controllers/lead_controller.dart';
-import 'package:suktha_crm/utils/Date.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/Model/material_models.dart';
+import 'package:work_Force/controllers/lead_controller.dart';
+import 'package:work_Force/utils/Date.dart';
 
 import '../controller/get_location_controller.dart';
 

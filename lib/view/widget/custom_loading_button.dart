@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/main.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/main.dart';
 
 class CustomAnimatedButton extends StatelessWidget {
   final String name;

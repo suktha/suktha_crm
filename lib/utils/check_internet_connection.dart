@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/view/widget/custom_button.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
 
 class ConnectivityService {
   late StreamSubscription<List<ConnectivityResult>> _subscription;

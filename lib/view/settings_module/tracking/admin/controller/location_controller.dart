@@ -11,12 +11,12 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:ui' as ui;
-import 'package:suktha_crm/Model/live_location_model.dart';
-import 'package:suktha_crm/Model/login_model.dart';
-import 'package:suktha_crm/utils/Services/location_services.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/model/live_location_model.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/model/location_history.dart';
+import 'package:work_Force/Model/live_location_model.dart';
+import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/utils/Services/location_services.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/model/live_location_model.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/model/location_history.dart';
 
 class GeoLocationController extends GetxController {
   RxBool viewActivity = false.obs;

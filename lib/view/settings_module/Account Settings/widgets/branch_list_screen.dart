@@ -6,12 +6,12 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/view/widget/custom_popup_with_widget.dart';
-import 'package:suktha_crm/view/widget/custom_textfield.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/view/widget/custom_popup_with_widget.dart';
+import 'package:work_Force/view/widget/custom_textfield.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class BranchListScreen extends StatefulWidget {
   final Widget expenseHeaderfield;
@@ -32,8 +32,10 @@ class BranchListScreen extends StatefulWidget {
 }
 
 class _BranchListScreenState extends State<BranchListScreen> {
+ 
   @override
   void initState() {
+    widget.controller.getPartyBankDetails();
     super.initState();
   }
 
@@ -257,7 +259,7 @@ class _BranchListScreenState extends State<BranchListScreen> {
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 5.0, right: 5),
-                                              child: Container(
+                                              child: SizedBox(
                                                   // margin: EdgeInsets.all(2.w),
                                                   height: 7.h,
                                                   // width: 30.w,

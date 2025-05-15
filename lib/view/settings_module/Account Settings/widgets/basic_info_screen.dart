@@ -1,18 +1,16 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_null_in_if_null_operators, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/view/settings_module/Account%20Settings/widgets/edit_company_details.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/view/settings_module/Account%20Settings/widgets/edit_company_details.dart';
 
 class BasicInfoScreen extends StatefulWidget {
-  BasicInfoScreen({
-    super.key,
-  });
+  const BasicInfoScreen({super.key});
 
   @override
   State<BasicInfoScreen> createState() => _BasicInfoScreenState();
@@ -45,7 +43,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                   child: ExpansionTile(
                     onExpansionChanged: (value) {
                       setState(() {
-                        controller.contactListExpand.value = !controller.contactListExpand.value;
+                        controller.contactListExpand.value =
+                            !controller.contactListExpand.value;
                       });
                     },
                     title: Row(
@@ -60,7 +59,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                           style: TextStyle(fontSize: 4.w),
                         ),
                         Spacer(),
-                        controller.contactListExpand == true
+                        controller.contactListExpand.value == true
                             ? GestureDetector(
                                 onTap: () => EditFunction(context),
                                 child: Icon(
@@ -73,7 +72,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                     ),
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 8, bottom: 8),
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 8, bottom: 8),
                         child: Column(
                           children: [
                             Row(
@@ -84,8 +84,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.contactPersonName ?? "",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller.companyDetailsValue
+                                          ?.contactPersonName ??
+                                      "",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -100,8 +104,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.contactPersonNumber ?? "",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller.companyDetailsValue
+                                          ?.contactPersonNumber ??
+                                      "",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -117,8 +125,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.secondaryMobile ?? "--",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller.companyDetailsValue
+                                          ?.secondaryMobile ??
+                                      "--",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -134,8 +146,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.primaryMobile ?? "",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller
+                                          .companyDetailsValue?.primaryMobile ??
+                                      "",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -151,8 +167,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.primaryTelephone ?? "",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller.companyDetailsValue
+                                          ?.primaryTelephone ??
+                                      "",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -167,8 +187,12 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                   style: TextStyle(fontSize: 3.6.w),
                                 ),
                                 Text(
-                                  controller.companyDetailsValue?.secondaryTelephone ?? "",
-                                  style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                  controller.companyDetailsValue
+                                          ?.secondaryTelephone ??
+                                      "",
+                                  style: TextStyle(
+                                      fontSize: 3.6.w,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -217,14 +241,20 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                       SizedBox(
                         width: 20,
                       ),
-                      controller.companyDetailsValue?.companyCurrencyId == null || controller.currencyList.isEmpty
+                      controller.companyDetailsValue?.companyCurrencyId ==
+                                  null ||
+                              controller.currencyList.isEmpty
                           ? Text(
                               "--",
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18),
                             )
                           : Text(
                               "${controller.currencyList.firstWhere(
-                                    (element) => element.id == controller.companyDetailsValue?.companyCurrencyId,
+                                    (element) =>
+                                        element.id ==
+                                        controller.companyDetailsValue
+                                            ?.companyCurrencyId,
                                   ).currencyName?.toString() ?? "--"} (${controller.currencyList.firstWhere((element) => element.id == controller.companyDetailsValue?.companyCurrencyId).shortName})",
                               style: TextStyle(fontSize: 4.w),
                             ),
@@ -265,7 +295,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                 ExpansionTile(
                   onExpansionChanged: (value) {
                     setState(() {
-                      controller.moreDetailsExpand.value = !controller.moreDetailsExpand.value;
+                      controller.moreDetailsExpand.value =
+                          !controller.moreDetailsExpand.value;
                     });
                   },
                   title: Row(
@@ -293,7 +324,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                   ),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20, top: 8, bottom: 8),
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, top: 8, bottom: 8),
                       child: Column(
                         children: [
                           Row(
@@ -306,10 +338,17 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               controller.companyDetailsValue?.cityId == null
                                   ? Text(
                                       "--",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
                                     )
-                                  : Obx(() => Text(controller.cityList.isEmpty ? "" : "${controller.cityList.firstWhere((element) => element.id == controller.companyDetailsValue?.cityId).name ?? ""}",
-                                      style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold))),
+                                  : Obx(() => Text(
+                                      controller.cityList.isEmpty
+                                          ? ""
+                                          : controller.cityList.firstWhere((element) => element.id == controller.companyDetailsValue?.cityId).name ?? "",
+                                      style: TextStyle(
+                                          fontSize: 3.6.w,
+                                          fontWeight: FontWeight.bold))),
                             ],
                           ),
                           SizedBox(
@@ -324,7 +363,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.website ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -341,7 +382,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.faxNumber ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -358,7 +401,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.pinCode ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -375,7 +420,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.tagLine ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -391,7 +438,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 '--',
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -407,7 +456,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                 ExpansionTile(
                   onExpansionChanged: (value) {
                     setState(() {
-                      controller.companyLegalInfoExpand.value = !controller.companyLegalInfoExpand.value;
+                      controller.companyLegalInfoExpand.value =
+                          !controller.companyLegalInfoExpand.value;
                     });
                   },
                   title: Row(
@@ -435,7 +485,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                   ),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20, top: 8, bottom: 8),
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, top: 8, bottom: 8),
                       child: Column(
                         children: [
                           Row(
@@ -447,7 +498,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.gstNumber ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -463,7 +516,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.panNumber ?? "",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -480,7 +535,9 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               ),
                               Text(
                                 controller.companyDetailsValue?.iecCode ?? "--",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -496,8 +553,11 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                 style: TextStyle(fontSize: 3.6.w),
                               ),
                               Text(
-                                controller.companyDetailsValue?.msmeNumber ?? "--",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                controller.companyDetailsValue?.msmeNumber ??
+                                    "--",
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -513,8 +573,11 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                 style: TextStyle(fontSize: 3.6.w),
                               ),
                               Text(
-                                controller.companyDetailsValue?.cinNumber ?? "--",
-                                style: TextStyle(fontSize: 3.6.w, fontWeight: FontWeight.bold),
+                                controller.companyDetailsValue?.cinNumber ??
+                                    "--",
+                                style: TextStyle(
+                                    fontSize: 3.6.w,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -534,7 +597,10 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                       title: "Upload Certificate",
                       deleteOntap: () async {
                         print("upload certificate");
-                        await controller.DeleteImages(isCertificate: true, isSignature: false, isQRcode: false);
+                        await controller.DeleteImages(
+                            isCertificate: true,
+                            isSignature: false,
+                            isQRcode: false);
                       },
                       uploadOntap: () {
                         showDialog(
@@ -544,9 +610,11 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               title: "Upload New Certificate",
                               buttonText: "Upload",
                               ontap: () async {
-                                var file = await controller.obtainImage(source: ImageSource.gallery);
+                                var file = await controller.obtainImage(
+                                    source: ImageSource.gallery);
 
-                                await controller.uploadCertificationImage(file!);
+                                await controller
+                                    .uploadCertificationImage(file!);
 
                                 Get.back();
                               },
@@ -570,7 +638,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               title: "Upload New Signature",
                               buttonText: "Upload",
                               ontap: () async {
-                                var file = await controller.obtainImage(source: ImageSource.gallery);
+                                var file = await controller.obtainImage(
+                                    source: ImageSource.gallery);
 
                                 await controller.uploadSignatureImage(file!);
 
@@ -596,7 +665,8 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                               title: "Upload New QR Code",
                               buttonText: "Upload",
                               ontap: () async {
-                                var file = await controller.obtainImage(source: ImageSource.gallery);
+                                var file = await controller.obtainImage(
+                                    source: ImageSource.gallery);
 
                                 await controller.uploadQRcode(file!);
 
@@ -619,37 +689,55 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
   }
 
   void EditFunction(BuildContext context) async {
-    controller.primaryMobNumController.text = controller.companyDetailsValue?.primaryMobile ?? "";
-    controller.seconMobileController.text = controller.companyDetailsValue?.secondaryMobile ?? "";
-    controller.contactPersonController.text = controller.companyDetailsValue?.contactPersonName ?? "";
-    controller.contactPersonNumController.text = controller.companyDetailsValue?.contactPersonNumber ?? "";
-    controller.primaryTelephoneNumController.text = controller.companyDetailsValue?.primaryTelephone ?? "";
-    controller.secondaryTelephoneNumController.text = controller.companyDetailsValue?.secondaryTelephone ?? "";
-    controller.websiteController.text = controller.companyDetailsValue?.website ?? "";
-    controller.emailController.text = controller.companyDetailsValue?.email ?? "";
-    controller.faxNumController.text = controller.companyDetailsValue?.faxNumber ?? "";
-    controller.addressController.text = controller.companyDetailsValue?.address ?? "";
-    controller.taglineController.text = controller.companyDetailsValue?.tagLine ?? "";
-    controller.pincodeController.text = controller.companyDetailsValue?.pinCode ?? "";
-    controller.panNumController.text = controller.companyDetailsValue?.panNumber ?? "";
-    controller.iecCodeController.text = controller.companyDetailsValue?.iecCode ?? "";
-    controller.msmeNumController.text = controller.companyDetailsValue?.msmeNumber ?? "";
-    controller.cinNumController.text = controller.companyDetailsValue?.cinNumber ?? "";
+    controller.primaryMobNumController.text =
+        controller.companyDetailsValue?.primaryMobile ?? "";
+    controller.seconMobileController.text =
+        controller.companyDetailsValue?.secondaryMobile ?? "";
+    controller.contactPersonController.text =
+        controller.companyDetailsValue?.contactPersonName ?? "";
+    controller.contactPersonNumController.text =
+        controller.companyDetailsValue?.contactPersonNumber ?? "";
+    controller.primaryTelephoneNumController.text =
+        controller.companyDetailsValue?.primaryTelephone ?? "";
+    controller.secondaryTelephoneNumController.text =
+        controller.companyDetailsValue?.secondaryTelephone ?? "";
+    controller.websiteController.text =
+        controller.companyDetailsValue?.website ?? "";
+    controller.emailController.text =
+        controller.companyDetailsValue?.email ?? "";
+    controller.faxNumController.text =
+        controller.companyDetailsValue?.faxNumber ?? "";
+    controller.addressController.text =
+        controller.companyDetailsValue?.address ?? "";
+    controller.taglineController.text =
+        controller.companyDetailsValue?.tagLine ?? "";
+    controller.pincodeController.text =
+        controller.companyDetailsValue?.pinCode ?? "";
+    controller.panNumController.text =
+        controller.companyDetailsValue?.panNumber ?? "";  
+
+    controller.iecCodeController.text =
+        controller.companyDetailsValue?.iecCode ?? "";
+    controller.msmeNumController.text =
+        controller.companyDetailsValue?.msmeNumber ?? "";
+    controller.cinNumController.text =
+        controller.companyDetailsValue?.cinNumber ?? "";
     if (controller.companyDetailsValue?.companyCurrencyId == null) {
       print("inside-----");
       controller.currencyId.value = "";
     } else if (controller.companyDetailsValue?.companyCurrencyId != null) {
-      controller.currencyId.value = controller.companyDetailsValue?.companyCurrencyId.toString() ?? "";
+      controller.currencyId.value =
+          controller.companyDetailsValue?.companyCurrencyId.toString() ?? "";
     }
 
     if (controller.companyDetailsValue?.cityId == null) {
       controller.cityId.value = "";
     } else if (controller.companyDetailsValue?.cityId != null) {
-      controller.cityId.value = controller.companyDetailsValue?.cityId.toString() ?? "";
+      controller.cityId.value =
+          controller.companyDetailsValue?.cityId.toString() ?? "";
     }
-
-    // controller.cityId.value = controller.companyDetailsValue?.cityId.toString();
-    await CompanyDetailsBottomSheet(context, controller.companyDetailsValue!, controller);
+    await CompanyDetailsBottomSheet(
+        context, controller.companyDetailsValue!, controller);
   }
 }
 
@@ -658,7 +746,12 @@ class CustomUploadContainer extends StatelessWidget {
   Uint8List? imageData;
   final VoidCallback uploadOntap;
   final VoidCallback deleteOntap;
-  CustomUploadContainer({super.key, required this.title, required this.uploadOntap, required this.deleteOntap, this.imageData});
+  CustomUploadContainer(
+      {super.key,
+      required this.title,
+      required this.uploadOntap,
+      required this.deleteOntap,
+      this.imageData});
 
   // final homeController = Get.find<HomeController>();
 
@@ -669,12 +762,18 @@ class CustomUploadContainer extends StatelessWidget {
             onTap: uploadOntap,
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: kColorlightBlue),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: kColorlightBlue),
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 15, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold, color: kColorwhite),
+                  style: TextStyle(
+                      fontSize: 15,
+                      overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.bold,
+                      color: kColorwhite),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -701,7 +800,9 @@ class CustomUploadContainer extends StatelessWidget {
                       child: Container(
                           height: 35,
                           width: 50.w,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: kColorlightBlue),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: kColorlightBlue),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -721,7 +822,9 @@ class CustomUploadContainer extends StatelessWidget {
                       child: Container(
                           height: 35,
                           width: 50.w,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: kColorRed),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: kColorRed),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
@@ -755,8 +858,10 @@ class UploadPopUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-      title: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5.w))),
+      title: Text(title,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
       content: SizedBox(
         width: 100.w,
         child: Row(
@@ -767,11 +872,14 @@ class UploadPopUpWidget extends StatelessWidget {
               child: Container(
                 height: 6.h,
                 width: 30.w,
-                decoration: BoxDecoration(color: kColorlightBlue, borderRadius: BorderRadius.circular(5.w)),
+                decoration: BoxDecoration(
+                    color: kColorlightBlue,
+                    borderRadius: BorderRadius.circular(5.w)),
                 child: Center(
                     child: Text(
                   buttonText,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: kColorwhite),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: kColorwhite),
                 )),
               ),
             ),

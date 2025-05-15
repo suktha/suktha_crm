@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Model/user_model.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Model/user_model.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 Widget userListView({
   required List<UserModel> userList,

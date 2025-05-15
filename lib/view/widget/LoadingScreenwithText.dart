@@ -8,9 +8,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/utils/responsive_utils.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/utils/responsive_utils.dart';
 
 class loadingScreenWithText extends StatefulWidget {
   bool? isPageLoading;

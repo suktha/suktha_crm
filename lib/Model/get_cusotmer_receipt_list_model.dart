@@ -1,4 +1,4 @@
-import 'package:suktha_crm/Model/payment_method_model.dart';
+import 'package:work_Force/Model/payment_method_model.dart';
 
 import 'card-type_model.dart';
 import 'customer_model.dart';

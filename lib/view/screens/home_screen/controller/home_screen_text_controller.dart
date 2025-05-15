@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/utils/api/home_screen.dart';
-import 'package:suktha_crm/view/screens/home_screen/model/advance_receipt_data_model.dart';
-import 'package:suktha_crm/view/screens/home_screen/model/last_three_invoice_model.dart';
-import 'package:suktha_crm/view/screens/home_screen/model/moving_material_model.dart';
-import 'package:suktha_crm/view/screens/home_screen/model/pending_amount_model.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/api/home_screen.dart';
+import 'package:work_Force/view/screens/home_screen/model/advance_receipt_data_model.dart';
+import 'package:work_Force/view/screens/home_screen/model/last_three_invoice_model.dart';
+import 'package:work_Force/view/screens/home_screen/model/moving_material_model.dart';
+import 'package:work_Force/view/screens/home_screen/model/pending_amount_model.dart';
 
 class HomeScreenTextController extends GetxController {
   RxList<LastThreeMonthInvoiceModel> lastThreeMonthInvoiceList = <LastThreeMonthInvoiceModel>[].obs;

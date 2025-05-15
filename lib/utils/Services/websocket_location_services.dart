@@ -6,13 +6,13 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
-import 'package:suktha_crm/Model/live_location_model.dart';
-import 'package:suktha_crm/Model/login_model.dart';
-import 'package:suktha_crm/controllers/Home_controller.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/Model/live_location_model.dart';
+import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
 
 class WebSocketService extends GetxService {
   StompClient? _stompClient;

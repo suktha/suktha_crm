@@ -5,11 +5,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Model/user_model.dart';
-import 'package:suktha_crm/utils/Services/websocket_location_services.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/view/widgets.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Model/user_model.dart';
+import 'package:work_Force/utils/Services/websocket_location_services.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/view/widgets.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../../../utils/responsive_utils.dart';

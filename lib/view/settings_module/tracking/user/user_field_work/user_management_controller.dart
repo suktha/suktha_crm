@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/Model/live_location_model.dart';
-import 'package:suktha_crm/Model/login_model.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/Model/live_location_model.dart';
+import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserManagementController extends GetxController {

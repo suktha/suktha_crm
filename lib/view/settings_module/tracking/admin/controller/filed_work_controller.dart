@@ -6,11 +6,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Model/live_location_model.dart';
-import 'package:suktha_crm/Model/user_model.dart';
-import 'package:suktha_crm/Model/user_role_model.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/utils/api/common_api.dart';
+import 'package:work_Force/Model/live_location_model.dart';
+import 'package:work_Force/Model/user_model.dart';
+import 'package:work_Force/Model/user_role_model.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/api/common_api.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FieldWorkController extends GetxController {

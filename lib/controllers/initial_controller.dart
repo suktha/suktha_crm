@@ -1,16 +1,18 @@
+// ignore_for_file: avoid_print
+
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Model/transaction_type_model.dart';
-import 'package:suktha_crm/controllers/Home_controller.dart';
-import 'package:suktha_crm/controllers/global_controller.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainScreen.dart';
-import 'package:suktha_crm/view/bottom_navigation/navbar_controller.dart';
-import 'package:suktha_crm/view/screens/login/login_screen.dart';
-import 'package:suktha_crm/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Model/transaction_type_model.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
+import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
+import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
+import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class InitialController extends GetxController {
   @override
@@ -77,7 +79,7 @@ class InitialController extends GetxController {
     if (difference.inHours >= 24) {
       await prefs.clear();
 
-      Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+      Get.offAll(() =>const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
 
       customSnackbar("Session TimeOut", "Please Login Again", "error");
     } else {
@@ -102,7 +104,7 @@ class InitialController extends GetxController {
 
   void navToLogin() {
     Future.delayed(const Duration(seconds: 2), () async {
-      Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
+      Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
     });
   }
 
@@ -111,16 +113,14 @@ class InitialController extends GetxController {
     prefs.setBool("onboardKey", true);
 
     Future.delayed(const Duration(seconds: 2), () {
-      Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
+      Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 700));
     });
   }
 
   void navToMain() {
     Get.put(NavigationController());
     Get.put(GlobalController());
-    // Get.put(GeoLocationController());
     Get.put(SettingsController());
-    // Get.put(GeneralMasterController());
     Get.put(HomeController());
 
     Future.delayed(const Duration(seconds: 1), () async {

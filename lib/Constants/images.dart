@@ -1,8 +1,11 @@
 //Main icons
 
-const String logoIcon = "assets/Logos/Suktha logo.png";
+const String logoIcon = "assets/Logos/Logo_black.png";
 const String logoText = "assets/Logos/Logo_text.png";
-const String logoIconwithTradeMark = "assets/Logos/suktha_logo_trdemark.png";
+const String logoIconwithTradeMark = "assets/Logos/Logo_Blue.png";
+const String logoIconwithTradeMark1 = "assets/Logos/Logo_Light.png";
+const String logoIconwithTradeMark2 = "assets/Logos/logo_blue_bgremoved.png";
+
 
 //Sales items icons
 

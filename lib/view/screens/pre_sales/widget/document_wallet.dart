@@ -9,13 +9,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/controllers/get_lead_controller.dart';
-import 'package:suktha_crm/utils/share_helper.dart';
-import 'package:suktha_crm/view/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/controllers/get_lead_controller.dart';
+import 'package:work_Force/utils/share_helper.dart';
+import 'package:work_Force/view/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class LeadDocumentWalletScreen extends StatelessWidget {
   const LeadDocumentWalletScreen({super.key, required this.controller, required this.leadValue});

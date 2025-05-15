@@ -1,0 +1,2 @@
+D:/prasidhi/WorkForce/android/app/.cxx/Debug/k205m1u2/x86_64/CMakeFiles/edit_cache.dir
+D:/prasidhi/WorkForce/android/app/.cxx/Debug/k205m1u2/x86_64/CMakeFiles/rebuild_cache.dir

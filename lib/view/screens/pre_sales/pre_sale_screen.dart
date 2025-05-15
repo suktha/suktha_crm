@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/controllers/get_lead_controller.dart';
-import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
-import 'package:suktha_crm/utils/Date.dart';
-import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/open_lead_management.dart';
-import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
-import 'package:suktha_crm/view/widget/popup_with_lottie.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/controllers/get_lead_controller.dart';
+import 'package:work_Force/controllers/lead_contact_details_controller.dart';
+import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/open_lead_management.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
+import 'package:work_Force/view/widget/popup_with_lottie.dart';
 
 class PreSaleScreen extends StatefulWidget {
   const PreSaleScreen({super.key});

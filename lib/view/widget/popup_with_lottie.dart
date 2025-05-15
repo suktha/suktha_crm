@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
+import 'package:work_Force/Constants/colors.dart';
 
 // class PopupWithLottie extends StatelessWidget {
 //  final BuildContext context;

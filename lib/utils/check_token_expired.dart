@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/screens/login/login_screen.dart';
 
 checkTokenExpired(int? statusCode) async {
   log("checking token expiry and the status code is- $statusCode");

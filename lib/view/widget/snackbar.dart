@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:suktha_crm/Constants/colors.dart';
+import 'package:work_Force/Constants/colors.dart';
 
 customSnackbar(title, message, type) {
   if (Get.isSnackbarOpen) {

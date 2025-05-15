@@ -7,11 +7,11 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/view/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/view/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class DocumentWalletScreen extends StatelessWidget {
   final VoidCallback itemAddButton;

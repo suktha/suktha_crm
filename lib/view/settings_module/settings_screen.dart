@@ -9,20 +9,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/Constants/shared_pref_keys.dart';
-import 'package:suktha_crm/Model/company_model.dart';
-import 'package:suktha_crm/controllers/Home_controller.dart';
-import 'package:suktha_crm/controllers/global_controller.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
-import 'package:suktha_crm/utils/responsive_utils.dart';
-import 'package:suktha_crm/view/settings_module/Account%20Settings/company_details_screen.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/view/user_field_work_screen.dart';
-import 'package:suktha_crm/view/widget/custom_button.dart';
-import 'package:suktha_crm/view/widget/custom_settings_widget.dart';
-import 'package:suktha_crm/view/widget/popup_with_lottie.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Constants/shared_pref_keys.dart';
+import 'package:work_Force/Model/company_model.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
+import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/utils/responsive_utils.dart';
+import 'package:work_Force/view/settings_module/Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/view/user_field_work_screen.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
+import 'package:work_Force/view/widget/custom_settings_widget.dart';
+import 'package:work_Force/view/widget/popup_with_lottie.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({super.key});
@@ -122,20 +122,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "Company Profile",
                       icon: Icons.business_center_outlined)),
-              FadeInUp(
-                  duration: const Duration(milliseconds: 500),
-                  child: MoreListCustomWidgets(
-                      height: height,
-                      width: width,
-                      ontap: () {
-                        Get.to(
-                          () => const UserFieldWorkScreen(),
-                          duration: const Duration(milliseconds: 400),
-                          transition: Transition.rightToLeft,
-                        );
-                      },
-                      title: "Field Work",
-                      icon: Icons.person_pin_circle_sharp)),
+              // FadeInUp(
+              //     duration: const Duration(milliseconds: 500),
+              //     child: MoreListCustomWidgets(
+              //         height: height,
+              //         width: width,
+              //         ontap: () {
+              //           Get.to(
+              //             () => const UserFieldWorkScreen(),
+              //             duration: const Duration(milliseconds: 400),
+              //             transition: Transition.rightToLeft,
+              //           );
+              //         },
+              //         title: "Field Work",
+              //         icon: Icons.person_pin_circle_sharp)),
               const Spacer(),
               CustomButton(
                 width: 25.w,

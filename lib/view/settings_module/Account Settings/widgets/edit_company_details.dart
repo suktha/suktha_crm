@@ -4,11 +4,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Model/company_model.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/utils/validations/validations.dart';
-import 'package:suktha_crm/view/widget/custom_textfield.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Model/company_model.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/utils/validations/validations.dart';
+import 'package:work_Force/view/widget/custom_textfield.dart';
 
 CompanyDetailsBottomSheet(BuildContext context, CompanyModel companyDetails, SettingsController controller) {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

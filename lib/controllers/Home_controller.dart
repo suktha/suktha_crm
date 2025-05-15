@@ -9,19 +9,19 @@ import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Constants/shared_pref_keys.dart';
-import 'package:suktha_crm/Model/company_model.dart';
-import 'package:suktha_crm/Model/global_settings_model.dart';
-import 'package:suktha_crm/Model/response_string_model.dart';
-import 'package:suktha_crm/Model/transaction_number.dart';
-import 'package:suktha_crm/Model/transaction_type_model.dart';
-import 'package:suktha_crm/controllers/global_controller.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/utils/Services/sharedpref_services.dart';
-import 'package:suktha_crm/utils/api/common_api.dart';
-import 'package:suktha_crm/utils/check_token_expired.dart';
-import 'package:suktha_crm/view/screens/login/login_screen.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/shared_pref_keys.dart';
+import 'package:work_Force/Model/company_model.dart';
+import 'package:work_Force/Model/global_settings_model.dart';
+import 'package:work_Force/Model/response_string_model.dart';
+import 'package:work_Force/Model/transaction_number.dart';
+import 'package:work_Force/Model/transaction_type_model.dart';
+import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/utils/api/common_api.dart';
+import 'package:work_Force/utils/check_token_expired.dart';
+import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 import '../Model/login_model.dart';
 
@@ -190,6 +190,8 @@ class HomeController extends GetxController {
       value.responseString == null ? SharedPreferencesService.instance.removeValue(SharedPrefKeys().CompanyLogoKey) : null;
 
       getMaterialImageName(value.responseString!);
+
+      print("printing companyLogo ${companyLogo.value}");
 
       // Assuming that 'imageData' is the key in your response containing image data
     } catch (e) {

@@ -5,10 +5,10 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Model/login_model.dart';
-import 'package:suktha_crm/utils/Data/custom_print.dart';
-import 'package:suktha_crm/utils/api/common_api.dart';
-import 'package:suktha_crm/utils/check_token_expired.dart';
+import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/utils/Data/custom_print.dart';
+import 'package:work_Force/utils/api/common_api.dart';
+import 'package:work_Force/utils/check_token_expired.dart';
 
 enum TheResponseType { list, map, bytes, bool }
 

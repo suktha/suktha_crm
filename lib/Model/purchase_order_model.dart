@@ -1,4 +1,4 @@
-import 'package:suktha_crm/Model/customer_model.dart';
+import 'package:work_Force/Model/customer_model.dart';
 
 class InputedCustomerModel {
   String? purchaseOrderNumber;

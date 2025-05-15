@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, avoid_print
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +6,12 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/view/widget/custom_popup_with_widget.dart';
-import 'package:suktha_crm/view/widget/custom_textfield.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/view/widget/custom_popup_with_widget.dart';
+import 'package:work_Force/view/widget/custom_textfield.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class BankListScreen extends StatefulWidget {
   final Widget expenseHeaderfield;
@@ -19,7 +19,7 @@ class BankListScreen extends StatefulWidget {
 
   final bool isEdit;
 
-  BankListScreen({
+ const BankListScreen({
     super.key,
     required this.controller,
     required this.isEdit,
@@ -48,7 +48,7 @@ class _BankListScreenState extends State<BankListScreen> {
     return SizedBox(
       child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           // Row(
@@ -145,7 +145,7 @@ class _BankListScreenState extends State<BankListScreen> {
                   : RefreshIndicator(
                       onRefresh: () async {
                         return Future.delayed(
-                          Duration(seconds: 1),
+                          const Duration(seconds: 1),
                           () {
                             widget.controller.partyBankList.clear();
                             widget.controller.getPartyBankDetails();
@@ -153,7 +153,7 @@ class _BankListScreenState extends State<BankListScreen> {
                         );
                       },
                       child: ListView.separated(
-                        physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                        physics:const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                         separatorBuilder: (context, index) => SizedBox(
                             child: Divider(
                           thickness: 1,
@@ -184,11 +184,11 @@ class _BankListScreenState extends State<BankListScreen> {
                             ],
                             child: ListTile(
                               trailing: widget.controller.partyBankList[index].isChecked == 1
-                                  ? Text(
+                                  ? const Text(
                                       "Default",
                                       style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
                                     )
-                                  : Text(""),
+                                  :const Text(""),
                               title: Text(widget.controller.partyBankList[index].bankname ?? ""),
                               subtitle: Text(widget.controller.partyBankList[index].ifsc ?? ""),
                               onLongPress: () {
@@ -363,11 +363,11 @@ class _BankListScreenState extends State<BankListScreen> {
             width: 50.w,
             child: Text(
               title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style:const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
         ),
-        Spacer(),
+      const  Spacer(),
         switchwidget,
       ],
     );

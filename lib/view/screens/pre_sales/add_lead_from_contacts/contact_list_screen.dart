@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/Model/material_models.dart';
-import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
-import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainscreen.dart';
-import 'package:suktha_crm/view/screens/pre_sales/add_lead_from_contacts/selected_contact_screen.dart';
-import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
-import 'package:suktha_crm/view/widget/shimmer_loading.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/Model/material_models.dart';
+import 'package:work_Force/controllers/lead_contact_details_controller.dart';
+import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
+import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/selected_contact_screen.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
+import 'package:work_Force/view/widget/shimmer_loading.dart';
 
 class ContactListScreen extends StatefulWidget {
   final List<MaterialModel>? materialList;

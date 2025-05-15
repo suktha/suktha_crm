@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:suktha_crm/controllers/global_controller.dart';
-import 'package:suktha_crm/view/bottom_navigation/bottom_navigation_mainScreen.dart';
-import 'package:suktha_crm/view/screens/home_screen/Home_Screen.dart';
-import 'package:suktha_crm/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:suktha_crm/view/settings_module/settings_screen.dart';
+import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
+import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
+import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
+import 'package:work_Force/view/settings_module/settings_screen.dart';
 
 class NavigationController extends GetxController {
   @override

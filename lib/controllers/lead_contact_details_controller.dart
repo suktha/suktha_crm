@@ -3,11 +3,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/utils/Services/contact_services.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
-import 'package:suktha_crm/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/utils/Services/contact_services.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class LeadContactDetaisController extends GetxController {
   RxList<Map<String, String>> contactsList = <Map<String, String>>[].obs;

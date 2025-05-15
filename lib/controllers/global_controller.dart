@@ -6,19 +6,19 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suktha_crm/Constants/shared_pref_keys.dart';
-import 'package:suktha_crm/Model/login_model.dart';
-import 'package:suktha_crm/controllers/settings_controller.dart';
-import 'package:suktha_crm/utils/check_token_expired.dart';
-import 'package:suktha_crm/view/screens/login/login_screen.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/shared_pref_keys.dart';
+import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/utils/check_token_expired.dart';
+import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 import '../Model/company_model.dart';
 import '../Model/menu_model.dart';
 import '../utils/Services/rest_api_services.dart';
 import '../utils/api/common_api.dart';
 
-import 'package:suktha_crm/Model/login_model.dart' as loginModel;
+import 'package:work_Force/Model/login_model.dart' as loginModel;
 
 class GlobalController extends GetxController {
   RxList<MenuModel> menuList = <MenuModel>[].obs;

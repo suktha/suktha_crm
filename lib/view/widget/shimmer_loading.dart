@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
+import 'package:work_Force/Constants/colors.dart';
 
 class HomeLoading extends StatelessWidget {
   const HomeLoading({super.key});

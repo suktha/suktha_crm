@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/Model/material_models.dart';
-import 'package:suktha_crm/controllers/lead_contact_details_controller.dart';
-import 'package:suktha_crm/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
-import 'package:suktha_crm/view/widget/snackbar.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Model/material_models.dart';
+import 'package:work_Force/controllers/lead_contact_details_controller.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class ShowSelectedContactsScreen extends StatefulWidget {
   final LeadContactDetaisController contactController;

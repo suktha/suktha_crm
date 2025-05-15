@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:suktha_crm/Model/subscribtion_detail_model.dart';
-import 'package:suktha_crm/Model/subscriptionHistoryModel.dart';
-import 'package:suktha_crm/utils/Services/rest_api_services.dart';
+import 'package:work_Force/Model/subscribtion_detail_model.dart';
+import 'package:work_Force/Model/subscriptionHistoryModel.dart';
+import 'package:work_Force/utils/Services/rest_api_services.dart';
 
 class SubscriptionController extends GetxController {
   TextEditingController subscriptionIdcontroller = TextEditingController();

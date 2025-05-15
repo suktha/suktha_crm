@@ -9,11 +9,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart' as lt;
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/utils/Date.dart';
-import 'package:suktha_crm/utils/share_helper.dart';
-import 'package:suktha_crm/view/settings_module/tracking/admin/controller/location_controller.dart';
-import 'package:suktha_crm/view/widget/deleteAlertDialogue.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/utils/share_helper.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 

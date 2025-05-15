@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:suktha_crm/Constants/colors.dart';
-import 'package:suktha_crm/Constants/images.dart';
-import 'package:suktha_crm/Model/lead_model.dart';
-import 'package:suktha_crm/controllers/get_lead_controller.dart';
-import 'package:suktha_crm/utils/Date.dart';
-import 'package:suktha_crm/view/widget/custom_button.dart';
-import 'package:suktha_crm/view/widget/custom_rounded_textfiled.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Model/lead_model.dart';
+import 'package:work_Force/controllers/get_lead_controller.dart';
+import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
+import 'package:work_Force/view/widget/custom_rounded_textfiled.dart';
 
 class ShareDocNdHistory extends StatelessWidget {
   const ShareDocNdHistory({super.key, required this.controller, required this.leadValue});
