@@ -1,21 +1,18 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: unrelated_type_equality_checks, avoid_print
 
-import 'dart:developer';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:work_Force/Model/live_location_model.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/Model/user_role_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
-import 'package:work_Force/utils/api/common_api.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class FieldWorkController extends GetxController {
+  @override
   void onInit() {
     getUserRoleList("");
+
     super.onInit();
   }
 
@@ -38,15 +35,10 @@ class FieldWorkController extends GetxController {
   getUserList() async {
     print("getUserList called");
     isPageLoading.value = true;
-    List<dynamic> responseValue = await apiCallService(
-        "/users", 'GET', {}, TheResponseType.list, {}, false);
+    List<dynamic> responseValue = await apiCallService("/users", 'GET', {}, TheResponseType.list, {}, false);
 
-    List<UserModel> activeUsers = (responseValue)
-        .map((e) => UserModel.fromJson(e))
-        .where((user) => user.active == 1)
-        .toList();
-    activeUsers
-        .sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+    List<UserModel> activeUsers = (responseValue).map((e) => UserModel.fromJson(e)).where((user) => user.active == 1).toList();
+    activeUsers.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
 
     userList.clear();
 
@@ -62,7 +54,7 @@ class FieldWorkController extends GetxController {
     return userList;
   }
 
-  Future<Map<String, dynamic>> GetLeadEventByUser({required int userId, required String eventDate}) async {
+  Future<Map<String, dynamic>> GetLeadEventByUser({required int userId, required String eventDate, String? transId}) async {
     if (userId == 0) {
       return {};
     }
@@ -76,9 +68,7 @@ class FieldWorkController extends GetxController {
     };
 
     try {
-      Map<String, dynamic> result = await apiCallService(apiUrl, "GET", mapValue, TheResponseType.map, {}, false);
-
-      print(result);
+      dynamic result = await apiCallService(apiUrl, "GET", mapValue, TheResponseType.map, {}, false);
 
       await loadEvents(result);
 
@@ -88,52 +78,6 @@ class FieldWorkController extends GetxController {
       return {};
     }
   }
-
-  // Future<Map<String, dynamic>> GetLeadEventByUser(
-  //     {required int userId, required String eventDate}) async {
-
-  //   if (userId == 0) return {};
-  //   final SharedPreferences sharedPreferences =
-  //       await SharedPreferences.getInstance();
-  //   String? token = sharedPreferences.getString('token');
-  //   print("token ---- $token");
-  //   String apiUrl = "/getLeadEventByUser";
-  //   print("url--${"$baseUrl$apiUrl"}");
-
-  //   Map<String, dynamic> queryParams = {
-  //     "userId": userId,
-  //     "eventDateTime": eventDate,
-  //     "transId": null,
-  //     "eventName": "Started",
-  //   };
-
-  //   try {
-  //     final dio = Dio();
-  //     final response = await dio.get(
-  //       "$baseUrl$apiUrl",
-  //       queryParameters: queryParams,
-  //       options: Options(headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": "Bearer $token"
-  //       }),
-  //     );
-
-  //     log(response.statusCode.toString());
-
-  //     if (response.statusCode == 200 && response.data) {
-  //       Map<String, dynamic> result = response.data;
-  //       log(result.toString());
-  //       await loadEvents(result);
-  //       return result;
-  //     } else {
-  //       log("Unexpected response type or status: ${response.statusCode}");
-  //       return {};
-  //     }
-  //   } catch (e) {
-  //     log("Error in GetLeadEventByUser(): $e");
-  //     return {};
-  //   }
-  // }
 
   loadEvents(Map<String, dynamic> apiResponse) async {
     timelineItems.clear();
@@ -169,8 +113,7 @@ class FieldWorkController extends GetxController {
 
         for (var event in events) {
           timelineItems.add({
-            "action":
-                event.eventDisplayName ?? event.eventName ?? "Unknown Event",
+            "action": event.eventDisplayName ?? event.eventName ?? "Unknown Event",
             "time": event.eventDateTime ?? DateTime.now(),
             "latitude": event.latitude,
             "longitude": event.longitude,
@@ -236,8 +179,7 @@ class FieldWorkController extends GetxController {
 // key = transId, value = lead name (from API)
 
   getLeadDetails({required String transId}) async {
-    var responseValue = await apiCallService(
-        "/lead-gen/$transId", 'GET', {}, TheResponseType.map, {}, false);
+    var responseValue = await apiCallService("/lead-gen/$transId", 'GET', {}, TheResponseType.map, {}, false);
 
     if (responseValue != null && responseValue is Map<String, dynamic>) {
       String leadName = responseValue['leadName'] ?? "Unknown Lead";
@@ -265,14 +207,8 @@ class FieldWorkController extends GetxController {
 
   Future<List<UserRoleModel>> getUserRoleList(String query) async {
     List<dynamic> responseValue = await apiCallService(
-        "/user-roles",
-        'GET',
-        {},
-        TheResponseType.list,
-        {},
-        false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<UserRoleModel> userDatas =
-        (responseValue).map((e) => UserRoleModel.fromJson(e)).toList();
+        "/user-roles", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<UserRoleModel> userDatas = (responseValue).map((e) => UserRoleModel.fromJson(e)).toList();
 
     userRoleList.value = userDatas;
     userRoleList.refresh();
@@ -285,9 +221,6 @@ class FieldWorkController extends GetxController {
       return "";
     }
 
-    return userRoleList
-        .where((model) => userRoleIds.contains(model.id))
-        .map((e) => e.role)
-        .join(', ');
+    return userRoleList.where((model) => userRoleIds.contains(model.id)).map((e) => e.role).join(', ');
   }
 }

@@ -37,23 +37,34 @@ Future<dynamic> apiCallService(
       if (responseType == TheResponseType.bytes) {
         //any images or something
         response = await dio.get(url,
-            options: Options(responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null, headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+            options: Options(
+                responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null,
+                headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
       } else {
         //normal get method
-        response = await dio.get(url, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}", "content-type": "application/json"}));
+        response = await dio.get(url,
+            data: body,
+            options:
+                Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}", "content-type": "application/json"}));
       }
     } else if (method == 'POST') {
       if (responseType == TheResponseType.bytes) {
         response = await dio.request(url,
             queryParameters: queryParameters,
             data: body,
-            options:
-                Options(method: 'POST', responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null, headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+            options: Options(
+                method: 'POST',
+                responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null,
+                headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
       } else {
-        response = await dio.post(url, queryParameters: queryParameters, data: body, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+        response = await dio.post(url,
+            queryParameters: queryParameters,
+            data: body,
+            options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
       }
     } else if (method == 'PUT') {
-      response = await dio.put(url, data: body, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+      response =
+          await dio.put(url, data: body, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
     } else if (method == 'DELETE') {
       response = await dio.delete(url, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
     }

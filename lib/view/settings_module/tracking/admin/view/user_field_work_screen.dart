@@ -1,16 +1,19 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, camel_case_types
+
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sizer/sizer.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/view/widgets.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../../../utils/responsive_utils.dart';
 import 'geolocation_screen.dart';
@@ -41,10 +44,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
         Scaffold(
           appBar: AppBar(
               title: const Text("Field Sales"),
-              titleTextStyle: TextStyle(
-                  color: kColorblack,
-                  fontWeight: FontWeight.bold,
-                  fontSize: width * 0.055),
+              titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: width * 0.055),
               centerTitle: true,
               backgroundColor: kColorwhite,
               elevation: 0,
@@ -84,12 +84,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                         ),
                         child: TextField(
                           onChanged: (value) async {
-                            controller.filteredUserList.value = controller
-                                .userList
-                                .where((user) => user.name!
-                                    .toLowerCase()
-                                    .contains(value.toLowerCase()))
-                                .toList();
+                            controller.filteredUserList.value =
+                                controller.userList.where((user) => user.name!.toLowerCase().contains(value.toLowerCase())).toList();
                           },
                           // controller: controller.searchController,
                           decoration: InputDecoration(
@@ -98,8 +94,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                             ),
                             hintText: 'Search Here',
                             hintStyle: TextStyle(color: kColorblack45),
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 20),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 20),
                           ),
                         ),
                       ),
@@ -113,20 +108,11 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                         controller: controller,
                         height: height,
                         onTapUser: (item, index) async {
-                          print("User ID: ${item.id}");
                           controller.timelineItems.clear();
-                          await Get.find<WebSocketService>()
-                              .initializeConnection(
-                                  userId: item.id, leadId: null);
+                          await Get.find<WebSocketService>().initializeConnection(userId: item.id, leadId: null);
 
                           // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
-                          showUserBottomSheet(
-                              context: context,
-                              item: item,
-                              index: index,
-                              width: width,
-                              height: height,
-                              isActive: true);
+                          showUserBottomSheet(context: context, item: item, index: index, width: width, height: height, isActive: true);
                         },
                         onDelete: (index) {
                           // controller.deleteLiveUser(index);
@@ -157,8 +143,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
 
   Color getRandomLightColor(int index) {
     // Generate a unique hue based on the index
-    double hue =
-        (index * 137.5) % 360; // 137.5 degrees apart ensures good separation
+    double hue = (index * 137.5) % 360; // 137.5 degrees apart ensures good separation
     return HSVColor.fromAHSV(1, hue, 0.3, 0.5).toColor();
   }
 
@@ -183,21 +168,15 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                   leading: CircleAvatar(
                       radius: width * 0.06,
                       backgroundColor: getRandomLightColor(index),
-                      child: Icon(Icons.person_pin,
-                          size: width * 0.07, color: kColorLightGrey)),
-                  title: Text(item.name!,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: width * 0.045)),
+                      child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey)),
+                  title: Text(item.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: width * 0.045)),
                   trailing: Text(item.active == 1 ? "Active" : "Inactive")),
               SizedBox(height: height * 0.02),
 
               DateHistoryWidget(
                 onDateSelected: (selectedDate) async {
-                  print(
-                      "Selected Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}");
-                  await controller.GetLeadEventByUser(
-                      userId: item.id!, eventDate: selectedDate.toString());
+                  print("Selected Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}");
+                  await controller.GetLeadEventByUser(userId: item.id!, eventDate: selectedDate.toString());
                 },
               ),
 
@@ -216,8 +195,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                   final allItems = controller.timelineItems;
                   List<Widget> children = [];
 
-                  List<Map<String, dynamic>> currentTripEvents =
-                      []; // to store only events of current trip
+                  List<Map<String, dynamic>> currentTripEvents = []; // to store only events of current trip
 
                   for (int i = 0; i < allItems.length; i++) {
                     var item = allItems[i];
@@ -230,9 +208,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                       }
 
                       String transId = item['transId'] ?? '';
-                      String leadNumber = transId.isNotEmpty
-                          ? (controller.leadNames[transId] ?? "Loading Lead...")
-                          : "Unknown Lead";
+                      String leadNumber = transId.isNotEmpty ? (controller.leadNames[transId] ?? "Loading Lead...") : "Unknown Lead";
 
                       // 🛡 Now add header
                       children.add(
@@ -278,17 +254,16 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomButtonUserProfile(
+                        customButtonUserProfile(
                             height: height,
                             width: width,
                             title: "Track Live Location",
                             icon: Icons.my_location_sharp,
                             ontap: () {
-                              final allItems = controller.timelineItems;
+                         final allItems = controller.timelineItems;
 
                               int headerCount = 0;
-                              final latestTripTimeline =
-                                  <Map<String, dynamic>>[];
+                              final latestTripTimeline = <Map<String, dynamic>>[];
 
                               for (final item in allItems) {
                                 if (item['isHeader'] == true) {
@@ -303,12 +278,11 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                               }
 
                               Get.to(
-                                () => UserLocationScreen(
-                                    timelineEvents: latestTripTimeline),
+                                () => UserLocationScreen(timelineEvents: latestTripTimeline),
                                 transition: Transition.fade,
                                 duration: const Duration(milliseconds: 1000),
                               );
-                            },
+     },
                             color: kColorlightBlue),
                       ],
                     )
@@ -356,14 +330,11 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
               ),
               SizedBox(height: 10),
               GestureDetector(
-                onTap: () => controller.openGoogleMaps(
-                    event['latitude'], event['longitude']),
+                onTap: () => controller.openGoogleMaps(event['latitude'], event['longitude']),
                 child: Text(
                   "View Location",
                   style: TextStyle(
-                    shadows: const [
-                      Shadow(color: Colors.blue, offset: Offset(0, -5))
-                    ],
+                    shadows: [Shadow(color: Colors.blue, offset: Offset(0, -5))],
                     color: Colors.transparent,
                     decoration: TextDecoration.underline,
                     decorationColor: Colors.blue,
@@ -388,13 +359,13 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   }
 }
 
-class DetailsWidget extends StatelessWidget {
+class detailsWidget extends StatelessWidget {
   final String title;
   final IconData icon;
   final double width;
   final double height;
 
-  const DetailsWidget({
+  const detailsWidget({
     super.key,
     required this.title,
     required this.icon,
@@ -436,7 +407,7 @@ class DetailsWidget extends StatelessWidget {
   }
 }
 
-class CustomButtonUserProfile extends StatelessWidget {
+class customButtonUserProfile extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback ontap;
@@ -444,7 +415,7 @@ class CustomButtonUserProfile extends StatelessWidget {
   final double width;
   final double height;
 
-  const CustomButtonUserProfile({
+  const customButtonUserProfile({
     super.key,
     required this.title,
     required this.icon,
@@ -491,10 +462,10 @@ class CustomButtonUserProfile extends StatelessWidget {
   }
 }
 
-class CustomTabBarWidget extends StatelessWidget {
+class customTabBarWidget extends StatelessWidget {
   final String title;
   final int selectedIndex;
-  const CustomTabBarWidget({
+  const customTabBarWidget({
     super.key,
     required this.title,
     required this.selectedIndex,
@@ -511,8 +482,7 @@ class CustomTabBarWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
         ),
       ),
     );

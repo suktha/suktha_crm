@@ -77,8 +77,8 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     controller.getCompanyCertificationImage();
     controller.getCompanyQrCode();
     controller.getCompanySignatureImage();
-    controller.companyDetailsValue = widget.companyDetails;
 
+    controller.companyDetailsValue = widget.companyDetails;
     if (controller.isFromSettings.value == false) {
       print("inside company details screen");
       getCompanyLogo();
@@ -131,10 +131,8 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                         ),
                       )),
                   Positioned(
-                    top: height *
-                        0.01, // Adjust the value to position the back button as needed
-                    left: width *
-                        0.02, // Adjust the value to position the back button as needed
+                    top: height * 0.01,
+                    left: width * 0.02,
                     child: GestureDetector(
                       onTap: () {
                         Get.offAll(
@@ -160,7 +158,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                           context: context,
                           builder: (context) {
                             return UploadCompanyLogoWidget(
-                              buttonText: "Upload Logo",
+                              buttonText: "Upload Logo ",
                               ontap: () async {
                                 var file = await controller.obtainImage(
                                     source: ImageSource.gallery);

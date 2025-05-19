@@ -15,7 +15,7 @@ import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_
 import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
 
 class WebSocketService extends GetxService {
-  StompClient? _stompClient;
+  StompClient? stompClient;
   bool isUserConnected = false;
   final homeController = Get.find<HomeController>();
   final fieldworkController = Get.put(FieldWorkController());
@@ -37,7 +37,7 @@ class WebSocketService extends GetxService {
 
     String stompUrl = "https://api.test.brainibooks.com/core-erp/ws";
 
-    _stompClient = StompClient(
+    stompClient = StompClient(
       config: StompConfig.sockJS(
         url: stompUrl,
         stompConnectHeaders: {
@@ -58,13 +58,13 @@ class WebSocketService extends GetxService {
             await connectUser(urlPart: urlPart, loginDetails: loginDetails, leadId: leadId!);
           }
         },
-        onWebSocketError: (error) => print('❌ WebSocket Error: $error'),
+        onWebSocketError: (error) => print('🔁 WebSocket Error: $error'),
         onStompError: (frame) {
           print('❌ STOMP Error commad: ${frame.command}');
           print('❌ STOMP Error body: ${frame.body}');
           print('❌ STOMP Error headers: ${frame.headers}');
         },
-        onDisconnect: (frame) => print('🔌 Disconnected'),
+        onDisconnect: (frame) => print('🔁 WebSocket Disconnected'),
         onWebSocketDone: () => print('🔁 WebSocket Closed.'),
         heartbeatOutgoing: Duration(seconds: 10),
         heartbeatIncoming: Duration(seconds: 10),
@@ -72,13 +72,30 @@ class WebSocketService extends GetxService {
       ),
     );
 
-    _stompClient?.activate();
+    stompClient?.activate();
+  }
+
+  void disconnect() {
+    try {
+      if (stompClient != null && stompClient!.isActive) {
+        stompClient!.deactivate();
+        print("🛑 WebSocket disconnected successfully.");
+      } else {
+        print("⚠️ WebSocket is already inactive or not initialized.");
+      }
+
+      isUserConnected = false;
+      fieldworkController.isAdminConnected.value = false;
+    } catch (e) {
+      print("❌ Error during disconnection: $e");
+    }
   }
 
   void connectAdmin(String subscribeUrl) {
     try {
-      _stompClient!.subscribe(
+      stompClient!.subscribe(
         destination: subscribeUrl,
+        
         callback: (StompFrame frame) {
           print("📩 Received: ${frame.body}");
 
@@ -135,11 +152,11 @@ class WebSocketService extends GetxService {
 
       final body = jsonEncode(mapValue.toJson());
 
-      print('isconnected : ${_stompClient!.connected}');
-      print('isactive : ${_stompClient!.isActive}');
+      print('isconnected : ${stompClient!.connected}');
+      print('isactive : ${stompClient!.isActive}');
 
       try {
-        _stompClient!.send(destination: '/app/sendLocation', body: body, headers: {});
+        stompClient!.send(destination: '/app/sendLocation', body: body, headers: {});
 
         print("📩 Location sent successfully.");
       } catch (e) {

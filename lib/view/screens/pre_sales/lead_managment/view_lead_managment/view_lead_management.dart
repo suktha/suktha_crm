@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, use_build_context_synchronously, avoid_print, must_be_immutable
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -12,20 +12,22 @@ import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/controllers/get_lead_controller.dart';
 import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/widget/get_location_widget.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
-import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/open_lead_management.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/document_wallet.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/share_doc_nd_history.dart';
+import 'package:work_Force/view/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/settings_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:work_Force/view/widget/LoadingScreenwithText.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/filter_list.dart';
 import 'package:work_Force/view/widget/shimmer_loading.dart';
 
-// ignore: must_be_immutable
 
 class LeadManagementListScreen extends StatefulWidget {
   String? quotationNumber;
@@ -42,6 +44,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
   final controller = Get.put(GetLeadController());
   final locController = Get.put(GetLocationController());
   final contactController = Get.put(LeadContactDetaisController());
+  final UserManagementController userManagementController = Get.put(UserManagementController());
 
   final FocusNode _focusNode = FocusNode();
 
@@ -70,7 +73,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
           controller.getLeadList(controller.searchValue.value, page, controller.sortdirection.value, controller.sortwith.value, controller.filter.value, controller.isFilter.value,
               controller.financialYearId.value, controller.selectedStatusId.value, "");
           print("hello----222");
-          print("page-------------2222${page}");
+          print("page-------------2222 $page");
         });
       }
     });
@@ -311,7 +314,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     SizedBox(
                       width: 45.w,
                       child: Text(
-                        "${item.leadName ?? "Lead Name"}", //name
+                        "${item.leadName} ?? Lead Name", //name
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
                       ),
@@ -398,7 +401,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                   // width: 100.w,
                   margin: EdgeInsets.only(bottom: 1.h),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color.fromARGB(255, 229, 246, 255), Color.fromARGB(255, 246, 246, 246)]),
+                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: const[Color.fromARGB(255, 229, 246, 255), Color.fromARGB(255, 246, 246, 246)]),
                     borderRadius: BorderRadius.circular(2.w),
                     color: kColorwhite,
                     // boxShadow: kElevationToShadow[8]
@@ -470,14 +473,108 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                         },
                         icon: Icon(Icons.history, color: kColorblack),
                       ),
-                      // IconButton(
-                      //     onPressed: () async {
-                      //       uploadDocBottomSheet(context, item);
-                      //     },
-                      //     icon: Icon(
-                      //       Icons.upload_file,
-                      //       color: kColorblack,
-                      //     )),
+                      IconButton(
+                          onPressed: () async {
+ showModalBottomSheet(
+                            isScrollControlled: false,
+                            context: context,
+                            builder: (context) {
+                              final isActive = userManagementController.isFieldWorkActive;
+                              final isForThisLead = userManagementController.isFieldWorkForThisLead(item.id!);
+
+                              return Container(
+                                margin: EdgeInsets.all(width * 0.03),
+                                padding: EdgeInsets.all(width * 0.02),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Field Work of ${item.leadGenerationNumber}",
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                    ),
+                                    SizedBox(height: 1.h),
+                                    if (isActive && !isForThisLead)
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 16),
+                                        child: Center(
+                                          child: Text(
+                                            "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
+                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      Center(
+                                        child: Row(
+                                          mainAxisAlignment: isForThisLead ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+                                          children: [
+                                            if (!isActive)
+                                              CustomButton(
+                                                title: "Start",
+                                                ontap: () async {
+                                                  await Get.find<WebSocketService>().initializeConnection(
+                                                    leadId: item.id!,
+                                                    userId: item.userId,
+                                                  );
+
+                                                  userManagementController.addTimelineItem(
+                                                    action: "Started",
+                                                    leadValue: item,
+                                                  );
+
+                                                  userManagementController.isLoading.value = true;
+                                                  userManagementController.startFieldWork(
+                                                    leadId: item.id!,
+                                                    leadName: item.leadName ?? '',
+                                                    leadNumber: item.leadGenerationNumber ?? '',
+                                                  );
+
+                                                  Get.to(() => UserManagementScreen(leadValue: item))!
+                                                      .then((value) => Get.back());
+                                                },
+                                                width: width * 0.3,
+                                                color: Colors.green,
+                                                textcolor: Colors.white,
+                                              ),
+                                            if (isForThisLead)
+                                              CustomButton(
+                                                title: "View",
+                                                ontap: () {
+                                                  Get.to(() => UserManagementScreen(leadValue: item))!.then((value) {
+                                                    userManagementController.isLoading.value = false;
+                                                    Get.back();
+                                                  });
+                                                },
+                                                width: width * 0.3,
+                                                color: kColorlightBlue,
+                                                textcolor: Colors.white,
+                                              ),
+                                            if (isForThisLead)
+                                              CustomButton(
+                                                title: "Stop",
+                                                ontap: () async {
+                                                  await userManagementController.logOut("location is bnglr");
+                                                  userManagementController.stopFieldWork();
+                                                  Get.back();
+                                                },
+                                                width: width * 0.3,
+                                                color: Colors.red,
+                                                textcolor: Colors.white,
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );},
+                          icon: Icon(
+                            Icons.person,
+                            color: kColorblack,
+                          )),
                       PopupMenuButton(
                           icon: Icon(
                             Icons.menu,
@@ -834,7 +931,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     itemCount: controller.statusList.length,
                     itemBuilder: (context, index) {
                       var item = controller.statusList[index];
-                      return Container(
+                      return SizedBox(
                         height: 50,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1021,14 +1118,14 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            createWidgetCustom(
+            CreateWidgetCustom(
                 ontap: () async {
                   await contactController.fetchContacts();
                   Get.to(() => ContactListScreen(materialList: controller.materialLists, serviceList: controller.serviceLists));
                 },
                 icons: Icons.import_contacts,
                 title: "Import from Contacts"),
-            createWidgetCustom(
+            CreateWidgetCustom(
                 ontap: () {
                   Get.to(() => NewLeadManagementAddScreen(isEdit: false, materialList: controller.materialLists, serviceList: controller.serviceLists),
                       duration: Duration(milliseconds: 500), transition: Transition.fadeIn);
@@ -1042,7 +1139,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
   }
 
   void scrollUp() {
-    final double start = 0;
+    const double start = 0;
     scrollcontroller.animateTo(start, duration: Duration(seconds: 1), curve: Curves.easeIn);
   }
 }
@@ -1272,11 +1369,11 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
   );
 }
 
-class createWidgetCustom extends StatelessWidget {
+class CreateWidgetCustom extends StatelessWidget {
   final VoidCallback ontap;
   final IconData icons;
   final String title;
-  const createWidgetCustom({
+  const CreateWidgetCustom({
     super.key,
     required this.ontap,
     required this.icons,

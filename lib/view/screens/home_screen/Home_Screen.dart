@@ -32,6 +32,7 @@ import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/contact
 import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
+import 'package:work_Force/view/settings_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/widget/popup_with_lottie.dart';
 import '../../../../Model/login_model.dart' as loginModel;
 
@@ -48,6 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late List<BarChartGroupData> showingBarGroups;
   final homeController = Get.put(HomeController());
   final initialController = Get.put(InitialController());
+  final userManagementController = Get.put(UserManagementController());
+
   final textWidgetController = Get.put(HomeScreenTextController());
   final leadController = Get.put(GetLeadController());
   final contactController = Get.put(LeadContactDetaisController());
@@ -219,8 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         SizedBox(
                                           width: 15.w,
-                                          child: Image.asset(
-                                              logoIcon,
+                                          child: Image.asset(logoIcon,
                                               fit: BoxFit.fill),
                                         ),
                                         SizedBox(
@@ -596,7 +598,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             "Today's Leads Amount",
                                                         textColor:
                                                             Colors.purple,
-                                                        containerColor:const [
+                                                        containerColor: const [
                                                           Colors.white,
                                                           Colors.white
                                                         ],
@@ -677,7 +679,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           title: "All Leads",
                                                           textColor:
                                                               Colors.amber,
-                                                          containerColor: const[
+                                                          containerColor: const [
                                                             Colors.white,
                                                             Colors.white
                                                           ],
@@ -800,7 +802,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   width: double.infinity,
                                                   title: "Missed Status",
                                                   textColor: Colors.black,
-                                                  containerColor:const [
+                                                  containerColor: const [
                                                     Colors.white,
                                                     Colors.white
                                                   ],

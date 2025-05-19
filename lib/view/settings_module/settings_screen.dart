@@ -20,6 +20,7 @@ import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
 import 'package:work_Force/view/settings_module/Account%20Settings/company_details_screen.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/view/user_field_work_screen.dart';
+import 'package:work_Force/view/settings_module/user_profile/view/user_profile_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_settings_widget.dart';
 import 'package:work_Force/view/widget/popup_with_lottie.dart';
@@ -122,20 +123,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "Company Profile",
                       icon: Icons.business_center_outlined)),
-              // FadeInUp(
-              //     duration: const Duration(milliseconds: 500),
-              //     child: MoreListCustomWidgets(
-              //         height: height,
-              //         width: width,
-              //         ontap: () {
-              //           Get.to(
-              //             () => const UserFieldWorkScreen(),
-              //             duration: const Duration(milliseconds: 400),
-              //             transition: Transition.rightToLeft,
-              //           );
-              //         },
-              //         title: "Field Work",
-              //         icon: Icons.person_pin_circle_sharp)),
+
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        Get.to(() => const UserProfileScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
+                      title: "User Profile",
+                      icon: Icons.person_outline)),
+
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        Get.to(
+                          () => const UserFieldWorkScreen(),
+                          duration: const Duration(milliseconds: 400),
+                          transition: Transition.rightToLeft,
+                        );
+                      },
+                      title: "Field Work",
+                      icon: Icons.person_pin_circle_sharp)),
               const Spacer(),
               CustomButton(
                 width: 25.w,
