@@ -8,7 +8,7 @@ import 'package:work_Force/controllers/initial_controller.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-   SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -20,10 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:const Color.fromARGB(255, 32, 60, 107),
       body: SafeArea(
           child: Center(
         child: Padding(
-          padding: EdgeInsets.only(bottom:5.w),
+          padding: EdgeInsets.only(bottom: 5.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,15 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 // height: 30.h,
                 child: Column(
                   children: [
-                    FadeIn(
-                        delay: const Duration(microseconds: 1000),
-                        duration: const Duration(microseconds: 1000),
-                        child: Image.asset(
-                          logoIconwithTradeMark,
-                          fit: BoxFit.cover,
-                          // width: double.infinity,
-                          // height: 45.w,
-                        )),
+                    Image.asset(
+                      logoIconwithTradeMark,
+                      fit: BoxFit.cover,
+                      // width: double.infinity,
+                      // height: 45.w,
+                    ),
                     // FadeIn(delay: const Duration(microseconds: 1500), duration: const Duration(microseconds: 1500), child: Image.asset(logoText)),
                   ],
                 ),

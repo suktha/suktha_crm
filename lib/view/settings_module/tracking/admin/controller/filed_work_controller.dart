@@ -39,14 +39,15 @@ class FieldWorkController extends GetxController {
 
     List<UserModel> activeUsers = (responseValue).map((e) => UserModel.fromJson(e)).where((user) => user.active == 1).toList();
     activeUsers.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+    List<UserModel> activeUserswithout9999 = activeUsers.where((user) => user.id != 9999).toList();
 
     userList.clear();
 
-    userList.value = activeUsers;
+    userList.value = activeUserswithout9999;
     userList.refresh();
 
     filteredUserList.clear();
-    filteredUserList.value = activeUsers;
+    filteredUserList.value = activeUserswithout9999;
     filteredUserList.refresh();
 
     isPageLoading.value = false;

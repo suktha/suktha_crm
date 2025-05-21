@@ -314,7 +314,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     SizedBox(
                       width: 45.w,
                       child: Text(
-                        "${item.leadName} ?? Lead Name", //name
+                        "${item.leadName} ", //name
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
                       ),

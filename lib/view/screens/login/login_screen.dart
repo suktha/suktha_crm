@@ -44,11 +44,10 @@ class _LoginPageState extends State<LoginPage> {
       // backgroundColor: Colors.indigo,
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor:
-            const Color.fromARGB(255, 42, 54, 123), // Remove the default color
-        elevation: 0, // Remove shadow
+      backgroundColor:const Color.fromARGB(255, 32, 60, 107),
+        elevation: 0,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(18.0.w), // Set your image height
+          preferredSize: Size.fromHeight(18.0.w), 
           child: Image.asset(
             logoIconwithTradeMark,
             width: double.infinity,
