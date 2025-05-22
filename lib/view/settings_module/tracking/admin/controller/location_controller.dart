@@ -51,7 +51,8 @@ class GeoLocationController extends GetxController {
       "color": Colors.orange,
     });
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
 
@@ -206,7 +207,8 @@ class GeoLocationController extends GetxController {
 
   void addOrUpdateLocation(LiveLocationModel newLocation) {
     // Check if already exists by userId or transId
-    int index = userLocations.indexWhere((item) => item.userId == newLocation.userId);
+    int index =
+        userLocations.indexWhere((item) => item.userId == newLocation.userId);
 
     if (index != -1) {
       // Update the existing entry
@@ -220,7 +222,10 @@ class GeoLocationController extends GetxController {
   }
 
   Future<Uint8List> getBytesFromNetworkImage(
-      {required String url, required int size, required Color borderColor, required double borderWidth}) async {
+      {required String url,
+      required int size,
+      required Color borderColor,
+      required double borderWidth}) async {
     final http.Response response = await http.get(Uri.parse(url));
     final ui.Codec codec = await ui.instantiateImageCodec(
       response.bodyBytes,
@@ -255,7 +260,8 @@ class GeoLocationController extends GetxController {
     paintImage(
       canvas: canvas,
       image: image,
-      rect: Rect.fromLTWH(borderWidth, borderWidth, size.toDouble(), size.toDouble()),
+      rect: Rect.fromLTWH(
+          borderWidth, borderWidth, size.toDouble(), size.toDouble()),
       fit: BoxFit.cover,
     );
 
@@ -263,13 +269,16 @@ class GeoLocationController extends GetxController {
           (borderRadius * 2).toInt(),
           (borderRadius * 2).toInt(),
         );
-    final ByteData? byteData = await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
+    final ByteData? byteData =
+        await markerAsImage.toByteData(format: ui.ImageByteFormat.png);
     return byteData!.buffer.asUint8List();
   }
 
-  Future<gc.Placemark?> getPlaceDetailsFromCoordinates(double latitude, double longitude) async {
+  Future<gc.Placemark?> getPlaceDetailsFromCoordinates(
+      double latitude, double longitude) async {
     try {
-      List<gc.Placemark> placemarks = await gc.placemarkFromCoordinates(latitude, longitude);
+      List<gc.Placemark> placemarks =
+          await gc.placemarkFromCoordinates(latitude, longitude);
       return placemarks.isNotEmpty ? placemarks.first : null;
     } catch (e) {
       print("Error during reverse geocoding: $e");
@@ -320,14 +329,22 @@ class GeoLocationController extends GetxController {
   List<LatLng> getPolylinePointsForDate(DateTime selectedDate) {
     // Dummy data function, replace with actual data retrieval
     List<LocationHistoryData> dummyLocationHistoryData = [
-      LocationHistoryData(DateTime.parse('2024-12-02 12:00:00'), LatLng(12.9716, 77.5946)),
-      LocationHistoryData(DateTime.parse('2024-12-02 12:30:00'), LatLng(12.9950, 77.6000)),
-      LocationHistoryData(DateTime.parse('2024-12-02 10:00:00'), LatLng(12.9920, 77.6100)),
-      LocationHistoryData(DateTime.parse('2024-12-02 10:30:00'), LatLng(12.9900, 77.7200)),
-      LocationHistoryData(DateTime.parse('2024-12-01 12:00:00'), LatLng(12.9716, 77.5946)),
-      LocationHistoryData(DateTime.parse('2024-12-01 12:30:00'), LatLng(12.9750, 77.5900)),
-      LocationHistoryData(DateTime.parse('2024-12-01 10:00:00'), LatLng(12.9800, 77.5850)),
-      LocationHistoryData(DateTime.parse('2024-12-01 10:30:00'), LatLng(12.9850, 77.5800)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-02 12:00:00'), LatLng(12.9716, 77.5946)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-02 12:30:00'), LatLng(12.9950, 77.6000)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-02 10:00:00'), LatLng(12.9920, 77.6100)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-02 10:30:00'), LatLng(12.9900, 77.7200)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-01 12:00:00'), LatLng(12.9716, 77.5946)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-01 12:30:00'), LatLng(12.9750, 77.5900)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-01 10:00:00'), LatLng(12.9800, 77.5850)),
+      LocationHistoryData(
+          DateTime.parse('2024-12-01 10:30:00'), LatLng(12.9850, 77.5800)),
     ];
 
     return dummyLocationHistoryData
@@ -345,7 +362,12 @@ class GeoLocationController extends GetxController {
 
   getLocation() async {
     var responseValue = await apiCallService(
-        "/get-all-user-loc", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+        "/get-all-user-loc",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
 
     print(responseValue);
   }
@@ -359,7 +381,12 @@ class GeoLocationController extends GetxController {
     };
 
     var responseValue = await apiCallService(
-        "/save-user-loc", 'POST', value, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+        "/save-user-loc",
+        'POST',
+        value,
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
 
     print(responseValue);
   }

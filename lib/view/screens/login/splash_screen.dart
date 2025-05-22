@@ -1,14 +1,14 @@
-import 'package:animate_do/animate_do.dart';
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/controllers/initial_controller.dart';
-import 'package:work_Force/view/screens/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

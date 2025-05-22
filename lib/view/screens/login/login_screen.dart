@@ -125,51 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                                 label: "Password"),
                           ),
 
-                          //  FadeIn(
-                          //   delay: const Duration(milliseconds: 1100),
-                          //   duration: const Duration(milliseconds: 1200),
-                          //   child: buildTextField(
-                          //     // multilines: 1,
-                          //     // textCapitalization: TextCapitalization.none,
-                          //     // textInputAction: TextInputAction.next,
-                          //     // validator: (value) {
-                          //     //   if (value.isEmpty) {
-                          //     //     return 'Please Enter Username';
-                          //     //   }
-                          //     //   return null;
-                          //     // },
-                          //     titleController: controller.usernameController,
-                          //     // obscure: false,
-                          //     label: "Username",
-                          //      isRequired: false,
-                          //   ),
-                          // ),
-                          //  FadeIn(
-                          //   delay: const Duration(milliseconds: 1100),
-                          //   duration: const Duration(milliseconds: 1200),
-                          //   child: buildTextField(
-                          //     // multilines: 1,
-                          //     // textCapitalization: TextCapitalization.none,
-                          //     // textInputAction: TextInputAction.next,
-                          //     // validator: (value) {
-                          //     //   if (value.isEmpty) {
-                          //     //     return 'Please Enter Username';
-                          //     //   }
-                          //     //   return null;
-                          //     // },
-                          //     suffixIcon: IconButton(
-                          //       splashColor: kColortransparent,
-                          //       highlightColor: kColortransparent,
-                          //       icon: Icon(controller.obscureText.value == true ? Icons.visibility : Icons.visibility_off),
-                          //       onPressed: () {
-                          //         controller.obscureText.value = !controller.obscureText.value;
-                          //       }),
-                          //     titleController: controller.passwordController,
-                          //     // obscure: false,
-                          //     label: "Password",
-                          //      isRequired: false,
-                          //   ),
-                          // ),
+                          
                           SizedBox(
                             height: 1.h,
                           ),

@@ -8,8 +8,8 @@ import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/Model/user_role_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 
+
 class FieldWorkController extends GetxController {
-  @override
   void onInit() {
     getUserRoleList("");
 
@@ -39,15 +39,14 @@ class FieldWorkController extends GetxController {
 
     List<UserModel> activeUsers = (responseValue).map((e) => UserModel.fromJson(e)).where((user) => user.active == 1).toList();
     activeUsers.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
-    List<UserModel> activeUserswithout9999 = activeUsers.where((user) => user.id != 9999).toList();
 
     userList.clear();
 
-    userList.value = activeUserswithout9999;
+    userList.value = activeUsers;
     userList.refresh();
 
     filteredUserList.clear();
-    filteredUserList.value = activeUserswithout9999;
+    filteredUserList.value = activeUsers;
     filteredUserList.refresh();
 
     isPageLoading.value = false;

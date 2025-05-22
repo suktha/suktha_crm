@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
+import 'dart:async';
+import 'dart:ui';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,9 +21,12 @@ import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserLocationScreen extends StatefulWidget {
-    final List<Map<String, dynamic>>? timelineEvents;
+  final List<Map<String, dynamic>>? timelineEvents;
 
-  const UserLocationScreen({super.key, this.timelineEvents, });
+  const UserLocationScreen({
+    super.key,
+    this.timelineEvents,
+  });
 
   @override
   State<UserLocationScreen> createState() => _UserLocationScreenState();
@@ -32,21 +38,16 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   Placemark? placemark;
   String placeName = "";
 
-    List<Map<String, dynamic>> get timeline => widget.timelineEvents ?? [];
-
+  List<Map<String, dynamic>> get timeline => widget.timelineEvents ?? [];
 
   void setMarkers() async {
     Set<Marker> markerSet = {};
 
     for (var user in controller.userLocations) {
-      final Uint8List markerIcon = await controller.getBytesFromNetworkImage(
-        url: 'https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        size: 35,
-        borderColor: Colors.red,
-        borderWidth: 3,
-      );
+      final String firstLetter = user.userName!.isNotEmpty ? user.userName![0].toUpperCase() : '?';
+      final Uint8List markerIcon = await createMarkerFromText(firstLetter);
 
-      final BitmapDescriptor customIcon = BitmapDescriptor.bytes(markerIcon);
+      final BitmapDescriptor customIcon = BitmapDescriptor.fromBytes(markerIcon);
 
       markerSet.add(
         Marker(
@@ -74,7 +75,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
         ),
       );
     }
-   for (var event in timeline) {
+    for (var event in timeline) {
       markerSet.add(
         Marker(
           markerId: MarkerId('event_${event['action']}_${event['time']}'),
@@ -93,23 +94,14 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     });
   }
 
-  // void updateUserLocations() {
-  //   for (int i = 0; i < controller.userLocations.length; i++) {
-  //     if (i % 2 == 0) {
-  //       // For even-indexed locations, increment the latitude and longitude
-  //       controller.userLocations[i].latitude += 0.0001;
-  //       controller.userLocations[i].longitude += 0.0001;
-  //     } else {
-  //       // For odd-indexed locations, decrement the latitude and longitude
-  //       controller.userLocations[i].latitude -= 0.0001;
-  //       controller.userLocations[i].longitude -= 0.0001;
-  //     }
-  //   }
+  void updateUserLocations() {
+    print("--updating");
+    controller.userLocations.refresh();
 
-  //   setMarkers();
-  // }
+    setMarkers();
+  }
 
-  // Timer? timer;
+  Timer? timer;
 
   @override
   void initState() {
@@ -118,12 +110,13 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     // controller.userLocations.value = widget.userLocList;
     controller.initializeLocation();
     setMarkers();
-    // timer = Timer.periodic(Duration(seconds: 5), (Timer t) => updateUserLocations());
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => updateUserLocations());
   }
 
   @override
   void dispose() {
     super.dispose();
+    timer!.cancel();
   }
 
   @override
@@ -257,7 +250,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                             children: [
                                               Obx(() => AnimatedContainer(
                                                     duration: Duration(milliseconds: 400),
-                                                    height: controller.viewActivity.value == true ? 70.h : 38.h,
+                                                    height: controller.viewActivity == true ? 70.h : 38.h,
                                                     padding: EdgeInsets.all(5.w),
                                                     margin: EdgeInsets.all(4.w),
                                                     decoration: BoxDecoration(
@@ -559,6 +552,40 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
               );
       }),
     );
+  }
+
+  Future<Uint8List> createMarkerFromText(String text) async {
+    final PictureRecorder recorder = PictureRecorder();
+    final Canvas canvas = Canvas(recorder);
+    final double size = 100.0;
+
+    final Paint paint = Paint()..color = Colors.blueAccent;
+    final Radius radius = Radius.circular(size / 2);
+
+    final Rect rect = Rect.fromLTWH(0, 0, size, size);
+    canvas.drawRRect(RRect.fromRectAndRadius(rect, radius), paint);
+
+    final TextPainter textPainter = TextPainter(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        text: text,
+        style: TextStyle(
+          fontSize: 40,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset((size - textPainter.width) / 2, (size - textPainter.height) / 2),
+    );
+
+    final img = await recorder.endRecording().toImage(size.toInt(), size.toInt());
+    final data = await img.toByteData(format: ImageByteFormat.png);
+    return data!.buffer.asUint8List();
   }
 }
 

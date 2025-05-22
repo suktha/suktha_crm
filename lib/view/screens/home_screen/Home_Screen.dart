@@ -119,6 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           print("Role admin ${role.roleType!.id} exists in userList.");
         } else if (role.roleType!.id == 4) {
           homeController.isLoginIdIsbranchmanger.value = true;
+          homeController.isLoginIdIsAdmin.value = false;
           print("Role branch  ${role.roleType!.id} exists in userList.");
         } else {
           homeController.isLoginIdIsAdmin.value = false;
@@ -135,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       print("No roles assigned to the user.");
     }
+    print("isAdmin: ${homeController.isLoginIdIsAdmin}");
 
     print("username ------------- ${homeController.username.value}");
   }

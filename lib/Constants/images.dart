@@ -53,3 +53,6 @@ const String registerScreenLottie = 'assets/lottie/register_screen.json';
 const String accountCreatedLottie = 'assets/lottie/accountCreated.json';
 const String successLottie = 'assets/lottie/successLottie.json';
 const String preSalesGraphLottie = 'assets/lottie/pre_sales_graph.json';
+const String connectUserLottie = 'assets/lottie/connect_user.json';
+const String connectUserPendingLottie = 'assets/lottie/ConnectionPending.json';
+

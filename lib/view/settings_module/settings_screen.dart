@@ -19,6 +19,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
 import 'package:work_Force/view/settings_module/Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/view/user_field_work_screen.dart';
 import 'package:work_Force/view/settings_module/user_profile/view/user_profile_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
@@ -38,6 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final homeController = Get.put(HomeController());
   final settingsController = Get.put(SettingsController());
 
+
   CompanyModel? companyDetails;
 
   getCompanyLogo() async {
@@ -54,11 +56,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     //decoding string to uint8list
     homeController.companyLogo.value = base64Decode(newvalue);
+            print("isAdmin: ${homeController.isLoginIdIsAdmin}");
+
   }
 
   @override
   void initState() {
     super.initState();
+
     homeController.getCompanyDetails();
     homeController.getCompanyLogoName();
     settingsController.getcurrencyDetails();
@@ -137,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       title: "User Profile",
                       icon: Icons.person_outline)),
 
-              FadeInUp(
+         homeController.isLoginIdIsAdmin.value == true?      FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
                       height: height,
@@ -150,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         );
                       },
                       title: "Field Work",
-                      icon: Icons.person_pin_circle_sharp)),
+                      icon: Icons.person_pin_circle_sharp)):const SizedBox(),
               const Spacer(),
               CustomButton(
                 width: 25.w,

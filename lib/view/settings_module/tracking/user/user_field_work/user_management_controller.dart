@@ -10,6 +10,7 @@ import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/Model/live_location_model.dart';
 import 'package:work_Force/Model/login_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
 
 class UserManagementController extends GetxController {
@@ -56,9 +57,14 @@ class UserManagementController extends GetxController {
     await prefs.remove('liveLocLeadId');
     await prefs.remove('liveLocLeadName');
     await prefs.remove('liveLocLeadNumber');
+
+     Get.find<WebSocketService>().disconnect();
+
+    
   }
 
   Future<bool> checkLeadIsActive() async {
+    
     print("🟢 started checking.....");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? leadId = prefs.getString('liveLocLeadId');

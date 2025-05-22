@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, camel_case_types
 
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,17 +8,20 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/view/widgets.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 import '../../../../../utils/responsive_utils.dart';
 import 'geolocation_screen.dart';
-
 class UserFieldWorkScreen extends StatefulWidget {
   const UserFieldWorkScreen({super.key});
 
@@ -27,6 +31,7 @@ class UserFieldWorkScreen extends StatefulWidget {
 
 class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   final FieldWorkController controller = Get.put(FieldWorkController());
+  GeoLocationController geoLocationController = Get.find<GeoLocationController>();
 
   @override
   void initState() {
@@ -109,6 +114,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                         height: height,
                         onTapUser: (item, index) async {
                           controller.timelineItems.clear();
+                          geoLocationController.userLocations.clear();
                           await Get.find<WebSocketService>().initializeConnection(userId: item.id, leadId: null);
 
                           // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
@@ -232,6 +238,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
 
                   // 🛡 After loop, if any pending events (Trip 3 case), draw them
                   if (currentTripEvents.isNotEmpty) {
+                    print("last one" + "${currentTripEvents.length - 1}");
                     children.addAll(buildTripTimeline(currentTripEvents));
                   }
 
@@ -260,7 +267,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                             title: "Track Live Location",
                             icon: Icons.my_location_sharp,
                             ontap: () {
-                         final allItems = controller.timelineItems;
+                              final allItems = controller.timelineItems;
 
                               int headerCount = 0;
                               final latestTripTimeline = <Map<String, dynamic>>[];
@@ -275,14 +282,99 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                 if (headerCount == 1) {
                                   latestTripTimeline.add(item);
                                 }
+                                print("latestTripTimeline: $latestTripTimeline");
+                              }
+                              var latestTrip = latestTripTimeline.last;
+                              var latestTripDate = latestTrip['time'];
+                              print("latestTripDate: $latestTripDate");
+
+                              // LiveLocationModel locationModel = LiveLocationModel(
+                              //   id: "",
+                              //   eventDateTime: latestTripDate,
+                              //   longitude: latestTrip['longitude'],
+                              //   latitude: latestTrip['latitude'],
+                              //   userId: null,
+                              //   userName: null,
+                              //   eventName: null,
+                              //   message: "",
+                              //   reasonId: null,
+                              //   destinationUrl: "",
+                              //   transId: "",
+                              //   eventDisplayName: "",
+                              // );
+
+                              // geoLocationController.addOrUpdateLocation(locationModel);
+
+                              final messages = [
+                                "Connecting to user, please wait...",
+                                "Still trying to fetch user location...",
+                                "Connection is taking longer than usual...",
+                              ];
+
+                              final lottieFiles = [
+                                connectUserLottie,
+                                connectUserLottie,
+                                connectUserPendingLottie,
+                              ];
+
+                              late Worker listener;
+                              late Timer timeout;
+
+                              void cancelConnection() {
+                                timeout.cancel();
+                                listener();
+                                Get.back(); // Close dialog
+                                customSnackbar("Cancelled", "You cancelled the connection attempt.", "warning");
                               }
 
-                              Get.to(
-                                () => UserLocationScreen(timelineEvents: latestTripTimeline),
-                                transition: Transition.fade,
-                                duration: const Duration(milliseconds: 1000),
+                              showLoadingDialogWithStages(
+                                messages: messages,
+                                lottieFiles: lottieFiles,
+                                onCancel: cancelConnection,
                               );
-     },
+
+                              timeout = Timer(const Duration(seconds: 40), () {
+                                listener();
+                                Get.back();
+                                customSnackbar("Timeout", "Unable to connect with user. Please try again later.", "error");
+                              });
+
+                              listener = ever(geoLocationController.userLocations, (list) async {
+                                if ((list as List).isNotEmpty) {
+                                  timeout.cancel();
+                                  listener();
+                                  Get.back(); // Close loading
+
+                                  showSuccessDialog();
+                                  await Future.delayed(const Duration(seconds: 2));
+                                  Get.back(); // Close success
+
+                                  Get.to(
+                                    () => UserLocationScreen(timelineEvents: latestTripTimeline),
+                                    transition: Transition.fade,
+                                    duration: const Duration(milliseconds: 1000),
+                                  );
+                                }
+                              });
+
+                              // print(geoLocationController.userLocations.length);
+
+                              // if (geoLocationController.userLocations.isNotEmpty) {
+                              //   Get.to(
+                              //     () => UserLocationScreen(timelineEvents: latestTripTimeline),
+                              //     transition: Transition.fade,
+                              //     duration: const Duration(milliseconds: 1000),
+                              //   );
+                              // } else {
+                              //   customSnackbar("Try Again", "Waiting for the Connection..", "normal");
+                              // }
+
+                              //   Get.to(
+                              //     () => UserLocationScreen(timelineEvents: latestTripTimeline),
+                              //     transition: Transition.fade,
+                              //     duration: const Duration(milliseconds: 1000),
+                              //   );
+                            },
                             color: kColorlightBlue),
                       ],
                     )
@@ -295,6 +387,94 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
           ),
         );
       },
+    );
+  }
+
+  void showLoadingDialogWithStages({
+    required List<String> messages,
+    required List<String> lottieFiles,
+    required VoidCallback onCancel,
+  }) {
+    int currentIndex = 0;
+
+    Get.dialog(
+      StatefulBuilder(
+        builder: (context, setState) {
+          // Change message every 10 seconds
+          Timer.periodic(const Duration(seconds: 10), (timer) {
+            if (currentIndex < messages.length - 1) {
+              setState(() {
+                currentIndex++;
+              });
+            } else {
+              timer.cancel();
+            }
+          });
+
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Lottie.asset(
+                  lottieFiles[currentIndex],
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  messages[currentIndex],
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const SizedBox(height: 20),
+                currentIndex == messages.length - 1
+                    ? ElevatedButton.icon(
+                        onPressed: onCancel,
+                        icon: Icon(Icons.cancel, color: Colors.white),
+                        label: Text("Cancel", style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.redAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30), // Rounded edges
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          elevation: 3,
+                        ),
+                      )
+                    : SizedBox(),
+              ],
+            ),
+          );
+        },
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  void showSuccessDialog() {
+    Get.dialog(
+      AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Lottie.asset(
+              successLottie, // ✅ A green checkmark or success animation
+              width: 150,
+              height: 150,
+              repeat: false,
+
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              "Connected successfully!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+      barrierDismissible: false,
     );
   }
 

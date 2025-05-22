@@ -71,9 +71,12 @@ final controller = Get.find<UserManagementController>();
                           SizedBox(
                             height: height * 0.01,
                           ),
-                          Text(
-                            "Follow-up with ${leadValue.leadName}",
-                            style: TextStyle(fontSize: width * 0.05, fontWeight: FontWeight.bold),
+                          SizedBox(
+                            width: 65.w,
+                            child: Text(
+                              "Follow-up with ${leadValue.leadName}",
+                              style: TextStyle(fontSize: width * 0.05, fontWeight: FontWeight.bold),
+                            ),
                           )
                         ],
                       ),
