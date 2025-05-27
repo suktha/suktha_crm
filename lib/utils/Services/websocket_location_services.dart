@@ -47,7 +47,7 @@ class WebSocketService extends GetxService {
           'Authorization': 'Bearer $token',
         },
         onConnect: (StompFrame frame) async {
-          print("✅ Connected: $frame");
+          print("✅WebSocket Connected: $frame");
 
           print("isLoginIdIsAdmin : " + homeController.isLoginIdIsAdmin.value.toString());
           if (homeController.isLoginIdIsAdmin.value) {

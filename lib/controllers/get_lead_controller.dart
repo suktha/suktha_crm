@@ -21,6 +21,7 @@ import 'package:work_Force/Model/missed_followUp_model.dart';
 import 'package:work_Force/Model/shared_doc_model.dart';
 import 'package:work_Force/Model/status_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
@@ -147,7 +148,8 @@ class GetLeadController extends GetxController {
     // Calculate last week's Sunday (last day)
     DateTime lastWeekEnd = lastWeekStart.add(Duration(days: 6));
 
-    lastWeekStartFormatted.value = DateFormat('dd MMMM yyyy').format(lastWeekStart);
+    lastWeekStartFormatted.value =
+        DateFormat('dd MMMM yyyy').format(lastWeekStart);
     lastWeekEndFormatted.value = DateFormat('dd MMMM yyyy').format(lastWeekEnd);
     lastWeekStartDate.value = DateFormat('dd/MM/yyyy').format(lastWeekStart);
     lastWeekEndDate.value = DateFormat('dd/MM/yyyy').format(lastWeekEnd);
@@ -171,7 +173,8 @@ class GetLeadController extends GetxController {
 // Calculate next week's Sunday (last day)
     DateTime nextWeekEnd = nextWeekStart.add(Duration(days: 6));
 
-    nextWeekStartFormatted.value = DateFormat('dd MMMM yyyy').format(nextWeekStart);
+    nextWeekStartFormatted.value =
+        DateFormat('dd MMMM yyyy').format(nextWeekStart);
     nextWeekEndFormatted.value = DateFormat('dd MMMM yyyy').format(nextWeekEnd);
     nextWeekStartDate.value = DateFormat('dd/MM/yyyy').format(nextWeekStart);
     nextWeekEndDate.value = DateFormat('dd/MM/yyyy').format(nextWeekEnd);
@@ -194,7 +197,8 @@ class GetLeadController extends GetxController {
     // This week's Sunday (last day)
     DateTime thisWeekEnd = thisWeekStart.add(Duration(days: 6));
 
-    thisWeekStartFormatted.value = DateFormat('dd MMMM yyyy').format(thisWeekStart);
+    thisWeekStartFormatted.value =
+        DateFormat('dd MMMM yyyy').format(thisWeekStart);
     thisWeekEndFormatted.value = DateFormat('dd MMMM yyyy').format(thisWeekEnd);
     thisWeekStartDate.value = DateFormat('dd/MM/yyyy').format(thisWeekStart);
     thisWeekEndDate.value = DateFormat('dd/MM/yyyy').format(thisWeekEnd);
@@ -216,8 +220,10 @@ class GetLeadController extends GetxController {
     // Last month's last day
     DateTime lastMonthEnd = DateTime(today.year, today.month, 0);
 
-    lastMonthStartFormatted.value = DateFormat('dd MMMM yyyy').format(lastMonthStart);
-    lastMonthEndFormatted.value = DateFormat('dd MMMM yyyy').format(lastMonthEnd);
+    lastMonthStartFormatted.value =
+        DateFormat('dd MMMM yyyy').format(lastMonthStart);
+    lastMonthEndFormatted.value =
+        DateFormat('dd MMMM yyyy').format(lastMonthEnd);
     lastMonthStartDate.value = DateFormat('dd/MM/yyyy').format(lastMonthStart);
     lastMonthEndDate.value = DateFormat('dd/MM/yyyy').format(lastMonthEnd);
 
@@ -238,8 +244,10 @@ class GetLeadController extends GetxController {
     // This month's last day
     DateTime thisMonthEnd = DateTime(today.year, today.month + 1, 0);
 
-    thisMonthStartFormatted.value = DateFormat('dd MMMM yyyy').format(thisMonthStart);
-    thisMonthEndFormatted.value = DateFormat('dd MMMM yyyy').format(thisMonthEnd);
+    thisMonthStartFormatted.value =
+        DateFormat('dd MMMM yyyy').format(thisMonthStart);
+    thisMonthEndFormatted.value =
+        DateFormat('dd MMMM yyyy').format(thisMonthEnd);
     thisMonthStartDate.value = DateFormat('dd/MM/yyyy').format(thisMonthStart);
     thisMonthEndDate.value = DateFormat('dd/MM/yyyy').format(thisMonthEnd);
 
@@ -266,7 +274,10 @@ class GetLeadController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   void scrollToToday() {
-    int todayIndex = dateList.indexWhere((date) => date.year == today.year && date.month == today.month && date.day == today.day);
+    int todayIndex = dateList.indexWhere((date) =>
+        date.year == today.year &&
+        date.month == today.month &&
+        date.day == today.day);
 
     if (todayIndex != -1) {
       scrollController.animateTo(
@@ -321,7 +332,8 @@ class GetLeadController extends GetxController {
   RxBool isDocUploaded = false.obs;
   RxList<bool> isSelectedDocuments = List.generate(5, (index) => false).obs;
 
-  int get selectedItemCount => isSelectedDocuments.where((selected) => selected).length;
+  int get selectedItemCount =>
+      isSelectedDocuments.where((selected) => selected).length;
 
   RxList<DocumentWalletModel> documentWalletList = <DocumentWalletModel>[].obs;
   RxList<MissedFollowUpModel> missedFollowUpList = <MissedFollowUpModel>[].obs;
@@ -336,26 +348,37 @@ class GetLeadController extends GetxController {
 
   Future getStatusById() async {
     //35 is the transationtype id of the lead management
-    List<dynamic> responseValue = await apiCallService(statusByIdUrl + "/35", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<StatusModel> status = (responseValue).map((e) => StatusModel.fromJson(e)).toList();
+    List<dynamic> responseValue = await apiCallService(
+        statusByIdUrl + "/35",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<StatusModel> status =
+        (responseValue).map((e) => StatusModel.fromJson(e)).toList();
     statusList.value = status.toList();
     // selectedMulitStatuses.value = statusList.map((status) => status.id!).toList();
 
     statusList.refresh();
   }
 
-  RxList<FinancialYearAllModel> financialYearList = <FinancialYearAllModel>[].obs;
+  RxList<FinancialYearAllModel> financialYearList =
+      <FinancialYearAllModel>[].obs;
 
   RxString financialYearId = "".obs;
   RxString financialYear = "".obs;
 
   Future getFinancialYearList() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
     print("token ---- $token");
 
-    final financialYearDetailDEcoded = json.decode(sharedPreferences.getString('financialYear')!);
-    final financialYear = FinancialYearModel.fromJson(financialYearDetailDEcoded);
+    final financialYearDetailDEcoded =
+        json.decode(sharedPreferences.getString('financialYear')!);
+    final financialYear =
+        FinancialYearModel.fromJson(financialYearDetailDEcoded);
     Dio dio = Dio();
 
     var apiData = (baseUrl + "/financial-years-all");
@@ -365,7 +388,8 @@ class GetLeadController extends GetxController {
     try {
       print(11111111);
 
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = await dio.get(apiData,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
 
       print(response.statusCode);
 
@@ -373,7 +397,9 @@ class GetLeadController extends GetxController {
       if (response.statusCode == 200) {
         print(response.data);
 
-        List<FinancialYearAllModel> result = (response.data as List).map((e) => FinancialYearAllModel.fromJson(e)).toList();
+        List<FinancialYearAllModel> result = (response.data as List)
+            .map((e) => FinancialYearAllModel.fromJson(e))
+            .toList();
         financialYearId.value = financialYear.id.toString();
         print("finan id  -------------- ${financialYearId}");
         financialYearList.value = result;
@@ -408,11 +434,19 @@ class GetLeadController extends GetxController {
     print("inside--------------");
     await getStatusById();
 
-    var apiData = "/lead-gen/recent/35/0/176,177,178,179,180/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/176,177,178,179,180/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       List<dynamic> header = (result!["leadGenerations"]);
-      List<LeadModel> newLeadList = header.map((header) => LeadModel.fromJson(header)).toList();
+      List<LeadModel> newLeadList =
+          header.map((header) => LeadModel.fromJson(header)).toList();
       followUpdatasleadList.addAll(newLeadList);
 
       followUpdatasleadList.refresh();
@@ -423,9 +457,16 @@ class GetLeadController extends GetxController {
   }
 
   Future getFollowUpRequiredCount() async {
-    var apiData = "/lead-gen/recent/35/0/179/1000/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/179/1000/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic> result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic> result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       followUpRequiredCount.value = result["totalCount"];
       print("folloup required---${followUpRequiredCount.value}");
     } catch (e) {
@@ -436,7 +477,13 @@ class GetLeadController extends GetxController {
   Future getMissedFollowUp() async {
     var apiData = "/getLeadFollowUpMissed/1000";
     try {
-      List<dynamic> response = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      List<dynamic> response = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       List<MissedFollowUpModel> result = response
           .map(
             (e) => MissedFollowUpModel.fromJson(e),
@@ -452,9 +499,16 @@ class GetLeadController extends GetxController {
   }
 
   Future getNewCount() async {
-    var apiData = "/lead-gen/recent/35/0/176/1000/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/176/1000/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       totalNewLeadsCount.value = result!["totalCount"];
       print("new status count---${totalNewLeadsCount.value}");
     } catch (e) {
@@ -463,9 +517,16 @@ class GetLeadController extends GetxController {
   }
 
   Future getNotConvertedCount() async {
-    var apiData = "/lead-gen/recent/35/0/178/1000/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/178/1000/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       notConvertedCount.value = result!["totalCount"];
       print("Notconverted status count---${notConvertedCount.value}");
     } catch (e) {
@@ -474,9 +535,16 @@ class GetLeadController extends GetxController {
   }
 
   Future getConvretedCount() async {
-    var apiData = "/lead-gen/recent/35/0/177/1000/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/177/1000/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       convertedCount.value = result!["totalCount"];
       print("new status count---${convertedCount.value}");
     } catch (e) {
@@ -485,9 +553,16 @@ class GetLeadController extends GetxController {
   }
 
   Future getInterestedCount() async {
-    var apiData = "/lead-gen/recent/35/0/180/1000/leadGenerationDate/desc/1/5?searchText=";
+    var apiData =
+        "/lead-gen/recent/35/0/180/1000/leadGenerationDate/desc/1/5?searchText=";
     try {
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
       interestedCount.value = result!["totalCount"];
       print("new status count---${interestedCount.value}");
     } catch (e) {
@@ -503,7 +578,13 @@ class GetLeadController extends GetxController {
   getAllLead() async {
     try {
       var apiData = "/leadGeneration";
-      Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic>? result = await apiCallService(
+          apiData,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
 
       List<dynamic> headers = result!['leadGenerations'];
       totalLeadCount.value = result["totalCount"];
@@ -511,7 +592,8 @@ class GetLeadController extends GetxController {
       listLoad.value = false;
       hasMore.value = true;
 
-      List<LeadModel> newLeadList = headers.map((header) => LeadModel.fromJson(header)).toList();
+      List<LeadModel> newLeadList =
+          headers.map((header) => LeadModel.fromJson(header)).toList();
 
       leadList.addAll(newLeadList);
 
@@ -533,13 +615,22 @@ class GetLeadController extends GetxController {
     String id,
   ) async {
     final limit = fromPreSalesScreen.value == true ? 100 : 5;
+    var prefs = SharedPreferencesService.instance;
+    final logindecoded = json.decode(prefs.getValue('userMap')!);
+    final loginDetails = LoginModel.fromJson(logindecoded);
+
+    print("login details --- ${loginDetails.user!.id!}");
+
+   var userId = loginDetails.user!.id!;
 
     //25 - type id
     print("Search---filterrr---$string");
 
     await getStatusById();
 
-    var status = isFilter ? selectedMulitStatuses.join(',') : statusList.map((status) => status.id!).toList().join(',');
+    var status = isFilter
+        ? selectedMulitStatuses.join(',')
+        : statusList.map((status) => status.id!).toList().join(',');
 
     if (selectedStatus.value != "") {
       print("selected status name -- ${selectedStatus.value}");
@@ -553,13 +644,22 @@ class GetLeadController extends GetxController {
     }
 
     StatusfromPreSalesScreen.value == true ? status = "176" : status;
-    var apiData = isCalledGetAllLeads.value == true ? "/leadGeneration" : "/lead-gen/recent/35/$finYearId/$status/1000/$sortWith/$sortDirection/$page/$limit?searchText=$string";
+    var apiData = isCalledGetAllLeads.value == true
+        ? "/leadGeneration"
+        : "/lead-gen/recent/35/$finYearId/$status/$userId/$sortWith/$sortDirection/$page/$limit?searchText=$string";
     print("apidata --$apiData");
     try {
       if (isCalledGetAllLeads.value == true) {
-        List<dynamic> result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+        List<dynamic> result = await apiCallService(
+            apiData,
+            'GET',
+            {},
+            TheResponseType.map,
+            {},
+            false); //--url, Method, body, responsetype, query parameter, isAuth
         // List<dynamic> headers = result!['leadGenerations'];
-        List<LeadModel> newLeadList = result.map((header) => LeadModel.fromJson(header)).toList();
+        List<LeadModel> newLeadList =
+            result.map((header) => LeadModel.fromJson(header)).toList();
 
         leadList.value = newLeadList
             .where(
@@ -567,7 +667,13 @@ class GetLeadController extends GetxController {
             )
             .toList();
       } else {
-        Map<String, dynamic>? result = await apiCallService(apiData, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+        Map<String, dynamic>? result = await apiCallService(
+            apiData,
+            'GET',
+            {},
+            TheResponseType.map,
+            {},
+            false); //--url, Method, body, responsetype, query parameter, isAuth
 
         page == 1 ? leadList.clear() : null;
         page++;
@@ -578,7 +684,8 @@ class GetLeadController extends GetxController {
         listLoad.value = false;
         hasMore.value = true;
 
-        List<LeadModel> newLeadList = headers.map((header) => LeadModel.fromJson(header)).toList();
+        List<LeadModel> newLeadList =
+            headers.map((header) => LeadModel.fromJson(header)).toList();
 
         if (headers.length < limit) {
           hasMore.value = false;
@@ -607,15 +714,18 @@ class GetLeadController extends GetxController {
 
   deleteLead(String id) async {
     try {
-      Map<String, dynamic> response = await apiCallService("/leadGen-delete/$id", "DELETE", {}, TheResponseType.map, {}, false);
+      Map<String, dynamic> response = await apiCallService(
+          "/leadGen-delete/$id", "DELETE", {}, TheResponseType.map, {}, false);
       print("response ---- delete trans num---$response");
       Get.back();
       if (response["responseStatus"] == 1) {
         customSnackbar("Success", "Successfully Deleted", "success");
       } else {
-        customSnackbar("Error", "Lead is been used you can/'t delete!!", "error");
+        customSnackbar(
+            "Error", "Lead is been used you can/'t delete!!", "error");
       }
-      await getLeadList("", 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
+      await getLeadList(
+          "", 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
     } catch (e) {
       print("ERRORRR --- NUM DELETE -- $e");
     }
@@ -623,9 +733,16 @@ class GetLeadController extends GetxController {
 
   Future getMaterialsList() async {
     try {
-      List<dynamic> materialList = await apiCallService(materialNameUrl, 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      List<dynamic> materialList = await apiCallService(
+          materialNameUrl,
+          'GET',
+          {},
+          TheResponseType.list,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
 
-      List<MaterialModel> materialListvalue = (materialList).map((e) => MaterialModel.fromJson(e)).toList();
+      List<MaterialModel> materialListvalue =
+          (materialList).map((e) => MaterialModel.fromJson(e)).toList();
 
       materialLists.clear();
 
@@ -646,7 +763,8 @@ class GetLeadController extends GetxController {
 
   getLeadHistory(String leadId) async {
     try {
-      List<dynamic> response = await apiCallService("/leadHistory/$leadId", "GET", {}, TheResponseType.list, {}, false);
+      List<dynamic> response = await apiCallService(
+          "/leadHistory/$leadId", "GET", {}, TheResponseType.list, {}, false);
       List<LeadHistoryModel> HistoryList = response
           .map(
             (e) => LeadHistoryModel.fromJson(e),
@@ -659,8 +777,15 @@ class GetLeadController extends GetxController {
 
   RxList<UserModel> userList = <UserModel>[].obs;
   Future getUserList() async {
-    List<dynamic> responseValue = await apiCallService("/users", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<UserModel> user = (responseValue).map((e) => UserModel.fromJson(e)).toList();
+    List<dynamic> responseValue = await apiCallService(
+        "/users",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<UserModel> user =
+        (responseValue).map((e) => UserModel.fromJson(e)).toList();
 
     userList.value = user;
     userList.refresh();
@@ -694,7 +819,8 @@ class GetLeadController extends GetxController {
   }
 
   Future<void> uploadDocumentWalletPdf(File file, String id) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     // Decode user data from SharedPreferences
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
@@ -711,7 +837,8 @@ class GetLeadController extends GetxController {
 
     // Prepare FormData
     FormData formData = FormData.fromMap({
-      'Documents': await MultipartFile.fromFile(file.path, filename: fileName, contentType: MediaType('application', 'pdf')),
+      'Documents': await MultipartFile.fromFile(file.path,
+          filename: fileName, contentType: MediaType('application', 'pdf')),
       "leadId": id,
     });
 
@@ -726,7 +853,10 @@ class GetLeadController extends GetxController {
         url,
         data: formData,
         options: Options(
-          headers: {'Content-Type': 'multipart/form-data', "Authorization": "Bearer ${loginDetails.token}"},
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "Authorization": "Bearer ${loginDetails.token}"
+          },
         ),
       );
 
@@ -748,10 +878,18 @@ class GetLeadController extends GetxController {
     }
   }
 
-  Future<List<DocumentWalletModel>> getDocumentWalletList({required String leadId}) async {
+  Future<List<DocumentWalletModel>> getDocumentWalletList(
+      {required String leadId}) async {
     // isLoading.value = true;
-    List<dynamic> responseValue = await apiCallService("/files/multipleFileForLead/$leadId", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<DocumentWalletModel> documentWallet = (responseValue).map((e) => DocumentWalletModel.fromJson(e)).toList();
+    List<dynamic> responseValue = await apiCallService(
+        "/files/multipleFileForLead/$leadId",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<DocumentWalletModel> documentWallet =
+        (responseValue).map((e) => DocumentWalletModel.fromJson(e)).toList();
     // isLoading.value = false;
     documentWalletList.value = documentWallet;
     isDocUploaded.value = true;
@@ -762,7 +900,10 @@ class GetLeadController extends GetxController {
 
   Future<File?> pickFile({required FileType type}) async {
     print(type);
-    final result = await FilePicker.platform.pickFiles(type: type, allowedExtensions: type == FileType.custom ? ['pdf'] : null, allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+        type: type,
+        allowedExtensions: type == FileType.custom ? ['pdf'] : null,
+        allowMultiple: false);
     if (result != null && result.files.isNotEmpty) {
       final file = result.files.single;
 
@@ -802,7 +943,8 @@ class GetLeadController extends GetxController {
     print('Payload: $data');
 
     try {
-      var response = await apiCallService(url, "POST", data, TheResponseType.map, {}, false);
+      var response = await apiCallService(
+          url, "POST", data, TheResponseType.map, {}, false);
 
       print(response);
       await getDocumentWalletList(leadId: id);
@@ -811,22 +953,36 @@ class GetLeadController extends GetxController {
     }
   }
 
-  RxList<SharedDocHistoryModel> sharedDocHistoryList = <SharedDocHistoryModel>[].obs;
+  RxList<SharedDocHistoryModel> sharedDocHistoryList =
+      <SharedDocHistoryModel>[].obs;
 
   getSharedDocHistory({required String leadId}) async {
-    List<dynamic> responseValue = await apiCallService(sharedDocumentHistoryUrl + "/$leadId", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<SharedDocHistoryModel> history = (responseValue).map((e) => SharedDocHistoryModel.fromJson(e)).toList();
+    List<dynamic> responseValue = await apiCallService(
+        sharedDocumentHistoryUrl + "/$leadId",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<SharedDocHistoryModel> history =
+        (responseValue).map((e) => SharedDocHistoryModel.fromJson(e)).toList();
     sharedDocHistoryList.value = history;
     sharedDocHistoryList.refresh();
   }
 
   sendLqeadMail({required String leadId}) async {
-    Map<String, dynamic>? responseValue =
-        await apiCallService(sendMailLeadUrl + "/$leadId" + "/35", 'POST', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+    Map<String, dynamic>? responseValue = await apiCallService(
+        sendMailLeadUrl + "/$leadId" + "/35",
+        'POST',
+        {},
+        TheResponseType.map,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
   }
 
   Future<void> sendLeadMail(File file, String id) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     // Decode user data from SharedPreferences
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
@@ -843,7 +999,8 @@ class GetLeadController extends GetxController {
 
     // Prepare FormData
     FormData formData = FormData.fromMap({
-      'files': await MultipartFile.fromFile(file.path, filename: fileName, contentType: MediaType('application', 'pdf')),
+      'files': await MultipartFile.fromFile(file.path,
+          filename: fileName, contentType: MediaType('application', 'pdf')),
       'id': id,
       "transactionId": id,
       "transactionType": 35,
@@ -864,7 +1021,10 @@ class GetLeadController extends GetxController {
         url,
         data: formData,
         options: Options(
-          headers: {'Content-Type': 'multipart/form-data', "Authorization": "Bearer ${loginDetails.token}"},
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            "Authorization": "Bearer ${loginDetails.token}"
+          },
         ),
       );
 

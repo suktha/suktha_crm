@@ -189,6 +189,7 @@ class GeoLocationController extends GetxController {
   RxList<LiveLocationModel> userLocations = <LiveLocationModel>[].obs;
 
   LatLng calculateCentroid() {
+    print("Calculating centroid for ${userLocations.length} locations");
     if (userLocations.isEmpty) return LatLng(0, 0);
 
     double sumLatitude = 0;
@@ -197,10 +198,12 @@ class GeoLocationController extends GetxController {
     for (var location in userLocations) {
       sumLatitude += location.latitude;
       sumLongitude += location.longitude;
+      print("Adding location: ${location.latitude}, ${location.longitude}");
     }
 
     double averageLatitude = sumLatitude / userLocations.length;
     double averageLongitude = sumLongitude / userLocations.length;
+    print("Calculated centroid: $averageLatitude, $averageLongitude");
 
     return LatLng(averageLatitude, averageLongitude);
   }
@@ -209,6 +212,8 @@ class GeoLocationController extends GetxController {
     // Check if already exists by userId or transId
     int index =
         userLocations.indexWhere((item) => item.userId == newLocation.userId);
+        print("Adding or updating location for userId: ${newLocation.userId}");
+        print(index);
 
     if (index != -1) {
       // Update the existing entry

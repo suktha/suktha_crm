@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
 
 import 'dart:async';
-import 'dart:ui';
+import 'dart:ui' as ui;
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -41,13 +41,21 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   List<Map<String, dynamic>> get timeline => widget.timelineEvents ?? [];
 
   void setMarkers() async {
+    print("Setting markers...");
     Set<Marker> markerSet = {};
 
     for (var user in controller.userLocations) {
       final String firstLetter = user.userName!.isNotEmpty ? user.userName![0].toUpperCase() : '?';
+      print("Creating marker for user: ${user.userName} with first letter: $firstLetter");
       final Uint8List markerIcon = await createMarkerFromText(firstLetter);
+      // print("Marker icon created for user: ${user.userName}, size: ${markerIcon.length} bytes");
+      if (markerIcon.isEmpty) {
+        print("Failed to create marker icon for user: ${user.userName}");
+        continue;
+      }
 
       final BitmapDescriptor customIcon = BitmapDescriptor.fromBytes(markerIcon);
+      print("Adding marker for user: ${user.userName} at (${user.latitude}, ${user.longitude})");
 
       markerSet.add(
         Marker(
@@ -76,6 +84,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
       );
     }
     for (var event in timeline) {
+      print("Adding event marker: ${event['action']} at ${event['time']}");
       markerSet.add(
         Marker(
           markerId: MarkerId('event_${event['action']}_${event['time']}'),
@@ -555,7 +564,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   }
 
   Future<Uint8List> createMarkerFromText(String text) async {
-    final PictureRecorder recorder = PictureRecorder();
+    final ui.PictureRecorder recorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(recorder);
     final double size = 100.0;
 
@@ -567,6 +576,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
 
     final TextPainter textPainter = TextPainter(
       textAlign: TextAlign.center,
+textDirection: ui.TextDirection.ltr,
       text: TextSpan(
         text: text,
         style: TextStyle(
@@ -584,7 +594,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
     );
 
     final img = await recorder.endRecording().toImage(size.toInt(), size.toInt());
-    final data = await img.toByteData(format: ImageByteFormat.png);
+    final data = await img.toByteData(format: ui.ImageByteFormat.png);
     return data!.buffer.asUint8List();
   }
 }

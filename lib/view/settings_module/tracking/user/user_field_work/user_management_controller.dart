@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -83,7 +85,7 @@ class UserManagementController extends GetxController {
         eventDate: DateTime.now().toString(),
         transId: leadId,
       );
-      print("getleadevent " + value.toString());
+      print("getleadevent $value");
 
       if (value != null && value.isNotEmpty) {
         // await Get.find<WebSocketService>().initializeConnection(leadId: leadId, userId: loginDetails.user!.id!);

@@ -1,10 +1,7 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, camel_case_types
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, camel_case_types, avoid_print, deprecated_member_use
 
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -36,6 +33,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   @override
   void initState() {
     super.initState();
+    controller.getUserRoleList("");
     controller.getUserList();
   }
 
@@ -238,7 +236,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
 
                   // 🛡 After loop, if any pending events (Trip 3 case), draw them
                   if (currentTripEvents.isNotEmpty) {
-                    print("last one" + "${currentTripEvents.length - 1}");
+                    print("last one"  "${currentTripEvents.length - 1}");
                     children.addAll(buildTripTimeline(currentTripEvents));
                   }
 
@@ -340,6 +338,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                               });
 
                               listener = ever(geoLocationController.userLocations, (list) async {
+                                  print("Triggered! userLocations: $list"); // DEBUG LOG
+
                                 if ((list as List).isNotEmpty) {
                                   timeout.cancel();
                                   listener();

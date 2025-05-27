@@ -4289,7 +4289,7 @@ class _NewLeadManagementAddScreenState
   }
 
   EditFunction() async {
-    // controller.isPageLoading.value = true;
+    controller.isPageLoading.value = true;
     print("Existing customer  --${widget.leadValue?.isExistingCustomer}");
 
     print(
@@ -4757,6 +4757,8 @@ class _NewLeadManagementAddScreenState
     }
     print(
         "preferd contact  time --${controller.preferredContactTimeController.text}");
+            controller.isPageLoading.value = false;
+
   }
 
   void _showBottomTimePicker(BuildContext context,
