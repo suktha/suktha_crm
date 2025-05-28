@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, deprecated_member_use, avoid_print
 
 import 'dart:async';
 import 'dart:ui' as ui;
@@ -67,7 +67,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
 
             placeName = '${placemark!.name}, '
                 '${placemark!.street}, '
-                '${placemark!.subLocality != null ? placemark!.subLocality! + ', ' : ''}'
+                '${placemark!.subLocality != null ? '${placemark!.subLocality!}, ' : ''}'
                 '${placemark!.locality}, '
                 '${placemark!.administrativeArea}, '
                 '${placemark!.postalCode}';
@@ -75,7 +75,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
             controller.clearPolylines();
             setState(() {});
 
-            print("ajith kk-- " + placeName);
+            print("ajith kk-- $placeName");
             controller.selectedMarkerPosition.value = LatLng(user.latitude, user.longitude);
             controller.selectedMarkerData.value = user;
           },
@@ -309,7 +309,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                                       Text(
                                                                         textAlign: TextAlign.left,
                                                                         "John@email.com",
-                                                                        style: TextStyle(fontSize: 10.sp),
+                                                                        style: TextStyle(fontSize: 14.sp),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -331,7 +331,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                               textAlign: TextAlign.left,
                                                               "Available",
                                                               style: TextStyle(
-                                                                  fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.green),
+                                                                  fontSize: 15.sp, fontWeight: FontWeight.bold, color: Colors.green),
                                                             ),
                                                           ],
                                                         ),
@@ -343,7 +343,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                                 children: [
                                                                   Text(
                                                                     "Location",
-                                                                    style: TextStyle(fontSize: 10.sp, color: kColorgrey),
+                                                                    style: TextStyle(fontSize: 14.sp, color: kColorgrey),
                                                                   ),
                                                                   SizedBox(
                                                                     width: 2.w,
@@ -351,7 +351,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                                   Text(
                                                                     "|  Oct 10, 2024 at 11:31 am",
                                                                     style: TextStyle(
-                                                                      fontSize: 10.sp,
+                                                                      fontSize: 14.sp,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -360,7 +360,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                         controller.selectedMarkerPosition.value != null
                                                             ? Container(
                                                                 padding: EdgeInsets.all(1.w),
-                                                                margin: EdgeInsets.only(bottom: 1.h),
+                                                                margin: EdgeInsets.only(bottom: 1.h,top: 1.h),
                                                                 decoration: BoxDecoration(
                                                                     border: Border.all(color: kColorgreyShade300),
                                                                     borderRadius: BorderRadius.circular(4.w)),
@@ -369,7 +369,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                                   leading: Icon(Icons.location_on_rounded),
                                                                   title: Text(
                                                                     placeName,
-                                                                    style: TextStyle(fontSize: 10.sp),
+                                                                    style: TextStyle(fontSize: 13.5.sp),
                                                                   ),
                                                                   trailing: Wrap(
                                                                     children: [
@@ -427,7 +427,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                               },
                                                               child: Text(
                                                                 "Track History",
-                                                                style: TextStyle(fontSize: 12.sp),
+                                                                style: TextStyle(fontSize: 15.sp),
                                                               ),
                                                             ),
                                                             TextButton(
@@ -440,7 +440,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
                                                               },
                                                               child: Text(
                                                                 "Activity",
-                                                                style: TextStyle(fontSize: 12.sp),
+                                                                style: TextStyle(fontSize: 15.sp),
                                                               ),
                                                             ),
                                                           ],

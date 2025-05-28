@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors, library_prefixes, prefer_final_fields, avoid_print, unnecessary_string_interpolations
+// ignore_for_file: must_be_immutable, prefer_const_constructors, library_prefixes, prefer_final_fields, avoid_print, unnecessary_string_interpolations, unnecessary_null_in_if_null_operators
 
 import 'dart:async';
 import 'dart:convert';
@@ -33,7 +33,6 @@ import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_manag
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class NewLeadManagementAddScreen extends StatefulWidget {
   final bool isEdit;
@@ -661,8 +660,9 @@ class _NewLeadManagementAddScreenState
                                                                   (context,
                                                                       suggestion) {
                                                                 if (suggestion ==
-                                                                    null)
+                                                                    null) {
                                                                   return SizedBox();
+                                                                }
                                                                 return ListTile(
                                                                     title: Text(
                                                                         suggestion.name ??
@@ -680,8 +680,9 @@ class _NewLeadManagementAddScreenState
                                                               onSelected:
                                                                   (suggestion) {
                                                                 if (suggestion ==
-                                                                    null)
+                                                                    null) {
                                                                   return;
+                                                                }
                                                                 controller
                                                                         .selectedCustomerValue =
                                                                     suggestion;
@@ -1765,8 +1766,9 @@ class _NewLeadManagementAddScreenState
                                                                             (context,
                                                                                 suggestion) {
                                                                           if (suggestion ==
-                                                                              null)
+                                                                              null) {
                                                                             return SizedBox();
+                                                                          }
                                                                           return ListTile(
                                                                               title: Text(suggestion.name ?? "No Name"));
                                                                         },
@@ -1779,8 +1781,9 @@ class _NewLeadManagementAddScreenState
                                                                         onSelected:
                                                                             (suggestion) {
                                                                           if (suggestion ==
-                                                                              null)
+                                                                              null) {
                                                                             return;
+                                                                          }
                                                                           controller.selectedCustomerValue =
                                                                               suggestion;
                                                                           controller
@@ -3604,35 +3607,7 @@ class _NewLeadManagementAddScreenState
                                                                         .leadScoreDetailsController,
                                                                 label:
                                                                     "Lead Source Details"),
-                                                            Row(
-                                                              children: [
-                                                                // Expanded(
-                                                                //   child: GestureDetector(
-                                                                //     onTap: () {
-                                                                //       DateClass().selectDate(controller.createdDateController, false, true);
-                                                                //     },
-                                                                //     child: CustomTextField(
-                                                                //         multilines: 1,
-                                                                //         height: 6.h,
-                                                                //         // enabled: false,
-                                                                //         readonly: true,
-                                                                //         suffixIcon: IconButton(
-                                                                //             splashColor: kColortransparent,
-                                                                //             onPressed: () {
-                                                                //               DateClass().selectDate(controller.createdDateController, false, true);
-                                                                //             },
-                                                                //             icon: Icon(Icons.date_range)),
-                                                                //         validator: (value) {
-                                                                //           return null;
-                                                                //         },
-                                                                //         textInputAction: TextInputAction.next,
-                                                                //         obscure: false,
-                                                                //         controller: controller.createdDateController,
-                                                                //         label: "Created Date"),
-                                                                //   ),
-                                                                // ),
-                                                              ],
-                                                            ),
+                                                            
                                                             GestureDetector(
                                                               onTap: () {
                                                                 _showBottomTimePicker(
@@ -4117,9 +4092,9 @@ class _NewLeadManagementAddScreenState
                                 print(
                                     "leaddddd----${contactController.leadList[widget.IndexOfMandatoryField ?? 0].amount}");
 
-                                contactController.leadList.forEach((lead) {
+                                for (var lead in contactController.leadList) {
                                   print(lead.toJson());
-                                });
+                                }
                                 print(
                                     'Leads Added: ${contactController.leadList.length}');
                                 Get.back();

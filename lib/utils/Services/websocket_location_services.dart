@@ -16,12 +16,24 @@ import 'package:work_Force/view/settings_module/tracking/admin/controller/locati
 
 class WebSocketService extends GetxService {
   StompClient? stompClient;
+
+  Timer? locationTimer;
+
   bool isUserConnected = false;
   final homeController = Get.find<HomeController>();
   final fieldworkController = Get.put(FieldWorkController());
 
   Future<void> initializeConnection({required int? userId, required String? leadId}) async {
     var prefs = SharedPreferencesService.instance;
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+        print("❌ Location permission denied.");
+        return;
+      }
+    }
 
     final logindecoded = json.decode(prefs.getValue('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -47,9 +59,10 @@ class WebSocketService extends GetxService {
           'Authorization': 'Bearer $token',
         },
         onConnect: (StompFrame frame) async {
-          print("✅WebSocket Connected: $frame");
+          print("✅ Connected: $frame");
 
           print("isLoginIdIsAdmin : " + homeController.isLoginIdIsAdmin.value.toString());
+
           if (homeController.isLoginIdIsAdmin.value) {
             fieldworkController.isAdminConnected.value = true;
             print(" topics : " + subscribeUrl);
@@ -79,10 +92,13 @@ class WebSocketService extends GetxService {
     try {
       if (stompClient != null && stompClient!.isActive) {
         stompClient!.deactivate();
+
         print("🛑 WebSocket disconnected successfully.");
       } else {
         print("⚠️ WebSocket is already inactive or not initialized.");
       }
+      locationTimer?.cancel();
+      locationTimer = null;
 
       isUserConnected = false;
       fieldworkController.isAdminConnected.value = false;
@@ -95,7 +111,6 @@ class WebSocketService extends GetxService {
     try {
       stompClient!.subscribe(
         destination: subscribeUrl,
-        
         callback: (StompFrame frame) {
           print("📩 Received: ${frame.body}");
 
@@ -120,47 +135,39 @@ class WebSocketService extends GetxService {
   }) async {
     isUserConnected = true;
 
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
-        print("❌ Location permission denied.");
-        return;
-      }
-    }
-    Geolocator.getPositionStream(
-      locationSettings: LocationSettings(
-        accuracy: LocationAccuracy.high,
-        distanceFilter: 1, // only send if moved 10 meters
-      ),
-    ).listen((Position position) {
-      // Send new location via WebSocket
-
-      var mapValue = LiveLocationModel(
-        id: null,
-        eventDateTime: null,
-        longitude: position.longitude,
-        latitude: position.latitude,
-        userId: loginDetails.user!.id!,
-        userName: loginDetails.user!.name!,
-        eventName: null,
-        reasonId: null,
-        message: null,
-        transId: leadId,
-        destinationUrl: urlPart,
-      );
-
-      final body = jsonEncode(mapValue.toJson());
-
-      print('isconnected : ${stompClient!.connected}');
-      print('isactive : ${stompClient!.isActive}');
-
+    locationTimer = Timer.periodic(Duration(seconds: 3), (timer) async {
       try {
-        stompClient!.send(destination: '/app/sendLocation', body: body, headers: {});
+        Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+        );
 
-        print("📩 Location sent successfully.");
+        var mapValue = LiveLocationModel(
+          id: null,
+          eventDateTime: null,
+          longitude: position.longitude,
+          latitude: position.latitude,
+          userId: loginDetails.user!.id!,
+          userName: loginDetails.user!.name!,
+          eventName: null,
+          reasonId: null,
+          message: null,
+          transId: leadId,
+          destinationUrl: urlPart,
+        );
+
+        final body = jsonEncode(mapValue.toJson());
+
+        print('isconnected : ${stompClient!.connected}');
+        print('isactive : ${stompClient!.isActive}');
+
+        if (stompClient!.connected && stompClient!.isActive) {
+          stompClient!.send(destination: '/app/sendLocation', body: body, headers: {});
+          print("📩 Location sent successfully.");
+        } else {
+          print("⚠️ STOMP client is not connected/active.");
+        }
       } catch (e) {
-        print("❌ Error sending location: $e");
+        print("❌ Error fetching or sending location: $e");
       }
     });
   }

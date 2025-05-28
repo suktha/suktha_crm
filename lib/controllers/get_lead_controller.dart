@@ -93,7 +93,7 @@ class GetLeadController extends GetxController {
       ]);
     } catch (e) {
       print('Error: $e');
-      Get.snackbar('Error', 'Failed to load data');
+      // Get.snackbar('Error', 'Failed to load data');
     } finally {
       isPageLoading(false);
     }
@@ -640,7 +640,7 @@ class GetLeadController extends GetxController {
           )
           .id
           .toString();
-      print("selected status --${status}");
+      print("selected status --$status");
     }
 
     StatusfromPreSalesScreen.value == true ? status = "176" : status;

@@ -1,2 +1,0 @@
-D:/prasidhi/work_Force/android/app/.cxx/RelWithDebInfo/6b242j1q/x86_64/CMakeFiles/edit_cache.dir
-D:/prasidhi/work_Force/android/app/.cxx/RelWithDebInfo/6b242j1q/x86_64/CMakeFiles/rebuild_cache.dir
