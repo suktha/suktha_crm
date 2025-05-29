@@ -137,6 +137,8 @@ class FirebasePushNotificationServices {
         imageUrl = data['image'];
         print(imageUrl);
       }
+      print("notification title: ${notification.title}");
+      print("notification body: ${notification.body}");
 
       _showLocalNotification(notification.title ?? "No Title", notification.body ?? "No Body", data, imageUrl);
     }

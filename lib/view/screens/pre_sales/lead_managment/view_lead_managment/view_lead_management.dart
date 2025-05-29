@@ -28,15 +28,19 @@ import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/filter_list.dart';
 import 'package:work_Force/view/widget/shimmer_loading.dart';
 
-
 class LeadManagementListScreen extends StatefulWidget {
   String? quotationNumber;
   bool? isFromHomeScreen;
   String? missedUpId;
-  LeadManagementListScreen({super.key, this.isFromHomeScreen, this.quotationNumber, this.missedUpId});
+  LeadManagementListScreen(
+      {super.key,
+      this.isFromHomeScreen,
+      this.quotationNumber,
+      this.missedUpId});
 
   @override
-  State<LeadManagementListScreen> createState() => _LeadManagementListScreenState();
+  State<LeadManagementListScreen> createState() =>
+      _LeadManagementListScreenState();
 }
 
 class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
@@ -44,7 +48,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
   final controller = Get.put(GetLeadController());
   final locController = Get.put(GetLocationController());
   final contactController = Get.put(LeadContactDetaisController());
-  final UserManagementController userManagementController = Get.put(UserManagementController());
+  final UserManagementController userManagementController =
+      Get.put(UserManagementController());
 
   final FocusNode _focusNode = FocusNode();
 
@@ -58,20 +63,32 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
       // print("inside --- missed follow up id-- ${widget.missedUpId}");
       controller.isPageLoading.value = true;
 
-      controller.getLeadList(controller.searchValue.value, 1, "desc", "leadGenerationDate", "", false, "0", "0", widget.missedUpId ?? "");
+      controller.getLeadList(controller.searchValue.value, 1, "desc",
+          "leadGenerationDate", "", false, "0", "0", widget.missedUpId ?? "");
     } else {
-      controller.getLeadList(controller.searchValue.value, 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
+      controller.getLeadList(controller.searchValue.value, 1, "desc",
+          "leadGenerationDate", "", false, "0", "0", "");
     }
 
-    print("controller.searchValue.value scroll----${controller.searchValue.value}");
+    print(
+        "controller.searchValue.value scroll----${controller.searchValue.value}");
     scrollcontroller.addListener(() {
-      if (scrollcontroller.position.maxScrollExtent == scrollcontroller.offset) {
+      if (scrollcontroller.position.maxScrollExtent ==
+          scrollcontroller.offset) {
         controller.loading.value = true;
         print("search name--${controller.searchValue.value}");
         setState(() {
           page++;
-          controller.getLeadList(controller.searchValue.value, page, controller.sortdirection.value, controller.sortwith.value, controller.filter.value, controller.isFilter.value,
-              controller.financialYearId.value, controller.selectedStatusId.value, "");
+          controller.getLeadList(
+              controller.searchValue.value,
+              page,
+              controller.sortdirection.value,
+              controller.sortwith.value,
+              controller.filter.value,
+              controller.isFilter.value,
+              controller.financialYearId.value,
+              controller.selectedStatusId.value,
+              "");
           print("hello----222");
           print("page-------------2222 $page");
         });
@@ -97,7 +114,10 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
         Scaffold(
           appBar: AppBar(
             title: const Text("Lead"),
-            titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: 19.sp),
+            titleTextStyle: TextStyle(
+                color: kColorblack,
+                fontWeight: FontWeight.bold,
+                fontSize: 19.sp),
             centerTitle: true,
             backgroundColor: kColorwhite,
             elevation: 0,
@@ -120,7 +140,16 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     controller.searchController.clear();
                     page = 1;
                     controller.leadList.clear();
-                    controller.getLeadList(controller.searchValue.value, page, "desc", "leadGenerationDate", "", false, "0", controller.selectedStatusId.value, "");
+                    controller.getLeadList(
+                        controller.searchValue.value,
+                        page,
+                        "desc",
+                        "leadGenerationDate",
+                        "",
+                        false,
+                        "0",
+                        controller.selectedStatusId.value,
+                        "");
                   },
                   icon: Icon(
                     Icons.refresh,
@@ -148,7 +177,11 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 controller.selectedStatusId.value = "0";
                 controller.leadList.clear();
                 controller.fromPreSalesScreen.value = false;
-                widget.isFromHomeScreen == true ? Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 0));
+                widget.isFromHomeScreen == true
+                    ? Get.offAll(
+                        () => const BottomNavigationMainscreen(initialIndex: 1))
+                    : Get.offAll(() =>
+                        const BottomNavigationMainscreen(initialIndex: 0));
               }),
             ),
           ),
@@ -172,11 +205,16 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                       : controller.leadList.isEmpty
                           ? Expanded(
                               child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0, right: 10),
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, right: 10),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FadeIn(delay: const Duration(milliseconds: 300), duration: const Duration(milliseconds: 300), child: LottieBuilder.asset(emptyLottie)),
+                                  FadeIn(
+                                      delay: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      child: LottieBuilder.asset(emptyLottie)),
                                   SizedBox(
                                     height: 3.h,
                                   ),
@@ -185,7 +223,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                     duration: const Duration(milliseconds: 500),
                                     child: Text(
                                       "Your Lead is Empty",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17.sp),
                                     ),
                                   )
                                 ],
@@ -203,10 +243,20 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                       page = 1;
                                       controller.leadList.clear();
                                       controller.sortdirection.value = "desc";
-                                      controller.sortwith.value = "leadGenerationDate";
+                                      controller.sortwith.value =
+                                          "leadGenerationDate";
                                       controller.filter.value = "";
                                       controller.isFilter.value = false;
-                                      controller.getLeadList(controller.searchValue.value, 1, "desc", "leadGenerationDate", "", false, controller.financialYearId.value, '0', "");
+                                      controller.getLeadList(
+                                          controller.searchValue.value,
+                                          1,
+                                          "desc",
+                                          "leadGenerationDate",
+                                          "",
+                                          false,
+                                          controller.financialYearId.value,
+                                          '0',
+                                          "");
                                     },
                                   );
                                 },
@@ -219,7 +269,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   child: ListView.separated(
                                     cacheExtent: 10,
                                     physics: BouncingScrollPhysics(),
-                                    separatorBuilder: (context, index) => Divider(
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
                                       thickness: 1,
                                       color: kColorgrey,
                                     ),
@@ -229,16 +280,21 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                       if (index < controller.leadList.length) {
                                         var item = controller.leadList[index];
 
-                                        return CustomLeadListItem(item, context, index, width);
+                                        return CustomLeadListItem(
+                                            item, context, index, width);
                                       } else {
                                         return Center(
                                           child: controller.hasMore.value
-                                              ? LoadingAnimationWidget.threeRotatingDots(
+                                              ? LoadingAnimationWidget
+                                                  .threeRotatingDots(
                                                   color: Colors.lightBlue,
                                                   size: 10.w,
                                                 )
                                               : Text(
-                                                  widget.isFromHomeScreen == true ? "Click Refresh to Load All the Data" : "No more data to Load",
+                                                  widget.isFromHomeScreen ==
+                                                          true
+                                                      ? "Click Refresh to Load All the Data"
+                                                      : "No more data to Load",
                                                 ),
                                         );
                                       }
@@ -258,11 +314,17 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                         child: Container(
                           width: 60.w,
                           height: 6.h,
-                          decoration: BoxDecoration(boxShadow: kElevationToShadow[1], color: Color.fromARGB(255, 58, 192, 255), borderRadius: BorderRadius.circular(4.w)),
+                          decoration: BoxDecoration(
+                              boxShadow: kElevationToShadow[1],
+                              color: Color.fromARGB(255, 58, 192, 255),
+                              borderRadius: BorderRadius.circular(4.w)),
                           child: Center(
                               child: Text(
                             "Create New Lead",
-                            style: TextStyle(color: kColorwhite, fontSize: 16.5.sp, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: kColorwhite,
+                                fontSize: 16.5.sp,
+                                fontWeight: FontWeight.bold),
                           )),
                         ),
                       ),
@@ -280,10 +342,17 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
     );
   }
 
-  GestureDetector CustomLeadListItem(LeadModel item, BuildContext context, int index, double width) {
+  GestureDetector CustomLeadListItem(
+      LeadModel item, BuildContext context, int index, double width) {
     return GestureDetector(
         onTap: () async {
-          Get.to(() => OpenLeadManagementScreen(leadValue: item, materialList: controller.materialLists, serviceList: controller.serviceLists, index: index), transition: Transition.rightToLeft);
+          Get.to(
+              () => OpenLeadManagementScreen(
+                  leadValue: item,
+                  materialList: controller.materialLists,
+                  serviceList: controller.serviceLists,
+                  index: index),
+              transition: Transition.rightToLeft);
         },
         onLongPress: () {},
         child: Container(
@@ -316,14 +385,18 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                       child: Text(
                         "${item.leadName} ", //name
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                     SizedBox(
                       child: Text(
                         item.statusName ?? "",
                         textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                     ),
                   ],
@@ -345,7 +418,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     child: item.followUpDate == null
                         ? SizedBox()
                         : Text(
-                            "Lead Date : " + DateClass().showDate(item.leadGenerationDate ?? ""),
+                            "Lead Date : " +
+                                DateClass()
+                                    .showDate(item.leadGenerationDate ?? ""),
                           ),
                   ),
                 ),
@@ -356,7 +431,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                     child: item.followUpDate == null
                         ? SizedBox()
                         : Text(
-                            "FollowUp Date : " + DateClass().showDate(item.followUpDate ?? ""),
+                            "FollowUp Date : " +
+                                DateClass().showDate(item.followUpDate ?? ""),
                           ),
                   ),
                 ),
@@ -371,7 +447,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 // ),
                 SizedBox(height: 1.h),
                 Row(
-                  mainAxisAlignment: item.email != null && item.email != "" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: item.email != null && item.email != ""
+                      ? MainAxisAlignment.spaceBetween
+                      : MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -385,7 +463,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                         ? Row(children: [
                             Icon(Icons.mail, size: 18.sp),
                             SizedBox(width: 1.h),
-                            Text(item.email?.split(".com").first == "notnull@notnull"
+                            Text(item.email?.split(".com").first ==
+                                    "notnull@notnull"
                                 ? ""
                                 : item.email == null
                                     ? ""
@@ -401,7 +480,13 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                   // width: 100.w,
                   margin: EdgeInsets.only(bottom: 1.h),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: const[Color.fromARGB(255, 229, 246, 255), Color.fromARGB(255, 246, 246, 246)]),
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: const [
+                          Color.fromARGB(255, 229, 246, 255),
+                          Color.fromARGB(255, 246, 246, 246)
+                        ]),
                     borderRadius: BorderRadius.circular(2.w),
                     color: kColorwhite,
                     // boxShadow: kElevationToShadow[8]
@@ -428,7 +513,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                           )),
                       IconButton(
                           onPressed: () async {
-                            if (item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}") {
+                            if (item.leadGeoLocation == null ||
+                                item.leadGeoLocation == "${null},${null}") {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
@@ -446,27 +532,37 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                             } else {
                               // open maps
 
-                              List<String> latLong = item.leadGeoLocation.split(",");
-                              locController.latitudeController.text = latLong[1];
-                              locController.longitudeController.text = latLong[0];
-                              print("location latitude ${locController.latitudeController.text}");
-                              print("location longitude ${locController.longitudeController.text}");
+                              List<String> latLong =
+                                  item.leadGeoLocation.split(",");
+                              locController.latitudeController.text =
+                                  latLong[1];
+                              locController.longitudeController.text =
+                                  latLong[0];
+                              print(
+                                  "location latitude ${locController.latitudeController.text}");
+                              print(
+                                  "location longitude ${locController.longitudeController.text}");
 
-                              var lat = double.tryParse(locController.latitudeController.text);
-                              var long = double.tryParse(locController.longitudeController.text);
+                              var lat = double.tryParse(
+                                  locController.latitudeController.text);
+                              var long = double.tryParse(
+                                  locController.longitudeController.text);
 
                               // Location already added, so get location and open maps
-                              await locController.openGoogleMaps(lat ?? 0.0, long ?? 0.0);
+                              await locController.openGoogleMaps(
+                                  lat ?? 0.0, long ?? 0.0);
                             }
                           },
-                          icon: item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}"
+                          icon: item.leadGeoLocation == null ||
+                                  item.leadGeoLocation == "${null},${null}"
                               ? Icon(Icons.add_location_alt, color: kColorblack)
                               : Icon(Icons.location_on, color: Colors.green)),
                       IconButton(
                         onPressed: () async {
                           print("pressed");
                           controller.getLeadHistory(item.id ?? "");
-                          await bottomSheetHistoryCustom(context, item, width, () async {
+                          await bottomSheetHistoryCustom(context, item, width,
+                              () async {
                             controller.LeadHistoryLists.clear();
                             await controller.getLeadHistory(item.id ?? "");
                           }, controller);
@@ -475,102 +571,133 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                       ),
                       IconButton(
                           onPressed: () async {
- showModalBottomSheet(
-                            isScrollControlled: false,
-                            context: context,
-                            builder: (context) {
-                              final isActive = userManagementController.isFieldWorkActive;
-                              final isForThisLead = userManagementController.isFieldWorkForThisLead(item.id!);
+                            showModalBottomSheet(
+                              isScrollControlled: false,
+                              context: context,
+                              builder: (context) {
+                                final isActive =
+                                    userManagementController.isFieldWorkActive;
+                                final isForThisLead = userManagementController
+                                    .isFieldWorkForThisLead(item.id!);
 
-                              return Container(
-                                margin: EdgeInsets.all(width * 0.03),
-                                padding: EdgeInsets.all(width * 0.02),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Field Work of ${item.leadGenerationNumber}",
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                    SizedBox(height: 1.h),
-                                    if (isActive && !isForThisLead)
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 16),
-                                        child: Center(
-                                          child: Text(
-                                            "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
-                                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                                            textAlign: TextAlign.center,
+                                return Container(
+                                  margin: EdgeInsets.all(width * 0.03),
+                                  padding: EdgeInsets.all(width * 0.02),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Field Work of ${item.leadGenerationNumber}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      SizedBox(height: 1.h),
+                                      if (isActive && !isForThisLead)
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16),
+                                          child: Center(
+                                            child: Text(
+                                              "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        )
+                                      else
+                                        Center(
+                                          child: Row(
+                                            mainAxisAlignment: isForThisLead
+                                                ? MainAxisAlignment.spaceEvenly
+                                                : MainAxisAlignment.center,
+                                            children: [
+                                              if (!isActive)
+                                                CustomButton(
+                                                  title: "Start",
+                                                  ontap: () async {
+                                                    await Get.find<
+                                                            WebSocketService>()
+                                                        .initializeConnection(
+                                                            leadId: item.id!,
+                                                            userId:
+                                                                item.userId);
+
+                                                    userManagementController
+                                                        .addTimelineItem(
+                                                            action: "Started",
+                                                            leadValue: item);
+
+                                                    userManagementController
+                                                        .isLoading.value = true;
+                                                    userManagementController
+                                                        .startFieldWork(
+                                                            leadId: item.id!,
+                                                            leadName:
+                                                                item.leadName ??
+                                                                    '',
+                                                            leadNumber:
+                                                                item.leadGenerationNumber ??
+                                                                    '');
+
+                                                    Get.to(() =>
+                                                            UserManagementScreen(
+                                                                leadValue:
+                                                                    item))!
+                                                        .then((value) =>
+                                                            Get.back());
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: Colors.green,
+                                                  textcolor: Colors.white,
+                                                ),
+                                              if (isForThisLead)
+                                                CustomButton(
+                                                  title: "View",
+                                                  ontap: () {
+                                                    Get.to(() =>
+                                                            UserManagementScreen(
+                                                                leadValue:
+                                                                    item))!
+                                                        .then((value) {
+                                                      userManagementController
+                                                          .isLoading
+                                                          .value = false;
+                                                      Get.back();
+                                                    });
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: kColorlightBlue,
+                                                  textcolor: Colors.white,
+                                                ),
+                                              if (isForThisLead)
+                                                CustomButton(
+                                                  title: "Stop",
+                                                  ontap: () async {
+                                                    await userManagementController
+                                                        .logOut(
+                                                            "location is bnglr");
+                                                    userManagementController
+                                                        .stopFieldWork();
+                                                    Get.back();
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: Colors.red,
+                                                  textcolor: Colors.white,
+                                                ),
+                                            ],
                                           ),
                                         ),
-                                      )
-                                    else
-                                      Center(
-                                        child: Row(
-                                          mainAxisAlignment: isForThisLead ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
-                                          children: [
-                                            if (!isActive)
-                                              CustomButton(
-                                                title: "Start",
-                                                ontap: () async {
-                                                  await Get.find<WebSocketService>().initializeConnection(
-                                                    leadId: item.id!,
-                                                    userId: item.userId,
-                                                  );
-
-                                                  userManagementController.addTimelineItem(
-                                                    action: "Started",
-                                                    leadValue: item,
-                                                  );
-
-                                                  userManagementController.isLoading.value = true;
-                                                  userManagementController.startFieldWork(
-                                                    leadId: item.id!,
-                                                    leadName: item.leadName ?? '',
-                                                    leadNumber: item.leadGenerationNumber ?? '',
-                                                  );
-
-                                                  Get.to(() => UserManagementScreen(leadValue: item))!
-                                                      .then((value) => Get.back());
-                                                },
-                                                width: width * 0.3,
-                                                color: Colors.green,
-                                                textcolor: Colors.white,
-                                              ),
-                                            if (isForThisLead)
-                                              CustomButton(
-                                                title: "View",
-                                                ontap: () {
-                                                  Get.to(() => UserManagementScreen(leadValue: item))!.then((value) {
-                                                    userManagementController.isLoading.value = false;
-                                                    Get.back();
-                                                  });
-                                                },
-                                                width: width * 0.3,
-                                                color: kColorlightBlue,
-                                                textcolor: Colors.white,
-                                              ),
-                                            if (isForThisLead)
-                                              CustomButton(
-                                                title: "Stop",
-                                                ontap: () async {
-                                                  await userManagementController.logOut("location is bnglr");
-                                                  userManagementController.stopFieldWork();
-                                                  Get.back();
-                                                },
-                                                width: width * 0.3,
-                                                color: Colors.red,
-                                                textcolor: Colors.white,
-                                              ),
-                                          ],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );},
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
                           icon: Icon(
                             Icons.person,
                             color: kColorblack,
@@ -583,19 +710,23 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                           itemBuilder: (context) => [
                                 PopupMenuItem(
                                   onTap: () async {
-                                    await controller.getDocumentWalletList(leadId: item.id!);
+                                    await controller.getDocumentWalletList(
+                                        leadId: item.id!);
                                     showModalBottomSheet(
                                       context: context,
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
                                       builder: (context) {
-                                        return LeadDocumentWalletScreen(controller: controller, leadValue: item);
+                                        return LeadDocumentWalletScreen(
+                                            controller: controller,
+                                            leadValue: item);
                                       },
                                     );
                                   },
                                   child: Row(
                                     children: [
-                                      Icon(Icons.upload_file, color: kColorblack),
+                                      Icon(Icons.upload_file,
+                                          color: kColorblack),
                                       SizedBox(
                                         width: 2.h,
                                       ),
@@ -612,9 +743,11 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   onTap: () async {
                                     print("pressed");
                                     controller.getLeadHistory(item.id ?? "");
-                                    await bottomSheetHistoryCustom(context, item, width, () async {
+                                    await bottomSheetHistoryCustom(
+                                        context, item, width, () async {
                                       controller.LeadHistoryLists.clear();
-                                      await controller.getLeadHistory(item.id ?? "");
+                                      await controller
+                                          .getLeadHistory(item.id ?? "");
                                     }, controller);
                                   },
                                   child: Row(
@@ -636,7 +769,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   onTap: () async {
                                     print("pressed");
 
-                                    await controller.getSharedDocHistory(leadId: item.id!);
+                                    await controller.getSharedDocHistory(
+                                        leadId: item.id!);
                                     showModalBottomSheet(
                                         backgroundColor: Colors.transparent,
                                         context: context,
@@ -652,7 +786,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   },
                                   child: Row(
                                     children: [
-                                      Icon(Icons.share_outlined, color: kColorblack),
+                                      Icon(Icons.share_outlined,
+                                          color: kColorblack),
                                       SizedBox(
                                         width: 2.h,
                                       ),
@@ -669,7 +804,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   onTap: () async {
                                     print("pressed");
                                     print(item.leadGeoLocation);
-                                    if (item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}") {
+                                    if (item.leadGeoLocation == null ||
+                                        item.leadGeoLocation ==
+                                            "${null},${null}") {
                                       // Location not added yet, so add location
                                       showModalBottomSheet(
                                         context: context,
@@ -681,37 +818,61 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                           LeadValueList: controller.leadList,
                                           leadValue: item,
                                           IsClikedLocation: true,
-                                          materialList: controller.materialLists,
+                                          materialList:
+                                              controller.materialLists,
                                           serviceList: controller.serviceLists,
                                         ),
                                       );
                                       // locController.getCurrentLocation(item);
                                     } else {
-                                      List<String> latLong = item.leadGeoLocation.split(",");
-                                      locController.latitudeController.text = latLong[1];
-                                      locController.longitudeController.text = latLong[0];
-                                      print("location latitude ${locController.latitudeController.text}");
-                                      print("location longitude ${locController.longitudeController.text}");
+                                      List<String> latLong =
+                                          item.leadGeoLocation.split(",");
+                                      locController.latitudeController.text =
+                                          latLong[1];
+                                      locController.longitudeController.text =
+                                          latLong[0];
+                                      print(
+                                          "location latitude ${locController.latitudeController.text}");
+                                      print(
+                                          "location longitude ${locController.longitudeController.text}");
 
-                                      var lat = double.tryParse(locController.latitudeController.text);
-                                      var long = double.tryParse(locController.longitudeController.text);
+                                      var lat = double.tryParse(locController
+                                          .latitudeController.text);
+                                      var long = double.tryParse(locController
+                                          .longitudeController.text);
 
                                       // Location already added, so get location and open maps
-                                      await locController.openGoogleMaps(lat ?? 0.0, long ?? 0.0);
+                                      await locController.openGoogleMaps(
+                                          lat ?? 0.0, long ?? 0.0);
                                     }
                                     // controller.getLeadHistory(item.id ?? "");
                                   },
                                   child: Row(
                                     children: [
-                                      item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}"
-                                          ? Icon(Icons.add_location_alt, color: kColorblack)
-                                          : Icon(Icons.location_on, color: Colors.green),
+                                      item.leadGeoLocation == null ||
+                                              item.leadGeoLocation ==
+                                                  "${null},${null}"
+                                          ? Icon(Icons.add_location_alt,
+                                              color: kColorblack)
+                                          : Icon(Icons.location_on,
+                                              color: Colors.green),
                                       SizedBox(
                                         width: 2.h,
                                       ),
                                       Text(
-                                        item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}" ? "Add location" : "View location",
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: item.leadGeoLocation == null || item.leadGeoLocation == "${null},${null}" ? Colors.black : Colors.green),
+                                        item.leadGeoLocation == null ||
+                                                item.leadGeoLocation ==
+                                                    "${null},${null}"
+                                            ? "Add location"
+                                            : "View location",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                item.leadGeoLocation == null ||
+                                                        item.leadGeoLocation ==
+                                                            "${null},${null}"
+                                                    ? Colors.black
+                                                    : Colors.green),
                                       ),
                                     ],
                                   ),
@@ -743,13 +904,15 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   },
                                   child: Row(
                                     children: [
-                                      Icon(Icons.add_location_alt, color: kColorblack),
+                                      Icon(Icons.add_location_alt,
+                                          color: kColorblack),
                                       SizedBox(
                                         width: 2.h,
                                       ),
                                       Text(
                                         "Update Location",
-                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
@@ -783,7 +946,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                       ),
                                       Text(
                                         "Delete",
-                                        style: TextStyle(fontWeight: FontWeight.bold, color: kColorRed),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: kColorRed),
                                       ),
                                     ],
                                   ),
@@ -819,8 +984,18 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
               controller: controller.searchController,
               onChanged: (value) async {
                 controller.searchValue.value = value;
-                print("controller.searchValue.value --${controller.searchValue.value}");
-                await controller.getLeadList(controller.searchValue.value, 1, "desc", "leadGenerationDate", "", false, controller.financialYearId.value, controller.selectedStatusId.value, "");
+                print(
+                    "controller.searchValue.value --${controller.searchValue.value}");
+                await controller.getLeadList(
+                    controller.searchValue.value,
+                    1,
+                    "desc",
+                    "leadGenerationDate",
+                    "",
+                    false,
+                    controller.financialYearId.value,
+                    controller.selectedStatusId.value,
+                    "");
               },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -851,7 +1026,16 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
 
                     page = 1;
                     controller.leadList.clear();
-                    controller.getLeadList(controller.searchValue.value, page, "desc", "leadGenerationDate", "", false, controller.financialYearId.value, controller.selectedStatusId.value, "");
+                    controller.getLeadList(
+                        controller.searchValue.value,
+                        page,
+                        "desc",
+                        "leadGenerationDate",
+                        "",
+                        false,
+                        controller.financialYearId.value,
+                        controller.selectedStatusId.value,
+                        "");
                   }
                 });
               },
@@ -897,10 +1081,11 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                 value: "",
                                 child: Text("Financial Year"),
                               ),
-                              ...controller.financialYearList.map((item) => DropdownMenuItem<String>(
-                                    value: item.id.toString(),
-                                    child: Text("${item.financialYear}"),
-                                  )),
+                              ...controller.financialYearList
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item.id.toString(),
+                                        child: Text("${item.financialYear}"),
+                                      )),
                             ],
                             onChanged: (newValue) {
                               setState(() {
@@ -908,7 +1093,12 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
 
                                 print(controller.financialYearId.value);
 
-                                controller.financialYear.value = controller.financialYearList.firstWhere((item) => item.id.toString() == controller.financialYearId.value).financialYear!;
+                                controller.financialYear.value = controller
+                                    .financialYearList
+                                    .firstWhere((item) =>
+                                        item.id.toString() ==
+                                        controller.financialYearId.value)
+                                    .financialYear!;
 
                                 print(controller.financialYear.value);
                               });
@@ -944,27 +1134,36 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                               width: 5.w,
                               child: Obx(() => Checkbox(
                                     // value: controller.isStatusSelected[index],
-                                    value: controller.selectedMulitStatuses.contains(item.id),
+                                    value: controller.selectedMulitStatuses
+                                        .contains(item.id),
                                     activeColor: Colors.lightBlue,
                                     onChanged: (value) {
                                       // controller.onStatusCheckboxChanged(index, value ?? false);
-                                      controller.selectedStatusId.value = item.id.toString();
+                                      controller.selectedStatusId.value =
+                                          item.id.toString();
 
-                                      if (controller.selectedMulitStatuses.contains(item.id)) {
-                                        controller.selectedMulitStatuses.remove(item.id); // Uncheck the status
+                                      if (controller.selectedMulitStatuses
+                                          .contains(item.id)) {
+                                        controller.selectedMulitStatuses.remove(
+                                            item.id); // Uncheck the status
                                       } else {
-                                        controller.selectedMulitStatuses.add(item.id!); // Check the status
+                                        controller.selectedMulitStatuses
+                                            .add(item.id!); // Check the status
                                       }
-                                      if (controller.selectedMulitStatuses.isNotEmpty) {
+                                      if (controller
+                                          .selectedMulitStatuses.isNotEmpty) {
                                         controller.isFilter.value = true;
                                       } else {
                                         controller.isFilter.value = false;
                                       }
 
-                                      print("multi select - ${controller.selectedMulitStatuses}");
-                                      print("isFilter - " + controller.isFilter.value.toString());
+                                      print(
+                                          "multi select - ${controller.selectedMulitStatuses}");
+                                      print("isFilter - " +
+                                          controller.isFilter.value.toString());
 
-                                      print("status id---- ${controller.selectedStatusId.value}");
+                                      print(
+                                          "status id---- ${controller.selectedStatusId.value}");
                                     },
                                   )),
                             ),
@@ -1072,7 +1271,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
 
             print(controller.isFilter.value);
             print(controller.selectedRadio.value);
-            controller.sortDirection.value == true ? controller.sortdirection.value = "desc" : controller.sortdirection.value = "asc";
+            controller.sortDirection.value == true
+                ? controller.sortdirection.value = "desc"
+                : controller.sortdirection.value = "asc";
 
             if (controller.selectedRadio.value == "date") {
               controller.sortwith.value = "leadGenerationDate";
@@ -1084,8 +1285,16 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
               controller.sortwith.value = "followUpDate";
             }
 
-            controller.getLeadList(controller.searchValue.value, 1, controller.sortdirection.value, controller.sortwith.value, controller.filter.value, controller.isFilter.value,
-                controller.financialYearId.value, controller.selectedStatusId.value, "");
+            controller.getLeadList(
+                controller.searchValue.value,
+                1,
+                controller.sortdirection.value,
+                controller.sortwith.value,
+                controller.filter.value,
+                controller.isFilter.value,
+                controller.financialYearId.value,
+                controller.selectedStatusId.value,
+                "");
 
             Get.back();
           }, // confirm button
@@ -1096,7 +1305,16 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
             controller.sortDirection.value = true;
             controller.selectedRadio.value = "";
 
-            controller.getLeadList(controller.searchValue.value, 1, "desc", "leadGenerationDate", "", false, controller.financialYearId.value, controller.selectedStatusId.value, "");
+            controller.getLeadList(
+                controller.searchValue.value,
+                1,
+                "desc",
+                "leadGenerationDate",
+                "",
+                false,
+                controller.financialYearId.value,
+                controller.selectedStatusId.value,
+                "");
 
             Get.back(); //clear button
           },
@@ -1121,14 +1339,21 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
             CreateWidgetCustom(
                 ontap: () async {
                   await contactController.fetchContacts();
-                  Get.to(() => ContactListScreen(materialList: controller.materialLists, serviceList: controller.serviceLists));
+                  Get.to(() => ContactListScreen(
+                      materialList: controller.materialLists,
+                      serviceList: controller.serviceLists));
                 },
                 icons: Icons.import_contacts,
                 title: "Import from Contacts"),
             CreateWidgetCustom(
                 ontap: () {
-                  Get.to(() => NewLeadManagementAddScreen(isEdit: false, materialList: controller.materialLists, serviceList: controller.serviceLists),
-                      duration: Duration(milliseconds: 500), transition: Transition.fadeIn);
+                  Get.to(
+                      () => NewLeadManagementAddScreen(
+                          isEdit: false,
+                          materialList: controller.materialLists,
+                          serviceList: controller.serviceLists),
+                      duration: Duration(milliseconds: 500),
+                      transition: Transition.fadeIn);
                 },
                 icons: Icons.add_circle_outlined,
                 title: "Create New Lead")
@@ -1140,11 +1365,13 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
 
   void scrollUp() {
     const double start = 0;
-    scrollcontroller.animateTo(start, duration: Duration(seconds: 1), curve: Curves.easeIn);
+    scrollcontroller.animateTo(start,
+        duration: Duration(seconds: 1), curve: Curves.easeIn);
   }
 }
 
-Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, double width, VoidCallback refreshOntap, GetLeadController controller) {
+Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item,
+    double width, VoidCallback refreshOntap, GetLeadController controller) {
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -1155,7 +1382,11 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
       return FadeInUp(
           duration: Durations.extralong2,
           child: Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20))),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -1172,13 +1403,16 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
                         Spacer(),
                         Text(
                           "Lead progress History",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18.sp),
                         ),
                         Spacer(),
                         GestureDetector(
                           onTap: refreshOntap,
                           child: Container(
-                            decoration: BoxDecoration(boxShadow: kElevationToShadow[1], borderRadius: BorderRadius.circular(16)),
+                            decoration: BoxDecoration(
+                                boxShadow: kElevationToShadow[1],
+                                borderRadius: BorderRadius.circular(16)),
                             child: CircleAvatar(
                               radius: 17,
                               child: Icon(
@@ -1197,7 +1431,9 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
                             Get.back();
                           },
                           child: Container(
-                            decoration: BoxDecoration(boxShadow: kElevationToShadow[1], borderRadius: BorderRadius.circular(16)),
+                            decoration: BoxDecoration(
+                                boxShadow: kElevationToShadow[1],
+                                borderRadius: BorderRadius.circular(16)),
                             child: CircleAvatar(
                               radius: 17,
                               child: Icon(
@@ -1224,16 +1460,25 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    FadeIn(delay: const Duration(milliseconds: 300), duration: const Duration(milliseconds: 300), child: LottieBuilder.asset("assets/lottie/empty.json")),
+                                    FadeIn(
+                                        delay:
+                                            const Duration(milliseconds: 300),
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: LottieBuilder.asset(
+                                            "assets/lottie/empty.json")),
                                     SizedBox(
                                       height: 3.h,
                                     ),
                                     FadeIn(
                                       delay: const Duration(milliseconds: 500),
-                                      duration: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
                                       child: Text(
                                         "History list is Empty",
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 17.sp),
                                       ),
                                     )
                                   ],
@@ -1245,82 +1490,159 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
                                   shrinkWrap: true,
                                   physics: BouncingScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var item = controller.LeadHistoryLists[index];
+                                    var item =
+                                        controller.LeadHistoryLists[index];
                                     return Padding(
-                                      padding: const EdgeInsets.only(left: 8.0, right: 8, top: 18),
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, right: 8, top: 18),
                                       child: Container(
-                                        decoration: BoxDecoration(boxShadow: kElevationToShadow[2], color: kColorwhite, borderRadius: BorderRadius.circular(10)),
+                                        decoration: BoxDecoration(
+                                            boxShadow: kElevationToShadow[2],
+                                            color: kColorwhite,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 1.0, right: 1, top: 8),
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 8),
                                                 child: Row(
                                                   children: [
                                                     Text(
                                                       "Assign To",
-                                                      style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w400, fontSize: width * 0.04),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
                                                     ),
                                                     Spacer(),
                                                     Text(
-                                                      item.assignedName?.toString() ?? "--",
-                                                      style: TextStyle(color: kColorblack, fontSize: width * 0.04, fontWeight: FontWeight.bold),
+                                                      item.assignedName
+                                                              ?.toString() ??
+                                                          "--",
+                                                      style: TextStyle(
+                                                          color: kColorblack,
+                                                          fontSize:
+                                                              width * 0.04,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     )
                                                   ],
                                                 ),
                                               ),
                                               Divider(),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 1.0, right: 1, top: 8),
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 8),
                                                 child: Row(
                                                   children: [
                                                     Text(
                                                       "Last Call On",
-                                                      style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w400, fontSize: width * 0.04),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
                                                     ),
                                                     Spacer(),
                                                     Text(
-                                                      DateClass().showDate(item.previousFollowUp?.toString() ?? "--"),
-                                                      style: TextStyle(color: kColorblack, fontSize: width * 0.04, fontWeight: FontWeight.bold),
+                                                      DateClass().showDate(item
+                                                              .previousFollowUp
+                                                              ?.toString() ??
+                                                          "--"),
+                                                      style: TextStyle(
+                                                          color: kColorblack,
+                                                          fontSize:
+                                                              width * 0.04,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     )
                                                   ],
                                                 ),
                                               ),
                                               Divider(),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 1.0, right: 1, top: 8),
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 8),
                                                 child: Row(
                                                   children: [
                                                     Text(
                                                       "Next follow up",
-                                                      style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w400, fontSize: width * 0.04),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
                                                     ),
                                                     Spacer(),
                                                     Text(
-                                                      DateClass().showDate(item.nextFollowUp?.toString() ?? "--"),
-                                                      style: TextStyle(color: kColorblack, fontSize: width * 0.04, fontWeight: FontWeight.bold),
+                                                      DateClass().showDate(item
+                                                              .nextFollowUp
+                                                              ?.toString() ??
+                                                          "--"),
+                                                      style: TextStyle(
+                                                          color: kColorblack,
+                                                          fontSize:
+                                                              width * 0.04,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     )
                                                   ],
                                                 ),
                                               ),
                                               Divider(),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 1.0, right: 1, top: 10),
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 10),
                                                 child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       "Internal Comments",
-                                                      style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w400, fontSize: width * 0.04),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
                                                     ),
                                                     Spacer(),
                                                     SizedBox(
                                                       width: width * 0.5,
                                                       child: Text(
-                                                        item.userComments == "" ? "--" : item.userComments?.toString() ?? "--",
-                                                        style: TextStyle(color: kColorblack, fontSize: width * 0.04, fontWeight: FontWeight.bold),
-                                                        textAlign: TextAlign.right,
+                                                        item.userComments == ""
+                                                            ? "--"
+                                                            : item.userComments
+                                                                    ?.toString() ??
+                                                                "--",
+                                                        style: TextStyle(
+                                                            color: kColorblack,
+                                                            fontSize:
+                                                                width * 0.04,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                        textAlign:
+                                                            TextAlign.right,
                                                       ),
                                                     )
                                                   ],
@@ -1328,21 +1650,42 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item, d
                                               ),
                                               Divider(),
                                               Padding(
-                                                padding: const EdgeInsets.only(left: 1.0, right: 1, top: 8),
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 8),
                                                 child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       "Lead Comments",
-                                                      style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.w400, fontSize: width * 0.04),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
                                                     ),
                                                     Spacer(),
                                                     SizedBox(
                                                       width: width * 0.5,
                                                       child: Text(
-                                                        item.leadComments == "" ? "--" : item.leadComments?.toString() ?? "--",
-                                                        style: TextStyle(color: kColorblack, fontSize: width * 0.04, fontWeight: FontWeight.bold),
-                                                        textAlign: TextAlign.right,
+                                                        item.leadComments == ""
+                                                            ? "--"
+                                                            : item.leadComments
+                                                                    ?.toString() ??
+                                                                "--",
+                                                        style: TextStyle(
+                                                            color: kColorblack,
+                                                            fontSize:
+                                                                width * 0.04,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                        textAlign:
+                                                            TextAlign.right,
                                                       ),
                                                     )
                                                   ],
@@ -1387,7 +1730,10 @@ class CreateWidgetCustom extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(4.w),
         margin: EdgeInsets.all(2.w),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.w), color: Colors.grey[100], boxShadow: kElevationToShadow[1]),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.w),
+            color: Colors.grey[100],
+            boxShadow: kElevationToShadow[1]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -1395,7 +1741,11 @@ class CreateWidgetCustom extends StatelessWidget {
             SizedBox(
               width: 4.w,
             ),
-            Text(title, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17.sp, color: kColorblack)),
+            Text(title,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 17.sp,
+                    color: kColorblack)),
           ],
         ),
       ),

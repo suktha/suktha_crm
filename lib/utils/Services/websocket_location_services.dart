@@ -22,14 +22,18 @@ class WebSocketService extends GetxService {
   bool isUserConnected = false;
   final homeController = Get.find<HomeController>();
   final fieldworkController = Get.put(FieldWorkController());
-
-  Future<void> initializeConnection({required int? userId, required String? leadId}) async {
+  bool isWebSocketConnected = false;
+  
+  Future<void> initializeConnection(
+      {required int? userId, required String? leadId}) async {
     var prefs = SharedPreferencesService.instance;
 
     LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
         print("❌ Location permission denied.");
         return;
       }
@@ -43,11 +47,15 @@ class WebSocketService extends GetxService {
     print('📛 Token: $token');
 
     // Get the dynamic topic URL
-    final response = await apiCallService("/getUrlForLocationTracking", "GET", {}, TheResponseType.map, {}, false);
+    final response = await apiCallService("/getUrlForLocationTracking", "GET",
+        {}, TheResponseType.map, {}, false);
     final urlPart = response.toString();
-    String subscribeUrl = "$urlPart/${userId}";
+    String subscribeUrl = "$urlPart/$userId";
 
     String stompUrl = "https://api.test.brainibooks.com/core-erp/ws";
+
+     print("isLoginIdIsAdmin 1 : " +
+              homeController.isLoginIdIsAdmin.value.toString());
 
     stompClient = StompClient(
       config: StompConfig.sockJS(
@@ -59,16 +67,20 @@ class WebSocketService extends GetxService {
           'Authorization': 'Bearer $token',
         },
         onConnect: (StompFrame frame) async {
+          isWebSocketConnected = true;
           print("✅ Connected: $frame");
 
-          print("isLoginIdIsAdmin : " + homeController.isLoginIdIsAdmin.value.toString());
+          print("isLoginIdIsAdmin : " +
+              homeController.isLoginIdIsAdmin.value.toString());
 
           if (homeController.isLoginIdIsAdmin.value) {
             fieldworkController.isAdminConnected.value = true;
             print(" topics : " + subscribeUrl);
             connectAdmin(subscribeUrl);
           } else {
-            await connectUser(urlPart: urlPart, loginDetails: loginDetails, leadId: leadId!);
+            print("else case topics : " + urlPart);
+            await connectUser(
+                urlPart: urlPart, loginDetails: loginDetails, leadId: leadId!);
           }
         },
         onWebSocketError: (error) => print('🔁 WebSocket Error: $error'),
@@ -161,7 +173,8 @@ class WebSocketService extends GetxService {
         print('isactive : ${stompClient!.isActive}');
 
         if (stompClient!.connected && stompClient!.isActive) {
-          stompClient!.send(destination: '/app/sendLocation', body: body, headers: {});
+          stompClient!
+              .send(destination: '/app/sendLocation', body: body, headers: {});
           print("📩 Location sent successfully.");
         } else {
           print("⚠️ STOMP client is not connected/active.");

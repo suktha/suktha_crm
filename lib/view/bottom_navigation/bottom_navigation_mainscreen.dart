@@ -17,7 +17,7 @@ class BottomNavigationMainscreen extends StatefulWidget {
 class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen> {
   late int currentIndex;
   final List<Widget> _screens = [
-    PreSaleScreen(),
+    const PreSaleScreen(),
     HomeScreen(),
     SettingsScreen(),
   ];

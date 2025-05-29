@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:developer';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:work_Force/Model/transaction_type_model.dart';
@@ -11,7 +9,6 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
-import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
 class InitialController extends GetxController {
@@ -23,26 +20,7 @@ class InitialController extends GetxController {
     checkLastLoginTime();
   }
 
-  // RxList<RxList<RecentActivityModel>> recentItemAllList = <RxList<RecentActivityModel>>[].obs;
-
-  // RxList<RecentActivityModel> salesRecentItemList = <RecentActivityModel>[].obs;
-  // RxList<RecentActivityModel> purchaseRecentItemList = <RecentActivityModel>[].obs;
-  // RxList<RecentActivityModel> preSalesRecentItemList = <RecentActivityModel>[].obs;
-  // RxList<RecentActivityModel> jobworkRecentItemList = <RecentActivityModel>[].obs;
-  // RxList<RecentActivityModel> subcontractingRecentItemList = <RecentActivityModel>[].obs;
-
-  // RxList<GraphModel> customerInvoice = <GraphModel>[].obs;
-  // RxList<GraphModel> purchaseInvoice = <GraphModel>[].obs;
-  // RxList<GraphModel> subContractingInvoice = <GraphModel>[].obs;
-  // RxList<GraphModel> jobWorkInvoce = <GraphModel>[].obs;
-  // RxList<GraphModel> openQuotation = <GraphModel>[].obs;
-  // RxList<GraphModel> openPurchaseOrder = <GraphModel>[].obs;
-
-  // RxList<List<GraphModel>> graphList = <List<GraphModel>>[].obs;
   RxList<String> carouselText = <String>[].obs;
-
-  // RecentActivityModel? recentquotationActivites;
-
   final dropdownvalue = '3'.obs;
 
   void setSelected(String value) {
@@ -50,19 +28,6 @@ class InitialController extends GetxController {
     // getInvoicePayment();
   }
 
-  // void initializeLists() {
-  //   // recentItemAllList.clear();
-  //   recentItemAllList.add(salesRecentItemList);
-  //   recentItemAllList.add(purchaseRecentItemList);
-  //   recentItemAllList.add(accountsRecentItemList);
-  //   recentItemAllList.add(jobworkRecentItemList);
-  // }
-
-  // void addToSalesList(int listIndex, Purchase activity) {
-  //   recentItemAllList[listIndex].add(activity);
-
-  //   // recentItemAllList[listIndex].sort((a, b) => DateTime.parse(b.transactionCreatedDAte!).compareTo(DateTime.parse(a.transactionCreatedDAte!)));
-  // }
 
   checkLastLoginTime() async {
     print("inside the last login time check");
@@ -84,10 +49,7 @@ class InitialController extends GetxController {
       customSnackbar("Session TimeOut", "Please Login Again", "error");
     } else {
       if (value == true) {
-        // getMenus();
-        // getRecentlyGeneratedData();
-        // getInvoicePayment();
-        // await transactionType();
+        
         print("navigate to main screen");
 
         navToMain();

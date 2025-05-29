@@ -10,7 +10,7 @@
         android:label="work_Force"
         android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDBpJmXqS1uMJRs0dYXj-XB9dAL_mUy_6A" />

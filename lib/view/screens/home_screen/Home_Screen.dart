@@ -492,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           children: [
                             FadeInDown(
-                              delay: Duration(milliseconds: 600),
+                              delay: Duration.zero,
                               duration: Duration(milliseconds: 800),
                               child: Container(
                                 height: 30.h,
@@ -520,6 +520,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     delay: Duration(milliseconds: 600),
                                     duration: Duration(milliseconds: 800),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         customLeadCreateButton(
                                             Icons.contact_page_rounded,
@@ -889,7 +891,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox customLeadCreateButton(
       IconData icons, String titleName, VoidCallback onTap) {
     return SizedBox(
-      width: 30.w,
+      width: 25.w,
       child: GestureDetector(
         onTap: onTap,
         child: Column(
