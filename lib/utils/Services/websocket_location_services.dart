@@ -11,6 +11,7 @@ import 'package:work_Force/Model/login_model.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
 import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
 
@@ -52,7 +53,8 @@ class WebSocketService extends GetxService {
     final urlPart = response.toString();
     String subscribeUrl = "$urlPart/$userId";
 
-    String stompUrl = "https://api.test.brainibooks.com/core-erp/ws";
+    String stompUrl = "$baseUrl/ws";
+    print("stompUrl : " + stompUrl);
 
      print("isLoginIdIsAdmin 1 : " +
               homeController.isLoginIdIsAdmin.value.toString());

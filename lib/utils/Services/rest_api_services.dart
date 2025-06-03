@@ -25,15 +25,22 @@ Future<dynamic> apiCallService(
 
   final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   LoginModel? loginDetails;
-  if (isAuth != true) {
-    final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
-    loginDetails = LoginModel.fromJson(logindecoded);
+if (!isAuth) {
+  final userMapString = sharedPreferences.getString('userMap');
+  if (userMapString == null) {
+    throw Exception("User is not logged in or userMap is missing in SharedPreferences.");
   }
 
+  final logindecoded = json.decode(userMapString);
+  loginDetails = LoginModel.fromJson(logindecoded);
+}
+print("loginDetails: ${loginDetails?.toJson()}");
+print( "url: $url, method: $method, body: $body, queryParameters: $queryParameters, isAuth: $isAuth");
   try {
     late Response response;
-
+print("inside try");
     if (method == 'GET') {
+      print("inside get method");
       if (responseType == TheResponseType.bytes) {
         //any images or something
         response = await dio.get(url,
@@ -106,22 +113,22 @@ Future<dynamic> apiCallService(
       // Handle error response
     }
   } on DioException catch (e) {
-    await checkTokenExpired(e.response!.statusCode ?? 0);
+    await checkTokenExpired(e.response?.statusCode ?? 0);
     // Handle network errors
 
     CustomPrint.printError(
-        "{ Success: False, url: $url, method: $method, para: $queryParameters, body: $body, status code: ${e.response!.statusCode}, data: ${e.response!.data}, use Token: ${isAuth ? false : true}, }");
+        "{ Success: False, url: $url, method: $method, para: $queryParameters, body: $body, status code: ${e.response?.statusCode}, data: ${e.response?.data}, use Token: ${isAuth ? false : true}, }");
     log("Success: False, " +
         "\nurl: $url, " +
         "\nmethod: $method, " +
         "\npara: $queryParameters, " +
         "\nbody: $body, " +
-        "\nstatus code: ${e.response!.statusCode}, " +
-        "\ndata: ${e.response!.data}" +
+        "\nstatus code: ${e.response?.statusCode}, " +
+        "\ndata: ${e.response?.data}" +
         "\nuse Token: ${isAuth ? false : true}, ");
 
-    if (e.response!.data != null || e.response!.data != "") {
-      // print("errorr-----${e.response!.data['error']}");
+    if (e.response?.data != null || e.response?.data != "") {
+      print("errorr-----${e.response?.data['error']}");
       // customSnackbar(e.response!.data['error'].toString(), e.response!.data['message'].toString(), 'error');
     } else {}
   } finally {}

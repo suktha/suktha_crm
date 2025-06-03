@@ -3205,7 +3205,6 @@ class _NewLeadManagementAddScreenState
                                                                                 areaFocusNode) {
                                                                               return TextFormField(
                                                                                 readOnly: true,
-                                                                                
                                                                                 controller: areaControllers,
                                                                                 focusNode: areaFocusNode,
                                                                                 decoration: InputDecoration(
@@ -3268,13 +3267,12 @@ class _NewLeadManagementAddScreenState
                                                                                 _cityfocusNode,
                                                                             controller:
                                                                                 controller.cityController,
-                                                                                 builder: (context,
-                                                                               cityControllers,
+                                                                            builder: (context,
+                                                                                cityControllers,
                                                                                 cityFocusNode) {
                                                                               return TextFormField(
                                                                                 readOnly: true,
-                                                                                
-                                                                                controller:cityControllers,
+                                                                                controller: cityControllers,
                                                                                 focusNode: cityFocusNode,
                                                                                 decoration: InputDecoration(
                                                                                   labelText: "City",
@@ -3337,13 +3335,12 @@ class _NewLeadManagementAddScreenState
                                                                                 _statefocusNode,
                                                                             controller:
                                                                                 controller.stateController,
-                                                                                 builder: (context,
-                                                                               stateControllers,
+                                                                            builder: (context,
+                                                                                stateControllers,
                                                                                 stateFocusNode) {
                                                                               return TextFormField(
                                                                                 readOnly: true,
-                                                                                
-                                                                                controller:stateControllers,
+                                                                                controller: stateControllers,
                                                                                 focusNode: stateFocusNode,
                                                                                 decoration: InputDecoration(
                                                                                   labelText: "State",
@@ -3390,12 +3387,11 @@ class _NewLeadManagementAddScreenState
                                                                                 _countryfocusNode,
                                                                             controller:
                                                                                 controller.countryController,
-                                                                                 builder: (context,
+                                                                            builder: (context,
                                                                                 countryControllers,
                                                                                 countryFocusNode) {
                                                                               return TextFormField(
                                                                                 readOnly: true,
-                                                                                
                                                                                 controller: countryControllers,
                                                                                 focusNode: countryFocusNode,
                                                                                 decoration: InputDecoration(
@@ -3607,7 +3603,6 @@ class _NewLeadManagementAddScreenState
                                                                         .leadScoreDetailsController,
                                                                 label:
                                                                     "Lead Source Details"),
-                                                            
                                                             GestureDetector(
                                                               onTap: () {
                                                                 _showBottomTimePicker(
@@ -4600,8 +4595,9 @@ class _NewLeadManagementAddScreenState
     print(
         "designation --${controller.selectedDesignationValue.designationName}");
 
-    //--source
+    // --source
     await controller.getSourceList();
+
     controller.selectedSourceValue = widget.isEditFromLeadGen == true
         ? controller.sourceList.firstWhere(
             (value) => value.id == widget.leadGenerationValue!.sourceId)
@@ -4732,8 +4728,7 @@ class _NewLeadManagementAddScreenState
     }
     print(
         "preferd contact  time --${controller.preferredContactTimeController.text}");
-            controller.isPageLoading.value = false;
-
+    controller.isPageLoading.value = false;
   }
 
   void _showBottomTimePicker(BuildContext context,
@@ -4821,7 +4816,7 @@ class TimePickerBotoomSheetWidget extends StatelessWidget {
                       var selectedId = item['id'] ?? 0;
 
                       print(selectedTimeController.text);
-                      print("follow up bool--${isFromFollowUpTime}");
+                      print("follow up bool--$isFromFollowUpTime");
                       if (isFromFollowUpTime == true) {
                         print(selectedId);
                         controller.followUpId.value = selectedId;

@@ -1038,6 +1038,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
     }).toList();
 
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
+      if (item.amount == null) return sum; // Handle null amounts
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
