@@ -621,7 +621,7 @@ class GetLeadController extends GetxController {
 
     print("login details --- ${loginDetails.user!.id!}");
 
-   var userId = loginDetails.user!.id!;
+    var userId = loginDetails.user!.id!;
 
     //25 - type id
     print("Search---filterrr---$string");
@@ -989,7 +989,7 @@ class GetLeadController extends GetxController {
     final loginDetails = LoginModel.fromJson(logindecoded);
 
     // Define the URL
-    String url = baseUrl + '/send-Email-Lead' + '/$id' + '/$id' + '/35';
+    String url = baseUrl + '/send-Email-Lead';
 
     print("url ---- $url");
 
@@ -997,22 +997,35 @@ class GetLeadController extends GetxController {
     var fileName = file.path.split('/').last;
     print("Filename: $fileName");
 
-    // Prepare FormData
-    FormData formData = FormData.fromMap({
-      'files': await MultipartFile.fromFile(file.path,
-          filename: fileName, contentType: MediaType('application', 'pdf')),
+    final requestDTO = {
       'id': id,
       "transactionId": id,
       "transactionType": 35,
       "emailSubject": subjectController.text,
       "emailContent": contentController.text,
+      'cc': [],
+      'bcc': [],
+    };
+
+    // Prepare FormData
+    FormData formData = FormData.fromMap({
+      'requestDTO':  MultipartFile.fromString(
+        json.encode(requestDTO),
+        filename: "blob",
+        contentType: MediaType('application', 'json'),
+      ),
+      'files': await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+        contentType: MediaType('image', 'png'),
+      ),
     });
 
     Dio dio = Dio();
-    print("FormData: ${formData.fields}");
+    print("FormData1: ${formData.fields}");
     print("FormData: ${formData.files}");
 
-    print("id ------------ $formData");
+    // print("id ------------ ${formData.id}");
     print("Token: ${loginDetails.token}");
 
     try {
@@ -1021,10 +1034,7 @@ class GetLeadController extends GetxController {
         url,
         data: formData,
         options: Options(
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            "Authorization": "Bearer ${loginDetails.token}"
-          },
+          headers: {"Authorization": "Bearer ${loginDetails.token}"},
         ),
       );
 

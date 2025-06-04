@@ -205,6 +205,7 @@ class LeadController extends GetxController {
   RxInt preferredContactTimeId = 0.obs;
 
   RxInt statusId = 0.obs;
+  RxInt leadOwnerId = 0.obs;
 
   RxList<MaterialModel> selectedMaterialItem =
       <MaterialModel>[].obs; // Create a list to store selected services
@@ -596,6 +597,9 @@ class LeadController extends GetxController {
         false); //--url, Method, body, responsetype, query parameter, isAuth
     List<UserModel> user =
         (responseValue).map((e) => UserModel.fromJson(e)).toList();
+
+    leadOwnerId.value = user[0].id ?? 0;
+    leadOwnerController.text = user[0].name ?? "";
 
     userList.value = user;
     userList.refresh();

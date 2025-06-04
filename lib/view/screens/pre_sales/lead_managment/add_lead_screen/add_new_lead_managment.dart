@@ -118,6 +118,8 @@ class _NewLeadManagementAddScreenState
         editFromContactsFunction(widget.IndexOfMandatoryField ?? 0);
       } else {
         controller.checkLeadNumById();
+              controller.getUserList();
+
       }
     });
   }
@@ -701,7 +703,49 @@ class _NewLeadManagementAddScreenState
                                                               },
                                                             ),
                                                     )),
-                                                Padding(
+                                               
+
+                                                CustomTextField(
+                                                    multilines: null,
+                                                    height: 7.h,
+                                                    validator: (value) {
+                                                      if (value.isEmpty) {
+                                                        return "Please Enter Mobile No";
+                                                      } else if (!Validate()
+                                                          .validateMobile(
+                                                              value)) {
+                                                        return "Please Enter Valid Mobile Number";
+                                                      }
+                                                      return null;
+                                                    },
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    obscure: false,
+                                                    textInputType:
+                                                        TextInputType.phone,
+                                                    controller: controller
+                                                        .mobileNoController,
+                                                    label: "Mobile Number*"),
+
+                                                CustomTextField(
+                                                    multilines: null,
+                                                    height: 7.h,
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return "Please enter Company Name";
+                                                      }
+                                                      return null;
+                                                    },
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    obscure: false,
+                                                    textInputType: TextInputType
+                                                        .emailAddress,
+                                                    controller: controller
+                                                        .companyNameController,
+                                                    label: "Company Name*"),
+
+                                                     Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 2.w),
                                                   child: TypeAheadField(
@@ -756,51 +800,13 @@ class _NewLeadManagementAddScreenState
                                                               .leadOwnerController
                                                               .text =
                                                           suggestion.name!;
+                                                      controller
+                                                              .leadOwnerId.value =suggestion.id ?? 0;
 
                                                       print(suggestion.id);
                                                     },
                                                   ),
                                                 ),
-
-                                                CustomTextField(
-                                                    multilines: null,
-                                                    height: 7.h,
-                                                    validator: (value) {
-                                                      if (value.isEmpty) {
-                                                        return "Please Enter Mobile No";
-                                                      } else if (!Validate()
-                                                          .validateMobile(
-                                                              value)) {
-                                                        return "Please Enter Valid Mobile Number";
-                                                      }
-                                                      return null;
-                                                    },
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    obscure: false,
-                                                    textInputType:
-                                                        TextInputType.phone,
-                                                    controller: controller
-                                                        .mobileNoController,
-                                                    label: "Mobile Number*"),
-
-                                                CustomTextField(
-                                                    multilines: null,
-                                                    height: 7.h,
-                                                    validator: (value) {
-                                                      if (value!.isEmpty) {
-                                                        return "Please enter Company Name";
-                                                      }
-                                                      return null;
-                                                    },
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    obscure: false,
-                                                    textInputType: TextInputType
-                                                        .emailAddress,
-                                                    controller: controller
-                                                        .companyNameController,
-                                                    label: "Company Name*"),
 
                                                 Padding(
                                                   padding: EdgeInsets.symmetric(
@@ -907,9 +913,14 @@ class _NewLeadManagementAddScreenState
                                                                               .date_range)),
                                                               validator:
                                                                   (value) {
-                                                                if (value!
-                                                                    .isEmpty) {
-                                                                  return "Please enter Follow up date";
+                                                                if (controller
+                                                                        .statusId
+                                                                        .value ==
+                                                                    179) {
+                                                                  if (value!
+                                                                      .isEmpty) {
+                                                                    return "Please Select Follow Up Date";
+                                                                  }
                                                                 }
                                                                 return null;
                                                               },
@@ -923,40 +934,46 @@ class _NewLeadManagementAddScreenState
                                                                   "FollowUp Date"),
                                                         ],
                                                       ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    _showBottomTimePicker(
-                                                        context,
-                                                        controller
-                                                            .followUpTimecontroller,
-                                                        "Select the Follow Up Time",
-                                                        true);
-                                                  },
-                                                  child: CustomTextField(
-                                                      readonly: true,
-                                                      suffixIcon: IconButton(
-                                                          onPressed: () {
-                                                            _showBottomTimePicker(
-                                                                context,
-                                                                controller
-                                                                    .followUpTimecontroller,
-                                                                "Select the Follow Up Time",
-                                                                true);
-                                                          },
-                                                          icon: Icon(Icons
-                                                              .watch_later_outlined)),
-                                                      multilines: 1,
-                                                      height: 6.h,
-                                                      validator: (value) {
-                                                        return null;
-                                                      },
-                                                      textInputAction:
-                                                          TextInputAction.next,
-                                                      obscure: false,
-                                                      controller: controller
-                                                          .followUpTimecontroller,
-                                                      label: "Follow Up Time"),
-                                                ),
+                                                controller.statusId.value == 179
+                                                    ? GestureDetector(
+                                                        onTap: () {
+                                                          _showBottomTimePicker(
+                                                              context,
+                                                              controller
+                                                                  .followUpTimecontroller,
+                                                              "Select the Follow Up Time",
+                                                              true);
+                                                        },
+                                                        child: CustomTextField(
+                                                            readonly: true,
+                                                            suffixIcon:
+                                                                IconButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      _showBottomTimePicker(
+                                                                          context,
+                                                                          controller
+                                                                              .followUpTimecontroller,
+                                                                          "Select the Follow Up Time",
+                                                                          true);
+                                                                    },
+                                                                    icon: Icon(Icons
+                                                                        .watch_later_outlined)),
+                                                            multilines: 1,
+                                                            height: 6.h,
+                                                            validator: (value) {
+                                                              return null;
+                                                            },
+                                                            textInputAction:
+                                                                TextInputAction
+                                                                    .next,
+                                                            obscure: false,
+                                                            controller: controller
+                                                                .followUpTimecontroller,
+                                                            label:
+                                                                "Follow Up Time"),
+                                                      )
+                                                    : SizedBox(),
 
                                                 if (controller.statusId.value ==
                                                     178)
@@ -1801,7 +1818,78 @@ class _NewLeadManagementAddScreenState
                                                                         },
                                                                       ),
                                                               )),
-                                                          Padding(
+                                                         
+                                                          CustomTextField(
+                                                              multilines: null,
+                                                              height: 7.h,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return "Please enter Company Name";
+                                                                }
+                                                                return null;
+                                                              },
+                                                              textInputAction:
+                                                                  TextInputAction
+                                                                      .next,
+                                                              obscure: false,
+                                                              textInputType:
+                                                                  TextInputType
+                                                                      .emailAddress,
+                                                              controller: controller
+                                                                  .companyNameController,
+                                                              label:
+                                                                  "Company Name*"),
+                                                          CustomTextField(
+                                                              multilines: 1,
+                                                              height: 6.h,
+                                                              validator:
+                                                                  (value) {
+                                                                if (value
+                                                                    .isEmpty) {
+                                                                  return "Please Enter Mobile No";
+                                                                } else if (!Validate()
+                                                                    .validateMobile(
+                                                                        value)) {
+                                                                  return "Please Enter Valid Mobile Number";
+                                                                }
+
+                                                                return null;
+                                                              },
+                                                              textInputAction:
+                                                                  TextInputAction
+                                                                      .next,
+                                                              obscure: false,
+                                                              textInputType:
+                                                                  TextInputType
+                                                                      .phone,
+                                                              controller: controller
+                                                                  .mobileNoController,
+                                                              label:
+                                                                  "Mobile Number*"),
+
+                                                          CustomTextField(
+                                                            multilines: null,
+                                                            height: 7.h,
+                                                            textInputAction:
+                                                                TextInputAction
+                                                                    .next,
+                                                            obscure: false,
+                                                            suffixIcon: Icon(Icons
+                                                                .currency_rupee),
+                                                            textInputType:
+                                                                TextInputType
+                                                                    .number,
+                                                            controller: controller
+                                                                .amountController,
+                                                            label:
+                                                                "Lead Amount",
+                                                            validator: (value) {
+                                                              return null;
+                                                            },
+                                                          ),
+                                                           Padding(
                                                             padding: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
@@ -1872,81 +1960,14 @@ class _NewLeadManagementAddScreenState
                                                                         .text =
                                                                     suggestion
                                                                         .name!;
+                                                                        controller.leadOwnerId.value =
+                                                                    suggestion.id!;
                                                                 // _leadOwnerfocusNode.unfocus();
 
                                                                 print(suggestion
                                                                     .id);
                                                               },
                                                             ),
-                                                          ),
-                                                          CustomTextField(
-                                                              multilines: null,
-                                                              height: 7.h,
-                                                              validator:
-                                                                  (value) {
-                                                                if (value!
-                                                                    .isEmpty) {
-                                                                  return "Please enter Company Name";
-                                                                }
-                                                                return null;
-                                                              },
-                                                              textInputAction:
-                                                                  TextInputAction
-                                                                      .next,
-                                                              obscure: false,
-                                                              textInputType:
-                                                                  TextInputType
-                                                                      .emailAddress,
-                                                              controller: controller
-                                                                  .companyNameController,
-                                                              label:
-                                                                  "Company Name*"),
-                                                          CustomTextField(
-                                                              multilines: 1,
-                                                              height: 6.h,
-                                                              validator:
-                                                                  (value) {
-                                                                if (value
-                                                                    .isEmpty) {
-                                                                  return "Please Enter Mobile No";
-                                                                } else if (!Validate()
-                                                                    .validateMobile(
-                                                                        value)) {
-                                                                  return "Please Enter Valid Mobile Number";
-                                                                }
-
-                                                                return null;
-                                                              },
-                                                              textInputAction:
-                                                                  TextInputAction
-                                                                      .next,
-                                                              obscure: false,
-                                                              textInputType:
-                                                                  TextInputType
-                                                                      .phone,
-                                                              controller: controller
-                                                                  .mobileNoController,
-                                                              label:
-                                                                  "Mobile Number*"),
-                                                          CustomTextField(
-                                                            multilines: null,
-                                                            height: 7.h,
-                                                            textInputAction:
-                                                                TextInputAction
-                                                                    .next,
-                                                            obscure: false,
-                                                            suffixIcon: Icon(Icons
-                                                                .currency_rupee),
-                                                            textInputType:
-                                                                TextInputType
-                                                                    .number,
-                                                            controller: controller
-                                                                .amountController,
-                                                            label:
-                                                                "Lead Amount",
-                                                            validator: (value) {
-                                                              return null;
-                                                            },
                                                           ),
                                                           Padding(
                                                             padding: EdgeInsets
@@ -2070,10 +2091,13 @@ class _NewLeadManagementAddScreenState
                                                                                     .date_range)),
                                                                         validator:
                                                                             (value) {
-                                                                          if (value!
-                                                                              .isEmpty) {
-                                                                            return "Please Select Date";
+                                                                          if (controller.statusId.value ==
+                                                                              179) {
+                                                                            if (value!.isEmpty) {
+                                                                              return "Please Select FollowUp Date";
+                                                                            }
                                                                           }
+
                                                                           return null;
                                                                         },
                                                                         textInputAction:
@@ -2085,7 +2109,7 @@ class _NewLeadManagementAddScreenState
                                                                             controller
                                                                                 .followUpDateController,
                                                                         label:
-                                                                            "FollowUp Date*"),
+                                                                            "FollowUp Date"),
                                                                   ],
                                                                 ),
                                                           Padding(
@@ -4259,7 +4283,7 @@ class _NewLeadManagementAddScreenState
   }
 
   EditFunction() async {
-    controller.isPageLoading.value = true;
+    // controller.isPageLoading.value = true;
     print("Existing customer  --${widget.leadValue?.isExistingCustomer}");
 
     print(
@@ -4728,7 +4752,7 @@ class _NewLeadManagementAddScreenState
     }
     print(
         "preferd contact  time --${controller.preferredContactTimeController.text}");
-    controller.isPageLoading.value = false;
+    // controller.isPageLoading.value = false;
   }
 
   void _showBottomTimePicker(BuildContext context,

@@ -141,6 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "User Profile",
                       icon: Icons.person_outline)),
+                      
 
          homeController.isLoginIdIsAdmin.value == true?      FadeInUp(
                   duration: const Duration(milliseconds: 500),

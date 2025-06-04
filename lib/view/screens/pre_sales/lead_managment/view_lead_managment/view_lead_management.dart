@@ -1606,6 +1606,39 @@ Future<dynamic> bottomSheetHistoryCustom(BuildContext context, LeadModel item,
                                                 ),
                                               ),
                                               Divider(),
+                                               Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 1.0,
+                                                    right: 1,
+                                                    top: 8),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                      "Status",
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize:
+                                                              width * 0.04),
+                                                    ),
+                                                    Spacer(),
+                                                    Text(
+                                                      item.statusName
+                                                              ?.toString() ??
+                                                          "--",
+                                                      style: TextStyle(
+                                                          color: kColorblack,
+                                                          fontSize:
+                                                              width * 0.04,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Divider(),
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 1.0,

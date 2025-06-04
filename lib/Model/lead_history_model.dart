@@ -8,6 +8,9 @@ class LeadHistoryModel {
   final String? leadComments;
   final String? deleted;
   final dynamic assignedName;
+    final String? statusName;
+  final int? statusId;
+
 
   LeadHistoryModel({
     this.id,
@@ -19,6 +22,8 @@ class LeadHistoryModel {
     this.leadComments,
     this.deleted,
     this.assignedName,
+    this.statusName,
+    this.statusId,
   });
 
   LeadHistoryModel.fromJson(Map<String, dynamic> json)
@@ -30,7 +35,9 @@ class LeadHistoryModel {
         userComments = json['userComments'] as String?,
         leadComments = json['leadComments'] as String?,
         deleted = json['deleted'] as String?,
-        assignedName = json['assignedName'];
+        assignedName = json['assignedName'],
+        statusName = json['statusName'] as String?,
+        statusId = json['statusId'] as int?;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -41,6 +48,9 @@ class LeadHistoryModel {
         'userComments': userComments,
         'leadComments': leadComments,
         'deleted': deleted,
-        'assignedName': assignedName
+        'assignedName': assignedName,
+        'statusName': statusName,
+        'statusId': statusId,
+
       };
 }
