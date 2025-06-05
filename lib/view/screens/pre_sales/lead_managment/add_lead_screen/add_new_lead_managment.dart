@@ -739,8 +739,7 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                    textInputType: TextInputType
-                                                        .emailAddress,
+                                                  
                                                     controller: controller
                                                         .companyNameController,
                                                     label: "Company Name*"),
@@ -1285,8 +1284,7 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                    textInputType: TextInputType
-                                                        .emailAddress,
+                                                    
                                                     controller: controller
                                                         .leadDescriptionController,
                                                     label: "Lead Description"),
@@ -1299,8 +1297,7 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                    textInputType: TextInputType
-                                                        .emailAddress,
+                                                    
                                                     controller: controller
                                                         .contactPersonController,
                                                     label:
@@ -1834,9 +1831,7 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                              textInputType:
-                                                                  TextInputType
-                                                                      .emailAddress,
+                                                              
                                                               controller: controller
                                                                   .companyNameController,
                                                               label:
@@ -2606,9 +2601,7 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                              textInputType:
-                                                                  TextInputType
-                                                                      .emailAddress,
+                                                             
                                                               controller: controller
                                                                   .leadDescriptionController,
                                                               label:
@@ -2693,9 +2686,7 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                              textInputType:
-                                                                  TextInputType
-                                                                      .emailAddress,
+                                                             
                                                               controller: controller
                                                                   .referralNameController,
                                                               label:
@@ -2868,9 +2859,7 @@ class _NewLeadManagementAddScreenState
                                                                     TextInputAction
                                                                         .next,
                                                                 obscure: false,
-                                                                textInputType:
-                                                                    TextInputType
-                                                                        .emailAddress,
+                                                              
                                                                 controller:
                                                                     controller
                                                                         .contactPersonController,

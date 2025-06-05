@@ -14,9 +14,9 @@ customSnackbar(title, message, type) {
                 ? Colors.green
                 : kColorlightBlue,
         colorText: type == "normal" ? kColorwhite : kColorwhite,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         boxShadows: kElevationToShadow[2],
-        animationDuration: Duration(milliseconds: 700),
-        duration: Duration(milliseconds: 1300));
+        animationDuration: const Duration(milliseconds: 700),
+        duration: const Duration(milliseconds: 1300));
   }
 }

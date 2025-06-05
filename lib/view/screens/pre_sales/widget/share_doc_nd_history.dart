@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:animate_do/animate_do.dart';
 import 'package:file_picker/file_picker.dart';
@@ -13,9 +13,11 @@ import 'package:work_Force/controllers/get_lead_controller.dart';
 import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_rounded_textfiled.dart';
+import 'package:work_Force/view/widget/snackbar.dart';
 
 class ShareDocNdHistory extends StatelessWidget {
-  const ShareDocNdHistory({super.key, required this.controller, required this.leadValue});
+  const ShareDocNdHistory(
+      {super.key, required this.controller, required this.leadValue});
 
   final GetLeadController controller;
   final LeadModel leadValue;
@@ -25,7 +27,10 @@ class ShareDocNdHistory extends StatelessWidget {
     return FadeInUp(
       duration: Durations.extralong2,
       child: Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
@@ -40,7 +45,8 @@ class ShareDocNdHistory extends StatelessWidget {
                     Spacer(),
                     Text(
                       "Share Docs / History",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.sp),
                     ),
                     Spacer(),
                     GestureDetector(
@@ -49,7 +55,9 @@ class ShareDocNdHistory extends StatelessWidget {
                         controller.getSharedDocHistory(leadId: leadValue.id!);
                       },
                       child: Container(
-                        decoration: BoxDecoration(boxShadow: kElevationToShadow[1], borderRadius: BorderRadius.circular(16)),
+                        decoration: BoxDecoration(
+                            boxShadow: kElevationToShadow[1],
+                            borderRadius: BorderRadius.circular(16)),
                         child: CircleAvatar(
                           radius: 17,
                           child: Icon(
@@ -66,9 +74,13 @@ class ShareDocNdHistory extends StatelessWidget {
                         Get.back();
                         controller.isFileAttached.value = false;
                         controller.sharedDocFile = null;
+                        controller.subjectController.clear();
+                        controller.contentController.clear();
                       },
                       child: Container(
-                        decoration: BoxDecoration(boxShadow: kElevationToShadow[1], borderRadius: BorderRadius.circular(16)),
+                        decoration: BoxDecoration(
+                            boxShadow: kElevationToShadow[1],
+                            borderRadius: BorderRadius.circular(16)),
                         child: CircleAvatar(
                           radius: 17,
                           child: Icon(
@@ -100,12 +112,18 @@ class ShareDocNdHistory extends StatelessWidget {
                                 CustomButton(
                                   title: "Attach",
                                   ontap: () async {
-                                    controller.sharedDocFile = await controller.pickFile(type: FileType.any);
+                                    controller.sharedDocFile = await controller
+                                        .pickFile(type: FileType.any);
 
-                                    controller.sharedDocFile != null ? controller.isFileAttached.value = true : false;
-
-                                    controller.sharedDocName.value = controller.sharedDocFile!.path.split('/').last;
-                                    print("Filename: ${controller.sharedDocName.value}");
+                                    controller.sharedDocFile != null
+                                        ? controller.isFileAttached.value = true
+                                        : false;
+                                    controller.sharedDocName.value = controller
+                                        .sharedDocFile!.path
+                                        .split('/')
+                                        .last;
+                                    print(
+                                        "Filename: ${controller.sharedDocName.value}");
                                   },
                                   width: 30.w,
                                   color: kColorlightBlue,
@@ -124,7 +142,12 @@ class ShareDocNdHistory extends StatelessWidget {
                                 child: Row(
                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(height: 60, width: 40, child: Image.asset(controller.getFileIcon(controller.sharedDocName.value))),
+                                    SizedBox(
+                                        height: 60,
+                                        width: 40,
+                                        child: Image.asset(
+                                            controller.getFileIcon(controller
+                                                .sharedDocName.value))),
                                     SizedBox(
                                       width: 2.w,
                                     ),
@@ -138,7 +161,8 @@ class ShareDocNdHistory extends StatelessWidget {
                                     const Spacer(),
                                     IconButton(
                                         onPressed: () {
-                                          controller.isFileAttached.value = false;
+                                          controller.isFileAttached.value =
+                                              false;
                                           controller.sharedDocFile = null;
                                         },
                                         icon: const Icon(
@@ -175,76 +199,100 @@ class ShareDocNdHistory extends StatelessWidget {
                     Obx(() => CustomButton(
                           title: "Send Mail",
                           ontap: () async {
-                            if (controller.isFileAttached.value) {
-                              print(controller.sharedDocFile);
-                              await controller.sendLeadMail(controller.sharedDocFile!, leadValue.id!);
+                            if (leadValue.email != null &&
+                                leadValue.email!.isNotEmpty) {
+                              if (controller.isFileAttached.value) {
+                                print(controller.sharedDocFile);
+                                await controller.sendLeadMail(
+                                    controller.sharedDocFile!, leadValue.id!);
+                              } else {
+                                customSnackbar("Error",
+                                    "Please attach a file to send", "error");
+                              }
+                            } else {
+                              customSnackbar(
+                                  "Error",
+                                  "Lead email is empty, please add email in your lead",
+                                  "error");
                             }
                           },
                           width: 100.w,
-                          color: controller.isFileAttached.value ? kColorlightBlue : kColorgrey,
+                          color: controller.isFileAttached.value
+                              ? kColorlightBlue
+                              : kColorgrey,
                           textcolor: kColorwhite,
                         )),
                     SizedBox(height: 2.h),
                     Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                " History",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.sp,
-                                ),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        " History",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17.sp,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 1.h),
+                    Obx(() => controller.sharedDocHistoryList.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  FadeIn(
+                                      delay: const Duration(milliseconds: 300),
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      child: LottieBuilder.asset(
+                                        "assets/lottie/empty.json",
+                                        height: 10.h,
+                                      )),
+                                  SizedBox(
+                                    height: 3.h,
+                                  ),
+                                  FadeIn(
+                                    delay: const Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
+                                    child: Text(
+                                      "History list is Empty",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 16.sp),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                    SizedBox(height: 1.h),
-                    Obx(() =>controller.sharedDocHistoryList.isEmpty?Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    // crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        height: 10.h,
-                                      ),
-                                      FadeIn(
-                                          delay:
-                                              const Duration(milliseconds: 300),
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          child: LottieBuilder.asset(
-                                              "assets/lottie/empty.json",height: 10.h,)),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      FadeIn(
-                                        delay: const Duration(milliseconds: 500),
-                                        duration:
-                                            const Duration(milliseconds: 500),
-                                        child: Text(
-                                          "History list is Empty",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 16.sp),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ): Container(
-                          constraints: BoxConstraints(maxHeight: 30.h),
-                          child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            itemCount: controller.sharedDocHistoryList.length,
-                            itemBuilder: (context, index) {
-                              var item = controller.sharedDocHistoryList[index];
-                              return ListTile(
-                                title: Text(item.documentName ?? "", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp), overflow: TextOverflow.ellipsis),
-                                leading: CircleAvatar(radius: 4.5.w, child: Text("${index + 1}")),
-                                trailing: Text(DateClass().showDate(item.createdDate)),
-                              );
-                            },
-                          ),
-                        )),
+                          )
+                        : Container(
+                            constraints: BoxConstraints(maxHeight: 30.h),
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              itemCount: controller.sharedDocHistoryList.length,
+                              itemBuilder: (context, index) {
+                                var item =
+                                    controller.sharedDocHistoryList[index];
+                                return ListTile(
+                                  title: Text(item.documentName ?? "",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15.sp),
+                                      overflow: TextOverflow.ellipsis),
+                                  leading: CircleAvatar(
+                                      radius: 4.5.w,
+                                      child: Text("${index + 1}")),
+                                  trailing: Text(
+                                      DateClass().showDate(item.createdDate)),
+                                );
+                              },
+                            ),
+                          )),
                   ],
                 ),
               )
