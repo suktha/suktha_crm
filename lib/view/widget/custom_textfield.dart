@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -51,10 +53,10 @@ class CustomTextField extends StatelessWidget {
     required this.obscure,
     required this.controller,
     required this.label,
-    Key? key,
+    super.key,
     this.errortext,
     this.readonly,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -414,6 +414,8 @@ class GetLeadController extends GetxController {
   }
 
   RxList<LeadModel> leadList = <LeadModel>[].obs;
+  RxList<LeadModel> allLeadList = <LeadModel>[].obs;
+
   RxList<LeadModel> filteredLeadList = <LeadModel>[].obs;
   RxInt totalLeadAmt = 0.obs;
 
@@ -574,9 +576,10 @@ class GetLeadController extends GetxController {
   RxBool isCalledGetAllLeads = false.obs;
 
   getAllLead() async {
+    print("Inside get ALL lEADS");
     try {
       var apiData = "/leadGeneration";
-      Map<String, dynamic>? result = await apiCallService(
+      List<dynamic> result = await apiCallService(
           apiData,
           'GET',
           {},
@@ -584,20 +587,18 @@ class GetLeadController extends GetxController {
           {},
           false); //--url, Method, body, responsetype, query parameter, isAuth
 
-      List<dynamic> headers = result!['leadGenerations'];
-      totalLeadCount.value = result["totalCount"];
-      print("total count----- $totalLeadCount");
       listLoad.value = false;
       hasMore.value = true;
 
       List<LeadModel> newLeadList =
-          headers.map((header) => LeadModel.fromJson(header)).toList();
+          result.map((header) => LeadModel.fromJson(header)).toList();
 
-      leadList.addAll(newLeadList);
+      print("total count---ALL LEADS-- $newLeadList");
+      allLeadList.addAll(newLeadList);
 
       loading.value = true;
 
-      leadList.refresh();
+      allLeadList.refresh();
     } catch (e) {
       print("Error in getAllLead -- $e");
     }
@@ -979,9 +980,9 @@ class GetLeadController extends GetxController {
         {},
         TheResponseType.map,
         {},
-        false); 
+        false);
 
-        print("responseValue ---- $responseValue");
+    print("responseValue ---- $responseValue");
   }
 
   Future<void> sendLeadMail(File file, String id) async {

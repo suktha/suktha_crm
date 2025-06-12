@@ -504,7 +504,7 @@ class _OpenLeadManagementScreenState extends State<OpenLeadManagementScreen> {
                             width: 40.w,
                             child: Text(
                               widget.leadValue.followUpDate == null
-                                  ? ""
+                                  ? "--"
                                   : DateClass().showDate(
                                       widget.leadValue.followUpDate ?? ""),
                               textAlign: TextAlign.end,
@@ -733,7 +733,10 @@ class _OpenLeadManagementScreenState extends State<OpenLeadManagementScreen> {
                           SizedBox(
                             width: 40.w,
                             child: Text(
-                              widget.leadValue.address?.toString() ?? "--",
+                              widget.leadValue.address!.isEmpty
+                                  ? "--"
+                                  : widget.leadValue.address?.toString() ??
+                                      "--",
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                   color: Colors.black,

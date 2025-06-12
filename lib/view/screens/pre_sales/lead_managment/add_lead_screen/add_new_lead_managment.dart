@@ -788,6 +788,8 @@ class _NewLeadManagementAddScreenState
                                                             InputDecoration(
                                                           labelText:
                                                               "Lead Owner*",
+                                                              suffixIcon:
+                                                              Icon(Icons.list),
                                                         ),
                                                       );
                                                     },
@@ -1930,6 +1932,8 @@ class _NewLeadManagementAddScreenState
                                                                       InputDecoration(
                                                                     labelText:
                                                                         "Lead Owner*",
+                                                                        suffixIcon:
+                                                              Icon(Icons.list),
                                                                   ),
                                                                 );
                                                               },
@@ -4272,7 +4276,7 @@ class _NewLeadManagementAddScreenState
   }
 
   EditFunction() async {
-    // controller.isPageLoading.value = true;
+    controller.isPageLoading.value = true;
     print("Existing customer  --${widget.leadValue?.isExistingCustomer}");
 
     print(
@@ -4739,9 +4743,9 @@ class _NewLeadManagementAddScreenState
                       element["id"] == widget.leadValue!.preferredContactTime,
                 )["time"];
     }
+    controller.isPageLoading.value = false;
     print(
         "preferd contact  time --${controller.preferredContactTimeController.text}");
-    // controller.isPageLoading.value = false;
   }
 
   void _showBottomTimePicker(BuildContext context,

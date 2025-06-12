@@ -234,65 +234,70 @@ class ShareDocNdHistory extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 1.h),
-                    Obx(() => controller.sharedDocHistoryList.isEmpty
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  FadeIn(
-                                      delay: const Duration(milliseconds: 300),
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      child: LottieBuilder.asset(
-                                        "assets/lottie/empty.json",
-                                        height: 10.h,
-                                      )),
-                                  SizedBox(
-                                    height: 3.h,
-                                  ),
-                                  FadeIn(
-                                    delay: const Duration(milliseconds: 500),
-                                    duration: const Duration(milliseconds: 500),
-                                    child: Text(
-                                      "History list is Empty",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 16.sp),
+                    Obx(
+                      () => controller.sharedDocHistoryList.isEmpty
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
-                                  )
-                                ],
+                                    FadeIn(
+                                        delay:
+                                            const Duration(milliseconds: 300),
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        child: LottieBuilder.asset(
+                                          "assets/lottie/empty.json",
+                                          height: 10.h,
+                                        )),
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                    FadeIn(
+                                      delay: const Duration(milliseconds: 500),
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      child: Text(
+                                        "History list is Empty",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 16.sp),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          : Container(
+                              constraints: BoxConstraints(maxHeight: 30.h),
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                itemCount:
+                                    controller.sharedDocHistoryList.length,
+                                itemBuilder: (context, index) {
+                                  var item =
+                                      controller.sharedDocHistoryList[index];
+                                  return ListTile(
+                                    title: Text(item.documentName ?? "",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15.sp),
+                                        overflow: TextOverflow.ellipsis),
+                                    leading: CircleAvatar(
+                                        radius: 4.5.w,
+                                        child: Text("${index + 1}")),
+                                    trailing: Text(
+                                        DateClass().showDate(item.createdDate)),
+                                  );
+                                },
                               ),
                             ),
-                          )
-                        : Container(
-                            constraints: BoxConstraints(maxHeight: 30.h),
-                            child: ListView.builder(
-                              physics: BouncingScrollPhysics(),
-                              itemCount: controller.sharedDocHistoryList.length,
-                              itemBuilder: (context, index) {
-                                var item =
-                                    controller.sharedDocHistoryList[index];
-                                return ListTile(
-                                  title: Text(item.documentName ?? "",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15.sp),
-                                      overflow: TextOverflow.ellipsis),
-                                  leading: CircleAvatar(
-                                      radius: 4.5.w,
-                                      child: Text("${index + 1}")),
-                                  trailing: Text(
-                                      DateClass().showDate(item.createdDate)),
-                                );
-                              },
-                            ),
-                          )),
+                    ),
                   ],
                 ),
               )

@@ -35,6 +35,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
     controller.fromPreSalesScreen.value = true;
     controller.StatusfromPreSalesScreen.value = false;
     todayDetails();
+    controller.getAllLead();
     super.initState();
   }
 
@@ -62,7 +63,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
           backgroundColor: Color.fromARGB(255, 243, 243, 243),
           appBar: AppBar(
             title: const Text(" Pre Sales"),
-            titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: 20.sp),
+            titleTextStyle: TextStyle(
+                color: kColorblack,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp),
             centerTitle: false,
             backgroundColor: Color.fromARGB(255, 243, 243, 243),
             elevation: 0,
@@ -73,7 +77,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                   controller.isCalledGetAllLeads.value = false;
                   // controller.getAllLead();
 
-                  Get.to(LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                  Get.to(LeadManagementListScreen(),
+                      transition: Transition.fade,
+                      duration: Duration(milliseconds: 600));
                   // controller.getFinancialYearList();
                 },
                 icon: Icon(
@@ -106,8 +112,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 setState(() {
                                   controller.selectedFilters.value = "Today";
                                   controller.totalLeadAmt.value = 0;
-                                  controller.currentMonth.value = controller.TodayDate.value;
-                                  controller.dataForSelectedDate.value = controller.TodayDateNumber.value;
+                                  controller.currentMonth.value =
+                                      controller.TodayDate.value;
+                                  controller.dataForSelectedDate.value =
+                                      controller.TodayDateNumber.value;
                                   controller.filteredLeadList.clear();
                                   controller.isSelectedToday.value = true;
                                   controller.isSelectedThisMonth.value = false;
@@ -129,8 +137,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                               setState(() {
                                 controller.selectedFilters.value = "Yesterday";
                                 controller.totalLeadAmt.value = 0;
-                                controller.currentMonth.value = controller.yesterdayFormatted.value;
-                                controller.dataForSelectedDate.value = controller.yesterdaydate.value;
+                                controller.currentMonth.value =
+                                    controller.yesterdayFormatted.value;
+                                controller.dataForSelectedDate.value =
+                                    controller.yesterdaydate.value;
                                 controller.filteredLeadList.clear();
                                 controller.isSelectedToday.value = false;
                                 controller.isSelectedThisMonth.value = false;
@@ -151,8 +161,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                               setState(() {
                                 controller.selectedFilters.value = "Tomorrow";
                                 controller.totalLeadAmt.value = 0;
-                                controller.currentMonth.value = controller.tomorrowFormatted.value;
-                                controller.dataForSelectedDate.value = controller.tomorrowdate.value;
+                                controller.currentMonth.value =
+                                    controller.tomorrowFormatted.value;
+                                controller.dataForSelectedDate.value =
+                                    controller.tomorrowdate.value;
                                 controller.filteredLeadList.clear();
                                 controller.isSelectedToday.value = false;
                                 controller.isSelectedThisMonth.value = false;
@@ -174,7 +186,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.totalLeadAmt.value = 0;
                                 controller.selectedFilters.value = "Last Week";
                                 controller.dataForSelectedDate.value = "";
-                                controller.currentMonth.value = "${controller.lastWeekStartFormatted.value} - ${controller.lastWeekEndFormatted.value}";
+                                controller.currentMonth.value =
+                                    "${controller.lastWeekStartFormatted.value} - ${controller.lastWeekEndFormatted.value}";
                                 controller.isSelectedToday.value = false;
                                 controller.isSelectedyesterday.value = false;
                                 controller.isSelectedThisMonth.value = false;
@@ -185,7 +198,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedCustom.value = false;
                                 controller.isSelectedThisWeek.value = false;
                               });
-                              await lastWeekList(controller.lastWeekStartDate.value, controller.lastWeekEndDate.value);
+                              await lastWeekList(
+                                  controller.lastWeekStartDate.value,
+                                  controller.lastWeekEndDate.value);
                             }, "Last Week"),
                             SizedBox(
                               width: 1.h,
@@ -195,7 +210,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.totalLeadAmt.value = 0;
                                 controller.selectedFilters.value = "This Week";
                                 controller.dataForSelectedDate.value = "";
-                                controller.currentMonth.value = "${controller.thisWeekStartFormatted.value} - ${controller.thisWeekEndFormatted.value}";
+                                controller.currentMonth.value =
+                                    "${controller.thisWeekStartFormatted.value} - ${controller.thisWeekEndFormatted.value}";
                                 controller.isSelectedToday.value = false;
                                 controller.isSelectedyesterday.value = false;
                                 controller.isSelectedThisMonth.value = false;
@@ -206,7 +222,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedNextWeek.value = false;
                                 controller.isSelectedCustom.value = false;
                               });
-                              await lastWeekList(controller.thisWeekStartDate.value, controller.thisWeekEndDate.value);
+                              await lastWeekList(
+                                  controller.thisWeekStartDate.value,
+                                  controller.thisWeekEndDate.value);
                             }, "This Week"),
                             SizedBox(
                               width: 1.h,
@@ -218,7 +236,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedToday.value = false;
                                 controller.dataForSelectedDate.value = "";
                                 controller.isSelectedyesterday.value = false;
-                                controller.currentMonth.value = "${controller.nextWeekStartFormatted.value} - ${controller.nextWeekEndFormatted.value}";
+                                controller.currentMonth.value =
+                                    "${controller.nextWeekStartFormatted.value} - ${controller.nextWeekEndFormatted.value}";
                                 controller.isSelectedTomorrow.value = false;
                                 controller.isSelectedThisMonth.value = false;
                                 controller.isSelectedLastMonth.value = false;
@@ -227,7 +246,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedCustom.value = false;
                                 controller.isSelectedThisWeek.value = false;
                               });
-                              await lastWeekList(controller.nextWeekStartDate.value, controller.nextWeekEndDate.value);
+                              await lastWeekList(
+                                  controller.nextWeekStartDate.value,
+                                  controller.nextWeekEndDate.value);
                             }, "Next Week"),
                             SizedBox(
                               width: 1.h,
@@ -239,7 +260,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedToday.value = false;
                                 controller.dataForSelectedDate.value = "";
                                 controller.isSelectedyesterday.value = false;
-                                controller.currentMonth.value = "${controller.thisMonthStartFormatted.value} - ${controller.thisMonthEndFormatted.value}";
+                                controller.currentMonth.value =
+                                    "${controller.thisMonthStartFormatted.value} - ${controller.thisMonthEndFormatted.value}";
                                 controller.isSelectedTomorrow.value = false;
                                 controller.isSelectedLastWeek.value = false;
                                 controller.isSelectedNextWeek.value = false;
@@ -248,7 +270,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedLastMonth.value = false;
                                 controller.isSelectedThisMonth.value = true;
                               });
-                              await lastWeekList(controller.thisMonthStartDate.value, controller.thisMonthEndDate.value);
+                              await lastWeekList(
+                                  controller.thisMonthStartDate.value,
+                                  controller.thisMonthEndDate.value);
                             }, "This Month"),
                             SizedBox(
                               width: 1.h,
@@ -260,7 +284,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedToday.value = false;
                                 controller.dataForSelectedDate.value = "";
                                 controller.isSelectedyesterday.value = false;
-                                controller.currentMonth.value = "${controller.lastMonthStartFormatted.value} - ${controller.lastMonthEndFormatted.value}";
+                                controller.currentMonth.value =
+                                    "${controller.lastMonthStartFormatted.value} - ${controller.lastMonthEndFormatted.value}";
                                 controller.isSelectedTomorrow.value = false;
                                 controller.isSelectedLastWeek.value = false;
                                 controller.isSelectedNextWeek.value = false;
@@ -269,7 +294,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedThisMonth.value = false;
                                 controller.isSelectedLastMonth.value = true;
                               });
-                              await lastWeekList(controller.lastMonthStartDate.value, controller.lastMonthEndDate.value);
+                              await lastWeekList(
+                                  controller.lastMonthStartDate.value,
+                                  controller.lastMonthEndDate.value);
                             }, "Last Month"),
                             SizedBox(
                               width: 1.h,
@@ -290,8 +317,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 controller.isSelectedCustom.value = true;
                                 controller.isSelectedLastMonth.value = false;
                                 controller.filteredLeadList.clear();
-                                selectDate(controller.followUpDateController, false, false);
-                                print("date custom--${controller.dataForSelectedDate.value}");
+                                selectDate(controller.followUpDateController,
+                                    false, false);
+                                print(
+                                    "date custom--${controller.dataForSelectedDate.value}");
                               });
                             }, "Custom"),
                             SizedBox(
@@ -322,35 +351,57 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                   child: ContainerCustom(
                                     height: 21.9.h,
                                     width: 45.w,
-                                    title: controller.isSelectedToday.value == true
+                                    title: controller.isSelectedToday.value ==
+                                            true
                                         ? "Today's Leads Amount"
-                                        : controller.isSelectedyesterday.value == true
+                                        : controller.isSelectedyesterday
+                                                    .value ==
+                                                true
                                             ? "Yesterday's Leads Amount"
-                                            : controller.isSelectedTomorrow.value == true
+                                            : controller.isSelectedTomorrow
+                                                        .value ==
+                                                    true
                                                 ? "Tomorrow's Leads Amount"
-                                                : controller.isSelectedThisWeek.value == true
+                                                : controller.isSelectedThisWeek
+                                                            .value ==
+                                                        true
                                                     ? "This Week's Leads Amount"
-                                                    : controller.isSelectedNextWeek.value == true
+                                                    : controller.isSelectedNextWeek
+                                                                .value ==
+                                                            true
                                                         ? "Next Week's Leads Amount"
-                                                        : controller.isSelectedLastWeek.value == true
+                                                        : controller.isSelectedLastWeek
+                                                                    .value ==
+                                                                true
                                                             ? "Last Week's Leads Amount"
-                                                            : controller.isSelectedThisMonth.value == true
+                                                            : controller.isSelectedThisMonth
+                                                                        .value ==
+                                                                    true
                                                                 ? "This Month's Leads Amount"
-                                                                : controller.isSelectedCustom.value == true
+                                                                : controller.isSelectedCustom
+                                                                            .value ==
+                                                                        true
                                                                     ? "Custom Leads Amount"
                                                                     : "Today's Leads Amount",
                                     textColor: Colors.purple,
-                                    containerColor: [Colors.white, Colors.white],
+                                    containerColor: [
+                                      Colors.white,
+                                      Colors.white
+                                    ],
                                     details: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Obx(() => SizedBox(
                                                 width: 35.w,
                                                 child: Text(
                                                   "₹ ${controller.totalLeadAmt.toString()}",
-                                                  style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
+                                                  style: TextStyle(
+                                                      fontSize: 17.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               )),
                                           SizedBox(
@@ -358,7 +409,10 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                           ),
                                           Obx(() => Text(
                                                 "Lead count - ${controller.filteredLeadList.length.toString()}",
-                                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                                                style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ))
                                         ],
                                       ),
@@ -378,25 +432,40 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                   duration: Duration(milliseconds: 800),
                                   child: GestureDetector(
                                     onTap: () {
-                                      controller.StatusfromPreSalesScreen.value = false;
-                                      controller.fromPreSalesScreen.value = false;
-                                      Get.off(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                      controller.StatusfromPreSalesScreen
+                                          .value = false;
+                                      controller.fromPreSalesScreen.value =
+                                          false;
+                                      Get.off(() => LeadManagementListScreen(),
+                                          transition: Transition.fade,
+                                          duration:
+                                              Duration(milliseconds: 600));
                                     },
                                     child: ContainerCustom(
                                       height: 10.5.h,
                                       width: 45.w,
                                       title: "All Leads",
                                       textColor: Colors.amber,
-                                      containerColor: [Colors.white, Colors.white],
+                                      containerColor: [
+                                        Colors.white,
+                                        Colors.white
+                                      ],
                                       details: Padding(
-                                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8),
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Obx(() => Text(
-                                                  controller.totalLeadCount.toString(),
-                                                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                                  controller.totalLeadCount
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 )),
                                           ],
                                         ),
@@ -412,24 +481,38 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                   duration: Duration(milliseconds: 800),
                                   child: GestureDetector(
                                     onTap: () {
-                                      controller.StatusfromPreSalesScreen.value = true;
-                                      Get.to(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                      controller.StatusfromPreSalesScreen
+                                          .value = true;
+                                      Get.to(() => LeadManagementListScreen(),
+                                          transition: Transition.fade,
+                                          duration:
+                                              Duration(milliseconds: 600));
                                     },
                                     child: ContainerCustom(
                                       height: 10.5.h,
                                       width: 45.w,
                                       title: "New Leads",
                                       textColor: Colors.green,
-                                      containerColor: [Colors.white, Colors.white],
+                                      containerColor: [
+                                        Colors.white,
+                                        Colors.white
+                                      ],
                                       details: Padding(
-                                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8),
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Obx(() => Text(
-                                                  controller.totalNewLeadsCount.toString(),
-                                                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                                  controller.totalNewLeadsCount
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18.sp,
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 )),
                                           ],
                                         ),
@@ -446,7 +529,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            missedFollowUpBottomSheet(context: context, controller: controller);
+                            missedFollowUpBottomSheet(
+                                context: context, controller: controller);
                           },
                           child: FadeInLeft(
                             delay: Duration(milliseconds: 600),
@@ -458,20 +542,28 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                               textColor: Colors.black,
                               containerColor: [Colors.white, Colors.white],
                               details: Padding(
-                                padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
                                 child: Row(
                                   children: [
                                     SizedBox(
                                       width: 35.w,
                                       child: Text(
                                         "Missed Follow Up",
-                                        style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.amber.shade900),
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.amber.shade900),
                                       ),
                                     ),
                                     Spacer(),
                                     Obx(() => Text(
-                                          controller.missedFollowUpCount.toString(),
-                                          style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.black),
+                                          controller.missedFollowUpCount
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black),
                                         )),
                                     SizedBox(
                                       width: 2.h,
@@ -495,7 +587,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                             textColor: Colors.black,
                             containerColor: [Colors.white, Colors.white],
                             details: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8),
                               child: Row(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -504,8 +597,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            controller.selectedStatus.value = "Follow Up Required";
-                                            Get.to(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                            controller.selectedStatus.value =
+                                                "Follow Up Required";
+                                            Get.to(
+                                                () =>
+                                                    LeadManagementListScreen(),
+                                                transition: Transition.fade,
+                                                duration: Duration(
+                                                    milliseconds: 600));
                                           },
                                           child: Row(
                                             children: [
@@ -513,12 +612,22 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                 width: 35.w,
                                                 child: Text(
                                                   "Follow Up Required",
-                                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.indigo),
+                                                  style: TextStyle(
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.indigo),
                                                 ),
                                               ),
                                               Obx(() => Text(
-                                                    controller.followUpRequiredCount.toString(),
-                                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.indigo),
+                                                    controller
+                                                        .followUpRequiredCount
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.indigo),
                                                   )),
                                             ],
                                           ),
@@ -528,8 +637,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            controller.selectedStatus.value = "Converted";
-                                            Get.to(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                            controller.selectedStatus.value =
+                                                "Converted";
+                                            Get.to(
+                                                () =>
+                                                    LeadManagementListScreen(),
+                                                transition: Transition.fade,
+                                                duration: Duration(
+                                                    milliseconds: 600));
                                           },
                                           child: Row(
                                             children: [
@@ -537,12 +652,21 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                 width: 35.w,
                                                 child: Text(
                                                   "Converted",
-                                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.green),
+                                                  style: TextStyle(
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.green),
                                                 ),
                                               ),
                                               Obx(() => Text(
-                                                    controller.convertedCount.toString(),
-                                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.green),
+                                                    controller.convertedCount
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.green),
                                                   )),
                                             ],
                                           ),
@@ -552,8 +676,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            controller.selectedStatus.value = "Not Converted";
-                                            Get.to(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                            controller.selectedStatus.value =
+                                                "Not Converted";
+                                            Get.to(
+                                                () =>
+                                                    LeadManagementListScreen(),
+                                                transition: Transition.fade,
+                                                duration: Duration(
+                                                    milliseconds: 600));
                                           },
                                           child: Row(
                                             children: [
@@ -561,15 +691,24 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                 width: 35.w,
                                                 child: Text(
                                                   "Not Converted",
-                                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.red),
+                                                  style: TextStyle(
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.red),
                                                 ),
                                               ),
                                               // SizedBox(
                                               //   width: 1.h,
                                               // ),
                                               Obx(() => Text(
-                                                    controller.notConvertedCount.toString(),
-                                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.red),
+                                                    controller.notConvertedCount
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.red),
                                                   )),
                                             ],
                                           ),
@@ -579,8 +718,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            controller.selectedStatus.value = "Interested";
-                                            Get.to(() => LeadManagementListScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                                            controller.selectedStatus.value =
+                                                "Interested";
+                                            Get.to(
+                                                () =>
+                                                    LeadManagementListScreen(),
+                                                transition: Transition.fade,
+                                                duration: Duration(
+                                                    milliseconds: 600));
                                           },
                                           child: Row(
                                             children: [
@@ -588,15 +733,24 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                 width: 35.w,
                                                 child: Text(
                                                   "Interested",
-                                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600, color: Colors.amber),
+                                                  style: TextStyle(
+                                                      fontSize: 15.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.amber),
                                                 ),
                                               ),
                                               // SizedBox(
                                               //   width: 1.h,
                                               // ),
                                               Obx(() => Text(
-                                                    controller.interestedCount.toString(),
-                                                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold, color: Colors.amber),
+                                                    controller.interestedCount
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.amber),
                                                   )),
                                             ],
                                           ),
@@ -610,45 +764,72 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         SizedBox(
                                           height: 20.h,
                                           child: Obx(() {
-                                            List<Map<String, dynamic>> sections = [
+                                            List<Map<String, dynamic>>
+                                                sections = [
                                               {
                                                 "label": "Follow Up",
-                                                "value": controller.followUpRequiredCount.value,
+                                                "value": controller
+                                                    .followUpRequiredCount
+                                                    .value,
                                                 "color": Color(0xFFB0E0E6),
                                               },
                                               {
                                                 "label": "Converted",
-                                                "value": controller.convertedCount.value,
+                                                "value": controller
+                                                    .convertedCount.value,
                                                 "color": Color(0xFF98FB98),
                                               },
                                               {
                                                 "label": "Not Converted",
-                                                "value": controller.notConvertedCount.value,
+                                                "value": controller
+                                                    .notConvertedCount.value,
                                                 "color": Color(0xFFF08080),
                                               },
                                               {
                                                 "label": "Interested",
-                                                "value": controller.interestedCount.value,
+                                                "value": controller
+                                                    .interestedCount.value,
                                                 "color": Colors.amber[100],
                                               },
-                                            ].where((item) => (item["value"] as int) > 0).toList();
+                                            ]
+                                                    .where((item) =>
+                                                        (item["value"] as int) >
+                                                        0)
+                                                    .toList();
 
                                             return Stack(
                                               alignment: Alignment.center,
                                               children: [
                                                 PieChart(
                                                   PieChartData(
-                                                    sections: _generateSections(sections),
+                                                    sections: _generateSections(
+                                                        sections),
                                                     sectionsSpace: 0,
                                                     centerSpaceRadius: 40,
                                                     pieTouchData: PieTouchData(
-                                                      touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                                                        if (event.isInterestedForInteractions && pieTouchResponse != null && pieTouchResponse.touchedSection != null) {
-                                                          final newIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                                                      touchCallback:
+                                                          (FlTouchEvent event,
+                                                              pieTouchResponse) {
+                                                        if (event
+                                                                .isInterestedForInteractions &&
+                                                            pieTouchResponse !=
+                                                                null &&
+                                                            pieTouchResponse
+                                                                    .touchedSection !=
+                                                                null) {
+                                                          final newIndex =
+                                                              pieTouchResponse
+                                                                  .touchedSection!
+                                                                  .touchedSectionIndex;
 
-                                                          if (newIndex >= 0 && newIndex < sections.length) {
-                                                            touchedIndex = newIndex;
-                                                            centerText = "${sections[newIndex]["value"]} ${sections[newIndex]["label"]}";
+                                                          if (newIndex >= 0 &&
+                                                              newIndex <
+                                                                  sections
+                                                                      .length) {
+                                                            touchedIndex =
+                                                                newIndex;
+                                                            centerText =
+                                                                "${sections[newIndex]["value"]} ${sections[newIndex]["label"]}";
                                                           } else {
                                                             touchedIndex = null;
                                                             centerText = "";
@@ -695,25 +876,37 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                 ? "Today's Follow Up"
                                 : controller.isSelectedyesterday.value == true
                                     ? "Yesterday's Follow Up"
-                                    : controller.isSelectedTomorrow.value == true
+                                    : controller.isSelectedTomorrow.value ==
+                                            true
                                         ? "Tomorrow's Follow Up"
-                                        : controller.isSelectedNextWeek.value == true
+                                        : controller.isSelectedNextWeek.value ==
+                                                true
                                             ? "Next Week's Follow Up"
-                                            : controller.isSelectedThisWeek.value == true
+                                            : controller.isSelectedThisWeek
+                                                        .value ==
+                                                    true
                                                 ? "This Week's Follow Up"
-                                                : controller.isSelectedLastWeek.value == true
+                                                : controller.isSelectedLastWeek
+                                                            .value ==
+                                                        true
                                                     ? "Last Week's Follow Up"
-                                                    : controller.isSelectedThisMonth.value == true
+                                                    : controller.isSelectedThisMonth
+                                                                .value ==
+                                                            true
                                                         ? "This Month's  Follow Up"
-                                                        : controller.isSelectedCustom.value == true
+                                                        : controller.isSelectedCustom
+                                                                    .value ==
+                                                                true
                                                             ? "Custom Follow Up"
                                                             : "Today's Follow Up",
                             textColor: Colors.indigo,
                             containerColor: [Colors.white, Colors.white],
                             details: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
@@ -723,7 +916,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         children: [
                                           Text(
                                             controller.currentMonth.value,
-                                            style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       )),
@@ -735,14 +930,17 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                         ? SizedBox(
                                             width: double.infinity,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 SizedBox(
                                                   height: 5.h,
                                                 ),
                                                 FadeIn(
-                                                    delay: const Duration(milliseconds: 300),
-                                                    duration: const Duration(milliseconds: 300),
+                                                    delay: const Duration(
+                                                        milliseconds: 300),
+                                                    duration: const Duration(
+                                                        milliseconds: 300),
                                                     child: LottieBuilder.asset(
                                                       "assets/lottie/empty.json",
                                                       height: 20.w,
@@ -751,14 +949,23 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                   height: 1.h,
                                                 ),
                                                 Obx(() => FadeIn(
-                                                      delay: const Duration(milliseconds: 500),
-                                                      duration: const Duration(milliseconds: 500),
+                                                      delay: const Duration(
+                                                          milliseconds: 500),
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
                                                       child: SizedBox(
                                                         width: 60.w,
                                                         child: Text(
                                                           "No Follow Up pending ${controller.dataForSelectedDate.value}",
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp, color: Colors.grey.shade600),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 15.sp,
+                                                              color: Colors.grey
+                                                                  .shade600),
                                                         ),
                                                       ),
                                                     )),
@@ -771,34 +978,69 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                             return SizedBox(
                                               height: 20.h,
                                               child: ListView.builder(
-                                                physics: BouncingScrollPhysics(),
-                                                itemCount: controller.filteredLeadList.length,
+                                                physics:
+                                                    BouncingScrollPhysics(),
+                                                itemCount: controller
+                                                    .filteredLeadList.length,
                                                 itemBuilder: (context, index) {
-                                                  var item = controller.filteredLeadList[index];
+                                                  var item = controller
+                                                      .filteredLeadList[index];
 
-                                                  var amt = item.amount == null ? 0.0 : item.amount.toString();
+                                                  var amt = item.amount == null
+                                                      ? 0.0
+                                                      : item.amount.toString();
                                                   return Padding(
-                                                    padding: const EdgeInsets.only(bottom: 1.0, top: 8),
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 1.0,
+                                                            top: 8),
                                                     child: FadeInRight(
-                                                      delay: Duration(milliseconds: 500 + (index * 100)),
-                                                      duration: const Duration(milliseconds: 500),
+                                                      delay: Duration(
+                                                          milliseconds: 500 +
+                                                              (index * 100)),
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
                                                       child: GestureDetector(
                                                         onTap: () {
                                                           Get.to(
-                                                              () => OpenLeadManagementScreen(
-                                                                    leadValue: item,
-                                                                    materialList: controller.materialLists,
-                                                                    serviceList: controller.serviceLists,
-                                                                    index: index,
+                                                              () =>
+                                                                  OpenLeadManagementScreen(
+                                                                    leadValue:
+                                                                        item,
+                                                                    materialList:
+                                                                        controller
+                                                                            .materialLists,
+                                                                    serviceList:
+                                                                        controller
+                                                                            .serviceLists,
+                                                                    index:
+                                                                        index,
                                                                   ),
-                                                              transition: Transition.rightToLeft);
+                                                              transition: Transition
+                                                                  .rightToLeft);
                                                         },
                                                         child: Container(
-                                                          decoration: BoxDecoration(border: Border.all(color: Colors.indigo.shade50), borderRadius: BorderRadius.circular(15), color: kColorwhite),
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .indigo
+                                                                      .shade50),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                              color:
+                                                                  kColorwhite),
                                                           child: ListTile(
-                                                            title: Text(item.leadName.toString()),
-                                                            subtitle: Text(DateClass().showDate(item.followUpDate.toString())),
-                                                            trailing: Text(amt.toString()),
+                                                            title: Text(item
+                                                                .leadName
+                                                                .toString()),
+                                                            subtitle: Text(DateClass()
+                                                                .showDate(item
+                                                                    .followUpDate
+                                                                    .toString())),
+                                                            trailing: Text(
+                                                                amt.toString()),
                                                           ),
                                                         ),
                                                       ),
@@ -859,26 +1101,32 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
   //   });
   // }
 
-  List<PieChartSectionData> _generateSections(List<Map<String, dynamic>> sections) {
+  List<PieChartSectionData> _generateSections(
+      List<Map<String, dynamic>> sections) {
     return List.generate(sections.length, (index) {
       return PieChartSectionData(
         value: (sections[index]["value"] as num).toDouble(),
         color: sections[index]["color"],
         title: "",
         showTitle: false,
-        titleStyle: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: Colors.white),
+        titleStyle: TextStyle(
+            fontSize: 9.sp, fontWeight: FontWeight.bold, color: Colors.white),
         radius: touchedIndex == index ? 37 : 30,
-        borderSide: BorderSide(style: BorderStyle.solid, width: 1, color: Colors.white),
+        borderSide:
+            BorderSide(style: BorderStyle.solid, width: 1, color: Colors.white),
       );
     });
   }
 
   var selectedDate = DateTime.now().obs;
-  selectDate(TextEditingController controllers, bool enquiryDate, bool poEndDate) async {
+  selectDate(TextEditingController controllers, bool enquiryDate,
+      bool poEndDate) async {
     // print("selected date ---$selectedDate");
     print("selected date ---$selectedDate");
 
-    final DateTime initialDate = selectedDate.value.isAfter(DateTime(2100)) ? DateTime(2100) : selectedDate.value;
+    final DateTime initialDate = selectedDate.value.isAfter(DateTime(2100))
+        ? DateTime(2100)
+        : selectedDate.value;
 
     final DateTime firstDate = poEndDate ? DateTime.now() : DateTime(2000);
     final DateTime lastDate = enquiryDate ? DateTime.now() : DateTime(2100);
@@ -892,11 +1140,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
     if (pickedDate != null && pickedDate != selectedDate.value) {
       selectedDate.value = pickedDate;
 
-      controllers.text = DateFormat('dd/MM/yyyy').format(selectedDate.value).toString();
-      controller.currentMonth.value = DateFormat('dd MMMM yyyy').format(selectedDate.value);
+      controllers.text =
+          DateFormat('dd/MM/yyyy').format(selectedDate.value).toString();
+      controller.currentMonth.value =
+          DateFormat('dd MMMM yyyy').format(selectedDate.value);
 
       print("selected date---${controller.dataForSelectedDate.value}");
-      controller.dataForSelectedDate.value = DateClass().showDate(controllers.text);
+      controller.dataForSelectedDate.value =
+          DateClass().showDate(controllers.text);
 
       customDetails(controllers.text);
     }
@@ -913,20 +1164,23 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
         // height: 5.h,
         // width: 30.w,
         decoration: BoxDecoration(
-          border: Border.all(color: isSelected ? Colors.blue : Colors.white, width: 2),
+          border: Border.all(
+              color: isSelected ? Colors.blue : Colors.white, width: 2),
           color: Colors.white, // Change color based on selection
           boxShadow: kElevationToShadow[1],
           borderRadius: BorderRadius.circular(15),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 8, bottom: 8),
+          padding:
+              const EdgeInsets.only(left: 15.0, right: 15, top: 8, bottom: 8),
           child: Center(
               child: Text(
             title,
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
-              color: isSelected ? Colors.blue : Colors.black, // Change text color
+              color:
+                  isSelected ? Colors.blue : Colors.black, // Change text color
             ),
           )),
         ),
@@ -966,12 +1220,16 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
   }
 
   todayDetails() async {
-    await controller.getLeadList("", 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
+    await controller.getLeadList(
+        "", 1, "desc", "leadGenerationDate", "", false, "0", "0", "");
     print("lead length--${controller.leadList.length}");
     controller.filteredLeadList.value = controller.leadList.where((item) {
-      return item.followUpDate != null && DateClass().showDate(item.followUpDate!) == controller.dataForSelectedDate.value;
+      return item.followUpDate != null &&
+          DateClass().showDate(item.followUpDate!) ==
+              controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
+       if (item.amount == null) return sum; 
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -980,9 +1238,12 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
 
   yesterdayDetails() {
     controller.filteredLeadList.value = controller.leadList.where((item) {
-      return item.followUpDate != null && DateClass().showDate(item.followUpDate!) == controller.dataForSelectedDate.value;
+      return item.followUpDate != null &&
+          DateClass().showDate(item.followUpDate!) ==
+              controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
+       if (item.amount == null) return sum; 
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -991,9 +1252,12 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
 
   tomorrowDetails() {
     controller.filteredLeadList.value = controller.leadList.where((item) {
-      return item.followUpDate != null && DateClass().showDate(item.followUpDate!) == controller.dataForSelectedDate.value;
+      return item.followUpDate != null &&
+          DateClass().showDate(item.followUpDate!) ==
+              controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
+       if (item.amount == null) return sum; 
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1002,12 +1266,13 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
 
   customDetails(var selectedDate) {
     print("selected date --- 1---$selectedDate");
-    controller.filteredLeadList.value = controller.leadList.where((item) {
+    controller.filteredLeadList.value = controller.allLeadList.where((item) {
       if (item.followUpDate == null) return false;
       print(DateClass().showDate(item.followUpDate!));
       return DateClass().showDate(item.followUpDate!) == selectedDate;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
+       if (item.amount == null) return sum; 
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1021,7 +1286,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
 
     print("Start Date: ${startDate.toString()}");
     print("End Date: ${endDate.toString()}");
-    controller.dataForSelectedDate.value = "${DateClass().showDate(startDate.toString())} - ${DateClass().showDate(endDate.toString())}";
+    controller.dataForSelectedDate.value =
+        "${DateClass().showDate(startDate.toString())} - ${DateClass().showDate(endDate.toString())}";
 
     controller.filteredLeadList.value = controller.leadList.where((item) {
       print(item.followUpDate);
@@ -1029,12 +1295,14 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
 
       DateTime? itemDate;
       try {
-        itemDate = DateFormat('dd/MM/yyyy').parse(DateClass().showDate(item.followUpDate!.toString()));
+        itemDate = DateFormat('dd/MM/yyyy')
+            .parse(DateClass().showDate(item.followUpDate!.toString()));
       } catch (e) {
         print("Error parsing followUpDate: $e");
         return false;
       }
-      return itemDate.isAfter(startDate.subtract(Duration(days: 1))) && itemDate.isBefore(endDate.add(Duration(days: 1)));
+      return itemDate.isAfter(startDate.subtract(Duration(days: 1))) &&
+          itemDate.isBefore(endDate.add(Duration(days: 1)));
     }).toList();
 
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
@@ -1048,9 +1316,12 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
   }
 }
 
-missedFollowUpBottomSheet({required BuildContext context, required GetLeadController controller}) {
+missedFollowUpBottomSheet(
+    {required BuildContext context, required GetLeadController controller}) {
   showModalBottomSheet(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(5.w), topRight: Radius.circular(5.w))),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5.w), topRight: Radius.circular(5.w))),
     context: context,
     isScrollControlled: true,
     useSafeArea: true,
@@ -1067,16 +1338,15 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
                 children: [
                   Text(
                     "  Missed Follow Up",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.sp),
                   ),
                   Spacer(),
-                  CircleAvatar(
-                    child: IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(Icons.close)),
-                  )
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: CircleAvatar( radius: 4.5.w,child: Icon(Icons.close)))
                 ],
               ),
             ),
@@ -1087,7 +1357,10 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FadeIn(delay: const Duration(milliseconds: 300), duration: const Duration(milliseconds: 300), child: LottieBuilder.asset(emptyLottie)),
+                        FadeIn(
+                            delay: const Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
+                            child: LottieBuilder.asset(emptyLottie)),
                         SizedBox(
                           height: 3.h,
                         ),
@@ -1096,7 +1369,8 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
                           duration: const Duration(milliseconds: 500),
                           child: Text(
                             "Your List is Empty",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 14.sp),
                           ),
                         )
                       ],
@@ -1109,7 +1383,8 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
                       itemBuilder: (context, index) {
                         var item = controller.missedFollowUpList[index];
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 1.0, top: 8, left: 8, right: 8),
+                          padding: const EdgeInsets.only(
+                              bottom: 1.0, top: 8, left: 8, right: 8),
                           child: FadeInRight(
                             duration: const Duration(milliseconds: 500),
                             child: GestureDetector(
@@ -1124,7 +1399,11 @@ missedFollowUpBottomSheet({required BuildContext context, required GetLeadContro
                                     duration: Duration(milliseconds: 600));
                               },
                               child: Container(
-                                decoration: BoxDecoration(border: Border.all(color: Colors.indigo.shade50), borderRadius: BorderRadius.circular(15), color: kColorwhite),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.indigo.shade50),
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: kColorwhite),
                                 child: ListTile(
                                   title: Text(item.leadName ?? ""),
                                   subtitle: Text(item.phone ?? ""),
@@ -1191,7 +1470,10 @@ class ContainerCustom extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     title,
-                    style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 16.sp),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
+                        fontSize: 16.sp),
                   ),
                 ),
               ),
