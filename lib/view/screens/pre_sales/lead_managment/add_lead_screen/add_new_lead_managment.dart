@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors, library_prefixes, prefer_final_fields, avoid_print, unnecessary_string_interpolations, unnecessary_null_in_if_null_operators
+// ignore_for_file: must_be_immutable, prefer_const_constructors, library_prefixes, prefer_final_fields, avoid_print, unnecessary_string_interpolations, unnecessary_null_in_if_null_operators, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';

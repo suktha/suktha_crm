@@ -108,7 +108,7 @@ class GetLeadController extends GetxController {
     yesterdaydate.value = DateFormat('dd/MM/yyyy').format(yesterday);
 
     print("yesterday's date: ${yesterdayFormatted.value}");
-    print("yesterday's date: ${yesterdaydate}");
+    print("yesterday's date: $yesterdaydate");
   }
 
   // date Tomorrow
@@ -214,12 +214,10 @@ class GetLeadController extends GetxController {
 
   void lastMonthDates() {
     DateTime today = DateTime.now();
-
     // Last month's first day
     DateTime lastMonthStart = DateTime(today.year, today.month - 1, 1);
     // Last month's last day
     DateTime lastMonthEnd = DateTime(today.year, today.month, 0);
-
     lastMonthStartFormatted.value =
         DateFormat('dd MMMM yyyy').format(lastMonthStart);
     lastMonthEndFormatted.value =
@@ -349,7 +347,7 @@ class GetLeadController extends GetxController {
   Future getStatusById() async {
     //35 is the transationtype id of the lead management
     List<dynamic> responseValue = await apiCallService(
-        statusByIdUrl + "/35",
+        "$statusByIdUrl/35",
         'GET',
         {},
         TheResponseType.list,
@@ -381,7 +379,7 @@ class GetLeadController extends GetxController {
         FinancialYearModel.fromJson(financialYearDetailDEcoded);
     Dio dio = Dio();
 
-    var apiData = (baseUrl + "/financial-years-all");
+    var apiData = ("$baseUrl/financial-years-all");
 
     print(apiData);
 
@@ -401,7 +399,7 @@ class GetLeadController extends GetxController {
             .map((e) => FinancialYearAllModel.fromJson(e))
             .toList();
         financialYearId.value = financialYear.id.toString();
-        print("finan id  -------------- ${financialYearId}");
+        print("finan id  -------------- $financialYearId");
         financialYearList.value = result;
         financialYearList.refresh();
         // print("-----------------------------------" + financialYearList.string);
@@ -450,7 +448,7 @@ class GetLeadController extends GetxController {
       followUpdatasleadList.addAll(newLeadList);
 
       followUpdatasleadList.refresh();
-      print("folloup required-data--${followUpdatasleadList}");
+      print("folloup required-data--$followUpdatasleadList");
     } catch (e) {
       print("erooorrr--$e");
     }
@@ -600,7 +598,9 @@ class GetLeadController extends GetxController {
       loading.value = true;
 
       leadList.refresh();
-    } catch (e) {}
+    } catch (e) {
+      print("Error in getAllLead -- $e");
+    }
   }
 
   Future<List<LeadModel>> getLeadList(
@@ -772,7 +772,9 @@ class GetLeadController extends GetxController {
           .toList();
       LeadHistoryLists.value = HistoryList;
       LeadHistoryLists.refresh();
-    } catch (e) {}
+    } catch (e) {
+      print("ERRORRR --- LEAD HISTORY -- $e");
+    }
   }
 
   RxList<UserModel> userList = <UserModel>[].obs;
@@ -827,7 +829,7 @@ class GetLeadController extends GetxController {
     final loginDetails = LoginModel.fromJson(logindecoded);
 
     // Define the URL
-    String url = baseUrl + '/files/handleMultipleFileForLead';
+    String url = '$baseUrl/files/handleMultipleFileForLead';
 
     print("url ---- $url");
 
@@ -958,7 +960,7 @@ class GetLeadController extends GetxController {
 
   getSharedDocHistory({required String leadId}) async {
     List<dynamic> responseValue = await apiCallService(
-        sharedDocumentHistoryUrl + "/$leadId",
+        "$sharedDocumentHistoryUrl/$leadId",
         'GET',
         {},
         TheResponseType.list,
@@ -972,12 +974,14 @@ class GetLeadController extends GetxController {
 
   sendLqeadMail({required String leadId}) async {
     Map<String, dynamic>? responseValue = await apiCallService(
-        sendMailLeadUrl + "/$leadId" + "/35",
+        "$sendMailLeadUrl/$leadId/35",
         'POST',
         {},
         TheResponseType.map,
         {},
-        false); //--url, Method, body, responsetype, query parameter, isAuth
+        false); 
+
+        print("responseValue ---- $responseValue");
   }
 
   Future<void> sendLeadMail(File file, String id) async {
@@ -989,7 +993,7 @@ class GetLeadController extends GetxController {
     final loginDetails = LoginModel.fromJson(logindecoded);
 
     // Define the URL
-    String url = baseUrl + '/send-Email-Lead';
+    String url = '$baseUrl/send-Email-Lead';
 
     print("url ---- $url");
 
@@ -1009,7 +1013,7 @@ class GetLeadController extends GetxController {
 
     // Prepare FormData
     FormData formData = FormData.fromMap({
-      'requestDTO':  MultipartFile.fromString(
+      'requestDTO': MultipartFile.fromString(
         json.encode(requestDTO),
         filename: "blob",
         contentType: MediaType('application', 'json'),
