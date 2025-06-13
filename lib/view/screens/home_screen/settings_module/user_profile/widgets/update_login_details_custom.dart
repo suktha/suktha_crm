@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
-import '../../../../Model/user_model.dart';
+import '../../../../../../Model/user_model.dart';
 import '../controller/user_profile_controller.dart';
 
 AlertDialog UpdateLoginDetailsCustom(

@@ -12,8 +12,8 @@ import 'package:work_Force/Model/user_role_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
-import '../../../../Model/city_model.dart';
-import '../../../../Model/user_model.dart';
+import '../../../../../../Model/city_model.dart';
+import '../../../../../../Model/user_model.dart';
 
 class UserProfileController extends GetxController {
   RxList<UserModel> UserProfileList = <UserModel>[].obs;

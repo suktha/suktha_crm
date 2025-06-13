@@ -15,7 +15,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/utils/share_helper.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/location_controller.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart';

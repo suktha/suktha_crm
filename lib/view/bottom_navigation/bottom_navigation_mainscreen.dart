@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/settings_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:work_Force/view/settings_module/settings_screen.dart';
+import 'package:work_Force/view/screens/task_screen/task_screen.dart';
 
 class BottomNavigationMainscreen extends StatefulWidget {
   final int initialIndex;
@@ -11,14 +12,17 @@ class BottomNavigationMainscreen extends StatefulWidget {
   const BottomNavigationMainscreen({super.key, required this.initialIndex});
 
   @override
-  State<BottomNavigationMainscreen> createState() => _BottomNavigationMainscreenState();
+  State<BottomNavigationMainscreen> createState() =>
+      _BottomNavigationMainscreenState();
 }
 
-class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen> {
+class _BottomNavigationMainscreenState
+    extends State<BottomNavigationMainscreen> {
   late int currentIndex;
   final List<Widget> _screens = [
     const PreSaleScreen(),
     HomeScreen(),
+    const TaskScreen(),
     SettingsScreen(),
   ];
 
@@ -51,6 +55,10 @@ class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen>
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.task_alt_rounded),
+            label: 'Task',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
@@ -58,13 +66,15 @@ class _BottomNavigationMainscreenState extends State<BottomNavigationMainscreen>
         backgroundColor: kColorwhite,
         elevation: 0,
         showSelectedLabels: true,
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
+        unselectedLabelStyle:
+            TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
         unselectedItemColor: const Color.fromARGB(255, 99, 99, 99),
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: kColorblack,
         iconSize: 18.sp,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
+        selectedLabelStyle:
+            TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
         unselectedIconTheme: IconThemeData(size: 19.sp),
         selectedIconTheme: IconThemeData(size: 21.sp),
       ),

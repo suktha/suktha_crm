@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/user_model.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/filed_work_controller.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 Widget userListView({

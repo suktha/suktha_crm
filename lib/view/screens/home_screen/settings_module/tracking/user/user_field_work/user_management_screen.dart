@@ -12,14 +12,14 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
-import 'package:work_Force/view/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
-import '../../../../../Constants/colors.dart';
-import '../../../../../utils/responsive_utils.dart';
+import '../../../../../../../Constants/colors.dart';
+import '../../../../../../../utils/responsive_utils.dart';
 
 
 class UserManagementScreen extends StatelessWidget {

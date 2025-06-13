@@ -8,14 +8,14 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/city_model.dart';
 import 'package:work_Force/Model/country_master_model.dart';
-import 'package:work_Force/view/settings_module/user_profile/controller/general_master_controller.dart';
-import 'package:work_Force/view/settings_module/user_profile/controller/user_profile_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/user_profile/controller/general_master_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/user_profile/controller/user_profile_controller.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 
-import '../../../../Model/area_model.dart';
-import '../../../../Model/state_model.dart';
-import '../../../../utils/Date.dart';
+import '../../../../../../Model/area_model.dart';
+import '../../../../../../Model/state_model.dart';
+import '../../../../../../utils/Date.dart';
 
 class CreateUserOrEditCustom extends StatefulWidget {
   final GlobalKey<FormState> createUserFormKey;

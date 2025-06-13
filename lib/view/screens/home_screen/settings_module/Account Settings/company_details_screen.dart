@@ -17,18 +17,18 @@ import 'package:work_Force/Model/material_models.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/bank_list_screen.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/basic_info_screen.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/branch_list_screen.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/contact_list.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/document_wallet_screen.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/edit_company_details.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/bank_list_screen.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/basic_info_screen.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/branch_list_screen.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/contact_list.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/document_wallet_screen.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/edit_company_details.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
-import '../../../../Constants/shared_pref_keys.dart';
+import '../../../../../../Constants/shared_pref_keys.dart';
 
 class CompanyDetailsScreen extends StatefulWidget {
   final CompanyModel companyDetails;

@@ -15,8 +15,8 @@ import 'package:work_Force/Model/live_location_model.dart';
 import 'package:work_Force/Model/login_model.dart';
 import 'package:work_Force/utils/Services/location_services.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/model/live_location_model.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/model/location_history.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/model/live_location_model.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/model/location_history.dart';
 
 class GeoLocationController extends GetxController {
   RxBool viewActivity = false.obs;

@@ -14,7 +14,7 @@ import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/dependency_injection.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/login/splash_screen.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/location_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

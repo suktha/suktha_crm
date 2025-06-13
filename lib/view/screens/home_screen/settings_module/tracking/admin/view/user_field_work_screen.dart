@@ -12,12 +12,12 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/location_controller.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/view/widgets.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/view/widgets.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
-import '../../../../../utils/responsive_utils.dart';
+import '../../../../../../../utils/responsive_utils.dart';
 import 'geolocation_screen.dart';
 class UserFieldWorkScreen extends StatefulWidget {
   const UserFieldWorkScreen({super.key});

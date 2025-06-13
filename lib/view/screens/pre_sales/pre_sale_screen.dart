@@ -1063,43 +1063,12 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                     ),
                   ),
                 ),
-                // Spacer(),
-                // GestureDetector(
-                //   onTap: () {
-
-                //   },
-                //   child: Container(
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(10),
-                //         color: kColorlightBlue,
-                //       ),
-                //       child: Padding(
-                //         padding: const EdgeInsets.all(10.0),
-                //         child: Center(
-                //             child: Text(
-                //           "Lead Manangment List",
-                //           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17.sp),
-                //         )),
-                //       )),
-                // )
+              
               ],
             ),
           ))),
     );
   }
-
-  // List<PieChartSectionData> _generateSections(List<Map<String, dynamic>> sections) {
-  //   return List.generate(sections.length, (index) {
-  //     return PieChartSectionData(
-  //       value: sections[index]["value"].toDouble(),
-  //       color: sections[index]["color"],
-  //       title: "",
-  //       titleStyle: TextStyle(fontSize: 9.sp, fontWeight: FontWeight.bold, color: Colors.white),
-  //       radius: touchedIndex == index ? 37 : 30,
-  //       borderSide: BorderSide(style: BorderStyle.solid, width: 1, color: Colors.white),
-  //     );
-  //   });
-  // }
 
   List<PieChartSectionData> _generateSections(
       List<Map<String, dynamic>> sections) {
@@ -1183,37 +1152,6 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                   isSelected ? Colors.blue : Colors.black, // Change text color
             ),
           )),
-        ),
-      ),
-    );
-  }
-
-  leadAddDialog(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(7.w)),
-      ),
-      builder: (context) => Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 2.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CreateWidgetCustom(
-                ontap: () async {
-                  // contactController.fetchContacts();
-                  // await Get.to(() => ContactListScreen(materialList: controller.materialLists, serviceList: controller.serviceLists));
-                },
-                icons: Icons.import_contacts,
-                title: "Import from Contacts"),
-            CreateWidgetCustom(
-                ontap: () {
-                  // Get.to(() => NewLeadManagementAddScreen(isEdit: false, materialList: controller.materialLists, serviceList: controller.serviceLists),
-                  //     duration: Duration(milliseconds: 500), transition: Transition.fadeIn);
-                },
-                icons: Icons.add_circle_outlined,
-                title: "Create New Lead")
-          ],
         ),
       ),
     );

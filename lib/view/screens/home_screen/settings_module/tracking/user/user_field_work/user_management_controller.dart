@@ -13,7 +13,7 @@ import 'package:work_Force/Model/live_location_model.dart';
 import 'package:work_Force/Model/login_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
-import 'package:work_Force/view/settings_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/tracking/admin/controller/filed_work_controller.dart';
 
 class UserManagementController extends GetxController {
   TextEditingController messageController = TextEditingController();

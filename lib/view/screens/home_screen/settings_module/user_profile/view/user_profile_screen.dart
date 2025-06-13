@@ -13,11 +13,11 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/utils/Date.dart';
-import 'package:work_Force/view/settings_module/user_profile/controller/general_master_controller.dart';
-import 'package:work_Force/view/settings_module/user_profile/controller/user_profile_controller.dart';
-import 'package:work_Force/view/settings_module/user_profile/widgets/create_user_or_edit_custom.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/user_profile/controller/general_master_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/user_profile/controller/user_profile_controller.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/user_profile/widgets/create_user_or_edit_custom.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
-import '../../../../Model/login_model.dart' as login;
+import '../../../../../../Model/login_model.dart' as login;
 import '../widgets/update_login_details_custom.dart';
 
 class UserProfileScreen extends StatefulWidget {

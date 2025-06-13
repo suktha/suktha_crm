@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
-import 'package:work_Force/view/settings_module/Account%20Settings/widgets/edit_company_details.dart';
+import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/edit_company_details.dart';
 
 class BasicInfoScreen extends StatefulWidget {
   const BasicInfoScreen({super.key});
