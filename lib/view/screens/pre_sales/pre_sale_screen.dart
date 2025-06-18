@@ -797,6 +797,50 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                         0)
                                                     .toList();
 
+                                            if (sections.isEmpty) {
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    FadeIn(
+                                                        delay: const Duration(
+                                                            milliseconds: 300),
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child:
+                                                            LottieBuilder.asset(
+                                                          "assets/lottie/empty.json",
+                                                          height: 15.w,
+                                                        )),
+                                                        SizedBox(height: 1.h,),
+                                                    FadeIn(
+                                                      delay: const Duration(
+                                                          milliseconds: 500),
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
+                                                      child: SizedBox(
+                                                        width: 60.w,
+                                                        child: Text(
+                                                          "No records found",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 15.sp,
+                                                              color: Colors.grey
+                                                                  .shade600),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            }
+
                                             return Stack(
                                               alignment: Alignment.center,
                                               children: [
@@ -1063,7 +1107,6 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                     ),
                   ),
                 ),
-              
               ],
             ),
           ))),
@@ -1167,7 +1210,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
               controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
-       if (item.amount == null) return sum; 
+      if (item.amount == null) return sum;
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1181,7 +1224,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
               controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
-       if (item.amount == null) return sum; 
+      if (item.amount == null) return sum;
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1195,7 +1238,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
               controller.dataForSelectedDate.value;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
-       if (item.amount == null) return sum; 
+      if (item.amount == null) return sum;
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1210,7 +1253,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
       return DateClass().showDate(item.followUpDate!) == selectedDate;
     }).toList();
     var amt = controller.filteredLeadList.fold(0.0, (sum, item) {
-       if (item.amount == null) return sum; 
+      if (item.amount == null) return sum;
       return sum + item.amount!;
     });
     controller.totalLeadAmt.value = amt.round();
@@ -1284,7 +1327,8 @@ missedFollowUpBottomSheet(
                       onPressed: () {
                         Get.back();
                       },
-                      icon: CircleAvatar( radius: 4.5.w,child: Icon(Icons.close)))
+                      icon:
+                          CircleAvatar(radius: 4.5.w, child: Icon(Icons.close)))
                 ],
               ),
             ),

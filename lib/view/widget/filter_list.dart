@@ -75,7 +75,7 @@ Future<dynamic> CustomFilterList({
           child: Form(
             key: formKey,
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Stack(
@@ -87,8 +87,8 @@ Future<dynamic> CustomFilterList({
                           child: Text(
                             "Filter By",
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                      fontSize: 17.5.sp
                             ),
                           ),
                         ),
@@ -109,27 +109,30 @@ Future<dynamic> CustomFilterList({
                   SizedBox(
                     height: 2.h,
                   ),
-                  financialYearList ?? SizedBox(),
+                  financialYearList ?? const SizedBox(),
                   Row(
                     children: [
                       isStatusNeeded == true
-                          ? Text(
+                          ?  Text(
                               "Status",
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
+                                                      fontSize: 17.sp
+
                               ),
                             )
-                          : SizedBox()
+                          : const SizedBox()
                     ],
                   ),
                   Padding(
                     padding: EdgeInsets.all(2.w),
                     child: Column(children: customList),
                   ),
-                  Text(
+                   Text(
                     "Sort By",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
+                      fontSize: 17.sp
                     ),
                   ),
                   Padding(
@@ -145,7 +148,7 @@ Future<dynamic> CustomFilterList({
                                 GestureDetector(
                                   onTap: containerOnpressed,
                                   child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     height: sortBy.value ? 5.h : 6.h,
                                     decoration: BoxDecoration(
                                         boxShadow: kElevationToShadow[3],
@@ -156,7 +159,7 @@ Future<dynamic> CustomFilterList({
                                     child: Center(
                                       child: Text(
                                         'Ascending',
-                                        style: TextStyle(color: sortBy.value ? kColorblack : kColorwhite, fontWeight: FontWeight.w400, fontSize: 15.sp),
+                                        style: TextStyle(color: sortBy.value ? kColorblack : kColorwhite, fontWeight: FontWeight.bold, fontSize: 16.sp),
                                       ),
                                     ),
                                   ),
@@ -164,7 +167,7 @@ Future<dynamic> CustomFilterList({
                                 GestureDetector(
                                   onTap: containerOnpressed,
                                   child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 500),
+                                    duration: const Duration(milliseconds: 500),
                                     height: sortBy.value ? 6.h : 5.h,
                                     decoration: BoxDecoration(
                                         boxShadow: kElevationToShadow[3],
@@ -175,7 +178,7 @@ Future<dynamic> CustomFilterList({
                                     child: Center(
                                       child: Text(
                                         'Descending',
-                                        style: TextStyle(color: sortBy.value ? kColorwhite : kColorblack, fontWeight: FontWeight.w400, fontSize: 15.sp),
+                                        style: TextStyle(color: sortBy.value ? kColorwhite : kColorblack, fontWeight: FontWeight.w600, fontSize: 16.sp),
                                       ),
                                     ),
                                   ),

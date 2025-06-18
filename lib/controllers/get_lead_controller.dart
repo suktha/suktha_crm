@@ -16,6 +16,7 @@ import 'package:work_Force/Model/financial_year_model.dart';
 import 'package:work_Force/Model/lead_history_model.dart';
 import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/Model/login_model.dart' as loginModel;
 import 'package:work_Force/Model/material_models.dart';
 import 'package:work_Force/Model/missed_followUp_model.dart';
 import 'package:work_Force/Model/shared_doc_model.dart';
@@ -433,6 +434,7 @@ class GetLeadController extends GetxController {
   getFollowUpList() async {
     print("inside--------------");
     await getStatusById();
+    
 
     var apiData =
         "/lead-gen/recent/35/0/176,177,178,179,180/leadGenerationDate/desc/1/5?searchText=";
@@ -457,8 +459,10 @@ class GetLeadController extends GetxController {
   }
 
   Future getFollowUpRequiredCount() async {
+        final userId = await getUserId();
+
     var apiData =
-        "/lead-gen/recent/35/0/179/1000/leadGenerationDate/desc/1/5?searchText=";
+        "/lead-gen/recent/35/0/17/$userId/leadGenerationDate/desc/1/5?searchText=";
     try {
       Map<String, dynamic> result = await apiCallService(
           apiData,
@@ -497,10 +501,22 @@ class GetLeadController extends GetxController {
       print("erooorrr--$e");
     }
   }
+Future<int> getUserId()async{
+   final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
+    final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
+    final loginDetails = loginModel.LoginModel.fromJson(logindecoded);
+
+    print("userId--${loginDetails.user?.id??0}");
+    return loginDetails.user?.id??0;
+}
   Future getNewCount() async {
+   
+
+    final userId = await getUserId();
     var apiData =
-        "/lead-gen/recent/35/0/176/1000/leadGenerationDate/desc/1/5?searchText=";
+        "/lead-gen/recent/35/0/176/$userId/leadGenerationDate/desc/1/5?searchText=";
     try {
       Map<String, dynamic>? result = await apiCallService(
           apiData,
@@ -517,8 +533,10 @@ class GetLeadController extends GetxController {
   }
 
   Future getNotConvertedCount() async {
+        final userId = await getUserId();
+
     var apiData =
-        "/lead-gen/recent/35/0/178/1000/leadGenerationDate/desc/1/5?searchText=";
+        "/lead-gen/recent/35/0/178/$userId/leadGenerationDate/desc/1/5?searchText=";
     try {
       Map<String, dynamic>? result = await apiCallService(
           apiData,
@@ -535,8 +553,10 @@ class GetLeadController extends GetxController {
   }
 
   Future getConvretedCount() async {
+        final userId = await getUserId();
+
     var apiData =
-        "/lead-gen/recent/35/0/177/1000/leadGenerationDate/desc/1/5?searchText=";
+        "/lead-gen/recent/35/0/177/$userId/leadGenerationDate/desc/1/5?searchText=";
     try {
       Map<String, dynamic>? result = await apiCallService(
           apiData,
@@ -553,8 +573,10 @@ class GetLeadController extends GetxController {
   }
 
   Future getInterestedCount() async {
+        final userId = await getUserId();
+
     var apiData =
-        "/lead-gen/recent/35/0/180/1000/leadGenerationDate/desc/1/5?searchText=";
+        "/lead-gen/recent/35/0/180/$userId/leadGenerationDate/desc/1/5?searchText=";
     try {
       Map<String, dynamic>? result = await apiCallService(
           apiData,

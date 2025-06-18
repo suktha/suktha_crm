@@ -14,7 +14,7 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/controllers/get_lead_controller.dart';
 import 'package:work_Force/utils/share_helper.dart';
-import 'package:work_Force/view/screens/home_screen/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
+import 'package:work_Force/view/screens/settings_module/Account%20Settings/widgets/pdfviewScreen.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 

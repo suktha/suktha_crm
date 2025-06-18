@@ -21,8 +21,8 @@ import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/open_lead_management.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/document_wallet.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/share_doc_nd_history.dart';
-import 'package:work_Force/view/screens/home_screen/settings_module/tracking/user/user_field_work/user_management_controller.dart';
-import 'package:work_Force/view/screens/home_screen/settings_module/tracking/user/user_field_work/user_management_screen.dart';
+import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:work_Force/view/widget/LoadingScreenwithText.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/filter_list.dart';
@@ -570,6 +570,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                         icon: Icon(Icons.history, color: kColorblack),
                       ),
                       IconButton(
+                        
                           onPressed: () async {
                             showModalBottomSheet(
                               isScrollControlled: false,
@@ -579,6 +580,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                     userManagementController.isFieldWorkActive;
                                 final isForThisLead = userManagementController
                                     .isFieldWorkForThisLead(item.id!);
+                                    userManagementController.isFieldWorkLive.value = true;
+
 
                                 return Container(
                                   margin: EdgeInsets.all(width * 0.03),

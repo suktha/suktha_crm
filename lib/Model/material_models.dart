@@ -1,3 +1,5 @@
+import 'package:work_Force/Model/subscription_based_service_model.dart';
+
 class MaterialModel {
   int? id;
   dynamic deleted;
@@ -177,97 +179,6 @@ class MaterialModel {
         'subscriptionBasedServices': subscriptionBasedServices?.map((e) => e.toJson()).toList(),
         'materialCategoryName': materialCategoryName
       };
-}
-
-class SubscriptionBasedServices {
-  int? serviceFrequencyCount;
-  int? serviceFrequencyUom;
-  dynamic timeRequiredCount;
-  dynamic timeRequired;
-  double? serviceCharge;
-  double? commission;
-  int? isDefault;
-  int? taxId;
-  dynamic taxName;
-  String? comments;
-
-  SubscriptionBasedServices({
-    this.serviceFrequencyCount,
-    this.serviceFrequencyUom,
-    this.timeRequiredCount,
-    this.timeRequired,
-    this.serviceCharge,
-    this.commission,
-    this.isDefault,
-    this.taxId,
-    this.taxName,
-    this.comments,
-  });
-
-  SubscriptionBasedServices.fromJson(Map<String, dynamic> json)
-      : serviceFrequencyCount = json['serviceFrequencyCount'] as int?,
-        serviceFrequencyUom = json['serviceFrequencyUom'] as int?,
-        timeRequiredCount = json['timeRequiredCount'],
-        timeRequired = json['timeRequired'],
-        serviceCharge = json['serviceCharge'] as double?,
-        commission = json['commission'] as double?,
-        isDefault = json['isDefault'] as int?,
-        taxId = json['taxId'] as int?,
-        taxName = json['taxName'],
-        comments = json['comments'] as String?;
-
-  Map<String, dynamic> toJson() => {
-        'serviceFrequencyCount': serviceFrequencyCount,
-        'serviceFrequencyUom': serviceFrequencyUom,
-        'timeRequiredCount': timeRequiredCount,
-        'timeRequired': timeRequired,
-        'serviceCharge': serviceCharge,
-        'commission': commission,
-        'isDefault': isDefault,
-        'taxId': taxId,
-        'taxName': taxName,
-        'comments': comments
-      };
-}
-
-class MaterialInputed {
-  int? slno;
-  int? unit;
-  double? quantity;
-  dynamic desciption;
-  double? price;
-  double? amount;
-  String? remarks;
-
-  MaterialInputed({
-    this.amount,
-    this.desciption,
-    this.price,
-    this.quantity,
-    this.remarks,
-    this.slno,
-  });
-
-  MaterialInputed.fromJson(Map<String, dynamic> json) {
-    slno = json['slno'] as int?;
-    desciption = json['description'] as dynamic;
-    quantity = json['quantity'] as double?;
-    price = json['price'] as double?;
-    amount = json['amount'] as double?;
-    remarks = json['remarks'] as String?;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{};
-    json['slno'] = slno;
-
-    json['description'] = desciption;
-    json['quantity'] = quantity;
-    json['price'] = price;
-    json['amount'] = amount;
-    json['remarks'] = remarks;
-    return json;
-  }
 }
 
 class MaterialPaymentModel {

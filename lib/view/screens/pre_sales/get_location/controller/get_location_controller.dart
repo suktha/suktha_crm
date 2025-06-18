@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -76,33 +78,39 @@ class GetLocationController extends GetxController {
   var isSearchClicked = false.obs;
   var isSaved = false.obs;
 
-  Future<void> getCurrentLocation(index, List<LeadModel>? addedLocationList) async {
+  Future<void> getCurrentLocation(
+      index, List<LeadModel>? addedLocationList) async {
     try {
       loading.value = true;
       isSaved.value = false;
       LocationPermission permission;
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+      if (permission == LocationPermission.whileInUse ||
+          permission == LocationPermission.always) {
         print(" permission is allowed");
 
         currentPosition.value = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high,
         ).then((Position position) {
-          GetAddressFromLatLng(position, index, addedLocationList!);
+          return GetAddressFromLatLng(position, index, addedLocationList!);
         });
         isSaved.value = true;
       }
     } catch (e) {
+      print("Error $e");
     } finally {
       loading.value = false;
     }
   }
 
-  GetAddressFromLatLng(Position position, int index, List<LeadModel>? addedLocationList) async {
-    await placemarkFromCoordinates(position.latitude, position.longitude).then((List<Placemark> placemarks) {
+  GetAddressFromLatLng(
+      Position position, int index, List<LeadModel>? addedLocationList) async {
+    await placemarkFromCoordinates(position.latitude, position.longitude)
+        .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
 
-      searchedAddress.value = "${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}";
+      searchedAddress.value =
+          "${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}";
       latitudeController.text = position.latitude.toString();
       longitudeController.text = position.longitude.toString();
       // addPositionByIndex(index, position, addedLocationList);
@@ -138,7 +146,8 @@ class GetLocationController extends GetxController {
           locations[0].longitude,
         ).then((List<Placemark> placemarks) {
           Placemark place = placemarks[0];
-          searchedAddress.value = "${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}";
+          searchedAddress.value =
+              "${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}";
           print("Searched Address: " + searchedAddress.value);
         }).catchError((e) {
           print("Error getting address: $e");
@@ -147,8 +156,10 @@ class GetLocationController extends GetxController {
         longitudeController.text = searchedLocation.value!.longitude.toString();
         latitudeController.text = searchedLocation.value!.latitude.toString();
 
-        print("Searched Location: Latitude = ${searchedLocation.value?.latitude}, Longitude = ${searchedLocation.value?.longitude}");
-        print("controller Location: Latitude = ${latitudeController.text}, Longitude = ${longitudeController.text}");
+        print(
+            "Searched Location: Latitude = ${searchedLocation.value?.latitude}, Longitude = ${searchedLocation.value?.longitude}");
+        print(
+            "controller Location: Latitude = ${latitudeController.text}, Longitude = ${longitudeController.text}");
 
         isSearchClicked.value = true;
       } else if (searchController.text.isEmpty || placeName.isEmpty) {
@@ -176,7 +187,8 @@ class GetLocationController extends GetxController {
   // }
 
   openGoogleMaps(double endLat, double endLng) async {
-    final url = 'https://www.google.com/maps/dir/?api=1&destination=$endLat,$endLng&travelmode=driving';
+    final url =
+        'https://www.google.com/maps/dir/?api=1&destination=$endLat,$endLng&travelmode=driving';
     final Uri uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {

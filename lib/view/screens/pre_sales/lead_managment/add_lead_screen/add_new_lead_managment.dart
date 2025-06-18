@@ -30,6 +30,7 @@ import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
+import 'package:work_Force/view/screens/settings_module/Masters/Masters%20Items/Service%20Master/Add%20Service%20Master/add_service_master.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
@@ -118,8 +119,7 @@ class _NewLeadManagementAddScreenState
         editFromContactsFunction(widget.IndexOfMandatoryField ?? 0);
       } else {
         controller.checkLeadNumById();
-              controller.getUserList();
-
+        controller.getUserList();
       }
     });
   }
@@ -703,7 +703,6 @@ class _NewLeadManagementAddScreenState
                                                               },
                                                             ),
                                                     )),
-                                               
 
                                                 CustomTextField(
                                                     multilines: null,
@@ -739,12 +738,11 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                  
                                                     controller: controller
                                                         .companyNameController,
                                                     label: "Company Name*"),
 
-                                                     Padding(
+                                                Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 2.w),
                                                   child: TypeAheadField(
@@ -788,7 +786,7 @@ class _NewLeadManagementAddScreenState
                                                             InputDecoration(
                                                           labelText:
                                                               "Lead Owner*",
-                                                              suffixIcon:
+                                                          suffixIcon:
                                                               Icon(Icons.list),
                                                         ),
                                                       );
@@ -801,8 +799,9 @@ class _NewLeadManagementAddScreenState
                                                               .leadOwnerController
                                                               .text =
                                                           suggestion.name!;
-                                                      controller
-                                                              .leadOwnerId.value =suggestion.id ?? 0;
+                                                      controller.leadOwnerId
+                                                              .value =
+                                                          suggestion.id ?? 0;
 
                                                       print(suggestion.id);
                                                     },
@@ -1230,6 +1229,17 @@ class _NewLeadManagementAddScreenState
                                                         Icons.list,
                                                         color: Colors.blue,
                                                       ),
+                                                      // icon: IconButton(
+                                                      //     onPressed: () {
+                                                      //       Get.to(() =>
+                                                      //           AddServiceMasterScreen(
+                                                      //             isEdit: false,
+                                                      //             isFromLead:
+                                                      //                 true,
+                                                      //           ));
+                                                      //     },
+                                                      //     icon:
+                                                      //         Icon(Icons.add)),
                                                       labelText:
                                                           'Interested product',
                                                     ),
@@ -1269,6 +1279,17 @@ class _NewLeadManagementAddScreenState
                                                         Icons.list,
                                                         color: Colors.blue,
                                                       ),
+                                                      // icon: IconButton(
+                                                      //     onPressed: () {
+                                                      //       Get.to(() =>
+                                                      //           AddServiceMasterScreen(
+                                                      //             isEdit: false,
+                                                      //             isFromLead:
+                                                      //                 true,
+                                                      //           ));
+                                                      //     },
+                                                      //     icon:
+                                                      //         Icon(Icons.add)),
                                                       labelText:
                                                           'Interested Services',
                                                     ),
@@ -1286,7 +1307,6 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                    
                                                     controller: controller
                                                         .leadDescriptionController,
                                                     label: "Lead Description"),
@@ -1299,7 +1319,6 @@ class _NewLeadManagementAddScreenState
                                                     textInputAction:
                                                         TextInputAction.next,
                                                     obscure: false,
-                                                    
                                                     controller: controller
                                                         .contactPersonController,
                                                     label:
@@ -1817,7 +1836,6 @@ class _NewLeadManagementAddScreenState
                                                                         },
                                                                       ),
                                                               )),
-                                                         
                                                           CustomTextField(
                                                               multilines: null,
                                                               height: 7.h,
@@ -1833,7 +1851,6 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                              
                                                               controller: controller
                                                                   .companyNameController,
                                                               label:
@@ -1865,7 +1882,6 @@ class _NewLeadManagementAddScreenState
                                                                   .mobileNoController,
                                                               label:
                                                                   "Mobile Number*"),
-
                                                           CustomTextField(
                                                             multilines: null,
                                                             height: 7.h,
@@ -1886,7 +1902,7 @@ class _NewLeadManagementAddScreenState
                                                               return null;
                                                             },
                                                           ),
-                                                           Padding(
+                                                          Padding(
                                                             padding: EdgeInsets
                                                                 .symmetric(
                                                                     horizontal:
@@ -1932,8 +1948,9 @@ class _NewLeadManagementAddScreenState
                                                                       InputDecoration(
                                                                     labelText:
                                                                         "Lead Owner*",
-                                                                        suffixIcon:
-                                                              Icon(Icons.list),
+                                                                    suffixIcon:
+                                                                        Icon(Icons
+                                                                            .list),
                                                                   ),
                                                                 );
                                                               },
@@ -1959,8 +1976,11 @@ class _NewLeadManagementAddScreenState
                                                                         .text =
                                                                     suggestion
                                                                         .name!;
-                                                                        controller.leadOwnerId.value =
-                                                                    suggestion.id!;
+                                                                controller
+                                                                        .leadOwnerId
+                                                                        .value =
+                                                                    suggestion
+                                                                        .id!;
                                                                 // _leadOwnerfocusNode.unfocus();
 
                                                                 print(suggestion
@@ -2536,6 +2556,18 @@ class _NewLeadManagementAddScreenState
                                                                   color: Colors
                                                                       .blue,
                                                                 ),
+                                                                // icon:
+                                                                //     IconButton(
+                                                                //         onPressed:
+                                                                //             () {
+                                                                //           Get.to(() =>
+                                                                //               AddServiceMasterScreen(
+                                                                //                 isEdit: false,
+                                                                //                 isFromLead: true,
+                                                                //               ));
+                                                                //         },
+                                                                //         icon: Icon(
+                                                                //             Icons.add)),
                                                                 labelText:
                                                                     'Interested product',
                                                               ),
@@ -2585,6 +2617,18 @@ class _NewLeadManagementAddScreenState
                                                                   color: Colors
                                                                       .blue,
                                                                 ),
+                                                                // icon:
+                                                                //     IconButton(
+                                                                //         onPressed:
+                                                                //             () {
+                                                                //           Get.to(() =>
+                                                                //               AddServiceMasterScreen(
+                                                                //                 isEdit: false,
+                                                                //                 isFromLead: true,
+                                                                //               ));
+                                                                //         },
+                                                                //         icon: Icon(
+                                                                //             Icons.add)),
                                                                 labelText:
                                                                     'Interested Services',
                                                               ),
@@ -2605,7 +2649,6 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                             
                                                               controller: controller
                                                                   .leadDescriptionController,
                                                               label:
@@ -2690,7 +2733,6 @@ class _NewLeadManagementAddScreenState
                                                                   TextInputAction
                                                                       .next,
                                                               obscure: false,
-                                                             
                                                               controller: controller
                                                                   .referralNameController,
                                                               label:
@@ -2863,7 +2905,6 @@ class _NewLeadManagementAddScreenState
                                                                     TextInputAction
                                                                         .next,
                                                                 obscure: false,
-                                                              
                                                                 controller:
                                                                     controller
                                                                         .contactPersonController,

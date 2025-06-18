@@ -28,7 +28,7 @@ Future<dynamic> customDeleteAlertDialogue(BuildContext context, VoidCallback ont
                     child: Center(
                         child: Text(
                       "Cancel",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.sp, color: kColorblack),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: kColorblack),
                     )),
                   ),
                 ),
@@ -41,7 +41,7 @@ Future<dynamic> customDeleteAlertDialogue(BuildContext context, VoidCallback ont
                     child: Center(
                         child: Text(
                       "Confirm",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.sp, color: kColorwhite),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.sp, color: kColorwhite),
                     )),
                   ),
                 )
@@ -59,7 +59,7 @@ Future<dynamic> customDeleteAlertDialogue(BuildContext context, VoidCallback ont
               ),
               Text(
                 "Do you want to delete it??",
-                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
               ),
             ],
           ),

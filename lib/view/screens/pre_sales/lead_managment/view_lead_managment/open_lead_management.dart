@@ -16,8 +16,8 @@ import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/document_wallet.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/share_doc_nd_history.dart';
-import 'package:work_Force/view/screens/home_screen/settings_module/tracking/user/user_field_work/user_management_controller.dart';
-import 'package:work_Force/view/screens/home_screen/settings_module/tracking/user/user_field_work/user_management_screen.dart';
+import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/icon_button.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
