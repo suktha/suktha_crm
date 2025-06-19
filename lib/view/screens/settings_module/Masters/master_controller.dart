@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/view/screens/settings_module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
 import 'Masters Items/Service Master/View Service Master/list_service_master.dart';
 
 class MasterController extends GetxController {
@@ -36,7 +37,7 @@ class MasterController extends GetxController {
     {
       "title": "Material",
       "icon": Icons.my_library_add_outlined,
-      "screen": ServiceMasterScreen(),
+      "screen": const MaterialMasterScreen(),
     },
     {
       "title": "Service",

@@ -6,6 +6,7 @@ class MaterialListModel {
   final int? supplyTypeId;
   final int? materialTypeId;
   final int? unitOfMeasurementId;
+  final int? categoryId;
   final String? unitOfMeasurementName;
   final double? price;
   final dynamic specification;
@@ -66,6 +67,7 @@ class MaterialListModel {
     this.materialTypeId,
     this.unitOfMeasurementId,
     this.unitOfMeasurementName,
+    this.categoryId,
     this.price,
     this.specification,
     this.stock,
@@ -109,6 +111,7 @@ class MaterialListModel {
       supplyTypeId = json['supplyTypeId'] as int?,
       materialTypeId = json['materialTypeId'] as int?,
       unitOfMeasurementId = json['unitOfMeasurementId'] as int?,
+      categoryId = json['categoryId'] as int?,
       unitOfMeasurementName = json['unitOfMeasurementName'] as String?,
       price = json['price'] as double?,
       specification = json['specification'],
@@ -151,6 +154,7 @@ class MaterialListModel {
     'supplyTypeId' : supplyTypeId,
     'materialTypeId' : materialTypeId,
     'unitOfMeasurementId' : unitOfMeasurementId,
+    'categoryId':categoryId,
     'unitOfMeasurementName' : unitOfMeasurementName,
     'price' : price,
     'specification' : specification,
