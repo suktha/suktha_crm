@@ -52,7 +52,7 @@ class _AddMaterialMasterScreenState extends State<AddMaterialMasterScreen> {
   void initState() {
     super.initState();
     checkAliasName();
-    
+
     widget.isEdit ? isEdited() : null;
   }
 
@@ -830,8 +830,12 @@ class _AddMaterialMasterScreenState extends State<AddMaterialMasterScreen> {
                             outPartNumber:
                                 widget.isEdit ? item!.outPartNumber : null,
                             partNumber: controller.partNumberController.text,
-                            partyId: widget.isEdit ? item!.partyId : controller.partyId.value,
-                            categoryId:  controller.categoryId.value ,
+                            partyId:  controller.partyId.value == 0
+                                    ? null
+                                    : controller.partyId.value,
+                            categoryId: controller.categoryId.value == 0
+                                ? null
+                                : controller.categoryId.value,
                             price:
                                 controller.sellingPriceController.text.isEmpty
                                     ? null
@@ -920,22 +924,21 @@ class _AddMaterialMasterScreenState extends State<AddMaterialMasterScreen> {
       controller.taxid = variable.id;
     }
 
-      print("categoryid----${item.categoryId}");
-     if (item.categoryId != null) {
-      
+    print("categoryid----${item.categoryId}");
+    if (item.categoryId != null) {
       final variable = controller.categoryList
           .firstWhere((e) => e.id.toString() == item.categoryId.toString());
 
       controller.categoryController.text = "${variable.name}";
-      controller.categoryId.value = variable.id??0;
+      controller.categoryId.value = variable.id ?? 0;
     }
 
-     if (item.partyId != null) {
+    if (item.partyId != null) {
       final variable = controller.partyList
           .firstWhere((e) => e.id.toString() == item.partyId.toString());
 
       controller.partyController.text = "${variable.name}";
-      controller.partyId.value = variable.id??0;
+      controller.partyId.value = variable.id ?? 0;
     }
 
     controller.isPageLoading.value = false;

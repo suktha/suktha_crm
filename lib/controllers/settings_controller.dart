@@ -21,6 +21,7 @@ import 'package:work_Force/Model/currency_model.dart';
 import 'package:work_Force/Model/department_model.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/Model/login_model.dart';
+import 'package:work_Force/Model/party_contact_model.dart';
 import 'package:work_Force/Model/response_string_model.dart';
 import 'package:work_Force/Model/transaction_number.dart';
 import 'package:work_Force/Model/user_model.dart';

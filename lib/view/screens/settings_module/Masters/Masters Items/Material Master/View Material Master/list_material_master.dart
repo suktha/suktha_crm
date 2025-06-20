@@ -84,7 +84,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
                   controller.hasMore.value = true;
                   controller.searchController.clear();
                   controller.searchValue.value = "";
-                  page = 1;
+                  page = 0;
                   controller.materialMasteritem.clear();
 
                   controller.getMaterialMasterlist(
@@ -210,7 +210,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
                                   delay: const Duration(milliseconds: 300),
                                   duration: const Duration(milliseconds: 300),
                                   child: LottieBuilder.asset(
-                                      "assets/lottie/empty.json")),
+                                      "assets/lottie/empty.json",height: 15.h,)),
                               SizedBox(
                                 height: 3.h,
                               ),
@@ -221,7 +221,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
                                   "Your Material Master is Empty",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp),
+                                      fontSize: 16.sp),
                                 ),
                               )
                             ],

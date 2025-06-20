@@ -14,6 +14,7 @@ import 'package:work_Force/Model/bank_model.dart';
 import 'package:work_Force/Model/company_model.dart';
 import 'package:work_Force/Model/company_profile_model.dart';
 import 'package:work_Force/Model/material_models.dart';
+import 'package:work_Force/Model/party_contact_model.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
