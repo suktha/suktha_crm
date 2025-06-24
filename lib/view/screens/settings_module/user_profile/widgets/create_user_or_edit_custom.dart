@@ -8,7 +8,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/city_model.dart';
 import 'package:work_Force/Model/country_master_model.dart';
-import 'package:work_Force/view/screens/settings_module/user_profile/controller/general_master_controller.dart';
+import 'package:work_Force/view/screens/settings_module/user_profile/controller/address_detail_controller.dart';
 import 'package:work_Force/view/screens/settings_module/user_profile/controller/user_profile_controller.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
@@ -45,7 +45,7 @@ class _CreateUserOrEditCustomState extends State<CreateUserOrEditCustom> {
 
   @override
   Widget build(BuildContext context) {
-    final generalController = Get.find<GeneralMasterController>();
+    final generalController = Get.find<AddressDetailController>();
     return FadeInUp(
       duration: Durations.long2,
       child: Container(

@@ -359,6 +359,8 @@ class PartyMasterController extends GetxController {
     getMaterialNameList("");
     getDepartmentList();
     getDesignationList();
+    getMaterialTypeList("");
+    getBankList("");
 
     //
 
@@ -1243,6 +1245,8 @@ class PartyMasterController extends GetxController {
 
     var apiData = ('$baseUrl/material-type');
 
+    print("apiData =========== $apiData");
+
     try {
       final response = await dio.get(apiData,
           options: Options(headers: {"Authorization": "Bearer $token"}));
@@ -1260,6 +1264,8 @@ class PartyMasterController extends GetxController {
                 b.name!.toLowerCase().toString(),
               ),
         );
+
+        print("material type list length = ${materailTypeList.length}");
       }
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);
@@ -1268,6 +1274,9 @@ class PartyMasterController extends GetxController {
   }
 
   RxInt materialId = 0.obs;
+  RxString materialIdName = "".obs;
+  RxString bankIdName = "".obs;
+  RxInt bankId = 0.obs;
 
   filterMaterialName(String query) {
     // getMaterialNameList();
@@ -1288,6 +1297,8 @@ class PartyMasterController extends GetxController {
 
     var apiData = ('$baseUrl/material/material-type/${materialId.value}');
 
+    print("apiData =========== $apiData");
+
     try {
       final response = await dio.get(apiData,
           options: Options(headers: {"Authorization": "Bearer $token"}));
@@ -1307,8 +1318,7 @@ class PartyMasterController extends GetxController {
             .toString()
             .compareTo(b.name!.toLowerCase().toString()));
 
-            
-if (query.isNotEmpty) {
+        if (query.isNotEmpty) {
           materialNameFilteredList.value = materialNameList.where((item) {
             final materialName = item.name!.toLowerCase();
             final searchName = query.toLowerCase();
@@ -1316,8 +1326,7 @@ if (query.isNotEmpty) {
           }).toList();
         } else {
           materialNameFilteredList.value = materialNameList;
-  
-}
+        }
         materialNameList.refresh();
       }
     } on DioException catch (e) {
@@ -1579,7 +1588,8 @@ if (query.isNotEmpty) {
         customSnackbar("Success", "successfully Saved", "success");
 
         Get.offAll(() => PartyMasterScreen(),
-            transition: Transition.fade, duration: const Duration(milliseconds: 600));
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 600));
       } else {
         customSnackbar("error", "Purchase Order is not Saved", "error");
         print(response.statusCode);

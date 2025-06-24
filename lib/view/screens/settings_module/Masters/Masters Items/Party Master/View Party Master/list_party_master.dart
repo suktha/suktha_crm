@@ -94,6 +94,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                       controller.partyMasterList.clear();
                       controller.getPartyMasterlist(
                           "", page, "asc", "name", false);
+
                     },
                     icon: Icon(
                       Icons.refresh,

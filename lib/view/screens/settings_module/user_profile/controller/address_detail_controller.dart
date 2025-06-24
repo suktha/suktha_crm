@@ -9,7 +9,7 @@ import 'package:work_Force/Model/state_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
 
-class GeneralMasterController extends GetxController {
+class AddressDetailController extends GetxController {
   RxList<CountryMasterModel> country_master_items = <CountryMasterModel>[].obs;
   RxList<StateModel> state_master_items = <StateModel>[].obs;
 

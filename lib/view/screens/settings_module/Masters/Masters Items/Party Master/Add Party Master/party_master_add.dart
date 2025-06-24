@@ -53,6 +53,8 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
   @override
   void initState() {
     super.initState();
+    controller.getMaterialTypeList("");
+
     // controller.getFinancialYearList();
 
     widget.isEdit ? isEdited() : null;
@@ -1433,32 +1435,6 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
 
     print(widget.priceList);
     print(widget.bankList);
-
-    if (controller.partyTypeController.text == "Supplier") {
-      controller.getNewSupplierTransactionItems();
-
-      controller.selectedtransactiontypeId.value = "5";
-      controller.getSupplierInvoiceItems();
-
-      controller.dcTypeId.value = "6";
-      controller.getSupplierDCItems();
-
-      controller.receiptTypeId.value = "4";
-      controller.getSupplierReceiptItems();
-
-      controller.potypeId.value = "2";
-      controller.getSupplierPOItems();
-
-      controller.quotationtypeId.value = "30";
-      controller.getSupplierQuotationItems();
-    } else {
-      controller.getNewCustomerTransactionItems();
-      controller.geCustomertInvoiceItems();
-      controller.getCustomerDCItems();
-      controller.getCustomerReceiptItems();
-      controller.getCustmerPOItems();
-      controller.getCustomerQuotationItems();
-    }
   }
 
   void clearFunction(PartyMasterController controller) {

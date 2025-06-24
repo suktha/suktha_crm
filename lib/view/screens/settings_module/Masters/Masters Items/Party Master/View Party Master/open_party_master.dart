@@ -39,7 +39,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
             child: AppBar(
                 toolbarHeight: 100.h,
                 title: const Text("Party Master"),
-                titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: 17.sp),
+                titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: 19.sp),
                 centerTitle: true,
                 backgroundColor: kColortransparent,
                 elevation: 0,
@@ -95,7 +95,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                         //         : "${                                            partyMasterSavedValue!.partyDTO!.partyTypeName : controller.partyMasterList[index!].partyTypeName}", //////quotation number
                         //     overflow: TextOverflow.ellipsis,
                         //     style: TextStyle(
-                        //         fontWeight: FontWeight.w500, fontSize: 12.sp),
+                        //         fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                         //   ),
                         // ),
                       ],
@@ -112,7 +112,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                             "Code: ${partyMasterSavedValue!.partyDTO!.partyCode}" == ""
                                 ? ""
                                 : "Code: ${partyMasterSavedValue!.partyDTO!.partyCode}",
-                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp),
+                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                           ),
                         ),
                         Column(
@@ -126,7 +126,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                               child: SizedBox(
                                 child: Text(
                                   partyMasterSavedValue!.partyDTO!.contactPersonNumber ?? "",
-                                  style: TextStyle(decoration: TextDecoration.underline, fontWeight: FontWeight.w500, fontSize: 12.sp),
+                                  style: TextStyle(decoration: TextDecoration.underline, fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                                 ),
                               ),
                             ),
@@ -145,7 +145,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                                               ? ""
                                               : gmail.toString(),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp),
+                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                                 ),
                               ),
                             ),
@@ -162,7 +162,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                   children: [
                     Text(
                       "GST: ${partyMasterSavedValue!.partyDTO!.gstNumber ?? ""}",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                     ),
                     SizedBox(
                       height: 1.h,
@@ -174,14 +174,14 @@ class OpenPartyMasterScreen extends StatelessWidget {
                         SizedBox(
                           child: Text(
                             "Contact Name\n${partyMasterSavedValue!.partyDTO!.contactPersonName == "" ? "--" : partyMasterSavedValue!.partyDTO!.contactPersonName}",
-                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
+                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                             textAlign: TextAlign.center,
                           ),
                         ),
                         SizedBox(
                           child: Text(
                             "Contact Number\n${partyMasterSavedValue!.partyDTO!.contactPersonNumber == "" ? "--" : partyMasterSavedValue!.partyDTO!.contactPersonNumber}",
-                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11.sp),
+                            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.5.sp),
                             textAlign: TextAlign.center,
                           ),
                         )
@@ -335,7 +335,7 @@ class Itemscustom extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Text(
             itemsPlusamount,
-            style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w500),
           ),
         ),
         SizedBox(
@@ -345,7 +345,7 @@ class Itemscustom extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Text(
             specification,
-            style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 15.5.sp, fontWeight: FontWeight.w500),
           ),
         ),
       ],

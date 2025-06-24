@@ -18,6 +18,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
 import 'package:work_Force/view/screens/settings_module/Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/screens/settings_module/General%20Master/general_master_screen.dart';
 import 'package:work_Force/view/screens/settings_module/Masters/Masters%20Screen.dart';
 import 'package:work_Force/view/screens/settings_module/tracking/admin/view/user_field_work_screen.dart';
 import 'package:work_Force/view/screens/settings_module/user_profile/view/user_profile_screen.dart';
@@ -38,7 +39,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final homeController = Get.put(HomeController());
   final settingsController = Get.put(SettingsController());
 
-
   CompanyModel? companyDetails;
 
   getCompanyLogo() async {
@@ -55,8 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     //decoding string to uint8list
     homeController.companyLogo.value = base64Decode(newvalue);
-            print("isAdmin: ${homeController.isLoginIdIsAdmin}");
-
+    print("isAdmin: ${homeController.isLoginIdIsAdmin}");
   }
 
   @override
@@ -127,7 +126,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "Company Profile",
                       icon: Icons.business_center_outlined)),
-
               FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
@@ -140,34 +138,44 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "User Profile",
                       icon: Icons.person_outline)),
-
-                      FadeInUp(
+              FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
                       height: height,
                       width: width,
                       ontap: () {
-                        MasterScreen( context);
-                      
+                        MasterScreen(context);
                       },
                       title: "Master",
                       icon: Icons.receipt_rounded)),
-                      
-
-         homeController.isLoginIdIsAdmin.value == true?      FadeInUp(
+              FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
                       height: height,
                       width: width,
                       ontap: () {
-                        Get.to(
-                          () => const UserFieldWorkScreen(),
-                          duration: const Duration(milliseconds: 400),
-                          transition: Transition.rightToLeft,
-                        );
+                        Get.to(() => const GeneralMasterScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
                       },
-                      title: "Field Work",
-                      icon: Icons.person_pin_circle_sharp)):const SizedBox(),
+                      title: "General Master",
+                      icon: Icons.receipt_long_rounded)),
+              homeController.isLoginIdIsAdmin.value == true
+                  ? FadeInUp(
+                      duration: const Duration(milliseconds: 500),
+                      child: MoreListCustomWidgets(
+                          height: height,
+                          width: width,
+                          ontap: () {
+                            Get.to(
+                              () => const UserFieldWorkScreen(),
+                              duration: const Duration(milliseconds: 400),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          title: "Field Work",
+                          icon: Icons.person_pin_circle_sharp))
+                  : const SizedBox(),
               const Spacer(),
               CustomButton(
                 width: 25.w,
