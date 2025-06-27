@@ -1280,7 +1280,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
           children: [
             Text(
               "PartyType",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,
@@ -1300,7 +1300,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
           children: [
             Text(
               "Customer Name",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,
@@ -1320,7 +1320,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
           children: [
             Text(
               "Party Code",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,
@@ -1340,7 +1340,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
           children: [
             Text(
               "Contact Number",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,

@@ -23,7 +23,7 @@ class ListTileCustomWidget extends StatelessWidget {
           child: ListTile(
               title: Text(
                 title,
-                style: TextStyle(fontSize: 16.sp),
+                style: TextStyle(fontSize: 16.5.sp),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios_rounded,

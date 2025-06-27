@@ -1,33 +1,30 @@
-// To parse this JSON data, do
-//
-//     final customerClassificationModel = customerClassificationModelFromJson(jsonString);
-
-import 'dart:convert';
-
-List<CustomerClassificationModel> customerClassificationModelFromJson(String str) => List<CustomerClassificationModel>.from(json.decode(str).map((x) => CustomerClassificationModel.fromJson(x)));
-
-String customerClassificationModelToJson(List<CustomerClassificationModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class CustomerClassificationModel {
-  dynamic id;
-  String name;
-  String deleted;
+  final int? id;
+  final String? name;
+  final String? deleted;
+  final dynamic dueDaysLimit;
+  final dynamic creditLimit;
 
   CustomerClassificationModel({
-    required this.id,
-    required this.name,
-    required this.deleted,
+    this.id,
+    this.name,
+    this.deleted,
+    this.dueDaysLimit,
+    this.creditLimit,
   });
 
-  factory CustomerClassificationModel.fromJson(Map<String, dynamic> json) => CustomerClassificationModel(
-        id: json["id"],
-        name: json["name"],
-        deleted: json["deleted"],
-      );
+  CustomerClassificationModel.fromJson(Map<String, dynamic> json)
+    : id = json['id'] as int?,
+      name = json['name'] as String?,
+      deleted = json['deleted'] as String?,
+      dueDaysLimit = json['dueDaysLimit'],
+      creditLimit = json['creditLimit'];
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "deleted": deleted,
-      };
+    'id' : id,
+    'name' : name,
+    'deleted' : deleted,
+    'dueDaysLimit' : dueDaysLimit,
+    'creditLimit' : creditLimit
+  };
 }

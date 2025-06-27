@@ -131,7 +131,7 @@ class _BankMasterScreenState extends State<BankMasterScreen> {
                               delay: const Duration(milliseconds: 300),
                               duration: const Duration(milliseconds: 300),
                               child: LottieBuilder.asset(
-                                  "assets/lottie/empty.json")),
+                                  "assets/lottie/empty.json",height: 15.h,)),
                           SizedBox(
                             height: 3.h,
                           ),
@@ -141,7 +141,7 @@ class _BankMasterScreenState extends State<BankMasterScreen> {
                             child: Text(
                               "Your Bank Master is Empty ",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                  fontWeight: FontWeight.bold, fontSize: 16.sp),
                             ),
                           ),
                           const SizedBox(

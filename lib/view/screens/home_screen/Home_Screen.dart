@@ -539,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         }),
                                         customLeadCreateButton(
-                                            Icons.add, "Create New Lead", () {
+                                            Icons.add, " Create New Lead ", () {
                                           Get.to(
                                               () => NewLeadManagementAddScreen(
                                                     isEdit: false,

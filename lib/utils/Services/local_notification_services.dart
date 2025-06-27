@@ -3,6 +3,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 // Top-level function for handling background notification taps
+
 @pragma('vm:entry-point')
 void backgroundNotificationTapHandler(NotificationResponse details) {
   print("Background notification tapped with payload: ${details.payload}");
@@ -34,7 +35,7 @@ class LocalNotificationService {
     const androidInitSettings = AndroidInitializationSettings('suktha_logo');
     const iosInitSettings = DarwinInitializationSettings();
 
-    final initSettings = InitializationSettings(
+    const initSettings = InitializationSettings(
       android: androidInitSettings,
       iOS: iosInitSettings,
     );

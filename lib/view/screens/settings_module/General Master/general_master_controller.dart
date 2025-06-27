@@ -53,6 +53,8 @@ class GeneralMasterController extends GetxController {
   TextEditingController categoryNameController = TextEditingController();
   TextEditingController indusSegNameController = TextEditingController();
   TextEditingController reasonNameController = TextEditingController();
+  TextEditingController paymentDueDaysLimitController = TextEditingController();
+  TextEditingController creditLimitController = TextEditingController();
 
   @override
   void onInit() {
@@ -76,6 +78,9 @@ class GeneralMasterController extends GetxController {
   RxInt cityId = 0.obs;
   RxString cityName = ''.obs;
   RxString stateName = ''.obs;
+  RxInt stateId = 0.obs;
+  RxString countryName = ''.obs;
+  RxInt countryId = 0.obs;
 
   void search(String query) {
     searchQuery.value = query;
@@ -460,14 +465,25 @@ class GeneralMasterController extends GetxController {
         customSnackbar('Success', 'Party/Lead Edited successfully', 'success');
 
         categoryNameController.clear();
+        paymentDueDaysLimitController.clear();
+        creditLimitController.clear();
 
         await getLeadCategoryDetails();
       } catch (e) {
         print("errorr--$e");
       }
     } else {
-      CustomerClassificationModel mapDatas = CustomerClassificationModel(
-          id: null, name: categoryNameController.text, deleted: "N");
+      var mapDatas = CustomerClassificationModel(
+        id: null,
+        name: categoryNameController.text,
+        deleted: "N",
+        dueDaysLimit: paymentDueDaysLimitController.text.isEmpty
+            ? null
+            : paymentDueDaysLimitController.text,
+        creditLimit: creditLimitController.text.isEmpty
+            ? null
+            : creditLimitController.text,
+      );
       customer_class_items.add(mapDatas);
 
       var responseBody =
@@ -482,6 +498,8 @@ class GeneralMasterController extends GetxController {
         customSnackbar('Success', 'Party/Lead added successfully', 'success');
 
         categoryNameController.clear();
+        paymentDueDaysLimitController.clear();
+        creditLimitController.clear();
 
         await getLeadCategoryDetails();
       } catch (e) {
@@ -602,12 +620,12 @@ class GeneralMasterController extends GetxController {
     return city_master_items;
   }
 
-  Future<List<CityModel>> postCityMasterdDetails(int stateId) async {
+  Future<List<CityModel>> postCityMasterdDetails(int stateid) async {
     CityModel data = CityModel(
         id: null,
         name: cityNameController.text,
         areas: null,
-        stateId: stateId,
+        stateId: stateid,
         deleted: null);
     try {
       bool isAlreadyHave =
@@ -629,6 +647,8 @@ class GeneralMasterController extends GetxController {
 
         cityNameController.clear();
         foreignStateController.clear();
+        stateName.value = '';
+        stateId.value = 0;
       }
       await getCityMasterDetails('');
     } on DioException catch (e) {
@@ -668,12 +688,12 @@ class GeneralMasterController extends GetxController {
     return foriegn_state_master_items;
   }
 
-  Future<List<StateModel>> postForeignStatedDetails(int countryId) async {
+  Future<List<StateModel>> postForeignStatedDetails(int countryid) async {
     StateModel data = StateModel(
         id: null,
         name: foreignStateController.text,
         stateCode: '99',
-        countryId: countryId,
+        countryId: countryid,
         deleted: null,
         typeStateId: 2);
     try {
@@ -697,6 +717,8 @@ class GeneralMasterController extends GetxController {
 
         foreignStateController.clear();
         countryNameController.clear();
+        countryId.value = 0;
+        countryName.value = "";
       }
       await getForiegnStateDetails();
     } on DioException catch (e) {
@@ -720,11 +742,11 @@ class GeneralMasterController extends GetxController {
   }
 
   Future<List<CityModel>> editCityMasterDetails(
-      {required int id, required var delete, required int stateId}) async {
+      {required int id, required var delete, required int stateid}) async {
     CityModel data = CityModel(
       id: id,
       name: cityNameController.text,
-      stateId: stateId,
+      stateId: stateid,
       areas: null,
       deleted: delete,
     );
@@ -744,6 +766,8 @@ class GeneralMasterController extends GetxController {
       foreignStateController.clear();
       cityNameController.clear();
       city_master_items.clear();
+      stateName.value = '';
+      stateId.value = 0;
 
       await getCityMasterDetails('');
     } catch (e) {
@@ -947,7 +971,8 @@ class GeneralMasterController extends GetxController {
           '/department', 'POST', values, TheResponseType.list, {}, false);
 
       customSnackbar('Success', 'Successfully edited', 'success');
-
+      departmentNameController.clear();
+      department_items.clear();
       await getDepartmentDetails();
     } catch (e) {
       print(e);

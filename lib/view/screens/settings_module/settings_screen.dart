@@ -160,22 +160,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       },
                       title: "General Master",
                       icon: Icons.receipt_long_rounded)),
-              homeController.isLoginIdIsAdmin.value == true
-                  ? FadeInUp(
-                      duration: const Duration(milliseconds: 500),
-                      child: MoreListCustomWidgets(
-                          height: height,
-                          width: width,
-                          ontap: () {
-                            Get.to(
-                              () => const UserFieldWorkScreen(),
-                              duration: const Duration(milliseconds: 400),
-                              transition: Transition.rightToLeft,
-                            );
-                          },
-                          title: "Field Work",
-                          icon: Icons.person_pin_circle_sharp))
-                  : const SizedBox(),
+              // homeController.isLoginIdIsAdmin.value == true
+              //     ? FadeInUp(
+              //         duration: const Duration(milliseconds: 500),
+              //         child: MoreListCustomWidgets(
+              //             height: height,
+              //             width: width,
+              //             ontap: () {
+              //               Get.to(
+              //                 () => const UserFieldWorkScreen(),
+              //                 duration: const Duration(milliseconds: 400),
+              //                 transition: Transition.rightToLeft,
+              //               );
+              //             },
+              //             title: "Field Work",
+              //             icon: Icons.person_pin_circle_sharp))
+              //     : const SizedBox(),
               const Spacer(),
               CustomButton(
                 width: 25.w,

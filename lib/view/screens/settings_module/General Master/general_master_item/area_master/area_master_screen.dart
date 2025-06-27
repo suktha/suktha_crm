@@ -3,7 +3,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
@@ -11,7 +10,6 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/city_model.dart';
 import 'package:work_Force/view/screens/settings_module/General%20Master/general_master_controller.dart';
 import 'package:work_Force/view/screens/settings_module/General%20Master/general_master_screen.dart';
-import 'package:work_Force/view/screens/settings_module/user_profile/controller/address_detail_controller.dart';
 import 'package:work_Force/view/widget/custom_dropdown.dart';
 import 'package:work_Force/view/widget/custom_popup_with_widget.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
@@ -138,7 +136,7 @@ class _AreaMasterScreenState extends State<AreaMasterScreen> {
                               delay: const Duration(milliseconds: 300),
                               duration: const Duration(milliseconds: 300),
                               child: LottieBuilder.asset(
-                                  "assets/lottie/empty.json")),
+                                  "assets/lottie/empty.json",height: 15.h,)),
                           SizedBox(
                             height: 3.h,
                           ),
@@ -148,7 +146,7 @@ class _AreaMasterScreenState extends State<AreaMasterScreen> {
                             child: Text(
                               "Your Area Master is Empty ",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                  fontWeight: FontWeight.bold, fontSize: 16.sp),
                             ),
                           ),
                           const SizedBox(

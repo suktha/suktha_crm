@@ -514,7 +514,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
                       children: [
                         Text(
                           item.name ?? "",
-                          style: TextStyle(fontSize: 11.sp),
+                          style: TextStyle(fontSize: 16.sp),
                         ),
                         SizedBox(
                           width: 5.w,
@@ -544,7 +544,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
           children: [
             Text(
               "Material Name",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,
@@ -564,7 +564,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
           children: [
             Text(
               "Part Number",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,
@@ -584,7 +584,7 @@ class _MaterialMasterScreenState extends State<MaterialMasterScreen> {
           children: [
             Text(
               "Stock",
-              style: TextStyle(fontSize: 11.sp),
+              style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(
               width: 5.w,

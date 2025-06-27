@@ -3,7 +3,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
@@ -29,7 +28,7 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  int? stateId;
+  // int? stateId;
   StateModel? stateValue;
 
   @override
@@ -138,7 +137,9 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                               delay: const Duration(milliseconds: 300),
                               duration: const Duration(milliseconds: 300),
                               child: LottieBuilder.asset(
-                                  "assets/lottie/empty.json")),
+                                "assets/lottie/empty.json",
+                                height: 15.h,
+                              )),
                           SizedBox(
                             height: 3.h,
                           ),
@@ -148,7 +149,7 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                             child: Text(
                               "Your City Master is Empty ",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14.sp),
+                                  fontWeight: FontWeight.bold, fontSize: 16.sp),
                             ),
                           ),
                           SizedBox(
@@ -165,7 +166,7 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
 
                         String? stateName;
 
-                        stateId = item.id ?? 0;
+                        controller.stateId.value = item.id ?? 0;
                         if (controller.state_master_items.isNotEmpty) {
                           var stateValue = controller.state_master_items
                               .firstWhere(
@@ -204,15 +205,16 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                               onTap: () {
                                 controller.cityNameController.text =
                                     item.name ?? "";
-                                stateId = item.stateId ?? 0;
+                                controller.stateId.value = item.stateId ?? 0;
 
-                                controller.foreignStateController.text =
-                                    controller.state_master_items
-                                            .firstWhere(
-                                              (e) => e.id == stateId,
-                                            )
-                                            .name ??
-                                        "";
+                                controller.foreignStateController
+                                    .text = controller.state_master_items
+                                        .firstWhere(
+                                          (e) =>
+                                              e.id == controller.stateId.value,
+                                        )
+                                        .name ??
+                                    "";
                                 controller.stateName.value =
                                     controller.foreignStateController.text;
 
@@ -229,6 +231,8 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                   .clear();
                                               controller.foreignStateController
                                                   .clear();
+                                              controller.stateName.value = '';
+                                              controller.stateId.value = 0;
                                             },
                                             onUpdatePressed: () {
                                               if (formkey.currentState!
@@ -244,10 +248,11 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                                 index]
                                                             .deleted ??
                                                         '',
-                                                    stateId: stateId!);
+                                                    stateid: controller
+                                                        .stateId.value);
                                               } else {}
                                             },
-                                            saveButtonText: 'Edit',
+                                            saveButtonText: 'Update',
                                             children: [
                                               CustomTextField(
                                                   validator: (value) {
@@ -306,7 +311,9 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                                     .text = stateValue!
                                                                         .name ??
                                                                     '';
-                                                                stateId =
+                                                                controller
+                                                                        .stateId
+                                                                        .value =
                                                                     stateValue!
                                                                             .id ??
                                                                         0;
@@ -320,7 +327,6 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                 );
                                 //
                               },
-                             
                               child: Container(
                                 // height: 80,
                                 decoration: BoxDecoration(
@@ -354,14 +360,17 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                           onPressed: () {
                                             controller.cityNameController.text =
                                                 item.name ?? "";
-                                            stateId = item.stateId ?? 0;
+                                            controller.stateId.value =
+                                                item.stateId ?? 0;
 
                                             controller.foreignStateController
                                                     .text =
                                                 controller.state_master_items
                                                         .firstWhere(
                                                           (e) =>
-                                                              e.id == stateId,
+                                                              e.id ==
+                                                              controller.stateId
+                                                                  .value,
                                                         )
                                                         .name ??
                                                     "";
@@ -385,6 +394,10 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                           controller
                                                               .foreignStateController
                                                               .clear();
+                                                          controller.stateName
+                                                              .value = '';
+                                                          controller.stateId
+                                                              .value = 0;
                                                         },
                                                         onUpdatePressed: () {
                                                           if (formkey
@@ -396,11 +409,13 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                                 delete:
                                                                     item.deleted ??
                                                                         '',
-                                                                stateId:
-                                                                    stateId!);
+                                                                stateid:
+                                                                    controller
+                                                                        .stateId
+                                                                        .value);
                                                           } else {}
                                                         },
-                                                        saveButtonText: 'Edit',
+                                                        saveButtonText: 'Update',
                                                         children: [
                                                           CustomTextField(
                                                               validator:
@@ -448,7 +463,7 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
 
                                                                               if (stateValue != null) {
                                                                                 controller.foreignStateController.text = stateValue!.name ?? '';
-                                                                                stateId = stateValue!.id ?? 0;
+                                                                                controller.stateId.value = stateValue!.id ?? 0;
                                                                               }
                                                                               print("stateName---${controller.foreignStateController.text}");
                                                                             }),
@@ -523,11 +538,15 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                       Get.back();
                                       controller.foreignStateController.clear();
                                       controller.cityNameController.clear();
+                                      controller.stateName
+                                                              .value = '';
+                                                          controller.stateId
+                                                              .value = 0;
                                     },
                                     onUpdatePressed: () {
                                       if (formkey.currentState!.validate()) {
-                                        controller
-                                            .postCityMasterdDetails(stateId!);
+                                        controller.postCityMasterdDetails(
+                                            controller.stateId.value);
                                         // controller.cityNameController.clear();
                                       } else {}
                                     },
@@ -581,7 +600,8 @@ class _CityMasterScreenState extends State<CityMasterScreen> {
                                                             .text = stateValue!
                                                                 .name ??
                                                             '';
-                                                        stateId =
+                                                        controller
+                                                                .stateId.value =
                                                             stateValue!.id ?? 0;
                                                       }
                                                       print(

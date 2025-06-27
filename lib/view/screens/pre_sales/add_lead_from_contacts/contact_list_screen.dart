@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -76,10 +78,10 @@ class _ContactListScreenState extends State<ContactListScreen> {
 
                 print("leaddddd----$leadData");
                 print('Leads Added: ${contactController.leadList.length}');
-                contactController.leadList.forEach((lead) {
+                for (var lead in contactController.leadList) {
                   print(lead.toJson());
                   print('Name: ${lead.leadName}, Phone: ${lead.mobileNo},quick Lead: ${lead.quickLead}');
-                });
+                }
 
                 Get.to(
                   () => ShowSelectedContactsScreen(
@@ -116,7 +118,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          contactController.isSearchClicked == true
+          contactController.isSearchClicked.value == true
               ? FadeInRightBig(
                   duration: Durations.long2,
                   child: Padding(
@@ -136,7 +138,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 hintStyle: TextStyle(color: kColorgrey),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                               ),
                             ),
                           ),
@@ -145,7 +147,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
                     ),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           Container(
             width: double.infinity,
             decoration: BoxDecoration(color: kColorLightGrey),
@@ -174,8 +176,8 @@ class _ContactListScreenState extends State<ContactListScreen> {
             height: 3.h,
           ),
           Obx(
-            () => contactController.isListLoading == true
-                ? ListLoading()
+            () => contactController.isListLoading.value == true
+                ? const ListLoading()
                 : contactController.filteredContacts.isEmpty
                     ? Expanded(
                         child: Center(
@@ -206,7 +208,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
                     : Obx(() => Expanded(
                             child: ListView.builder(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: contactController.filteredContacts.length,
                           itemBuilder: (context, index) {
                             var contact = contactController.filteredContacts[index];
@@ -284,7 +286,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
                                     },
                                   ),
                                 ),
-                                Divider()
+                                const Divider()
                               ],
                             );
                           },

@@ -1,16 +1,17 @@
+// // ignore_for_file: avoid_print
+
 // import 'package:animate_do/animate_do.dart';
 // import 'package:flutter/material.dart';
-// import 'package:suktha/Controller/global_controller.dart';
 // import 'package:flutter_swipe_action_cell/core/cell.dart';
 // import 'package:get/get.dart';
 // import 'package:lottie/lottie.dart';
 // import 'package:sizer/sizer.dart';
-// import 'package:suktha/Constants/colors.dart';
-// import 'package:suktha/View/More%20Modules/screens/general_master/general_master_controller.dart';
-// import 'package:suktha/View/More%20Modules/screens/general_master/general_master_screen.dart';
-// import 'package:suktha/View/Widgets/custom_popup_with_widget.dart';
-// import 'package:suktha/View/Widgets/custom_textfield.dart';
-// import 'package:suktha/View/Widgets/deleteAlertDialogue.dart';
+// import 'package:work_Force/Constants/colors.dart';
+// import 'package:work_Force/view/screens/settings_module/General%20Master/general_master_controller.dart';
+// import 'package:work_Force/view/screens/settings_module/General%20Master/general_master_screen.dart';
+// import 'package:work_Force/view/widget/custom_popup_with_widget.dart';
+// import 'package:work_Force/view/widget/custom_textfield.dart';
+// import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 // class ExpenseHeadScreen extends StatefulWidget {
 //   ExpenseHeadScreen({super.key});
@@ -74,12 +75,12 @@
 //                               onChanged: (value) => controller.search(value),
 //                               controller: controller.searchController,
 //                               decoration: InputDecoration(
-//                                 border: OutlineInputBorder(
+//                                 border: const OutlineInputBorder(
 //                                   borderSide: BorderSide.none,
 //                                 ),
 //                                 hintText: 'Search Here',
 //                                 hintStyle: TextStyle(color: kColorgrey),
-//                                 contentPadding: EdgeInsets.symmetric(horizontal: 20),
+//                                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
 //                               ),
 //                             ),
 //                           ),
@@ -103,7 +104,7 @@
 //               onPressed: (() {
 //                 controller.searchController.clear();
 //                 controller.search("");
-//                 Get.to(() => GeneralMasterScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+//                 Get.to(() => const GeneralMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
 //                 // Get.back();
 //               }),
 //             )),
@@ -131,7 +132,7 @@
 //                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
 //                               ),
 //                             ),
-//                             SizedBox(
+//                             const SizedBox(
 //                               height: 10,
 //                             ),
 //                           ],
@@ -139,7 +140,7 @@
 //                       )
 //                     : ListView.builder(
 //                         itemCount: controller.searchResultExpenseHead.length,
-//                         physics: BouncingScrollPhysics(),
+//                         physics: const BouncingScrollPhysics(),
 //                         // shrinkWrap: true,
 //                         itemBuilder: (context, index) {
 //                           var items = controller.searchResultExpenseHead[index];
@@ -175,20 +176,6 @@
 //                                       return Form(
 //                                           key: formkey,
 //                                           child: CustomPopup(
-//                                               children: [
-//                                                 CustomTextField(
-//                                                   validator: (value) {
-//                                                     if (value!.isEmpty) {
-//                                                       return 'Please Enter expense name';
-//                                                     }
-//                                                     return null;
-//                                                   },
-//                                                   textInputAction: TextInputAction.next,
-//                                                   obscure: false,
-//                                                   controller: controller.expenseNameController,
-//                                                   label: "Expense",
-//                                                 ),
-//                                               ],
 //                                               title: "Edit Your Details",
 //                                               onCancelPressed: () {
 //                                                 Get.back();
@@ -205,12 +192,26 @@
 //                                                   print("not validated");
 //                                                 }
 //                                               },
-//                                               saveButtonText: "Edit"));
+//                                               saveButtonText: "Edit",
+//                                               children: [
+//                                                 CustomTextField(
+//                                                   validator: (value) {
+//                                                     if (value!.isEmpty) {
+//                                                       return 'Please Enter expense name';
+//                                                     }
+//                                                     return null;
+//                                                   },
+//                                                   textInputAction: TextInputAction.next,
+//                                                   obscure: false,
+//                                                   controller: controller.expenseNameController,
+//                                                   label: "Expense",
+//                                                 ),
+//                                               ]));
 //                                     },
 //                                   );
 //                                 },
 //                                 child: FadeInRightBig(
-//                                   duration: Duration(milliseconds: 800), // Animation duration
+//                                   duration: const Duration(milliseconds: 800), // Animation duration
 
 //                                   child: Container(
 //                                     // height: 80,
@@ -225,7 +226,7 @@
 //                                         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.grey.shade700),
 //                                       ),
 //                                       subtitle: Text(
-//                                         "${items.name}",
+//                                         items.name,
 //                                         style: TextStyle(fontWeight: FontWeight.w500, color: kColorblack, fontSize: 16),
 //                                       ),
 //                                       trailing: Row(
@@ -244,20 +245,6 @@
 //                                                     return Form(
 //                                                         key: formkey,
 //                                                         child: CustomPopup(
-//                                                             children: [
-//                                                               CustomTextField(
-//                                                                 validator: (value) {
-//                                                                   if (value!.isEmpty) {
-//                                                                     return 'Please Enter expense name';
-//                                                                   }
-//                                                                   return null;
-//                                                                 },
-//                                                                 textInputAction: TextInputAction.next,
-//                                                                 obscure: false,
-//                                                                 controller: controller.expenseNameController,
-//                                                                 label: "Expense",
-//                                                               ),
-//                                                             ],
 //                                                             title: "Edit Your Details",
 //                                                             onCancelPressed: () {
 //                                                               Get.back();
@@ -275,7 +262,21 @@
 //                                                                 print("not validated");
 //                                                               }
 //                                                             },
-//                                                             saveButtonText: "Edit"));
+//                                                             saveButtonText: "Edit",
+//                                                             children: [
+//                                                               CustomTextField(
+//                                                                 validator: (value) {
+//                                                                   if (value!.isEmpty) {
+//                                                                     return 'Please Enter expense name';
+//                                                                   }
+//                                                                   return null;
+//                                                                 },
+//                                                                 textInputAction: TextInputAction.next,
+//                                                                 obscure: false,
+//                                                                 controller: controller.expenseNameController,
+//                                                                 label: "Expense",
+//                                                               ),
+//                                                             ]));
 //                                                   },
 //                                                 );
 //                                               },
@@ -286,7 +287,7 @@
 //                                               ),
 //                                             ),
 //                                           ),
-//                                           SizedBox(
+//                                           const SizedBox(
 //                                             width: 10,
 //                                           ),
 //                                           // Add some space between icons
@@ -339,19 +340,6 @@
 //                             return Form(
 //                                 key: formkey,
 //                                 child: CustomPopup(
-//                                     children: [
-//                                       CustomTextField(
-//                                           validator: (value) {
-//                                             if (value!.isEmpty) {
-//                                               return 'Please Enter Expense name';
-//                                             }
-//                                             return null;
-//                                           },
-//                                           textInputAction: TextInputAction.next,
-//                                           obscure: false,
-//                                           controller: controller.expenseNameController,
-//                                           label: 'Expense Name'),
-//                                     ],
 //                                     title: 'Add Your Expense',
 //                                     onCancelPressed: () {
 //                                       Get.back();
@@ -364,7 +352,20 @@
 //                                         print("Not validated");
 //                                       }
 //                                     },
-//                                     saveButtonText: "Add"));
+//                                     saveButtonText: "Add",
+//                                     children: [
+//                                       CustomTextField(
+//                                           validator: (value) {
+//                                             if (value!.isEmpty) {
+//                                               return 'Please Enter Expense name';
+//                                             }
+//                                             return null;
+//                                           },
+//                                           textInputAction: TextInputAction.next,
+//                                           obscure: false,
+//                                           controller: controller.expenseNameController,
+//                                           label: 'Expense Name'),
+//                                     ]));
 //                           },
 //                         );
 //                       },
@@ -373,8 +374,8 @@
 //                         child: Container(
 //                           width: 200,
 //                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), color: kColorlightBlue),
-//                           child: Padding(
-//                             padding: const EdgeInsets.all(15),
+//                           child: const Padding(
+//                             padding: EdgeInsets.all(15),
 //                             child: Text(
 //                               'Add Expense',
 //                               textAlign: TextAlign.center,

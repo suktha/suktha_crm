@@ -76,7 +76,7 @@ class _GeneralMasterScreenState extends State<GeneralMasterScreen> {
                     ListTileCustomWidget(
                         onTap: () {
                           Get.to(item['screen'] as Widget,
-                              transition: Transition.fade,
+                              transition: Transition.rightToLeft,
                               duration: const Duration(milliseconds: 600));
                         },
                         title: item['title'],

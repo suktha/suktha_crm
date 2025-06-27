@@ -830,9 +830,9 @@ class _AddMaterialMasterScreenState extends State<AddMaterialMasterScreen> {
                             outPartNumber:
                                 widget.isEdit ? item!.outPartNumber : null,
                             partNumber: controller.partNumberController.text,
-                            partyId:  controller.partyId.value == 0
-                                    ? null
-                                    : controller.partyId.value,
+                            partyId: controller.partyId.value == 0
+                                ? null
+                                : controller.partyId.value,
                             categoryId: controller.categoryId.value == 0
                                 ? null
                                 : controller.categoryId.value,
@@ -886,15 +886,16 @@ class _AddMaterialMasterScreenState extends State<AddMaterialMasterScreen> {
   }
 
   void isEdited() async {
+    final item = widget.materialMasterSaved;
     controller.isPageLoading.value = true;
 
     await controller.getTaxesList("");
     await controller.fetchCategory();
-    await controller.fetchPartyList();
+    if (item!.partyId != null) {
+      await controller.fetchPartyList();
+    }
 
-    final item = widget.materialMasterSaved;
-
-    controller.nameController.text = item!.name ?? "";
+    controller.nameController.text = item.name ?? "";
     controller.materialTypeController.text = item.materialTypeName ?? "";
     controller.hsnController.text = item.hsnCode ?? "";
     controller.currentStockController.text =
