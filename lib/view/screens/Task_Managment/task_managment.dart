@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, avoid_print
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,8 @@ import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/view/screens/Task_Managment/controllers/task_controller.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 class TaskManagmentScreen extends StatefulWidget {
+  const TaskManagmentScreen({super.key});
+
   @override
   State<TaskManagmentScreen> createState() => _TaskManagmentScreenState();
 }
@@ -46,7 +50,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
     if (currentIndex != -1) {
       _scrollController.animateTo(
         currentIndex * 100.0,
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Curves.easeInOut,
       );
     }
@@ -62,14 +66,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
         // centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.black,
-            size: 17,
-          ),
-        ),
+        
       ),
       body: Column(
         children: [
@@ -107,9 +104,9 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                   },
                   headerStyle: HeaderStyle(
                     titleCentered: false,
-                    titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    titleTextStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     formatButtonVisible: true,
-                    formatButtonTextStyle: TextStyle(
+                    formatButtonTextStyle: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -117,16 +114,16 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                       color: Colors.blue,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    leftChevronMargin: EdgeInsets.only(left: 0, right: 10),
-                    rightChevronMargin: EdgeInsets.only(right: 0.0, left: 10),
+                    leftChevronMargin: const EdgeInsets.only(left: 0, right: 10),
+                    rightChevronMargin: const EdgeInsets.only(right: 0.0, left: 10),
                     leftChevronPadding: EdgeInsets.zero,
                     rightChevronPadding: EdgeInsets.zero,
-                    headerMargin: EdgeInsets.only(bottom: 20.0),
-                    leftChevronIcon: Icon(
+                    headerMargin: const EdgeInsets.only(bottom: 20.0),
+                    leftChevronIcon: const Icon(
                       Icons.chevron_left,
                       color: Colors.black,
                     ),
-                    rightChevronIcon: Icon(
+                    rightChevronIcon: const Icon(
                       Icons.chevron_right,
                       color: Colors.black,
                     ),
@@ -140,7 +137,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                       border: Border.all(color: kColorlightBlue),
                       shape: BoxShape.circle,
                     ),
-                    selectedDecoration: BoxDecoration(
+                    selectedDecoration: const BoxDecoration(
                       color: Colors.blue,
                       shape: BoxShape.circle,
                     ),
@@ -173,7 +170,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                       print("timeee current time --$currentTimeLabel");
 
                       return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Column(
                           children: [
                             Row(
@@ -186,23 +183,21 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                                     child: Text(item["timeLabel"]),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
                                     child: tasks.isEmpty
-                                        ? Container(
-                                            child: Divider(
-                                              color: isCurrentTime ? Colors.transparent : Colors.grey.shade300,
-                                              thickness: BorderSide.strokeAlignOutside,
-                                            ),
-                                          )
+                                        ? Divider(
+                                          color: isCurrentTime ? Colors.transparent : Colors.grey.shade300,
+                                          thickness: BorderSide.strokeAlignOutside,
+                                        )
                                         : Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: tasks.map((task) {
                                               taskitem = task;
                                               return FadeInRight(
-                                                duration: Duration(milliseconds: 200),
+                                                duration: const Duration(milliseconds: 200),
                                                 delay: Duration(milliseconds: index * 100),
                                                 child: AppointmentCard(
                                                   task: task,
@@ -232,7 +227,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
                                       ),
                                     ],
                                   )
-                                : SizedBox.shrink()
+                                : const SizedBox.shrink()
                           ],
                         ),
                       );
@@ -252,7 +247,7 @@ class _TaskManagmentScreenState extends State<TaskManagmentScreen> {
           print("time --${controller.taskTimeController.text}");
           addTaskBottomSheet(context, false, controller);
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -264,21 +259,21 @@ class AppointmentCard extends StatelessWidget {
   TaskController controller;
 
   AppointmentCard({
-    Key? key,
+    super.key,
     required this.task,
     this.isCompleted,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(8),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         boxShadow: kElevationToShadow[1],
         color: task.color,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,7 +288,7 @@ class AppointmentCard extends StatelessWidget {
               addTaskBottomSheet(context, true, controller, task);
             },
             child: Container(
-              padding: EdgeInsets.all(7),
+              padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                 color: isCompleted == true ? Colors.white : task.color,
                 // borderRadius: BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
@@ -309,15 +304,15 @@ class AppointmentCard extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.bold, decoration: isCompleted == true ? TextDecoration.lineThrough : null),
                       ),
                       // Spacer(),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Row(
                         children: [
                           Icon(Icons.watch_later_outlined, size: 18, color: Colors.grey[700]),
-                          SizedBox(
+                          const SizedBox(
                             width: 7,
                           ),
                           Text(
-                            "${task.time}",
+                            task.time,
                             style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                           ),
                         ],
@@ -325,11 +320,11 @@ class AppointmentCard extends StatelessWidget {
                       if (task.description.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: SizedBox(width: 55.w, child: Text(task.description, style: TextStyle(fontSize: 14))),
+                          child: SizedBox(width: 55.w, child: Text(task.description, style: const TextStyle(fontSize: 14))),
                         ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     task.priority ?? "",
                     style: TextStyle(color: task.priorityColor, fontWeight: FontWeight.bold),
@@ -378,7 +373,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
     builder: (context) {
       return Container(
         height: 75.h,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: Padding(
           padding: EdgeInsets.only(top: 1.h, left: 3.w, right: 3.w, bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -398,10 +393,10 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Text(
                         isEdit == true ? "Edit Task" : "Add new task",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     CircleAvatar(
                       backgroundColor: Colors.grey.shade200,
                       child: IconButton(
@@ -410,7 +405,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                             clearFunction(controller);
                             // controller.clearFunction();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.close,
                             color: Colors.black,
                           )),
@@ -424,7 +419,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
               Expanded(
                 flex: 10,
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       CustomTextField(
@@ -462,7 +457,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                           onPressed: () {
                             controller.selectTime(context, controller.taskTimeController); // Open time picker
                           },
-                          icon: Icon(Icons.access_time),
+                          icon: const Icon(Icons.access_time),
                         ),
                         validator: (value) {
                           return null;
@@ -482,7 +477,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                               onPressed: () {
                                 DateClass().selectDate(controller.dueDateController, false, true);
                               },
-                              icon: Icon(Icons.date_range)),
+                              icon: const Icon(Icons.date_range)),
                           validator: (value) {
                             return null;
                           },
@@ -527,7 +522,7 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 1.0, right: 1, bottom: 8),
                 child: GestureDetector(
@@ -584,12 +579,12 @@ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller,
                                     )),
                               ),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       isEdit == true
-                          ? SizedBox(
+                          ? const SizedBox(
                               width: 10,
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       Expanded(
                         child: Container(
                             width: double.infinity,

@@ -1,21 +1,18 @@
-// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, avoid_print, prefer_interpolation_to_compose_strings
+// ignore_for_file: sort_child_properties_last, use_build_context_synchronously, avoid_print, prefer_interpolation_to_compose_strings, unused_local_variable
 
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide FormData, MultipartFile;
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:work_Force/Model/UOM_model.dart';
 import 'package:work_Force/Model/login_model.dart';
-import 'package:work_Force/Model/material_models.dart';
 import 'package:work_Force/Model/serviceStatusModel.dart';
 import 'package:work_Force/Model/service_category_model.dart';
 import 'package:work_Force/Model/service_execution_model.dart';
@@ -617,22 +614,7 @@ class ServiceMasterController extends GetxController {
 
         customSnackbar("Success", "successfully Saved", "success");
 
-        // if (isFromLead == true) {
-        //   print("inside is from lead true");
-        //   print("can pop: ${Get.key.currentState?.canPop()}");
-        //   print("is overlays open: ${Get.isOverlaysOpen}");
-        //   print("is snackbar open: ${Get.isSnackbarOpen}");
-
-        //   // Close snackbar if open
-        //   if (Get.isSnackbarOpen) {
-        //     Get.closeCurrentSnackbar();
-        //   }
-
-        //   // Now pop the screen with result
-        //   Get.back(result: value);
-        // } else {
-          
-        // }
+   
         Get.offAll(() => ServiceMasterScreen(),
               transition: Transition.fade,
               duration: const Duration(milliseconds: 600));

@@ -3,7 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
-import 'package:work_Force/view/screens/more_module/settings_screen.dart';
+import 'package:work_Force/view/screens/more_module/more_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 
 class BottomNavigationMainscreen extends StatefulWidget {
@@ -59,8 +59,8 @@ class _BottomNavigationMainscreenState
             label: 'Task',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.more_outlined),
+            label: 'More',
           ),
         ],
         backgroundColor: kColorwhite,

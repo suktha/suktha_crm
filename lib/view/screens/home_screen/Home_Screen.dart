@@ -26,6 +26,9 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/view/screens/home_screen/controller/home_screen_text_controller.dart';
+import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
+import 'package:work_Force/view/screens/home_screen/view/quick_task_screen.dart';
+import 'package:work_Force/view/screens/home_screen/view/user_progress.dart';
 import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
@@ -43,6 +46,35 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var items = ['3', '6', '9', '12'];
+  final Map<String, dynamic> userProgress = {
+    "name": "Karan",
+    "role": "Technician",
+    "completed": 12,
+    "pending": 3,
+    "today": 2,
+    "rating": 4.6,
+  };
+
+  final List<Map<String, dynamic>> teamData = [
+    {
+      "name": "Ajith",
+      "completed": 18,
+      "total": 20,
+      "rating": 4.5,
+    },
+    {
+      "name": "Prakash",
+      "completed": 12,
+      "total": 20,
+      "rating": 3.8,
+    },
+    {
+      "name": "Anjali",
+      "completed": 20,
+      "total": 20,
+      "rating": 5.0,
+    },
+  ];
 
   late List<BarChartGroupData> showingBarGroups;
   final homeController = Get.put(HomeController());
@@ -493,18 +525,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               delay: Duration.zero,
                               duration: Duration(milliseconds: 800),
                               child: Container(
-                                height: 30.h,
+                                // height: 30.h,
                                 margin: EdgeInsets.all(1.w),
                                 padding: EdgeInsets.only(bottom: 2.h),
                                 //  color: Colors.blue,
-                                child: Lottie.asset(
-                                  transactionLottie,
-                                  repeat: false,
-                                  alignment: Alignment.centerLeft,
-                                  addRepaintBoundary: false,
-                                ),
+                                child: CheckInOutCard ()
                               ),
                             ),
+                            // SizedBox(
+                            //   height: 1.h,
+                            // ),
+                            QuickTaskNotification(),
+
                             SizedBox(
                               height: 1.h,
                             ),
@@ -566,7 +598,129 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 5.h,
+                                    height: 4.h,
+                                  ),
+                                  homeController.isLoginIdIsAdmin.value == false
+                                      ? Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "  Team Progress",
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              height: 1.h,
+                                            ),
+                                            ...teamData.map((member) {
+                                              final percent =
+                                                  (member["completed"] /
+                                                          member["total"]) *
+                                                      100;
+                                              return Container(
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 6, vertical: 6),
+                                                padding: EdgeInsets.all(12),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.15),
+                                                      blurRadius: 6,
+                                                      offset: Offset(0, 3),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      radius: 24,
+                                                      backgroundColor:
+                                                          Colors.blue.shade100,
+                                                      child: Text(
+                                                        member["name"][0],
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 12),
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            member["name"],
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
+                                                          ),
+                                                          SizedBox(height: 4),
+                                                          Text(
+                                                            "Completed: ${member["completed"]} / ${member["total"]}",
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey[700]),
+                                                          ),
+                                                          Text(
+                                                            "Progress: ${percent.toStringAsFixed(0)}%",
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey[700]),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .end,
+                                                      children: [
+                                                        Text(
+                                                          "⭐ ${member["rating"]}",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Text(
+                                                          "Rating",
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              color:
+                                                                  Colors.grey),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ],
+                                        )
+                                      : FadeInRight(
+                                          delay: Duration.zero,
+                                          duration: Duration(milliseconds: 800),
+                                          child: UserProgressScreen(
+                                              userProgress: userProgress)),
+                                  SizedBox(
+                                    height: 1.h,
                                   ),
                                   FadeInUp(
                                     delay: Duration(milliseconds: 600),

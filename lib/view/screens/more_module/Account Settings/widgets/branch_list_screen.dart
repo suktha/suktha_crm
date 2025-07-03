@@ -32,7 +32,6 @@ class BranchListScreen extends StatefulWidget {
 }
 
 class _BranchListScreenState extends State<BranchListScreen> {
- 
   @override
   void initState() {
     widget.controller.getPartyBankDetails();

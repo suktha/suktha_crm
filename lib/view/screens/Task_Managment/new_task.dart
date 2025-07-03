@@ -38,14 +38,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           // centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.black,
-              size: 17,
-            ),
-          ),
+         
           bottom: TabBar(
               labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               unselectedLabelColor: kColorgreyShade400,
@@ -94,7 +87,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     controller.taskTypeController.clear();
   }
 
-  addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller, [Task? task, bool? Iscompleted]) {
+ 
+}
+ addTaskBottomSheet(BuildContext context, bool isEdit, TaskController controller, [Task? task, bool? Iscompleted]) {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -122,8 +117,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 18.0),
                         child: Text(
-                          isEdit == true ? "Edit Task" : "Add new task",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
+                          isEdit == true ? "Edit Task" : "Add new tasks",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.sp),
                         ),
                       ),
                       const Spacer(),
@@ -353,7 +348,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       },
     );
   }
-}
 
 class TaskTabContent extends StatelessWidget {
   TaskController controller;
@@ -391,6 +385,7 @@ class TaskTabContent extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   addTaskBottomSheet(context, false, controller);
+                  clearFunction(controller);
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 0,

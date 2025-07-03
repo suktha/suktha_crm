@@ -9,6 +9,7 @@ import 'package:work_Force/view/screens/more_module/General%20Master/general_mas
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/country_master/country_master.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/department/department_screen.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/designation/designation_list.dart';
+import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/expense_head/expense_head_screen.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/foreign_state/foreign_state_screen.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/industry_segment/industry_segment.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_item/party/lead_category/party_lead_category.dart';
@@ -91,6 +92,11 @@ class GeneralMasterListController extends GetxController {
       "title": "Industry Segment",
       "icon": Icons.list_alt,
       "screen": const IndustrySegmentMasterScreen(),
+    },
+    {
+      "title": "Expense Head",
+      "icon": Icons.list_alt,
+      "screen": ExpenseHeadScreen(),
     },
     {
       "title": "Reason",

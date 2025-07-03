@@ -18,6 +18,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
 import 'package:work_Force/view/screens/more_module/Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/screens/more_module/Admin/admin_screen.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_screen.dart';
 import 'package:work_Force/view/screens/more_module/Masters/Masters%20Screen.dart';
 import 'package:work_Force/view/screens/more_module/user_profile/view/user_profile_screen.dart';
@@ -110,6 +111,22 @@ class _MoreScreenState extends State<MoreScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+               homeController.isLoginIdIsAdmin.value == true
+                  ? FadeInUp(
+                      duration: const Duration(milliseconds: 500),
+                      child: MoreListCustomWidgets(
+                          height: height,
+                          width: width,
+                          ontap: () {
+                            Get.to(
+                              () => const AdminScreen(),
+                              duration: const Duration(milliseconds: 400),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          title: "Admin",
+                          icon: Icons.admin_panel_settings_outlined))
+                  : const SizedBox(),
               FadeInUp(
                   duration: const Duration(milliseconds: 500),
                   child: MoreListCustomWidgets(
