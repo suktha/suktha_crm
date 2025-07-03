@@ -4,9 +4,9 @@ import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
-import 'package:work_Force/view/screens/settings_module/tracking/admin/controller/filed_work_controller.dart';
-import 'package:work_Force/view/screens/settings_module/tracking/admin/controller/location_controller.dart';
-import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/more_module/tracking/admin/controller/filed_work_controller.dart';
+import 'package:work_Force/view/screens/more_module/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_controller.dart';
 
 class InitialBinding extends Bindings {
   @override

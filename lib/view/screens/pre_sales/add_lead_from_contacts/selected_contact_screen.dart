@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, avoid_unnecessary_containers
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,7 @@ class ShowSelectedContactsScreen extends StatefulWidget {
   final LeadContactDetaisController contactController;
   final List<MaterialModel>? materialList;
   final List<MaterialModel>? serviceList;
-  ShowSelectedContactsScreen({super.key, required this.contactController, this.materialList, this.serviceList});
+  const ShowSelectedContactsScreen({super.key, required this.contactController, this.materialList, this.serviceList});
 
   @override
   State<ShowSelectedContactsScreen> createState() => _ShowSelectedContactsScreenState();
@@ -95,7 +97,7 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                         flex: 29,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: widget.contactController.leadList.length,
                           itemBuilder: (context, index) {
                             var contact = widget.contactController.leadList[index];
@@ -111,7 +113,7 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                                     subtitle: Obx(() {
                                       // print("ismandatoryfield 2===== ${widget.contactController.isMandatoryFieldAdded[index]}");
                                       return widget.contactController.isMandatoryFieldAdded[index]
-                                          ? Text(
+                                          ? const Text(
                                               "Mandatory field added successfully",
                                               style: TextStyle(color: Colors.green),
                                             )
@@ -137,7 +139,7 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                                                     ));
                                               });
                                             },
-                                            icon: Container(child: Icon(Icons.edit)))
+                                            icon: Container(child: const Icon(Icons.edit)))
                                         : IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -149,12 +151,13 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                                                       serviceList: widget.serviceList ?? [],
                                                       leadValue: contact,
                                                       IndexOfMandatoryField: index,
+                                                       
                                                     ));
                                               });
                                             },
                                             icon: Container(
                                                 decoration: BoxDecoration(color: kColorwhite, border: Border.all(color: kColorlightBlue), borderRadius: BorderRadius.circular(12)),
-                                                child: Icon(Icons.add)))),
+                                                child: const Icon(Icons.add)))),
                                   ),
                                 ),
                               ),
@@ -163,7 +166,7 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                         ),
                       );
                     })),
-              Spacer(),
+              const Spacer(),
               Obx(() {
                 widget.contactController.allMandatoryFieldsAdded.value = widget.contactController.leadList.asMap().entries.every(
                   (entry) {
@@ -174,7 +177,7 @@ class _ShowSelectedContactsScreenState extends State<ShowSelectedContactsScreen>
                 return Padding(
                   padding: const EdgeInsets.only(left: 18.0, right: 18, top: 8, bottom: 8),
                   child: Center(
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(

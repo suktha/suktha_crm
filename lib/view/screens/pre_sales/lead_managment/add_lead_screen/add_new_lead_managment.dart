@@ -30,7 +30,6 @@ import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
-import 'package:work_Force/view/screens/settings_module/Masters/Masters%20Items/Service%20Master/Add%20Service%20Master/add_service_master.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
@@ -186,30 +185,7 @@ class _NewLeadManagementAddScreenState
                         ? Get.offAll(() =>
                             const BottomNavigationMainscreen(initialIndex: 1))
                         : Get.offAll(() => LeadManagementListScreen());
-
-                    controller.leadGenerationNumController.clear();
-                    controller.leadDateController.clear();
-                    controller.nameController.clear();
-                    controller.contactPersonController.clear();
-                    controller.mobileNoController.clear();
-                    controller.emailController.clear();
-                    controller.addressController.clear();
-                    controller.intrestedProductController.clear();
-                    controller.intrestedServiceController.clear();
-                    controller.statusController.clear();
-                    controller.followUpDateController.clear();
-                    controller.followUpTimecontroller.clear();
-                    controller.amountController.clear();
-                    controller.leadCommentsControler.clear();
-                    controller.userCommentsController.clear();
-                    controller.assignController.clear();
-                    controller.sourceController.clear();
-                    controller.priorityController.clear();
-                    controller.conversionChanceController.clear();
-                    controller.areaController.clear();
-                    controller.cityController.clear();
-                    controller.stateController.clear();
-                    controller.countryController.clear();
+                        clearTextFields();
                   }),
                 )),
             body: Theme(
@@ -4215,6 +4191,32 @@ class _NewLeadManagementAddScreenState
     );
   }
 
+  clearTextFields() {
+    controller.leadGenerationNumController.clear();
+    controller.leadDateController.clear();
+    controller.nameController.clear();
+    controller.contactPersonController.clear();
+    controller.mobileNoController.clear();
+    controller.emailController.clear();
+    controller.addressController.clear();
+    controller.intrestedProductController.clear();
+    controller.intrestedServiceController.clear();
+    controller.statusController.clear();
+    controller.followUpDateController.clear();
+    controller.followUpTimecontroller.clear();
+    controller.amountController.clear();
+    controller.leadCommentsControler.clear();
+    controller.userCommentsController.clear();
+    controller.assignController.clear();
+    controller.sourceController.clear();
+    controller.priorityController.clear();
+    controller.conversionChanceController.clear();
+    controller.areaController.clear();
+    controller.cityController.clear();
+    controller.stateController.clear();
+    controller.countryController.clear();
+  }
+
   editFromContactsFunction(int index) async {
     print("inside ----- edit");
     // controller.quickLeadisSelected.value = widget.leadValue!.quickLead == 1 ? true : false;
@@ -4318,185 +4320,75 @@ class _NewLeadManagementAddScreenState
 
   EditFunction() async {
     controller.isPageLoading.value = true;
-    print("Existing customer  --${widget.leadValue?.isExistingCustomer}");
 
-    print(
-        "existing customer edit from report --${widget.leadGenerationValue?.isExistingCustomer}");
+    final lead = widget.leadValue ?? widget.leadGenerationValue;
 
-    controller.quickLeadisSelected.value = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.quickLead == 1
-            ? true
-            : false
-        : widget.leadValue!.quickLead == 1
-            ? true
-            : false;
-    controller.isNewcustomer.value = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.isExistingCustomer == null ||
-                widget.leadGenerationValue!.isExistingCustomer == 0
-            ? true
-            : false
-        : widget.leadValue!.isExistingCustomer == null ||
-                widget.leadValue!.isExistingCustomer == 0
-            ? true
-            : false;
+    controller.quickLeadisSelected.value = lead!.quickLead == 1;
+    controller.isNewcustomer.value =
+        lead.isExistingCustomer == null || lead.isExistingCustomer == 0;
     controller.leadGenerationNumController.text =
-        widget.isEditFromLeadGen == true
-            ? widget.leadGenerationValue!.leadGenerationNumber ?? ""
-            : widget.leadValue!.leadGenerationNumber ?? "";
-    controller.leadDateController.text = widget.isEditFromLeadGen == true
-        ? DateClass()
-            .showDate(widget.leadGenerationValue!.leadGenerationDate ?? "")
-        : DateClass().showDate(widget.leadValue!.leadGenerationDate ?? "");
-    controller.companyNameController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadCompanyName ?? ""
-        : widget.leadValue!.leadCompanyName ?? "";
-    controller.leadDateController.text = widget.isEditFromLeadGen == true
-        ? DateClass()
-            .showDate(widget.leadGenerationValue!.leadGenerationDate ?? "")
-        : DateClass().showDate(widget.leadValue!.leadGenerationDate ?? "");
-    controller.nameController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadName ?? ""
-        : widget.leadValue!.leadName ?? "";
-    controller.followUpDateController.text = widget.isEditFromLeadGen == true
-        ? DateClass().showDate(widget.leadGenerationValue!.followUpDate ?? "")
-        : widget.leadValue!.followUpDate == null
-            ? ""
-            : DateClass().showDate(widget.leadValue!.followUpDate ?? "");
-    controller.mobileNoController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.mobileNo ?? ""
-        : widget.leadValue!.mobileNo ?? "";
-    controller.contactPersonController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.contactPerson ?? ""
-        : widget.leadValue!.contactPerson ?? "";
-    controller.emailController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.email ?? ""
-        : widget.leadValue!.email ?? "";
-    controller.addressController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.address ?? ""
-        : widget.leadValue!.address ?? "";
-    controller.leadDescriptionController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadDescription ?? ""
-        : widget.leadValue!.leadDescription ?? "";
-    controller.referralNameController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.referralName ?? ""
-        : widget.leadValue!.referralName ?? "";
-    controller.internalCommentsControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.userComments ?? ""
-        : widget.leadValue!.userComments ?? "";
+        lead.leadGenerationNumber ?? "";
+    controller.leadDateController.text =
+        DateClass().showDate(lead.leadGenerationDate ?? "");
+    controller.companyNameController.text = lead.leadCompanyName ?? "";
+    controller.nameController.text = lead.leadName ?? "";
+    controller.followUpDateController.text = lead.followUpDate == null
+        ? ""
+        : DateClass().showDate(lead.followUpDate ?? "");
+    controller.mobileNoController.text = lead.mobileNo ?? "";
+    controller.contactPersonController.text = lead.contactPerson ?? "";
+    controller.emailController.text = lead.email ?? "";
+    controller.addressController.text = lead.address ?? "";
+    controller.leadDescriptionController.text = lead.leadDescription ?? "";
+    controller.referralNameController.text = lead.referralName ?? "";
+    controller.internalCommentsControler.text = lead.userComments ?? "";
     controller.customerPainPointscontroller.text =
-        widget.isEditFromLeadGen == true
-            ? widget.leadGenerationValue!.customerPainPoints ?? ""
-            : widget.leadValue!.customerPainPoints ?? "";
-    controller.postalCodeController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.pincode ?? ""
-        : widget.leadValue!.pincode ?? "";
-    controller.phoneNumberController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.contactPersonNo ?? ""
-        : widget.leadValue!.contactPersonNo ?? "";
-    controller.whatsappNumController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.whatsappNumber ?? ""
-        : widget.leadValue!.whatsappNumber ?? "";
-    controller.websiteController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.website ?? ""
-        : widget.leadValue!.website ?? "";
-    controller.leadScoreDetailsController.text =
-        widget.isEditFromLeadGen == true
-            ? widget.leadGenerationValue!.leadSourceDetails ?? ""
-            : widget.leadValue!.leadSourceDetails ?? "";
-    controller.leadScoreController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadScore ?? ""
-        : widget.leadValue!.leadScore ?? "";
-    controller.proposedSolutionControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.proposedSolution ?? ""
-        : widget.leadValue!.proposedSolution ?? "";
-    controller.numOfEmployeesControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.numberOfEmployees?.toString() ?? ""
-        : widget.leadValue!.numberOfEmployees?.toString() ?? "";
-    controller.annnualRevenueControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.annualTurnOver?.toString() ?? ""
-        : widget.leadValue!.annualTurnOver?.toString() ?? "";
-    controller.customerBudgetControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.customerBudget?.toString() ?? ""
-        : widget.leadValue!.customerBudget?.toString() ?? "";
-    controller.competitorsController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.competitors ?? ""
-        : widget.leadValue!.competitors ?? "";
-    controller.latAndLong.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadGeoLocation ?? ""
-        : widget.leadValue!.leadGeoLocation ?? "";
-    print(
-        "controller.followUpTimecontroller.text ${controller.followUpTimecontroller.text}");
+        lead.customerPainPoints ?? "";
+    controller.postalCodeController.text = lead.pincode?.toString() ?? "";
+    controller.phoneNumberController.text = lead.contactPersonNo ?? "";
+    controller.whatsappNumController.text = lead.whatsappNumber ?? "";
+    controller.websiteController.text = lead.website ?? "";
+    controller.leadScoreDetailsController.text = lead.leadSourceDetails ?? "";
+    controller.leadScoreController.text = lead.leadScore ?? "";
+    controller.proposedSolutionControler.text = lead.proposedSolution ?? "";
+    controller.numOfEmployeesControler.text =
+        lead.numberOfEmployees?.toString() ?? "";
+    controller.annnualRevenueControler.text =
+        lead.annualTurnOver?.toString() ?? "";
+    controller.customerBudgetControler.text =
+        lead.customerBudget?.toString() ?? "";
+    controller.competitorsController.text = lead.competitors ?? "";
+    controller.latAndLong.text = lead.leadGeoLocation ?? "";
 
-    //LeadOwner
     await controller.getUserList();
-
-    if (widget.leadValue?.leadOwnerId != null ||
-        widget.leadGenerationValue?.leadOwnerId != null) {
-      print("inside lead owner");
-      widget.isEditFromLeadGen == true
-          ? controller.selectedUserValue = controller.userList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.leadOwnerId)
-          : controller.selectedUserValue = controller.userList
-              .firstWhere((value) => value.id == widget.leadValue!.leadOwnerId);
+    if (lead.leadOwnerId != null) {
+      controller.selectedUserValue = controller.userList
+          .firstWhere((value) => value.id == lead.leadOwnerId);
       controller.leadOwnerController.text =
           controller.selectedUserValue.name ?? "";
     }
 
-    print("leadd owner--${controller.selectedUserValue.name}");
-    print("amount value----${widget.leadValue?.amount}");
+    controller.amountController.text = lead.amount?.toString() ?? "";
+    controller.leadCommentsControler.text = lead.leadComments ?? "";
+    controller.userCommentsController.text = lead.userComments ?? "";
 
-    controller.amountController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.amount?.toString() ?? ""
-        : widget.leadValue!.amount?.toString() ?? "";
-
-    controller.leadCommentsControler.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadComments ?? ""
-        : widget.leadValue!.leadComments ?? "";
-    controller.userCommentsController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.userComments ?? ""
-        : widget.leadValue!.userComments ?? "";
-
-    //------ interested product ----
-    // await controller.getMaterialsList();
-
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue?.interestedProductId != null &&
-            widget.leadGenerationValue!.interestedProductId!.isNotEmpty
-        : widget.leadValue?.interestedProductId != null &&
-            widget.leadValue!.interestedProductId!.isNotEmpty) {
-      List<int> interestedProductIds = widget.isEditFromLeadGen == true
-          ? widget.leadGenerationValue!.interestedProductId!
-              .toString()
-              .replaceAll('[', '')
-              .replaceAll(']', '')
-              .split(',')
-              .where((id) => id.trim().isNotEmpty)
-              .map((id) {
-                try {
-                  return int.parse(id.trim());
-                } catch (e) {
-                  print("Error parsing id '$id': $e");
-                  return null;
-                }
-              })
-              .whereType<int>()
-              .toList()
-          : widget.leadValue!.interestedProductId!
-              .toString()
-              .replaceAll('[', '')
-              .replaceAll(']', '')
-              .split(',')
-              .where((id) => id.trim().isNotEmpty)
-              .map((id) {
-                try {
-                  return int.parse(id.trim());
-                } catch (e) {
-                  print("Error parsing id '$id': $e");
-                  return null;
-                }
-              })
-              .whereType<int>()
-              .toList();
+    if (lead.interestedProductId != null &&
+        lead.interestedProductId!.isNotEmpty) {
+      List<int> interestedProductIds = lead.interestedProductId!
+          .toString()
+          .replaceAll('[', '')
+          .replaceAll(']', '')
+          .split(',')
+          .where((id) => id.trim().isNotEmpty)
+          .map((id) {
+            try {
+              return int.parse(id.trim());
+            } catch (_) {
+              return null;
+            }
+          })
+          .whereType<int>()
+          .toList();
       controller.selectedMaterialItem.clear();
       for (var item in widget.materialList) {
         if (interestedProductIds.contains(item.id)) {
@@ -4507,54 +4399,26 @@ class _NewLeadManagementAddScreenState
           controller.selectedMaterialItem.map((item) => item.name).join(', ');
     }
 
-    print(
-        "interested ----------product----${controller.intrestedProductController.text}");
-
-    //------ interested service ----
-
-    print("----int id -- ${widget.leadValue?.interestedServiceId?.length}");
-
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue?.interestedServiceId != null &&
-            widget.leadGenerationValue!.interestedServiceId!.isNotEmpty
-        : widget.leadValue!.interestedServiceId != null &&
-            widget.leadValue!.interestedServiceId!.isNotEmpty) {
-      var interestedServiceId = widget.isEditFromLeadGen == true
-          ? widget.leadGenerationValue!.interestedServiceId!
-              .toString()
-              .replaceAll('[', '')
-              .replaceAll(']', '')
-              .split(',')
-              .where((id) => id.trim().isNotEmpty)
-              .map((id) {
-                try {
-                  return int.parse(id.trim());
-                } catch (e) {
-                  print("Error parsing id '$id': $e");
-                  return null;
-                }
-              })
-              .whereType<int>()
-              .toList()
-          : widget.leadValue!.interestedServiceId!
-              .toString()
-              .replaceAll('[', '')
-              .replaceAll(']', '')
-              .split(',')
-              .where((id) => id.trim().isNotEmpty)
-              .map((id) {
-                try {
-                  return int.parse(id.trim());
-                } catch (e) {
-                  print("Error parsing id '$id': $e");
-                  return null;
-                }
-              })
-              .whereType<int>()
-              .toList();
+    if (lead.interestedServiceId != null &&
+        lead.interestedServiceId!.isNotEmpty) {
+      List<int> interestedServiceIds = lead.interestedServiceId!
+          .toString()
+          .replaceAll('[', '')
+          .replaceAll(']', '')
+          .split(',')
+          .where((id) => id.trim().isNotEmpty)
+          .map((id) {
+            try {
+              return int.parse(id.trim());
+            } catch (_) {
+              return null;
+            }
+          })
+          .whereType<int>()
+          .toList();
       controller.selectedServiceItem.clear();
       for (var item in widget.serviceList) {
-        if (interestedServiceId.contains(item.id)) {
+        if (interestedServiceIds.contains(item.id)) {
           controller.selectedServiceItem.add(item);
         }
       }
@@ -4562,231 +4426,103 @@ class _NewLeadManagementAddScreenState
           controller.selectedServiceItem.map((item) => item.name).join(', ');
     }
 
-    //
-
     await controller.getStatusById();
+    controller.statusController.text = lead.statusName ?? "";
+    controller.selectedStatusValue.id = lead.statusId ?? 0;
+    controller.statusId.value = lead.statusId ?? 0;
 
-    controller.statusController.text = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.statusName ?? ""
-        : widget.leadValue!.statusName ?? "";
-    controller.selectedStatusValue.id = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.statusId ?? 0
-        : widget.leadValue!.statusId;
-    controller.statusId.value = widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.statusId ?? 0
-        : widget.leadValue!.statusId ?? 0;
-
-    print("status id -- ${controller.selectedStatusValue.id}");
-
-    //--industry segment
     await controller.getIndustrySegment();
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.industrySegmentId != null
-        : widget.leadValue!.industrySegmentId != null) {
-      controller.selectedindusSegmentValue = widget.isEditFromLeadGen == true
-          ? controller.industrySegmentList.firstWhere((value) =>
-              value.id == widget.leadGenerationValue!.industrySegmentId)
-          : controller.industrySegmentList.firstWhere(
-              (value) => value.id == widget.leadValue!.industrySegmentId);
+    if (lead.industrySegmentId != null) {
+      controller.selectedindusSegmentValue = controller.industrySegmentList
+          .firstWhere((value) => value.id == lead.industrySegmentId);
       controller.industrySegmentController.text =
           controller.selectedindusSegmentValue.name ?? "";
     }
 
-    //--Not Converted reason
     await controller.getReasonConversion();
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.reasonId != null
-        : widget.leadValue!.reasonId != null) {
-      controller.selectedReasonConversionValue = widget.isEditFromLeadGen ==
-              true
-          ? controller.reasonConversionList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.reasonId)
-          : controller.reasonConversionList
-              .firstWhere((value) => value.id == widget.leadValue!.reasonId);
+    if (lead.reasonId != null) {
+      controller.selectedReasonConversionValue = controller.reasonConversionList
+          .firstWhere((value) => value.id == lead.reasonId);
       controller.notConvertedReasonController.text =
           controller.selectedReasonConversionValue.name ?? "";
     }
 
-    //--Category
     await controller.getLeadCategory();
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.leadCategoryId != null
-        : widget.leadValue!.leadCategoryId != null) {
-      controller.selectedCategoryuValue = widget.isEditFromLeadGen == true
-          ? controller.leadCategoryList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.leadCategoryId)
-          : controller.leadCategoryList.firstWhere(
-              (value) => value.id == widget.leadValue!.leadCategoryId);
+    if (lead.leadCategoryId != null) {
+      controller.selectedCategoryuValue = controller.leadCategoryList
+          .firstWhere((value) => value.id == lead.leadCategoryId);
       controller.categoryController.text =
           controller.selectedCategoryuValue.name ?? "";
     }
 
-    //--asigned to
-    await controller.getUserList();
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.assignedToId != null
-        : widget.leadValue!.assignedToId != null) {
-      controller.selectedUserValue = widget.isEditFromLeadGen == true
-          ? controller.userList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.assignedToId)
-          : controller.userList.firstWhere(
-              (value) => value.id == widget.leadValue!.assignedToId);
+    if (lead.assignedToId != null) {
+      controller.selectedUserValue = controller.userList
+          .firstWhere((value) => value.id == lead.assignedToId);
       controller.assignController.text =
           controller.selectedUserValue.name ?? "";
     }
 
-    //designations
     await controller.getDesignation();
-
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.designationId != null
-        : widget.leadValue!.designationId != null) {
-      controller.selectedDesignationValue = widget.isEditFromLeadGen == true
-          ? controller.leadDesignationList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.designationId)
-          : controller.leadDesignationList.firstWhere(
-              (value) => value.id == widget.leadValue!.designationId);
+    if (lead.designationId != null) {
+      controller.selectedDesignationValue = controller.leadDesignationList
+          .firstWhere((value) => value.id == lead.designationId);
       controller.designationController.text =
           controller.selectedDesignationValue.designationName ?? "";
     }
 
-    print(
-        "designation --${controller.selectedDesignationValue.designationName}");
-
-    // --source
     await controller.getSourceList();
-
-    controller.selectedSourceValue = widget.isEditFromLeadGen == true
-        ? controller.sourceList.firstWhere(
-            (value) => value.id == widget.leadGenerationValue!.sourceId)
-        : controller.sourceList
-            .firstWhere((value) => value.id == widget.leadValue!.sourceId);
+    controller.selectedSourceValue =
+        controller.sourceList.firstWhere((value) => value.id == lead.sourceId);
     controller.sourceController.text =
         controller.selectedSourceValue.name ?? "";
 
-    //- priority
-    controller.selectedPriorityValue = widget.isEditFromLeadGen == true
-        ? controller.priorityList.firstWhere(
-            (value) => value.id == widget.leadGenerationValue!.priorityId)
-        : controller.priorityList
-            .firstWhere((value) => value.id == widget.leadValue!.priorityId);
+    controller.selectedPriorityValue = controller.priorityList
+        .firstWhere((value) => value.id == lead.priorityId);
     controller.priorityController.text =
         controller.selectedPriorityValue.name ?? "";
-    //--conversionchance
-    controller.selectedConversionChanceValue = widget.isEditFromLeadGen == true
-        ? controller.conversionChanceList.firstWhere((value) =>
-            value.id == widget.leadGenerationValue!.conversionChanceId)
-        : controller.conversionChanceList.firstWhere(
-            (value) => value.id == widget.leadValue!.conversionChanceId);
+
+    controller.selectedConversionChanceValue = controller.conversionChanceList
+        .firstWhere((value) => value.id == lead.conversionChanceId);
     controller.conversionChanceController.text =
         controller.selectedConversionChanceValue.name ?? "";
 
-    //--area'
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.areaId != null
-        : widget.leadValue!.areaId != null) {
+    if (lead.areaId != null) {
       await controller.getAreaList();
-
-      controller.selectedAreaValue = widget.isEditFromLeadGen == true
-          ? controller.areaList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.areaId)
-          : controller.areaList
-              .firstWhere((city) => city.id == widget.leadValue!.areaId);
+      controller.selectedAreaValue =
+          controller.areaList.firstWhere((value) => value.id == lead.areaId);
       controller.areaController.text = controller.selectedAreaValue.name ?? "";
     }
 
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.cityId != null
-        : widget.leadValue!.cityId != null) {
+    if (lead.cityId != null) {
       await controller.getCityList();
-
-      controller.selectedCityValue = widget.isEditFromLeadGen == true
-          ? controller.cityList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.cityId)
-          : controller.cityList
-              .firstWhere((city) => city.id == widget.leadValue!.cityId);
+      controller.selectedCityValue =
+          controller.cityList.firstWhere((value) => value.id == lead.cityId);
       controller.cityController.text = controller.selectedCityValue.name ?? "";
     }
 
-    //--city
-    // await controller.getCityList();
-    // widget.leadValue!.cityId == null ? null : controller.selectedCityValue = controller.cityList.firstWhere((value) => value.id == widget.leadValue!.cityId);
-    // controller.cityController.text = controller.selectedCityValue.name ?? "";
-
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.stateId != null
-        : widget.leadValue!.stateId != null) {
+    if (lead.stateId != null) {
       await controller.getStateList();
-
-      controller.selectedStateValue = widget.isEditFromLeadGen == true
-          ? controller.stateList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.stateId)
-          : controller.stateList
-              .firstWhere((city) => city.id == widget.leadValue!.stateId);
+      controller.selectedStateValue =
+          controller.stateList.firstWhere((value) => value.id == lead.stateId);
       controller.stateController.text =
           controller.selectedStateValue.name ?? "";
     }
-    //--state
-    // await controller.getStateList();
-    // widget.leadValue!.stateId == null ? null : controller.selectedStateValue = controller.stateList.firstWhere((value) => value.id == widget.leadValue!.stateId);
-    // controller.stateController.text = controller.selectedStateValue.name ?? "";
 
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.countryId != null
-        : widget.leadValue!.countryId != null) {
+    if (lead.countryId != null) {
       await controller.getCountryList();
-
-      controller.selectedCountryValue = widget.isEditFromLeadGen == true
-          ? controller.countryList.firstWhere(
-              (value) => value.id == widget.leadGenerationValue!.countryId)
-          : controller.countryList
-              .firstWhere((city) => city.id == widget.leadValue!.countryId);
+      controller.selectedCountryValue = controller.countryList
+          .firstWhere((value) => value.id == lead.countryId);
       controller.countryController.text =
           controller.selectedCountryValue.name ?? "";
     }
-    //--country
-    // await controller.getCountryList();
-    // widget.leadValue!.countryId == null ? null : controller.selectedCountryValue = controller.countryList.firstWhere((value) => value.id == widget.leadValue!.countryId);
-    // controller.countryController.text = controller.selectedCountryValue.name ?? " ";
 
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.followUpTime != null
-        : widget.leadValue!.followUpTime != null) {
+    if (lead.followUpTime != null) {
       await controller.getFollowUpTime();
-      // controller.followUpTimeList.firstWhereOrNull((element) => element["id"] == widget.leadValue!.followUpTime)["time"];
-      print("id value----${widget.leadValue?.followUpTime}");
-
-      controller.followUpTimecontroller.text = widget.isEditFromLeadGen == true
-          ? controller.followUpTimeList.firstWhere((element) {
-              print("list id---${element["id"]}");
-              return element["id"] == widget.leadGenerationValue!.followUpTime;
-            })["time"]
-          : controller.followUpTimeList.firstWhere((element) {
-              print("list id---${element["id"]}");
-              return element["id"] == widget.leadValue!.followUpTime;
-            })["time"];
+      controller.followUpTimecontroller.text = controller.followUpTimeList
+          .firstWhere((element) => element["id"] == lead.followUpTime)["time"];
     }
-    print("follow up time --${controller.followUpTimecontroller.text}");
 
-    if (widget.isEditFromLeadGen == true
-        ? widget.leadGenerationValue!.preferredContactTime != null
-        : widget.leadValue!.preferredContactTime != null) {
-      await controller.getFollowUpTime();
-      controller.preferredContactTimeController.text =
-          widget.isEditFromLeadGen == true
-              ? controller.followUpTimeList.firstWhere((element) {
-                  print("list id---${element["id"]}");
-                  return element["id"] ==
-                      widget.leadGenerationValue!.preferredContactTime;
-                })["time"]
-              : controller.followUpTimeList.firstWhere(
-                  (element) =>
-                      element["id"] == widget.leadValue!.preferredContactTime,
-                )["time"];
-    }
     controller.isPageLoading.value = false;
-    print(
-        "preferd contact  time --${controller.preferredContactTimeController.text}");
   }
 
   void _showBottomTimePicker(BuildContext context,

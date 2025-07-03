@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
+import 'package:work_Force/view/screens/more_module/settings_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
-import 'package:work_Force/view/screens/settings_module/settings_screen.dart';
-import 'package:work_Force/view/screens/task_screen/task_screen.dart';
 
 class BottomNavigationMainscreen extends StatefulWidget {
   final int initialIndex;
@@ -21,15 +21,15 @@ class _BottomNavigationMainscreenState
   late int currentIndex;
   final List<Widget> _screens = [
     const PreSaleScreen(),
-    HomeScreen(),
-    // const TaskScreen(),
-    SettingsScreen(),
+    const HomeScreen(),
+    const NewTaskScreen(),
+    const MoreScreen(),
   ];
 
   @override
   void initState() {
     super.initState();
-    currentIndex = widget.initialIndex; 
+    currentIndex = widget.initialIndex;
   }
 
   void onTabTapped(int index) {
@@ -54,10 +54,10 @@ class _BottomNavigationMainscreenState
             icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.task_alt_rounded),
-          //   label: 'Task',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task_alt_rounded),
+            label: 'Task',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',

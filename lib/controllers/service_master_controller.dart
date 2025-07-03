@@ -26,7 +26,7 @@ import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
-import 'package:work_Force/view/screens/settings_module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
+import 'package:work_Force/view/screens/more_module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
 import 'package:work_Force/view/widget/custom_popup_with_widget.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 import '../Model/material_list_model.dart';

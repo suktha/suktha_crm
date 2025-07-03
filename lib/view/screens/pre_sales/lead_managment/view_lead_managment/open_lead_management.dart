@@ -10,14 +10,14 @@ import 'package:work_Force/controllers/lead_controller.dart';
 import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
+import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/controller/get_location_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/get_location/widget/get_location_widget.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/document_wallet.dart';
 import 'package:work_Force/view/screens/pre_sales/widget/share_doc_nd_history.dart';
-import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_controller.dart';
-import 'package:work_Force/view/screens/settings_module/tracking/user/user_field_work/user_management_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/icon_button.dart';
 import 'package:url_launcher/url_launcher.dart' as urlLauncher;
@@ -733,7 +733,7 @@ class _OpenLeadManagementScreenState extends State<OpenLeadManagementScreen> {
                           SizedBox(
                             width: 40.w,
                             child: Text(
-                              widget.leadValue.address!.isEmpty
+                              widget.leadValue.address==null
                                   ? "--"
                                   : widget.leadValue.address?.toString() ??
                                       "--",
