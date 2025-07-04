@@ -22,7 +22,7 @@ class _BottomNavigationMainscreenState
   final List<Widget> _screens = [
     const PreSaleScreen(),
     const HomeScreen(),
-    const NewTaskScreen(),
+     NewTaskScreen(),
     const MoreScreen(),
   ];
 

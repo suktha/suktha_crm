@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 class UserProgressScreen extends StatelessWidget {
   final Map<String, dynamic> userProgress;
 
-  UserProgressScreen({required this.userProgress});
+  const UserProgressScreen({super.key, required this.userProgress});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,26 @@ class UserProgressScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  userProgress["name"],
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      userProgress["name"],
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    const Spacer(),
+                      Center(
+                  child: Column(
+                    children: [
+                      Text("⭐ ${userProgress["rating"]}",
+                          style: const TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      Text("Your Rating",
+                          style: TextStyle(color: Colors.grey[600])),
+                    ],
+                  ),
+                ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -45,7 +61,8 @@ class UserProgressScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 LinearProgressIndicator(
                   value: progressPercent,
-                  minHeight: 10,
+                  minHeight: 8,
+                  borderRadius: BorderRadius.circular(5),
                   backgroundColor: Colors.grey[300],
                   color: Colors.green,
                 ),
@@ -65,17 +82,7 @@ class UserProgressScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24),
-                Center(
-                  child: Column(
-                    children: [
-                      Text("⭐ ${userProgress["rating"]}",
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
-                      Text("Your Rating",
-                          style: TextStyle(color: Colors.grey[600])),
-                    ],
-                  ),
-                ),
+              
               ],
             ),
           ),

@@ -25,9 +25,11 @@ import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
-import 'package:work_Force/view/screens/home_screen/controller/home_screen_text_controller.dart';
+import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
+import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/quick_task_screen.dart';
+import 'package:work_Force/view/screens/home_screen/view/team_progress_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/user_progress.dart';
 import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
@@ -81,16 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final initialController = Get.put(InitialController());
   final userManagementController = Get.put(UserManagementController());
 
-  final textWidgetController = Get.put(HomeScreenTextController());
   final leadController = Get.put(GetLeadController());
   final contactController = Get.put(LeadContactDetaisController());
   final settingsController = Get.put(SettingsController());
-
-  // final GlobalController globalController = Get.find();
-
   final globalController = Get.put(GlobalController());
-  // final settingsController = Get.put(SettingsController());
-  // final generalMasterController = Get.put(GeneralMasterController());
 
   @override
   void initState() {
@@ -98,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     homeController.getCompanyDetails();
     homeController.getCompanyLogoName();
-    // settingsController.onInit();
-    // generalMasterController.onInit();
-    // globalController.onInit();
+
     getdata();
     todayDetails();
     setState(() {
@@ -525,20 +519,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               delay: Duration.zero,
                               duration: Duration(milliseconds: 800),
                               child: Container(
-                                // height: 30.h,
-                                margin: EdgeInsets.all(1.w),
-                                padding: EdgeInsets.only(bottom: 2.h),
-                                //  color: Colors.blue,
-                                child: CheckInOutCard ()
-                              ),
+                                  // height: 30.h,
+                                  margin: EdgeInsets.all(1.w),
+                                  padding: EdgeInsets.only(bottom: 2.h),
+                                  //  color: Colors.blue,
+                                  child: CheckInOutCard()),
                             ),
-                            // SizedBox(
-                            //   height: 1.h,
-                            // ),
-                            QuickTaskNotification(),
-
                             SizedBox(
                               height: 1.h,
+                            ),
+                            FadeInLeft(
+                                delay: Duration.zero,
+                                duration: Duration(milliseconds: 800),
+                                child: QuickTaskNotification()),
+                            SizedBox(
+                              height: 1.5.h,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -554,8 +549,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         customLeadCreateButton(
+                                            Icons.add_task, "Create Task",
+                                            () async {
+                                          // await contactController
+                                          //     .fetchContacts();
+                                          Get.to(() => AddTaskScreen(
+                                                isEdit: false,
+                                                Iscompleted: false,
+                                              ));
+                                        }),
+                                        customLeadCreateButton(
                                             Icons.contact_page_rounded,
-                                            "Import From Contacts", () async {
+                                            "Import", () async {
                                           await contactController
                                               .fetchContacts();
                                           Get.to(
@@ -569,7 +574,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           );
                                         }),
                                         customLeadCreateButton(
-                                            Icons.add, " Create New Lead ", () {
+                                            Icons.add, "Create Lead", () {
                                           Get.to(
                                               () => NewLeadManagementAddScreen(
                                                     isEdit: false,
@@ -585,7 +590,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         }),
                                         customLeadCreateButton(
                                             Icons.arrow_forward_ios_rounded,
-                                            " View Lead Management", () {
+                                            " View Lead", () {
                                           Get.to(
                                               LeadManagementListScreen(
                                                 isFromHomeScreen: true,
@@ -601,119 +606,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 4.h,
                                   ),
                                   homeController.isLoginIdIsAdmin.value == false
-                                      ? Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "  Team Progress",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            SizedBox(
-                                              height: 1.h,
-                                            ),
-                                            ...teamData.map((member) {
-                                              final percent =
-                                                  (member["completed"] /
-                                                          member["total"]) *
-                                                      100;
-                                              return Container(
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 6, vertical: 6),
-                                                padding: EdgeInsets.all(12),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.15),
-                                                      blurRadius: 6,
-                                                      offset: Offset(0, 3),
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 24,
-                                                      backgroundColor:
-                                                          Colors.blue.shade100,
-                                                      child: Text(
-                                                        member["name"][0],
-                                                        style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 12),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            member["name"],
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          SizedBox(height: 4),
-                                                          Text(
-                                                            "Completed: ${member["completed"]} / ${member["total"]}",
-                                                            style: TextStyle(
-                                                                fontSize: 14,
-                                                                color: Colors
-                                                                    .grey[700]),
-                                                          ),
-                                                          Text(
-                                                            "Progress: ${percent.toStringAsFixed(0)}%",
-                                                            style: TextStyle(
-                                                                fontSize: 14,
-                                                                color: Colors
-                                                                    .grey[700]),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Text(
-                                                          "⭐ ${member["rating"]}",
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          "Rating",
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color:
-                                                                  Colors.grey),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ],
-                                        )
+                                      ? FadeInRight(
+                                        delay: Duration.zero,
+                                          duration: Duration(milliseconds: 800),
+                                        child: TeamProgressCard(teamData: teamData,)
+                                      )
                                       : FadeInRight(
                                           delay: Duration.zero,
                                           duration: Duration(milliseconds: 800),
@@ -1043,7 +940,7 @@ class _HomeScreenState extends State<HomeScreen> {
   SizedBox customLeadCreateButton(
       IconData icons, String titleName, VoidCallback onTap) {
     return SizedBox(
-      width: 25.w,
+      // width: 25.w,
       child: GestureDetector(
         onTap: onTap,
         child: Column(
@@ -1060,7 +957,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 1.h,
             ),
             SizedBox(
-                width: 25.w,
+                width: 20.w,
                 child: Text(titleName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
