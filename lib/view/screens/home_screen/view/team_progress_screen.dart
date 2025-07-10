@@ -6,115 +6,119 @@ class TeamProgressCard extends StatelessWidget {
   final VoidCallback? onViewAll;
 
   const TeamProgressCard({
-    Key? key,
+    super.key,
     required this.teamData,
     this.onViewAll,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.lightBlue[50],
-        borderRadius: BorderRadius.circular(5.w),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          SizedBox(height: 1.2.w),
-          ...teamData.map((member) {
-            final percent = (member["completed"] / member["total"]) * 100;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text("  Only admin can see this."),
+        SizedBox(height: 1.2.w),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.lightBlue[50],
+            borderRadius: BorderRadius.circular(5.w),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(height: 1.2.w),
+              ...teamData.map((member) {
+                final percent = (member["completed"] / member["total"]) * 100;
 
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5.w),
-                border: Border.all(
-                  color: Colors.grey.withOpacity(0.2),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.lightBlue[100],
-                    child: Text(
-                      member["name"][0],
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5.w),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          member["name"],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "Completed: ${member["completed"]} / ${member["total"]}",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                        Text(
-                          "Progress: ${percent.toStringAsFixed(0)}%",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Row(
                     children: [
-                      Text(
-                        "⭐ ${member["rating"]}",
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundColor: Colors.lightBlue[100],
+                        child: Text(
+                          member["name"][0],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                      const Text(
-                        "Rating",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              member["name"],
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              "Completed: ${member["completed"]} / ${member["total"]}",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                            Text(
+                              "Progress: ${percent.toStringAsFixed(0)}%",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey[700],
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "⭐ ${member["rating"]}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text(
+                            "Rating",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                );
+              }),
+              Padding(
+                padding: EdgeInsets.only(right: 4.w, bottom: 5),
+                child: GestureDetector(
+                  onTap: onViewAll,
+                  child: const Text(
+                    "View all",
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 14, color: Colors.blue),
+                  ),
+                ),
               ),
-            );
-          }).toList(),
-          Padding(
-            padding: EdgeInsets.only(right: 4.w, bottom: 5),
-            child: GestureDetector(
-              onTap: onViewAll,
-              child: const Text(
-                "View all",
-                textAlign: TextAlign.end,
-                style: TextStyle(fontSize: 14, color: Colors.blue),
-              ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

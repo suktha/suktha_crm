@@ -18,7 +18,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/responsive_utils.dart';
 import 'package:work_Force/view/screens/more_module/Account%20Settings/company_details_screen.dart';
-import 'package:work_Force/view/screens/more_module/Admin/admin_screen.dart';
+import 'package:work_Force/view/screens/My_account/my_account_screen.dart';
 import 'package:work_Force/view/screens/more_module/General%20Master/general_master_screen.dart';
 import 'package:work_Force/view/screens/more_module/Masters/Masters%20Screen.dart';
 import 'package:work_Force/view/screens/more_module/user_profile/view/user_profile_screen.dart';
@@ -97,7 +97,7 @@ class _MoreScreenState extends State<MoreScreen> {
         appBar: AppBar(
           backgroundColor: kColorwhite,
           title: Text(
-            "Settings",
+            "More module",
             style: TextStyle(
                 color: kColorblack,
                 fontSize: 19.sp,
@@ -119,7 +119,7 @@ class _MoreScreenState extends State<MoreScreen> {
                           width: width,
                           ontap: () {
                             Get.to(
-                              () => const AdminScreen(),
+                              () => const MyAccountScreen(),
                               duration: const Duration(milliseconds: 400),
                               transition: Transition.rightToLeft,
                             );

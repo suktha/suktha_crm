@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 
 class MoreListCustomWidgets extends StatelessWidget {
-  const MoreListCustomWidgets({
+   MoreListCustomWidgets({
     super.key,
-    required this.height,
+     this.height,
     required this.width,
     required this.title,
     required this.icon,
     required this.ontap,
   });
 
-  final double height;
+   double? height;
   final double width;
   final String title;
   final IconData icon;
@@ -23,9 +24,9 @@ class MoreListCustomWidgets extends StatelessWidget {
       onTap: ontap,
       title: Text(
         title,
-        style: TextStyle(fontSize: width * 0.04, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w500, color: kColorblack),
+        style: TextStyle(fontSize: 16.sp, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.w400, color: kColorblack),
       ),
-      leading: Icon(icon),
+      leading: Icon(icon,color: Colors.blue,),
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
       trailing: Icon(Icons.keyboard_arrow_right_outlined),

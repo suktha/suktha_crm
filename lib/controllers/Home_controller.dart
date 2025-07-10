@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:work_Force/Constants/shared_pref_keys.dart';
 import 'package:work_Force/Model/company_model.dart';
 import 'package:work_Force/Model/global_settings_model.dart';
+import 'package:work_Force/Model/login_model.dart' as loginModel;
 import 'package:work_Force/Model/response_string_model.dart';
 import 'package:work_Force/Model/transaction_number.dart';
 import 'package:work_Force/Model/transaction_type_model.dart';
@@ -26,9 +27,10 @@ import 'package:work_Force/view/widget/snackbar.dart';
 import '../Model/login_model.dart';
 
 class HomeController extends GetxController {
-  final globalController = Get.find<GlobalController>();
+  final globalController = Get.put(GlobalController());
 
-  RxList<TransactionTypeModel> transactionTypeList = <TransactionTypeModel>[].obs;
+  RxList<TransactionTypeModel> transactionTypeList =
+      <TransactionTypeModel>[].obs;
 
   @override
   void onInit() {
@@ -37,6 +39,7 @@ class HomeController extends GetxController {
     getCompanyDetails();
     transactionType();
     getGlobalSettings();
+    getdata();
   }
 
   RxBool loading = false.obs;
@@ -47,24 +50,66 @@ class HomeController extends GetxController {
 
   RxString username = "".obs;
   RxString companyImage = "".obs;
-      RxBool isLoginIdIsAdmin = false.obs;
-        RxBool isLoginIdIsbranchmanger = false.obs;
+  RxBool isLoginIdIsAdmin = false.obs;
+  RxBool isLoginIdIsbranchmanger = false.obs;
 
+  getdata() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
+    final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
+    final loginDetails = loginModel.LoginModel.fromJson(logindecoded);
+
+    username.value = loginDetails.user!.username ?? "";
+
+    if (loginDetails.user!.roles != null) {
+      for (var role in loginDetails.user!.roles!) {
+        print("user role id-----${role.roleType!.id}");
+
+        if (role.roleType!.id == 1) {
+          isLoginIdIsAdmin.value = true;
+          isLoginIdIsbranchmanger.value = true;
+          print("Role admin ${role.roleType!.id} exists in userList.");
+        } else if (role.roleType!.id == 4) {
+          isLoginIdIsbranchmanger.value = true;
+          isLoginIdIsAdmin.value = false;
+          print("Role branch  ${role.roleType!.id} exists in userList.");
+        } else {
+          isLoginIdIsAdmin.value = false;
+          isLoginIdIsbranchmanger.value = false;
+          print("Role ID ${role.roleType!.id} doesn't exist in userList.");
+        }
+
+        log("is admin logged in - ${isLoginIdIsAdmin.value}");
+
+        sharedPreferences.setBool(
+            "isAdmin", isLoginIdIsAdmin.value);
+      }
+    } else {
+      print("No roles assigned to the user.");
+    }
+    print("isAdmin: ${isLoginIdIsAdmin}");
+
+    print("username ------------- ${username.value}");
+  }
 
   Future<List<TransactionTypeModel>> transactionType() async {
     Dio dio = Dio();
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
 
     var apiData = (baseUrl + transactionTypeUrl);
 
     try {
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = await dio.get(apiData,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
 
       if (response.statusCode == 200) {
-        List<TransactionTypeModel> result = (response.data as List).map((e) => TransactionTypeModel.fromJson(e)).toList();
+        List<TransactionTypeModel> result = (response.data as List)
+            .map((e) => TransactionTypeModel.fromJson(e))
+            .toList();
 
         transactionTypeList.value = result;
         transactionTypeList.refresh();
@@ -80,26 +125,40 @@ class HomeController extends GetxController {
   GlobalSetting? globalSettings;
 
   Future getGlobalSettings() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     try {
-      Map<String, dynamic> response = await apiCallService(SettingsUrl, 'GET', {}, TheResponseType.map, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
+      Map<String, dynamic> response = await apiCallService(
+          SettingsUrl,
+          'GET',
+          {},
+          TheResponseType.map,
+          {},
+          false); //--url, Method, body, responsetype, query parameter, isAuth
 
       GlobalSetting result = GlobalSetting.fromJson(response['globalSetting']);
 
       Map decodedMap = result.toJson();
 
-      await sharedPreferences.setString(SharedPrefKeys().GlobalSettingsKey, json.encode(decodedMap));
+      await sharedPreferences.setString(
+          SharedPrefKeys().GlobalSettingsKey, json.encode(decodedMap));
 
       SettingsModel settingsvalue = SettingsModel.fromJson(response);
 
       Map settingsDecodedMap = settingsvalue.toJson();
-      await sharedPreferences.setString(SharedPrefKeys().settingsKey, json.encode(settingsDecodedMap));
+      await sharedPreferences.setString(
+          SharedPrefKeys().settingsKey, json.encode(settingsDecodedMap));
 
-      final globalSettingsDecoded = json.decode(sharedPreferences.getString(SharedPrefKeys().GlobalSettingsKey)!);
+      final globalSettingsDecoded = json.decode(
+          sharedPreferences.getString(SharedPrefKeys().GlobalSettingsKey)!);
       globalSettings = GlobalSetting.fromJson(globalSettingsDecoded);
 
-      globalSettings!.itemLevelTax == 0 ? globalController.isItemLevel.value = false : globalController.isItemLevel.value = true;
-      globalSettings!.itemLevelTaxPurchase == 0 ? globalController.isPurchaseItemLevel.value = false : globalController.isPurchaseItemLevel.value = true;
+      globalSettings!.itemLevelTax == 0
+          ? globalController.isItemLevel.value = false
+          : globalController.isItemLevel.value = true;
+      globalSettings!.itemLevelTaxPurchase == 0
+          ? globalController.isPurchaseItemLevel.value = false
+          : globalController.isPurchaseItemLevel.value = true;
 
       log("--------sales Item level tax ---------------${globalSettings!.financialYearId}");
       log("--------purchase Item level tax ---------------${globalSettings!.itemLevelTaxPurchase}");
@@ -131,7 +190,8 @@ class HomeController extends GetxController {
   Future logoutData() async {
     isPageLoading.value = true;
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -143,7 +203,9 @@ class HomeController extends GetxController {
     print(apiData);
 
     try {
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer ${loginDetails.token}"}));
+      final response = await dio.get(apiData,
+          options: Options(
+              headers: {"Authorization": "Bearer ${loginDetails.token}"}));
 
       print("statuscode${response.statusCode}");
       print("statuscode${response.data}");
@@ -152,7 +214,8 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         /// this will delete cache
 
-        customSnackbar("Logout Success", "You have been successfully logged Out", "success");
+        customSnackbar("Logout Success",
+            "You have been successfully logged Out", "success");
 
         print(response.data);
 
@@ -163,7 +226,9 @@ class HomeController extends GetxController {
 
         sharedPreferences.setBool("onboardKey", true);
 
-        Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+        Get.offAll(() => const LoginPage(),
+            transition: Transition.fade,
+            duration: const Duration(milliseconds: 1000));
       }
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);
@@ -183,11 +248,15 @@ class HomeController extends GetxController {
     String url = '/company/logo/1';
 
     try {
-      Map<String, dynamic> response = await apiCallService(url, "GET", {}, TheResponseType.map, {}, false);
+      Map<String, dynamic> response =
+          await apiCallService(url, "GET", {}, TheResponseType.map, {}, false);
 
       final value = TransactionNumberModel.fromJson(response);
 
-      value.responseString == null ? SharedPreferencesService.instance.removeValue(SharedPrefKeys().CompanyLogoKey) : null;
+      value.responseString == null
+          ? SharedPreferencesService.instance
+              .removeValue(SharedPrefKeys().CompanyLogoKey)
+          : null;
 
       getMaterialImageName(value.responseString!);
 
@@ -201,13 +270,15 @@ class HomeController extends GetxController {
   }
 
   getCompanyDetails() async {
-    Map<String, dynamic> response = await apiCallService("/company/1", "GET", {}, TheResponseType.map, {}, false);
+    Map<String, dynamic> response = await apiCallService(
+        "/company/1", "GET", {}, TheResponseType.map, {}, false);
     CompanyModel responsevalue = CompanyModel.fromJson(response);
 
     print("company details saving");
 
     Map companyDetailsMapData = responsevalue.toJson();
-    await SharedPreferencesService.instance.setValue(SharedPrefKeys().CompanyDetailsKey, jsonEncode(companyDetailsMapData));
+    await SharedPreferencesService.instance.setValue(
+        SharedPrefKeys().CompanyDetailsKey, jsonEncode(companyDetailsMapData));
 
     // String? companyEncodedDetails = await SharedPreferencesService.instance.getValue(SharedPrefKeys().CompanyDetailsKey);
 
@@ -224,7 +295,8 @@ class HomeController extends GetxController {
   getMaterialImageName(String imageName) async {
     String? responseValue;
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -236,7 +308,11 @@ class HomeController extends GetxController {
     Dio dio = Dio();
 
     try {
-      var response = await dio.get(api, options: Options(headers: {"Authorization": "Bearer ${loginDetails.token}", "content-type": "application/json"}));
+      var response = await dio.get(api,
+          options: Options(headers: {
+            "Authorization": "Bearer ${loginDetails.token}",
+            "content-type": "application/json"
+          }));
 
       var value = ResponseStringModel.fromJson(response.data);
 
@@ -253,7 +329,8 @@ class HomeController extends GetxController {
 
       print("logo --- setting home controller");
 
-      await SharedPreferencesService.instance.setValue(SharedPrefKeys().CompanyLogoKey, base64S);
+      await SharedPreferencesService.instance
+          .setValue(SharedPrefKeys().CompanyLogoKey, base64S);
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);
     }
@@ -278,7 +355,8 @@ class HomeController extends GetxController {
       ),
     });
 
-    Map<String, dynamic> response = await apiCallService("/files/company", "POST", formData, TheResponseType.map, {}, false);
+    Map<String, dynamic> response = await apiCallService(
+        "/files/company", "POST", formData, TheResponseType.map, {}, false);
 
     print(response);
 

@@ -47,7 +47,7 @@ class _GeneralMasterScreenState extends State<GeneralMasterScreen> {
               size: 25.sp,
             ),
             onPressed: (() {
-              Get.to(() => const BottomNavigationMainscreen(initialIndex: 2),
+              Get.to(() => const BottomNavigationMainscreen(initialIndex: 3),
                   transition: Transition.leftToRight,
                   duration: const Duration(milliseconds: 400));
               // Get.back();

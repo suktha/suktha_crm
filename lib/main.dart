@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/bindings/initial_bindings.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/theme_controller.dart';
 import 'package:work_Force/firebase_options.dart';
 import 'package:work_Force/utils/Services/firebase_push_notification_services.dart';
@@ -21,8 +22,6 @@ void main() async {
   await localNotificationService.init();
   await SharedPreferencesService.instance.init();
   await FirebasePushNotificationServices().initNotification();
-
-
 
   runApp(const MyApp());
 }
@@ -45,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (cMainScreenontext, orientation, deviceType) => GetMaterialApp(
-        home:const SplashScreen(),
+        home: const SplashScreen(),
         initialBinding: InitialBinding(),
         theme: ThemeData(
             scaffoldBackgroundColor: Colors.white, useMaterial3: false),

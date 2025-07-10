@@ -129,14 +129,14 @@ class _TaskCardState extends State<TaskCard> {
 
                 const Icon(
                   Icons.loop,
-                  color: Colors.blue,
+                  color: Colors.indigo,
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 const Icon(
                   Icons.notifications_active_outlined,
-                  color: Colors.lime,
+                  color: Colors.orange ,
                 )
               ],
             ),

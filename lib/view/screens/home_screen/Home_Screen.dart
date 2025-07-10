@@ -549,365 +549,390 @@ class _HomeScreenState extends State<HomeScreen> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         customLeadCreateButton(
-                                            Icons.add_task, "Create Task",
-                                            () async {
-                                          // await contactController
-                                          //     .fetchContacts();
-                                          Get.to(() => AddTaskScreen(
-                                                isEdit: false,
-                                                Iscompleted: false,
-                                              ));
-                                        }),
+                                          Icons.add_task,
+                                          "Create Task",
+                                          () async {
+                                            // await contactController
+                                            //     .fetchContacts();
+                                            Get.to(() => AddTaskScreen(
+                                                  isEdit: false,
+                                                  Iscompleted: false,
+                                                ));
+                                          },
+                                          const Color.fromARGB(
+                                              29, 255, 64, 128),
+                                          Colors.pink,
+                                        ),
                                         customLeadCreateButton(
-                                            Icons.contact_page_rounded,
-                                            "Import", () async {
-                                          await contactController
-                                              .fetchContacts();
-                                          Get.to(
-                                            () => ContactListScreen(
-                                              materialList:
-                                                  leadController.materialLists,
-                                              serviceList:
-                                                  leadController.serviceLists,
-                                              isFromHomeScreen: true,
-                                            ),
-                                          );
-                                        }),
+                                          Icons.add,
+                                          "Create Lead",
+                                          () {
+                                            Get.to(
+                                                () =>
+                                                    NewLeadManagementAddScreen(
+                                                      isEdit: false,
+                                                      materialList:
+                                                          leadController
+                                                              .materialLists,
+                                                      serviceList:
+                                                          leadController
+                                                              .serviceLists,
+                                                      isFromHomeScreen: true,
+                                                    ),
+                                                duration: const Duration(
+                                                    milliseconds: 500),
+                                                transition: Transition.fadeIn);
+                                          },
+                                          const Color.fromARGB(
+                                              36, 33, 149, 243),
+                                          Colors.blue,
+                                        ),
                                         customLeadCreateButton(
-                                            Icons.add, "Create Lead", () {
-                                          Get.to(
-                                              () => NewLeadManagementAddScreen(
-                                                    isEdit: false,
-                                                    materialList: leadController
-                                                        .materialLists,
-                                                    serviceList: leadController
-                                                        .serviceLists,
-                                                    isFromHomeScreen: true,
-                                                  ),
-                                              duration: const Duration(
-                                                  milliseconds: 500),
-                                              transition: Transition.fadeIn);
-                                        }),
-                                        customLeadCreateButton(
-                                            Icons.arrow_forward_ios_rounded,
-                                            " View Lead", () {
-                                          Get.to(
-                                              LeadManagementListScreen(
+                                          Icons.contact_page_outlined,
+                                          "Import",
+                                          () async {
+                                            await contactController
+                                                .fetchContacts();
+                                            Get.to(
+                                              () => ContactListScreen(
+                                                materialList: leadController
+                                                    .materialLists,
+                                                serviceList:
+                                                    leadController.serviceLists,
                                                 isFromHomeScreen: true,
                                               ),
-                                              transition: Transition.fade,
-                                              duration: const Duration(
-                                                  milliseconds: 600));
-                                        }),
+                                            );
+                                          },
+                                          const Color.fromARGB(
+                                              38, 223, 64, 251),
+                                          const Color.fromARGB(195, 87, 57, 140),
+                                        ),
+                                        customLeadCreateButton(
+                                          Icons.arrow_forward_ios_rounded,
+                                          " View Lead",
+                                          () {
+                                            Get.to(
+                                                LeadManagementListScreen(
+                                                  isFromHomeScreen: true,
+                                                ),
+                                                transition: Transition.fade,
+                                                duration: const Duration(
+                                                    milliseconds: 600));
+                                          },
+                                          const Color.fromARGB(
+                                              56, 255, 172, 64),
+                                          Colors.orange,
+                                        ),
                                       ],
                                     ),
                                   ),
                                   SizedBox(
                                     height: 4.h,
                                   ),
-                                  homeController.isLoginIdIsAdmin.value == false
+                                  homeController.isLoginIdIsAdmin.value == true
                                       ? FadeInRight(
-                                        delay: Duration.zero,
+                                          delay: Duration.zero,
                                           duration: Duration(milliseconds: 800),
-                                        child: TeamProgressCard(teamData: teamData,)
-                                      )
+                                          child: TeamProgressCard(
+                                            teamData: teamData,
+                                          ))
                                       : FadeInRight(
                                           delay: Duration.zero,
                                           duration: Duration(milliseconds: 800),
                                           child: UserProgressScreen(
                                               userProgress: userProgress)),
                                   SizedBox(
-                                    height: 1.h,
+                                    height: 3.h,
                                   ),
-                                  FadeInUp(
-                                    delay: Duration(milliseconds: 600),
-                                    duration: Duration(milliseconds: 800),
-                                    child: Container(
-                                      // height: 80.h,
-                                      decoration: BoxDecoration(
-                                        color: Colors.lightBlue[50],
-                                        borderRadius:
-                                            BorderRadius.circular(5.w),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    FadeInUp(
-                                                      delay: Duration(
-                                                          milliseconds: 400),
-                                                      duration: Duration(
-                                                          milliseconds: 800),
-                                                      child: ContainerCustom(
-                                                        height: 21.9.h,
-                                                        width: 45.w,
-                                                        title:
-                                                            "Today's Leads Amount",
-                                                        textColor:
-                                                            Colors.purple,
-                                                        containerColor: const [
-                                                          Colors.white,
-                                                          Colors.white
-                                                        ],
-                                                        details: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Obx(() =>
-                                                                  SizedBox(
-                                                                    width: 35.w,
-                                                                    child: Text(
-                                                                      "₹ ${leadController.totalLeadAmt.toString()}",
-                                                                      style: TextStyle(
-                                                                          fontSize: 17
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    ),
-                                                                  )),
-                                                              SizedBox(
-                                                                height: 1.h,
-                                                              ),
-                                                              Obx(() => Text(
-                                                                    "Lead count - ${leadController.filteredLeadList.length.toString()}",
-                                                                    style: TextStyle(
-                                                                        fontSize: 16
-                                                                            .sp,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 1.h,
-                                                    ),
-                                                  ],
-                                                ),
-                                                Spacer(),
-                                                Column(
-                                                  children: [
-                                                    FadeInRight(
-                                                      delay: Duration(
-                                                          milliseconds: 400),
-                                                      duration: Duration(
-                                                          milliseconds: 800),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          leadController
-                                                              .StatusfromPreSalesScreen
-                                                              .value = false;
-                                                          leadController
-                                                              .fromPreSalesScreen
-                                                              .value = false;
-                                                          Get.off(
-                                                              () =>
-                                                                  LeadManagementListScreen(
-                                                                    isFromHomeScreen:
-                                                                        true,
-                                                                  ),
-                                                              transition:
-                                                                  Transition
-                                                                      .fade,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      600));
-                                                        },
-                                                        child: ContainerCustom(
-                                                          height: 10.5.h,
-                                                          width: 41.w,
-                                                          title: "All Leads",
-                                                          textColor:
-                                                              Colors.amber,
-                                                          containerColor: const [
-                                                            Colors.white,
-                                                            Colors.white
-                                                          ],
-                                                          details: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    left: 8.0,
-                                                                    right: 8),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Obx(() => Text(
-                                                                      leadController
-                                                                          .totalLeadCount
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize: 18
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 1.h,
-                                                    ),
-                                                    FadeInRight(
-                                                      delay: Duration(
-                                                          milliseconds: 500),
-                                                      duration: Duration(
-                                                          milliseconds: 800),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          leadController
-                                                              .StatusfromPreSalesScreen
-                                                              .value = true;
-                                                          Get.to(
-                                                              () =>
-                                                                  LeadManagementListScreen(
-                                                                    isFromHomeScreen:
-                                                                        true,
-                                                                  ),
-                                                              transition:
-                                                                  Transition
-                                                                      .fade,
-                                                              duration: Duration(
-                                                                  milliseconds:
-                                                                      600));
-                                                        },
-                                                        child: ContainerCustom(
-                                                          height: 10.5.h,
-                                                          width: 41.w,
-                                                          title: "New Leads",
-                                                          textColor:
-                                                              Colors.green,
-                                                          containerColor: const [
-                                                            Colors.white,
-                                                            Colors.white
-                                                          ],
-                                                          details: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    left: 8.0,
-                                                                    right: 8),
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Obx(() => Text(
-                                                                      leadController
-                                                                          .totalNewLeadsCount
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          fontSize: 18
-                                                                              .sp,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    )),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 0.2.h,
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                missedFollowUpBottomSheet(
-                                                    context: context,
-                                                    controller: leadController);
-                                              },
-                                              child: FadeInLeft(
-                                                delay:
-                                                    Duration(milliseconds: 600),
-                                                duration:
-                                                    Duration(milliseconds: 800),
-                                                child: ContainerCustom(
-                                                  height: 10.h,
-                                                  width: double.infinity,
-                                                  title: "Missed Status",
-                                                  textColor: Colors.black,
-                                                  containerColor: const [
-                                                    Colors.white,
-                                                    Colors.white
-                                                  ],
-                                                  details: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8.0,
-                                                            right: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 35.w,
-                                                          child: Text(
-                                                            "Missed Follow Up",
-                                                            style: TextStyle(
-                                                                fontSize: 15.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .amber
-                                                                    .shade900),
-                                                          ),
-                                                        ),
-                                                        Spacer(),
-                                                        Obx(() => Text(
-                                                              leadController
-                                                                  .missedFollowUpCount
-                                                                  .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      20.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black),
-                                                            )),
-                                                        SizedBox(
-                                                          width: 2.h,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                  // FadeInUp(
+                                  //   delay: Duration(milliseconds: 600),
+                                  //   duration: Duration(milliseconds: 800),
+                                  //   child: Container(
+                                  //     // height: 80.h,
+                                  //     decoration: BoxDecoration(
+                                  //       color: Colors.lightBlue[50],
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(5.w),
+                                  //     ),
+                                  //     child: Padding(
+                                  //       padding: const EdgeInsets.all(8.0),
+                                  //       child: Column(
+                                  //         children: [
+                                  //           Row(
+                                  //             crossAxisAlignment:
+                                  //                 CrossAxisAlignment.start,
+                                  //             children: [
+                                  //               Column(
+                                  //                 children: [
+                                  //                   FadeInUp(
+                                  //                     delay: Duration(
+                                  //                         milliseconds: 400),
+                                  //                     duration: Duration(
+                                  //                         milliseconds: 800),
+                                  //                     child: ContainerCustom(
+                                  //                       height: 21.9.h,
+                                  //                       width: 45.w,
+                                  //                       title:
+                                  //                           "Today's Leads Amount",
+                                  //                       textColor:
+                                  //                           Colors.purple,
+                                  //                       containerColor: const [
+                                  //                         Colors.white,
+                                  //                         Colors.white
+                                  //                       ],
+                                  //                       details: Padding(
+                                  //                         padding:
+                                  //                             const EdgeInsets
+                                  //                                 .all(8.0),
+                                  //                         child: Column(
+                                  //                           crossAxisAlignment:
+                                  //                               CrossAxisAlignment
+                                  //                                   .start,
+                                  //                           children: [
+                                  //                             Obx(() =>
+                                  //                                 SizedBox(
+                                  //                                   width: 35.w,
+                                  //                                   child: Text(
+                                  //                                     "₹ ${leadController.totalLeadAmt.toString()}",
+                                  //                                     style: TextStyle(
+                                  //                                         fontSize: 17
+                                  //                                             .sp,
+                                  //                                         fontWeight:
+                                  //                                             FontWeight.bold),
+                                  //                                   ),
+                                  //                                 )),
+                                  //                             SizedBox(
+                                  //                               height: 1.h,
+                                  //                             ),
+                                  //                             Obx(() => Text(
+                                  //                                   "Lead count - ${leadController.filteredLeadList.length.toString()}",
+                                  //                                   style: TextStyle(
+                                  //                                       fontSize: 16
+                                  //                                           .sp,
+                                  //                                       fontWeight:
+                                  //                                           FontWeight.w600),
+                                  //                                 ))
+                                  //                           ],
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                   SizedBox(
+                                  //                     height: 1.h,
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //               Spacer(),
+                                  //               Column(
+                                  //                 children: [
+                                  //                   FadeInRight(
+                                  //                     delay: Duration(
+                                  //                         milliseconds: 400),
+                                  //                     duration: Duration(
+                                  //                         milliseconds: 800),
+                                  //                     child: GestureDetector(
+                                  //                       onTap: () {
+                                  //                         leadController
+                                  //                             .StatusfromPreSalesScreen
+                                  //                             .value = false;
+                                  //                         leadController
+                                  //                             .fromPreSalesScreen
+                                  //                             .value = false;
+                                  //                         Get.off(
+                                  //                             () =>
+                                  //                                 LeadManagementListScreen(
+                                  //                                   isFromHomeScreen:
+                                  //                                       true,
+                                  //                                 ),
+                                  //                             transition:
+                                  //                                 Transition
+                                  //                                     .fade,
+                                  //                             duration: Duration(
+                                  //                                 milliseconds:
+                                  //                                     600));
+                                  //                       },
+                                  //                       child: ContainerCustom(
+                                  //                         height: 10.5.h,
+                                  //                         width: 41.w,
+                                  //                         title: "All Leads",
+                                  //                         textColor:
+                                  //                             Colors.amber,
+                                  //                         containerColor: const [
+                                  //                           Colors.white,
+                                  //                           Colors.white
+                                  //                         ],
+                                  //                         details: Padding(
+                                  //                           padding:
+                                  //                               const EdgeInsets
+                                  //                                   .only(
+                                  //                                   left: 8.0,
+                                  //                                   right: 8),
+                                  //                           child: Column(
+                                  //                             mainAxisAlignment:
+                                  //                                 MainAxisAlignment
+                                  //                                     .spaceBetween,
+                                  //                             crossAxisAlignment:
+                                  //                                 CrossAxisAlignment
+                                  //                                     .start,
+                                  //                             children: [
+                                  //                               Obx(() => Text(
+                                  //                                     leadController
+                                  //                                         .totalLeadCount
+                                  //                                         .toString(),
+                                  //                                     style: TextStyle(
+                                  //                                         fontSize: 18
+                                  //                                             .sp,
+                                  //                                         fontWeight:
+                                  //                                             FontWeight.bold),
+                                  //                                   )),
+                                  //                             ],
+                                  //                           ),
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                   SizedBox(
+                                  //                     height: 1.h,
+                                  //                   ),
+                                  //                   FadeInRight(
+                                  //                     delay: Duration(
+                                  //                         milliseconds: 500),
+                                  //                     duration: Duration(
+                                  //                         milliseconds: 800),
+                                  //                     child: GestureDetector(
+                                  //                       onTap: () {
+                                  //                         leadController
+                                  //                             .StatusfromPreSalesScreen
+                                  //                             .value = true;
+                                  //                         Get.to(
+                                  //                             () =>
+                                  //                                 LeadManagementListScreen(
+                                  //                                   isFromHomeScreen:
+                                  //                                       true,
+                                  //                                 ),
+                                  //                             transition:
+                                  //                                 Transition
+                                  //                                     .fade,
+                                  //                             duration: Duration(
+                                  //                                 milliseconds:
+                                  //                                     600));
+                                  //                       },
+                                  //                       child: ContainerCustom(
+                                  //                         height: 10.5.h,
+                                  //                         width: 41.w,
+                                  //                         title: "New Leads",
+                                  //                         textColor:
+                                  //                             Colors.green,
+                                  //                         containerColor: const [
+                                  //                           Colors.white,
+                                  //                           Colors.white
+                                  //                         ],
+                                  //                         details: Padding(
+                                  //                           padding:
+                                  //                               const EdgeInsets
+                                  //                                   .only(
+                                  //                                   left: 8.0,
+                                  //                                   right: 8),
+                                  //                           child: Column(
+                                  //                             mainAxisAlignment:
+                                  //                                 MainAxisAlignment
+                                  //                                     .spaceBetween,
+                                  //                             crossAxisAlignment:
+                                  //                                 CrossAxisAlignment
+                                  //                                     .start,
+                                  //                             children: [
+                                  //                               Obx(() => Text(
+                                  //                                     leadController
+                                  //                                         .totalNewLeadsCount
+                                  //                                         .toString(),
+                                  //                                     style: TextStyle(
+                                  //                                         fontSize: 18
+                                  //                                             .sp,
+                                  //                                         fontWeight:
+                                  //                                             FontWeight.bold),
+                                  //                                   )),
+                                  //                             ],
+                                  //                           ),
+                                  //                         ),
+                                  //                       ),
+                                  //                     ),
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //           SizedBox(
+                                  //             height: 0.2.h,
+                                  //           ),
+                                  //           GestureDetector(
+                                  //             onTap: () {
+                                  //               missedFollowUpBottomSheet(
+                                  //                   context: context,
+                                  //                   controller: leadController);
+                                  //             },
+                                  //             child: FadeInLeft(
+                                  //               delay:
+                                  //                   Duration(milliseconds: 600),
+                                  //               duration:
+                                  //                   Duration(milliseconds: 800),
+                                  //               child: ContainerCustom(
+                                  //                 height: 10.h,
+                                  //                 width: double.infinity,
+                                  //                 title: "Missed Status",
+                                  //                 textColor: Colors.black,
+                                  //                 containerColor: const [
+                                  //                   Colors.white,
+                                  //                   Colors.white
+                                  //                 ],
+                                  //                 details: Padding(
+                                  //                   padding:
+                                  //                       const EdgeInsets.only(
+                                  //                           left: 8.0,
+                                  //                           right: 8),
+                                  //                   child: Row(
+                                  //                     children: [
+                                  //                       SizedBox(
+                                  //                         width: 35.w,
+                                  //                         child: Text(
+                                  //                           "Missed Follow Up",
+                                  //                           style: TextStyle(
+                                  //                               fontSize: 15.sp,
+                                  //                               fontWeight:
+                                  //                                   FontWeight
+                                  //                                       .w600,
+                                  //                               color: Colors
+                                  //                                   .amber
+                                  //                                   .shade900),
+                                  //                         ),
+                                  //                       ),
+                                  //                       Spacer(),
+                                  //                       Obx(() => Text(
+                                  //                             leadController
+                                  //                                 .missedFollowUpCount
+                                  //                                 .toString(),
+                                  //                             style: TextStyle(
+                                  //                                 fontSize:
+                                  //                                     20.sp,
+                                  //                                 fontWeight:
+                                  //                                     FontWeight
+                                  //                                         .bold,
+                                  //                                 color: Colors
+                                  //                                     .black),
+                                  //                           )),
+                                  //                       SizedBox(
+                                  //                         width: 2.h,
+                                  //                       )
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             ),
@@ -937,8 +962,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  SizedBox customLeadCreateButton(
-      IconData icons, String titleName, VoidCallback onTap) {
+  SizedBox customLeadCreateButton(IconData icons, String titleName,
+      VoidCallback onTap, Color bgColor, Color iconColor) {
     return SizedBox(
       // width: 25.w,
       child: GestureDetector(
@@ -946,11 +971,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             CircleAvatar(
-                backgroundColor: Colors.lightBlue[100],
-                radius: 7.w,
+                backgroundColor: bgColor,
+                radius: 6.w,
                 child: Icon(
                   icons,
-                  color: kColorblack,
+                  color: iconColor,
                   size: 20.sp,
                 )),
             SizedBox(
@@ -962,7 +987,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                         color: kColorblack))),
           ],
         ),

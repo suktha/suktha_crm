@@ -21,20 +21,6 @@ import 'package:work_Force/utils/api/login.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
-// import 'package:suktha/Constants/shared_pref_keys.dart';
-// import 'package:suktha/Controller/global_controller.dart';
-// import 'package:suktha/Controller/initial_controller.dart';
-// import 'package:suktha/Model/financial_year_model.dart';
-// import 'package:suktha/Model/global_settings_model.dart';
-// import 'package:suktha/Model/login_model.dart';
-// import 'package:suktha/Model/transaction_type_model.dart';
-// import 'package:suktha/utils/Services/rest_api_services.dart';
-// import 'package:suktha/utils/api/common_api.dart';
-// import 'package:suktha/utils/api/login.dart';
-// import 'package:suktha/utils/check_token_expired.dart';
-
-// import '../View/BottomNavigationBar/navigation_bar_screen.dart';
-// import '../View/Widgets/snackbar.dart';
 
 class LoginController extends GetxController {
   final initialController = Get.find<InitialController>();
@@ -155,6 +141,7 @@ class LoginController extends GetxController {
               Get.offAll(
                   () => const BottomNavigationMainscreen(
                         initialIndex: 1,
+                        
                       ),
                   transition: Transition.fade,
                   duration: const Duration(milliseconds: 700));

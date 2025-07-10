@@ -103,7 +103,7 @@ class _ServiceMasterScreenState extends State<ServiceMasterScreen> {
                 onPressed: (() {
                   Get.offAll(
                       () => const BottomNavigationMainscreen(
-                            initialIndex: 2,
+                            initialIndex: 3,
                           ),
                       transition: Transition.fade,
                       duration: const Duration(milliseconds: 700));
