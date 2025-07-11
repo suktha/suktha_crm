@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/view/screens/My_account/more_module/more_screen.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
-import 'package:work_Force/view/screens/more_module/more_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 
 class NavigationController extends GetxController {

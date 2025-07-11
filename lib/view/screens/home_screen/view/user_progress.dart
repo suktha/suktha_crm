@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
 
 class UserProgressScreen extends StatelessWidget {
   final Map<String, dynamic> userProgress;
+  HomeController homeController;
 
-  const UserProgressScreen({super.key, required this.userProgress});
+   UserProgressScreen({super.key, required this.userProgress,required this.homeController});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class UserProgressScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      userProgress["name"],
+                      homeController.username.value,
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.bold),
                     ),

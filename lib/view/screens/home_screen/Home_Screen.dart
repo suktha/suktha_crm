@@ -25,17 +25,15 @@ import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
-import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
+import 'package:work_Force/view/screens/My_account/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/quick_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/team_progress_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/user_progress.dart';
-import 'package:work_Force/view/screens/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/pre_sales/add_lead_from_contacts/contact_list_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/add_lead_screen/add_new_lead_managment.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
-import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 import 'package:work_Force/view/widget/popup_with_lottie.dart';
 import '../../../../Model/login_model.dart' as loginModel;
 
@@ -605,7 +603,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           },
                                           const Color.fromARGB(
                                               38, 223, 64, 251),
-                                          const Color.fromARGB(195, 87, 57, 140),
+                                          const Color.fromARGB(
+                                              195, 87, 57, 140),
                                         ),
                                         customLeadCreateButton(
                                           Icons.arrow_forward_ios_rounded,
@@ -640,6 +639,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           delay: Duration.zero,
                                           duration: Duration(milliseconds: 800),
                                           child: UserProgressScreen(
+                                              homeController: homeController,
                                               userProgress: userProgress)),
                                   SizedBox(
                                     height: 3.h,

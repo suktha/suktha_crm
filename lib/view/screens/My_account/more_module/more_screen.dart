@@ -1,0 +1,227 @@
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
+
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Constants/shared_pref_keys.dart';
+import 'package:work_Force/Model/company_model.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
+import 'package:work_Force/controllers/global_controller.dart';
+import 'package:work_Force/controllers/settings_controller.dart';
+import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/utils/responsive_utils.dart';
+import 'package:work_Force/view/screens/My_account/more_module/Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/screens/My_account/my_account_screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/General%20Master/general_master_screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/user_profile/view/user_profile_screen.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
+import 'package:work_Force/view/widget/custom_settings_widget.dart';
+import 'package:work_Force/view/widget/popup_with_lottie.dart';
+
+class MoreScreen extends StatefulWidget {
+  const MoreScreen({super.key});
+
+  @override
+  State<MoreScreen> createState() => _MoreScreenState();
+}
+
+class _MoreScreenState extends State<MoreScreen> {
+  final globalController = Get.find<GlobalController>();
+
+  final homeController = Get.put(HomeController());
+  final settingsController = Get.put(SettingsController());
+
+  CompanyModel? companyDetails;
+
+  getCompanyLogo() async {
+    print("inside--company logo loading ");
+    String newvalue = SharedPreferencesService.instance
+        .getValue(SharedPrefKeys().CompanyLogoKey);
+    String? companyEncodedDetails = SharedPreferencesService.instance
+        .getValue(SharedPrefKeys().CompanyDetailsKey);
+    print("companyEncodedDetails -- ${companyEncodedDetails}");
+    if (companyEncodedDetails != null) {
+      companyDetails = CompanyModel.fromJson(jsonDecode(companyEncodedDetails));
+      print("companyDetails Address -- ${companyDetails?.address}");
+    }
+
+    //decoding string to uint8list
+    homeController.companyLogo.value = base64Decode(newvalue);
+    print("isAdmin: ${homeController.isLoginIdIsAdmin}");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    homeController.getCompanyDetails();
+    homeController.getCompanyLogoName();
+    settingsController.getcurrencyDetails();
+
+    setState(() {
+      Timer(Duration.zero, () => getCompanyLogo());
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = ResponsiveUtils.screenWidth(context);
+    double height = ResponsiveUtils.screenHeight(context);
+
+    return WillPopScope(
+      onWillPop: () async {
+        final value = await popupWithLottie(
+            context: context,
+
+            //ontap
+            ontap: () {
+              SystemNavigator.pop();
+            },
+            //oncanecl
+            oncancel: () {
+              Get.back();
+            },
+            title: "Are you Sure \nyou want to Exit?",
+            lottie: exitLottie);
+
+        return value == true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kColorwhite,
+          title: Text(
+            "More module",
+            style: TextStyle(
+                color: kColorblack,
+                fontSize: 19.sp,
+                fontWeight: FontWeight.w600),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          iconTheme: IconThemeData(color: kColorblack),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+               homeController.isLoginIdIsAdmin.value == true
+                  ? FadeInUp(
+                      duration: const Duration(milliseconds: 500),
+                      child: MoreListCustomWidgets(
+                          height: height,
+                          width: width,
+                          ontap: () {
+                            Get.to(
+                              () => const MyAccountScreen(),
+                              duration: const Duration(milliseconds: 400),
+                              transition: Transition.rightToLeft,
+                            );
+                          },
+                          title: "Admin",
+                          icon: Icons.admin_panel_settings_outlined))
+                  : const SizedBox(),
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        Get.to(
+                            () => CompanyDetailsScreen(
+                                companyDetails: companyDetails!),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
+                      title: "Company Profile",
+                      icon: Icons.business_center_outlined)),
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        Get.to(() => const UserProfileScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
+                      title: "User Profile",
+                      icon: Icons.person_outline)),
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        MasterScreen(context);
+                      },
+                      title: "Master",
+                      icon: Icons.receipt_rounded)),
+              FadeInUp(
+                  duration: const Duration(milliseconds: 500),
+                  child: MoreListCustomWidgets(
+                      height: height,
+                      width: width,
+                      ontap: () {
+                        Get.to(() => const GeneralMasterScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
+                      title: "General Master",
+                      icon: Icons.receipt_long_rounded)),
+              // homeController.isLoginIdIsAdmin.value == true
+              //     ? FadeInUp(
+              //         duration: const Duration(milliseconds: 500),
+              //         child: MoreListCustomWidgets(
+              //             height: height,
+              //             width: width,
+              //             ontap: () {
+              //               Get.to(
+              //                 () => const UserFieldWorkScreen(),
+              //                 duration: const Duration(milliseconds: 400),
+              //                 transition: Transition.rightToLeft,
+              //               );
+              //             },
+              //             title: "Field Work",
+              //             icon: Icons.person_pin_circle_sharp))
+              //     : const SizedBox(),
+              const Spacer(),
+              CustomButton(
+                width: 25.w,
+                title: "LOGOUT",
+                ontap: () {
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (timeStamp) {
+                      popupWithLottie(
+                          context: context,
+                          ontap: () async {
+                            //ontap
+
+                            globalController.logoutData();
+                          },
+                          oncancel: () {
+                            //oncanecl
+                            Get.back();
+                          },
+                          title: "Are you Sure \nyou want to Log Out?",
+                          lottie: exitLottie);
+                      // controller.logoutData();
+                    },
+                  );
+                },
+                color: kColorlightBlue300,
+                textcolor: kColorwhite,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
