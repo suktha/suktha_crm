@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 import 'dart:developer';
@@ -98,7 +98,7 @@ class InitialController extends GetxController {
 
     Future.delayed(const Duration(seconds: 1), () async {
       Get.offAll(
-          () =>  const BottomNavigationMainscreen(initialIndex: 1,),
+          () => BottomNavigationMainscreen(initialIndex: 1,),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 700));
     });

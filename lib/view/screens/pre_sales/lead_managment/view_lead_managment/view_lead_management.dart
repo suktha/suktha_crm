@@ -179,9 +179,8 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 controller.fromPreSalesScreen.value = false;
                 widget.isFromHomeScreen == true
                     ? Get.offAll(
-                        () => const BottomNavigationMainscreen(initialIndex: 1))
-                    : Get.offAll(() =>
-                        const BottomNavigationMainscreen(initialIndex: 0));
+                        () =>  BottomNavigationMainscreen(initialIndex: 1))
+                    :Get.back();
               }),
             ),
           ),

@@ -1,16 +1,18 @@
-// ignore_for_file: deprecated_member_use, file_names
+// ignore_for_file: deprecated_member_use, file_names, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/view/screens/home_screen/controller/checkInOut_controller.dart';
 
 class CheckInOutCard extends StatelessWidget {
+  HomeController homeController;
   final CheckInOutController controller = Get.put(CheckInOutController());
 
-  CheckInOutCard({super.key});
+  CheckInOutCard({super.key, required this.homeController});
 
   String formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -46,18 +48,28 @@ class CheckInOutCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      "Welcome ${homeController.username.value}..!!",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    Text(
                       controller.isClockedIn.value
                           ? "You are Clocked In"
                           : "You are Clocked Out",
                       style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w400,
                         color: controller.isClockedIn.value
                             ? Colors.green
                             : Colors.red,
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 7),
 
                     // 🔴 Show Timer or Worked Duration
                     Obx(() {
@@ -104,7 +116,7 @@ class CheckInOutCard extends StatelessWidget {
                         height: 100,
                         width: 100,
                       )
-                    :  Lottie.asset(
+                    : Lottie.asset(
                         "assets/lottie/clockout.json",
                         // repeat: false,
                         height: 100,

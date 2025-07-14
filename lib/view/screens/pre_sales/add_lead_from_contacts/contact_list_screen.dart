@@ -110,7 +110,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
             contactController.contactNumbers.clear();
             contactController.isListLoading.value = true;
 
-            widget.isFromHomeScreen == true ? Get.offAll(() => const BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => LeadManagementListScreen());
+            widget.isFromHomeScreen == true ? Get.offAll(() =>  BottomNavigationMainscreen(initialIndex: 1)) : Get.offAll(() => LeadManagementListScreen());
             // Get.to(() => LeadManagementListScreen());
           }),
         ),

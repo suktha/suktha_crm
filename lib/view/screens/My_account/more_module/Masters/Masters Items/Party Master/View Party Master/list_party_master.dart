@@ -111,7 +111,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                   controller.searchValue.value = "";
                   controller.searchController.clear();
                   Get.offAll(
-                      () => const BottomNavigationMainscreen(
+                      () =>  BottomNavigationMainscreen(
                             initialIndex: 3,
                           ),
                       transition: Transition.fade,

@@ -139,7 +139,7 @@ class LoginController extends GetxController {
             const Duration(milliseconds: 700),
             () {
               Get.offAll(
-                  () => const BottomNavigationMainscreen(
+                  () =>  BottomNavigationMainscreen(
                         initialIndex: 1,
                         
                       ),

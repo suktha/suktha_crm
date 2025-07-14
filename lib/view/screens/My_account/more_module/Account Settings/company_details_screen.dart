@@ -79,11 +79,9 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     controller.getCompanyQrCode();
     controller.getCompanySignatureImage();
 
-    controller.companyDetailsValue = widget.companyDetails;
-    if (controller.isFromSettings.value == false) {
-      print("inside company details screen");
       getCompanyLogo();
-    }
+    controller.companyDetailsValue = widget.companyDetails;
+    
 
     super.initState();
   }
@@ -98,9 +96,6 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
     double height = screenSize.height;
     double width = screenSize.width;
 
-    Timer(Duration.zero, () {
-      controller.companyLogo.value == true ? getCompanyLogo() : SizedBox();
-    });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -137,12 +132,11 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                     child: GestureDetector(
                       onTap: () {
                         Get.offAll(
-                            () => const BottomNavigationMainscreen(
+                            () =>  BottomNavigationMainscreen(
                                   initialIndex: 3,
                                 ),
-                            transition: Transition.fade,
+                            transition: Transition.leftToRight,
                             duration: const Duration(milliseconds: 700));
-                        controller.isFromSettings.value = false;
                       },
                       child: CircleAvatar(
                         backgroundColor: kColorwhite,

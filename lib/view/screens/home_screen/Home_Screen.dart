@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings, deprecated_member_use
 
 import 'dart:async';
 import 'dart:convert';
@@ -25,9 +25,12 @@ import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
+import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/My_account/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
+import 'package:work_Force/view/screens/home_screen/view/notification_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/quick_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/team_progress_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/user_progress.dart';
@@ -202,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   slivers: <Widget>[
                     SliverAppBar(
                       backgroundColor: kColorwhite,
-                      toolbarHeight: 7.h,
+                      toolbarHeight: 8.h,
                       pinned: true,
                       floating: true,
                       elevation: 0,
@@ -213,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           double offset = raints.biggest.height;
 
                           bool shouldShowWidget =
-                              offset < 8.h; // Adjust this threshold as needed
+                              offset < 9.h; // Adjust this threshold as needed
                           if (shouldShowWidget !=
                               homeController.showWidget.value) {
                             // Only update the state if visibility changes
@@ -232,140 +235,157 @@ class _HomeScreenState extends State<HomeScreen> {
                               // color: Colors.red,
                               child: Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      // print("company profile loading");
-                                      // await Get.to(CompanyDetailsScreen(
-                                      //   companyDetails: companyDetails!,
-
-                                      //   // companyLogo: companyLogo,
-                                      // ));
-                                      // ZoomDrawer.of(context)!.toggle();
-                                    },
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 15.w,
-                                          child: Image.asset(logoIcon,
-                                              fit: BoxFit.fill),
-                                        ),
-                                        SizedBox(
-                                          width: 3.w,
-                                        ),
-                                        SizedBox(
-                                          width: 30.w,
-                                          child: Text(
-                                            "Welcome\n${homeController.username.value}..!!",
-                                            style: TextStyle(
-                                                fontSize: 17.sp,
-                                                overflow: TextOverflow.ellipsis,
-                                                fontWeight: FontWeight.bold,
-                                                color: kColorblack),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Obx(() {
-                                    final imageData =
-                                        homeController.companyLogo.value;
-                                    if (imageData != null) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return UploadCompanyLogoWidget(
-                                                buttonText: "Change Logo",
-                                                ontap: () async {
-                                                  var file =
-                                                      await homeController
-                                                          .obtainImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .gallery);
-
-                                                  await homeController
-                                                      .uploadImage(file!);
-
-                                                  Get.back();
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: 'company_image',
-                                          child: Container(
-                                            // padding: EdgeInsets.all(3.w),
-                                            margin: EdgeInsets.all(2.w),
-                                            height: 10.h,
-                                            width: 35.w,
-                                            // width: 25.w,
-                                            decoration: BoxDecoration(
-                                                // boxShadow: kElevationToShadow[2],
-                                                // color: Colors.yellow,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.w),
-                                                image: DecorationImage(
-                                                  image: MemoryImage(
-                                                      homeController
-                                                          .companyLogo.value!),
-                                                  // fit: BoxFit.cover,
-                                                )),
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return UploadCompanyLogoWidget(
-                                                buttonText: "Upload Logo",
-                                                ontap: () async {
-                                                  var file =
-                                                      await homeController
-                                                          .obtainImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .gallery);
-
-                                                  await homeController
-                                                      .uploadImage(file!);
-
-                                                  Get.back();
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: 'company_image',
-                                          child: Container(
-                                            // padding: EdgeInsets.all(3.w),
-                                            margin: EdgeInsets.all(2.w),
-                                            height: 10.h,
-                                            width: 35.w,
-                                            // width: 25.w,
-                                            decoration: BoxDecoration(
-                                              // boxShadow: kElevationToShadow[2],
-                                              // color: Colors.yellow,
-                                              borderRadius:
-                                                  BorderRadius.circular(5.w),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
-                                                fit: BoxFit.cover,
-                                              ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 3.w,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () =>
+                                            Get.find<NavigationController>()
+                                                .changeTab(3),
+                                        child: SizedBox(
+                                          width: 12.w,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12.w),
+                                            child: Image.asset(
+                                              "assets/Images/profile_pic.jpg",
+                                              fit: BoxFit.fill,
+                                              height: 12.w,
+                                              width: 12.w,
                                             ),
                                           ),
                                         ),
-                                      );
-                                    }
-                                  })
+                                      ),
+                                      SizedBox(
+                                        width: 2.w,
+                                      ),
+                                      // SizedBox(
+                                      //   width: 30.w,
+                                      //   child: Text(
+                                      //     "Welcome\n${homeController.username.value}..!!",
+                                      //     style: TextStyle(
+                                      //         fontSize: 17.sp,
+                                      //         overflow: TextOverflow.ellipsis,
+                                      //         fontWeight: FontWeight.bold,
+                                      //         color: kColorblack),
+                                      //   ),
+                                      // )
+                                    ],
+                                  ),
+                                  // Obx(() {
+                                  //   final imageData =
+                                  //       homeController.companyLogo.value;
+                                  //   if (imageData != null) {
+                                  //     return GestureDetector(
+                                  //       onTap: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (context) {
+                                  //             return UploadCompanyLogoWidget(
+                                  //               buttonText: "Change Logo",
+                                  //               ontap: () async {
+                                  //                 var file =
+                                  //                     await homeController
+                                  //                         .obtainImage(
+                                  //                             source:
+                                  //                                 ImageSource
+                                  //                                     .gallery);
+
+                                  //                 await homeController
+                                  //                     .uploadImage(file!);
+
+                                  //                 Get.back();
+                                  //               },
+                                  //             );
+                                  //           },
+                                  //         );
+                                  //       },
+                                  //       child: Hero(
+                                  //         tag: 'company_image',
+                                  //         child: Container(
+                                  //           // padding: EdgeInsets.all(3.w),
+                                  //           margin: EdgeInsets.all(2.w),
+                                  //           height: 10.h,
+                                  //           width: 35.w,
+                                  //           // width: 25.w,
+                                  //           decoration: BoxDecoration(
+                                  //               // boxShadow: kElevationToShadow[2],
+                                  //               // color: Colors.yellow,
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5.w),
+                                  //               image: DecorationImage(
+                                  //                 image: MemoryImage(
+                                  //                     homeController
+                                  //                         .companyLogo.value!),
+                                  //                 // fit: BoxFit.cover,
+                                  //               )),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   } else {
+                                  //     return GestureDetector(
+                                  //       onTap: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (context) {
+                                  //             return UploadCompanyLogoWidget(
+                                  //               buttonText: "Upload Logo",
+                                  //               ontap: () async {
+                                  //                 var file =
+                                  //                     await homeController
+                                  //                         .obtainImage(
+                                  //                             source:
+                                  //                                 ImageSource
+                                  //                                     .gallery);
+
+                                  //                 await homeController
+                                  //                     .uploadImage(file!);
+
+                                  //                 Get.back();
+                                  //               },
+                                  //             );
+                                  //           },
+                                  //         );
+                                  //       },
+                                  //       child: Hero(
+                                  //         tag: 'company_image',
+                                  //         child: Container(
+                                  //           // padding: EdgeInsets.all(3.w),
+                                  //           margin: EdgeInsets.all(2.w),
+                                  //           height: 10.h,
+                                  //           width: 35.w,
+                                  //           // width: 25.w,
+                                  //           decoration: BoxDecoration(
+                                  //             // boxShadow: kElevationToShadow[2],
+                                  //             // color: Colors.yellow,
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(5.w),
+                                  //             image: DecorationImage(
+                                  //               image: NetworkImage(
+                                  //                   "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
+                                  //               fit: BoxFit.cover,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   }
+                                  // }),
+                                  Spacer(),
+                                  CircleAvatar(
+                                    backgroundColor: kColorLightGrey,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Get.to(NotificationHistoryScreen());
+                                        },
+                                        icon: Icon(
+                                          Icons.notifications_none_rounded,
+                                          color: Colors.grey.shade600,
+                                          // size: 20.sp,
+                                        )),
+                                  )
                                 ],
                               ),
                             ),
@@ -384,121 +404,151 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                     child: Row(
                                       children: [
-                                        SizedBox(
-                                          width: 10.w,
-                                          child: Image.asset(logoIcon,
-                                              fit: BoxFit.fill),
-                                        ),
-                                        SizedBox(
-                                          width: 3.w,
-                                        ),
-                                        SizedBox(
-                                            // width: 30.w,
-                                            child: Text(
-                                          "${homeController.username.value}..!!",
-                                          style: TextStyle(
-                                              fontSize: 17.sp,
-                                              overflow: TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.bold,
-                                              color: kColorblack),
-                                        )),
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Obx(() {
-                                    final imageData =
-                                        homeController.companyLogo.value;
-                                    if (imageData != null) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return UploadCompanyLogoWidget(
-                                                buttonText: "Change Logo",
-                                                ontap: () async {
-                                                  var file =
-                                                      await homeController
-                                                          .obtainImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .gallery);
-
-                                                  await homeController
-                                                      .uploadImage(file!);
-
-                                                  Get.back();
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: 'company_image',
-                                          child: Container(
-                                            // padding: EdgeInsets.all(3.w),
-                                            margin: EdgeInsets.all(2.w),
-                                            height: 10.h,
-                                            width: 29.w,
-                                            // width: 25.w,
-                                            decoration: BoxDecoration(
-                                                // boxShadow: kElevationToShadow[2],
-                                                // color: Colors.yellow,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.w),
-                                                image: DecorationImage(
-                                                  image: MemoryImage(
-                                                      homeController
-                                                          .companyLogo.value!),
-                                                  // fit: BoxFit.cover,
-                                                )),
-                                          ),
-                                        ),
-                                      );
-                                    } else {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return UploadCompanyLogoWidget(
-                                                buttonText: "Upload Logo",
-                                                ontap: () async {
-                                                  var file =
-                                                      await homeController
-                                                          .obtainImage(
-                                                              source:
-                                                                  ImageSource
-                                                                      .gallery);
-
-                                                  await homeController
-                                                      .uploadImage(file!);
-
-                                                  Get.back();
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag: 'company_image',
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.amberAccent,
+                                        GestureDetector(
+                                          onTap: () =>
+                                              Get.find<NavigationController>()
+                                                  .changeTab(3),
+                                          child: SizedBox(
+                                            width: 10.w,
+                                            child: ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(5.w),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
+                                                  BorderRadius.circular(12.w),
+                                              child: Image.asset(
+                                                "assets/Images/profile_pic.jpg",
                                                 fit: BoxFit.fill,
+                                                height: 10.w,
+                                                width: 10.w,
                                               ),
                                             ),
                                           ),
                                         ),
-                                      );
-                                    }
-                                  })
+                                        SizedBox(
+                                          width: 3.w,
+                                        ),
+                                        // SizedBox(
+                                        //     // width: 30.w,
+                                        //     child: Text(
+                                        //   "${homeController.username.value}..!!",
+                                        //   style: TextStyle(
+                                        //       fontSize: 17.sp,
+                                        //       overflow: TextOverflow.ellipsis,
+                                        //       fontWeight: FontWeight.bold,
+                                        //       color: kColorblack),
+                                        // )),
+                                      ],
+                                    ),
+                                  ),
+
+                                  // Obx(() {
+                                  //   final imageData =
+                                  //       homeController.companyLogo.value;
+                                  //   if (imageData != null) {
+                                  //     return GestureDetector(
+                                  //       onTap: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (context) {
+                                  //             return UploadCompanyLogoWidget(
+                                  //               buttonText: "Change Logo",
+                                  //               ontap: () async {
+                                  //                 var file =
+                                  //                     await homeController
+                                  //                         .obtainImage(
+                                  //                             source:
+                                  //                                 ImageSource
+                                  //                                     .gallery);
+
+                                  //                 await homeController
+                                  //                     .uploadImage(file!);
+
+                                  //                 Get.back();
+                                  //               },
+                                  //             );
+                                  //           },
+                                  //         );
+                                  //       },
+                                  //       child: Hero(
+                                  //         tag: 'company_image',
+                                  //         child: Container(
+                                  //           // padding: EdgeInsets.all(3.w),
+                                  //           margin: EdgeInsets.all(2.w),
+                                  //           height: 10.h,
+                                  //           width: 29.w,
+                                  //           // width: 25.w,
+                                  //           decoration: BoxDecoration(
+                                  //               // boxShadow: kElevationToShadow[2],
+                                  //               // color: Colors.yellow,
+                                  //               borderRadius:
+                                  //                   BorderRadius.circular(5.w),
+                                  //               image: DecorationImage(
+                                  //                 image: MemoryImage(
+                                  //                     homeController
+                                  //                         .companyLogo.value!),
+                                  //                 // fit: BoxFit.cover,
+                                  //               )),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   } else {
+                                  //     return GestureDetector(
+                                  //       onTap: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (context) {
+                                  //             return UploadCompanyLogoWidget(
+                                  //               buttonText: "Upload Logo",
+                                  //               ontap: () async {
+                                  //                 var file =
+                                  //                     await homeController
+                                  //                         .obtainImage(
+                                  //                             source:
+                                  //                                 ImageSource
+                                  //                                     .gallery);
+
+                                  //                 await homeController
+                                  //                     .uploadImage(file!);
+
+                                  //                 Get.back();
+                                  //               },
+                                  //             );
+                                  //           },
+                                  //         );
+                                  //       },
+                                  //       child: Hero(
+                                  //         tag: 'company_image',
+                                  //         child: Container(
+                                  //           decoration: BoxDecoration(
+                                  //             color: Colors.amberAccent,
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(5.w),
+                                  //             image: DecorationImage(
+                                  //               image: NetworkImage(
+                                  //                   "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
+                                  //               fit: BoxFit.fill,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   }
+                                  // }),
+                                  Spacer(),
+                                  CircleAvatar(
+                                    backgroundColor: kColorLightGrey,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Get.to(NotificationHistoryScreen(),
+                                              duration: const Duration(
+                                                  milliseconds: 400),
+                                              transition:
+                                                  Transition.rightToLeft);
+                                        },
+                                        icon: Icon(
+                                          Icons.notifications_none_rounded,
+                                          color: Colors.grey.shade600,
+                                          // size: 19.sp,
+                                        )),
+                                  )
                                 ],
                               )
                             : SizedBox(),
@@ -506,7 +556,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // title: Text(homeController.username.value,style: TextStyle(color: kColorblack),),
 
-                      expandedHeight: 14.h,
+                      expandedHeight: 12.h,
                     ),
                     SliverToBoxAdapter(
                       child: SingleChildScrollView(
@@ -521,7 +571,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   margin: EdgeInsets.all(1.w),
                                   padding: EdgeInsets.only(bottom: 2.h),
                                   //  color: Colors.blue,
-                                  child: CheckInOutCard()),
+                                  child: CheckInOutCard(
+                                    homeController: homeController,
+                                  )),
                             ),
                             SizedBox(
                               height: 1.h,

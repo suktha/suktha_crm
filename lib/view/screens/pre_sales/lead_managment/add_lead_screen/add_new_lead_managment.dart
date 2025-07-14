@@ -183,7 +183,7 @@ class _NewLeadManagementAddScreenState
                     // Get.back();
                     widget.isFromHomeScreen == true
                         ? Get.offAll(() =>
-                            const BottomNavigationMainscreen(initialIndex: 1))
+                             BottomNavigationMainscreen(initialIndex: 1))
                         : Get.offAll(() => LeadManagementListScreen());
                         clearTextFields();
                   }),
