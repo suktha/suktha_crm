@@ -177,10 +177,15 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 controller.selectedStatusId.value = "0";
                 controller.leadList.clear();
                 controller.fromPreSalesScreen.value = false;
-                widget.isFromHomeScreen == true
-                    ? Get.offAll(
-                        () =>  BottomNavigationMainscreen(initialIndex: 1))
-                    :Get.back();
+                print("lead list---${widget.isFromHomeScreen}");
+
+                if (widget.isFromHomeScreen == true) {
+                  print("inside");
+                  Get.offAll(() => BottomNavigationMainscreen(initialIndex: 1));
+                } else if (widget.isFromHomeScreen == false) {
+                  print("outside");
+                  Get.back();
+                }
               }),
             ),
           ),

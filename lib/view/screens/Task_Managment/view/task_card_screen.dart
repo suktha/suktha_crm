@@ -2,6 +2,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class TaskCard extends StatefulWidget {
   final String title;
@@ -36,7 +37,7 @@ class _TaskCardState extends State<TaskCard> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,8 +67,8 @@ class _TaskCardState extends State<TaskCard> {
                   child: Text(
                     widget.title,
                     style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
                         decoration: widget.completed
                             ? TextDecoration.lineThrough
                             : TextDecoration.none,

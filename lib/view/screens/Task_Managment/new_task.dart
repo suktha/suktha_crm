@@ -32,13 +32,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         backgroundColor: kColorLightGrey,
         appBar: AppBar(
-          title: const Text("Tasks Managment",
+          title:  Text("Tasks Managment",
               style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
           // centerTitle: true,
@@ -57,6 +57,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 Tab(text: 'Important'),
                 Tab(text: 'Planned'),
                 Tab(text: 'Assigned To Me'),
+                 Tab(text: 'Completed'),
               ]),
         ),
         body: TabBarView(
@@ -76,6 +77,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             const Center(child: Text('Important')),
             const Center(child: Text('Planned')),
             const Center(child: Text('Assigned To Me')),
+            const Center(child: Text('Completed')),
           ],
         ),
       ),
@@ -116,9 +118,9 @@ class TaskTabContent extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
-                  const Text(
+                   Text(
                     'Today’s Task',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(
                     height: 5,
@@ -137,11 +139,16 @@ class TaskTabContent extends StatelessWidget {
                   //
                 clearFunction(controller);
                 },
+                
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: Colors.blue.shade100,
+                  backgroundColor: Colors.blue.shade50,
+                  
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(3.w),
+                    side: BorderSide(
+                      color: Colors.blue.shade100,
+                    )
                   ),
                 ),
                 child: Padding(
