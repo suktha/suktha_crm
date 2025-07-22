@@ -21,6 +21,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
 
   @override
   void initState() {
+    controller.getCityList();
     super.initState();
   }
 

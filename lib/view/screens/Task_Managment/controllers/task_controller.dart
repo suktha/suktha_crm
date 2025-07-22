@@ -10,6 +10,7 @@ class TaskController extends GetxController {
 
   RxString formattedSelectedDate = "".obs;
   RxBool isCompletedSelected = true.obs;
+  RxInt selectedIndex = (-1).obs;
 
   TextEditingController taskNameController = TextEditingController();
   TextEditingController priorityController = TextEditingController();

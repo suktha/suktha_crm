@@ -130,6 +130,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 243, 243, 243),
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         title: Text("Profile"),
         titleTextStyle: TextStyle(
             color: kColorblack, fontWeight: FontWeight.bold, fontSize: 20.sp),
@@ -201,9 +202,10 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     children: [
                       ActivityContainer(
                         ontap: () {
-                          Get.to(() => const UserProfileScreen(),
-                              duration: const Duration(milliseconds: 400),
-                              );
+                          Get.to(
+                            () => const UserProfileScreen(),
+                            duration: const Duration(milliseconds: 400),
+                          );
                         },
                         activityText: "Users & Admins",
                         icon: Icons.person_add_alt,

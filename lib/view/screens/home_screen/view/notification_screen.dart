@@ -63,12 +63,15 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
   void initState() {
     super.initState();
     _notifications = List.of(_seedNotifications);
+    _activeFilter = NotificationType.all;
   }
 
   // Helpers ───────────────────────────────────────────────────────────────────
   List<NotificationModel> get _filteredList {
     return _notifications.where((n) {
-      final matchesFilter = _activeFilter == null || n.type == _activeFilter;
+      final matchesFilter = _activeFilter == NotificationType.all ||
+          _activeFilter == null ||
+          n.type == _activeFilter;
       final matchesSearch = _searchQuery.isEmpty ||
           n.title.toLowerCase().contains(_searchQuery) ||
           n.subtitle.toLowerCase().contains(_searchQuery);
@@ -78,6 +81,8 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
 
   IconData _iconFor(NotificationType type) {
     switch (type) {
+      case NotificationType.all:
+        return Icons.all_inclusive;
       case NotificationType.task:
         return Icons.event_note_outlined;
       case NotificationType.reminder:
@@ -91,6 +96,8 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
 
   Color _colorFor(NotificationType type, BuildContext context) {
     switch (type) {
+      case NotificationType.all:
+        return Colors.grey;
       case NotificationType.task:
         return Colors.blueAccent;
       case NotificationType.reminder:
@@ -109,8 +116,6 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
       }
     });
   }
-
-  // UI ────────────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -165,14 +170,17 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
           ),
           PopupMenuButton<NotificationType?>(
             tooltip: 'Filter',
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: null, child: Text('All')),
-              ...NotificationType.values.map((t) => PopupMenuItem(
-                    value: t,
-                    child: Text(_Cap(t.name).capitalize()),
-                  )),
-            ],
-            onSelected: (value) => setState(() => _activeFilter = value),
+            itemBuilder: (context) => NotificationType.values.map((t) {
+              return PopupMenuItem(
+                value: t,
+                child: Text(_Cap(t.name).capitalize()),
+              );
+            }).toList(),
+            onSelected: (value) {
+              setState(() {
+                _activeFilter = value;
+              });
+            },
             icon: const Icon(
               Icons.filter_list,
               color: Colors.black,
@@ -183,8 +191,8 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
       body: list.isEmpty
           ? const Center(child: Text('No notifications'))
           : ListView.builder(
-            padding: EdgeInsets.only(top: 2.h),
-            physics:const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(top: 2.h),
+              physics: const BouncingScrollPhysics(),
               itemCount: list.length,
               itemBuilder: (context, index) {
                 final n = list[index];
@@ -202,7 +210,6 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-                        
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4.w),
@@ -236,7 +243,7 @@ class _NotificationHistoryScreenState extends State<NotificationHistoryScreen> {
                               ),
                               if (!n.isRead)
                                 Container(
-                                  margin:  EdgeInsets.only(top: 2.w,right: 1.w),
+                                  margin: EdgeInsets.only(top: 2.w, right: 1.w),
                                   width: 8,
                                   height: 8,
                                   decoration: BoxDecoration(
@@ -276,7 +283,7 @@ class _NotificationSearchDelegate extends SearchDelegate<String> {
     final items = _seedNotifications.where((n) {
       return n.title.toLowerCase().contains(query.toLowerCase()) ||
           n.subtitle.toLowerCase().contains(query.toLowerCase());
-    }).take(5);
+    }).take(_seedNotifications.length);
 
     return ListView(
       children: items
@@ -302,6 +309,5 @@ class _NotificationSearchDelegate extends SearchDelegate<String> {
 }
 
 extension _Cap on String {
-  String capitalize() =>
-      isEmpty ? this : this[0].toUpperCase() + substring(1);
+  String capitalize() => isEmpty ? this : this[0].toUpperCase() + substring(1);
 }

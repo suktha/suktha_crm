@@ -62,6 +62,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 243, 243, 243),
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             title: const Text(" Pre Sales"),
             titleTextStyle: TextStyle(
                 color: kColorblack,
@@ -800,7 +801,8 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                             if (sections.isEmpty) {
                                               return Center(
                                                 child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     FadeIn(
                                                         delay: const Duration(
@@ -814,7 +816,9 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                                                           "assets/lottie/empty.json",
                                                           height: 15.w,
                                                         )),
-                                                        SizedBox(height: 1.h,),
+                                                    SizedBox(
+                                                      height: 1.h,
+                                                    ),
                                                     FadeIn(
                                                       delay: const Duration(
                                                           milliseconds: 500),

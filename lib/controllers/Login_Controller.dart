@@ -34,10 +34,12 @@ class LoginController extends GetxController {
   DateTime? loginTime;
 
   void saveLoginTime() async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     loginTime = DateTime.now();
-    sharedPreferences.setString(SharedPrefKeys().LastLoginTimeKey, loginTime.toString());
+    sharedPreferences.setString(
+        SharedPrefKeys().LastLoginTimeKey, loginTime.toString());
   }
 
   void logout() {
@@ -46,7 +48,8 @@ class LoginController extends GetxController {
 
   late TextEditingController usernameController, passwordController;
 
-  final RoundedLoadingButtonController btnController1 = RoundedLoadingButtonController();
+  final RoundedLoadingButtonController btnController1 =
+      RoundedLoadingButtonController();
 
   // RxList<TransactionTypeModel> customerInvoiceType = <TransactionTypeModel>[].obs;
   // RxList<TransactionTypeModel> purchaseInvoiceType = <TransactionTypeModel>[].obs;
@@ -62,7 +65,8 @@ class LoginController extends GetxController {
   }
 
   RxBool isSubscriptionEnded = false.obs;
-  Future loginData(RoundedLoadingButtonController controller, BuildContext context) async {
+  Future loginData(
+      RoundedLoadingButtonController controller, BuildContext context) async {
     controller.reset();
     controller.start();
     Dio dio = Dio();
@@ -76,7 +80,8 @@ class LoginController extends GetxController {
     };
     print(apiData);
 
-    print("username: ${usernameController.text.trim()} -password: ${passwordController.text.trim()}");
+    print(
+        "username: ${usernameController.text.trim()} -password: ${passwordController.text.trim()}");
 
     try {
       final response = await dio.post(apiData, data: json.encode(mapdatas));
@@ -112,12 +117,15 @@ class LoginController extends GetxController {
         String user = loginDetails.value.user!.username!;
         int userId = loginDetails.value.user!.id!;
 
-        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
 
         sharedPreferences.setString('token', token);
         sharedPreferences.setString('user', user);
 
         await sharedPreferences.setString('userMap', json.encode(resultMap));
+        sharedPreferences.setString('username', usernameController.text.trim());
+        sharedPreferences.setString('password', passwordController.text.trim());
 
         subscriptionMessageShown.value = true;
 
@@ -139,9 +147,8 @@ class LoginController extends GetxController {
             const Duration(milliseconds: 700),
             () {
               Get.offAll(
-                  () =>  BottomNavigationMainscreen(
+                  () => BottomNavigationMainscreen(
                         initialIndex: 1,
-                        
                       ),
                   transition: Transition.fade,
                   duration: const Duration(milliseconds: 700));
@@ -152,7 +159,8 @@ class LoginController extends GetxController {
       } else {
         Timer(const Duration(seconds: 1), () {
           controller.error();
-          customSnackbar("Error", "You have entered wrong login credentials", "error");
+          customSnackbar(
+              "Error", "You have entered wrong login credentials", "error");
           Timer(const Duration(seconds: 2), () => controller.stop());
         });
       }
@@ -160,7 +168,8 @@ class LoginController extends GetxController {
       print(e.response?.data);
       Timer(const Duration(seconds: 1), () {
         controller.error();
-        customSnackbar("Error", "You have entered wrong login credentials", "error");
+        customSnackbar(
+            "Error", "You have entered wrong login credentials", "error");
         Timer(const Duration(seconds: 1), () => controller.stop());
       });
     } finally {}
@@ -169,7 +178,8 @@ class LoginController extends GetxController {
   postUserFCMtoken(int userId, String loginToken) async {
     print("postUserFCMtoken");
     String url = "/saveUserFcmToken";
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     String? fcmToken = sharedPreferences.getString('fcmToken');
     log('Retrieved FCM Token: $fcmToken');
@@ -191,7 +201,8 @@ class LoginController extends GetxController {
 
     print("fcmToken: ${mapDatas.toString()}");
 
-    Map<String, dynamic> result = await apiCallService(url, "POST", mapDatas, TheResponseType.map, {}, false);
+    Map<String, dynamic> result = await apiCallService(
+        url, "POST", mapDatas, TheResponseType.map, {}, false);
 
     if (result.containsKey("id")) {
       await sharedPreferences.setString('userFcmId', result["id"]);
@@ -211,12 +222,14 @@ class LoginController extends GetxController {
   Future financialYear() async {
     Dio dio = Dio();
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
 
     var apiData = (baseUrl + financialYearUrl);
     try {
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = await dio.get(apiData,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
 
       await checkTokenExpired(response.statusCode);
       if (response.statusCode == 200) {
@@ -226,11 +239,14 @@ class LoginController extends GetxController {
 
         // result.isActive == 1 ?
 
-        await sharedPreferences.setString('financialYear', json.encode(decodedMap));
+        await sharedPreferences.setString(
+            'financialYear', json.encode(decodedMap));
 
-        final financialYearDetailDEcoded = json.decode(sharedPreferences.getString('financialYear')!);
+        final financialYearDetailDEcoded =
+            json.decode(sharedPreferences.getString('financialYear')!);
 
-        final financialYear = FinancialYearModel.fromJson(financialYearDetailDEcoded);
+        final financialYear =
+            FinancialYearModel.fromJson(financialYearDetailDEcoded);
 
         print(financialYear.financialYear);
       }
@@ -243,12 +259,14 @@ class LoginController extends GetxController {
   Future GetGlobalSettings() async {
     Dio dio = Dio();
 
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
 
     var apiData = (baseUrl + globalSettingUrl);
     try {
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer $token"}));
+      final response = await dio.get(apiData,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
 
       await checkTokenExpired(response.statusCode);
       if (response.statusCode == 200) {
@@ -256,14 +274,20 @@ class LoginController extends GetxController {
 
         Map decodedMap = result.toJson();
 
-        await sharedPreferences.setString(SharedPrefKeys().GlobalSettingsKey, json.encode(decodedMap));
+        await sharedPreferences.setString(
+            SharedPrefKeys().GlobalSettingsKey, json.encode(decodedMap));
 
-        final globalSettingsDecoded = json.decode(sharedPreferences.getString(SharedPrefKeys().GlobalSettingsKey)!);
+        final globalSettingsDecoded = json.decode(
+            sharedPreferences.getString(SharedPrefKeys().GlobalSettingsKey)!);
 
         final globalSettings = GlobalSetting.fromJson(globalSettingsDecoded);
 
-        globalSettings.itemLevelTax == 0 ? globalController.isItemLevel.value = false : globalController.isItemLevel.value = true;
-        globalSettings.itemLevelTaxPurchase == 0 ? globalController.isPurchaseItemLevel.value = false : globalController.isPurchaseItemLevel.value = true;
+        globalSettings.itemLevelTax == 0
+            ? globalController.isItemLevel.value = false
+            : globalController.isItemLevel.value = true;
+        globalSettings.itemLevelTaxPurchase == 0
+            ? globalController.isPurchaseItemLevel.value = false
+            : globalController.isPurchaseItemLevel.value = true;
 
         log("--------sales Item level tax ---------------${globalSettings.itemLevelTax}");
         log("--------purchase Item level tax ---------------${globalSettings.itemLevelTaxPurchase}");

@@ -31,6 +31,7 @@ import 'package:work_Force/view/widget/shimmer_loading.dart';
 class LeadManagementListScreen extends StatefulWidget {
   String? quotationNumber;
   bool? isFromHomeScreen;
+  
   String? missedUpId;
   LeadManagementListScreen(
       {super.key,
@@ -182,9 +183,9 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                 if (widget.isFromHomeScreen == true) {
                   print("inside");
                   Get.offAll(() => BottomNavigationMainscreen(initialIndex: 1));
-                } else if (widget.isFromHomeScreen == false) {
-                  print("outside");
-                  Get.back();
+                } else if (widget.isFromHomeScreen == false ||
+                    widget.isFromHomeScreen == null) {
+                  Get.offAll(() => BottomNavigationMainscreen(initialIndex: 0));
                 }
               }),
             ),

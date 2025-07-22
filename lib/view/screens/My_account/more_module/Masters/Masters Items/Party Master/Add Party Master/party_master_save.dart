@@ -116,7 +116,7 @@ class _SavePartyMasterScreenState extends State<SavePartyMasterScreen> {
               titleTextStyle: TextStyle(
                   color: kColorblack,
                   fontWeight: FontWeight.bold,
-                  fontSize: 17.sp),
+                  fontSize: 18.5.sp),
               centerTitle: true,
               backgroundColor: kColorwhite,
               elevation: 0,

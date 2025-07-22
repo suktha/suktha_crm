@@ -67,7 +67,7 @@ class _AddServiceMasterScreenState extends State<AddServiceMasterScreen> {
                 titleTextStyle: TextStyle(
                     color: kColorblack,
                     fontWeight: FontWeight.bold,
-                    fontSize: 17.sp),
+                    fontSize: 19.sp),
                 centerTitle: true,
                 backgroundColor: kColorwhite,
                 elevation: 0,

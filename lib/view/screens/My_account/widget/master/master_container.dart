@@ -28,7 +28,8 @@ class MasterContainer extends StatelessWidget {
         decoration: BoxDecoration(
             color: containerColor,
             borderRadius: BorderRadius.circular(3.w),
-            border: Border.all(color: Colors.grey.shade200)),
+            // border: Border.all(color: Colors.grey.shade200),
+            ),
         child: Padding(
         padding:  EdgeInsets.only(top: 3.w,bottom: 3.w),
           child: Column(

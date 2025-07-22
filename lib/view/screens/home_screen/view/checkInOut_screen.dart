@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/view/screens/home_screen/controller/checkInOut_controller.dart';
+import 'package:work_Force/view/screens/home_screen/view/clockedInTask_screen.dart';
 
 class CheckInOutCard extends StatelessWidget {
   HomeController homeController;
@@ -90,21 +91,41 @@ class CheckInOutCard extends StatelessWidget {
                     }),
 
                     const SizedBox(height: 16),
-                    ElevatedButton.icon(
-                      onPressed: controller.toggleCheck,
-                      label: Text(controller.isClockedIn.value
-                          ? "Clock Out"
-                          : "Clock In"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: controller.isClockedIn.value
-                            ? Colors.red
-                            : Colors.green,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                    Row(
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: controller.toggleCheck,
+                          label: Text(controller.isClockedIn.value
+                              ? "Clock Out"
+                              : "Clock In"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: controller.isClockedIn.value
+                                ? Colors.red
+                                : Colors.green,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(width: 2.w),
+                        controller.isClockedIn.value
+                            ? CircleAvatar(
+                                backgroundColor: kColorLightGrey,
+                                child: IconButton(
+                                    tooltip: "View Clocked In Tasks",
+                                    onPressed: () {
+                                      Get.to(() => ClockedintaskScreen());
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios_rounded,
+                                      size: 18.sp,
+                                      color: kColorgrey,
+                                    )),
+                              )
+                            : const SizedBox()
+                      ],
                     )
                   ],
                 ),

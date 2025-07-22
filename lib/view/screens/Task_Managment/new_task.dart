@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/Task_Managment/controllers/task_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/task_managment.dart';
+import 'package:work_Force/view/screens/Task_Managment/task_model.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/task_card_screen.dart';
 
@@ -36,7 +37,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       child: Scaffold(
         backgroundColor: kColorLightGrey,
         appBar: AppBar(
-          title:  Text("Tasks Managment",
+          automaticallyImplyLeading: false,
+          title: Text("Tasks Managment",
               style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -57,7 +59,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 Tab(text: 'Important'),
                 Tab(text: 'Planned'),
                 Tab(text: 'Assigned To Me'),
-                 Tab(text: 'Completed'),
+                Tab(text: 'Completed'),
               ]),
         ),
         body: TabBarView(
@@ -71,8 +73,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 ],
               ),
             ),
-            TaskTabContent(
-              controller: controller,
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: TaskTabContent(
+                controller: controller,
+              ),
             ),
             const Center(child: Text('Important')),
             const Center(child: Text('Planned')),
@@ -96,72 +101,119 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 }
 
- 
 class TaskTabContent extends StatelessWidget {
   TaskController controller;
-  TaskTabContent({super.key, required this.controller});
+  bool? isFromClockIn;
+  TaskTabContent({super.key, required this.controller, this.isFromClockIn});
+
+  List<TaskModel> taskList = [
+    TaskModel(
+      title: 'Client Review & Feedback',
+      subtitle: 'Crypto Wallet Redesign',
+      time: 'Today 10:00 AM',
+      completed: false,
+      isStarred: false,
+      assignedName: 'Unassigned',
+      tags: "High",
+      tagColor: Colors.red,
+    ),
+    TaskModel(
+      title: 'Adjust the width',
+      subtitle: 'This approach allows more control over ',
+      time: 'Today 04:00 PM',
+      completed: false,
+      isStarred: false,
+      assignedName: 'Ajith',
+      tags: "Low",
+      tagColor: Colors.amber,
+    ),
+    TaskModel(
+      title: 'Radio Button Toggle UI',
+      subtitle: 'Change color',
+      time: 'Today 01:00 PM',
+      completed: false,
+      isStarred: false,
+      assignedName: 'Kiran Test',
+      tags: "Medium",
+      tagColor: Colors.indigo,
+    ),
+    TaskModel(
+      title: 'Layout and functionality',
+      subtitle: 'Redesign',
+      time: 'Today 11:00 PM',
+      completed: false,
+      isStarred: false,
+      assignedName: 'Unassigned',
+      tags: "High",
+      tagColor: Colors.red,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(7.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                   Text(
-                    'Today’s Task',
-                    style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Text(
-                    'Wednesday, 11 May',
-                    style: TextStyle(
-                        color: Colors.grey, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => AddTaskScreen(isEdit: false,Iscompleted: false,));
-                  // If you want to clear the fields after navigating
-                  //
-                clearFunction(controller);
-                },
-                
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: Colors.blue.shade50,
-                  
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(3.w),
-                    side: BorderSide(
-                      color: Colors.blue.shade100,
-                    )
-                  ),
+          isFromClockIn == true
+              ? const SizedBox()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Text(
+                          'Today’s Task',
+                          style: TextStyle(
+                              fontSize: 17.sp, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const Text(
+                          'Wednesday, 11 May',
+                          style: TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => AddTaskScreen(
+                              isEdit: false,
+                              Iscompleted: false,
+                            ));
+                        // If you want to clear the fields after navigating
+                        //
+                        clearFunction(controller);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: Colors.blue.shade50,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(3.w),
+                            side: BorderSide(
+                              color: Colors.blue.shade100,
+                            )),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          'New Task',
+                          style: TextStyle(
+                              color: Colors.blue.shade800, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'New Task',
-                    style: TextStyle(color: Colors.blue.shade800, fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
+          isFromClockIn == true ? const SizedBox() : const SizedBox(height: 16),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -173,50 +225,30 @@ class TaskTabContent extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: ListView(
+            child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              children: [
-                TaskCard(
-                  title: 'Client Review & Feedback',
-                  subtitle: 'Crypto Wallet Redesign',
-                  time: 'Today 10:00 AM',
-                  completed: false,
-                  isStarred: false,
-                  assignedName: 'Unassigned',
-                  tags: "High",
-                  tagColor: Colors.red,
-                ),
-                TaskCard(
-                  title: 'Adjust the width',
-                  subtitle: 'This approach allows more control over ',
-                  time: 'Today 04:00 PM',
-                  completed: false,
-                  isStarred: false,
-                  assignedName: 'Ajith',
-                  tags: "Low",
-                  tagColor: Colors.amber,
-                ),
-                TaskCard(
-                  title: 'Radio Button Toggle UI',
-                  subtitle: 'Change color',
-                  time: 'Today 01:00 PM',
-                  completed: false,
-                  isStarred: false,
-                  assignedName: 'Kiran Test',
-                  tags: "Medium",
-                  tagColor: Colors.indigo,
-                ),
-                TaskCard(
-                  title: 'Layout and functionality',
-                  subtitle: 'Redesign',
-                  time: 'Today 11:00 PM',
-                  completed: false,
-                  isStarred: false,
-                  assignedName: 'Unassigned',
-                  tags: "High",
-                  tagColor: Colors.red,
-                ),
-              ],
+              itemCount: taskList.length,
+              itemBuilder: (context, index) {
+                final task = taskList[index];
+                return Obx(
+                  () => TaskCard(
+                    title: task.title,
+                    subtitle: task.subtitle,
+                    time: task.time,
+                    completed: task.completed,
+                    isStarred: task.isStarred,
+                    assignedName: task.assignedName,
+                    tags: task.tags,
+                    tagColor: task.tagColor,
+                    isSelected: controller.selectedIndex.value == index,
+                    onSelect: () {
+                      if (isFromClockIn == true) {
+                        controller.selectedIndex.value = index;
+                      } else {}
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -224,4 +256,3 @@ class TaskTabContent extends StatelessWidget {
     );
   }
 }
-

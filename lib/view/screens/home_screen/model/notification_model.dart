@@ -1,4 +1,4 @@
-enum NotificationType { task, reminder, comment, system }
+enum NotificationType { all,task, reminder, comment, system }
 
 class NotificationModel {
   final String id;
