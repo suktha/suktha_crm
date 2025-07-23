@@ -57,13 +57,13 @@ class ClockedintaskScreen extends StatelessWidget {
                   text: 'You are currently clocked in,',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16.sp,
-                      color: kColorlightBlue),
+                      fontSize: 15.5.sp,
+                      color: kColorlightBlue500),
                   children: [
                     TextSpan(
                       text: ' please complete your tasks.',
                       style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: 15.5.sp,
                           fontWeight: FontWeight.w400,
                           color: Colors.grey.shade600),
                     ),
@@ -71,7 +71,7 @@ class ClockedintaskScreen extends StatelessWidget {
                 )),
               ),
               SizedBox(
-                height: 2.h,
+                height: 1.h,
               ),
               Padding(
                 padding: EdgeInsets.only(left: 2.w, right: 2.w, top: 2.w),
@@ -80,7 +80,10 @@ class ClockedintaskScreen extends StatelessWidget {
                     TypeAheadField<DesignationModel>(
                       debounceDuration: const Duration(milliseconds: 500),
                       controller: controller.designationController,
-                      builder: (context, designationController, UOMfocusNode) {
+                      hideOnSelect: true,
+                      hideWithKeyboard: true,
+                      builder: (context, designationController,
+                          designationfocusNode) {
                         return TextFormField(
                             enabled: true,
                             readOnly: true,
@@ -91,7 +94,7 @@ class ClockedintaskScreen extends StatelessWidget {
                               return null;
                             },
                             controller: designationController,
-                            focusNode: UOMfocusNode,
+                            focusNode: designationfocusNode,
                             decoration: InputDecoration(
                               labelText: "Select Designation*",
                               suffixIcon: Icon(
@@ -124,9 +127,9 @@ class ClockedintaskScreen extends StatelessWidget {
                       suggestionsCallback: (String pattern) =>
                           controller.getDesignationList(),
                       itemBuilder: (context, DesignationModel suggestion) {
-                        final quotNumber = suggestion;
+                        final designationValue = suggestion;
                         return ListTile(
-                          title: Text(quotNumber.designationName),
+                          title: Text(designationValue.designationName),
                         );
                       },
                       loadingBuilder: (context) {
@@ -149,7 +152,7 @@ class ClockedintaskScreen extends StatelessWidget {
                       },
                       onSelected: (DesignationModel suggestion) {
                         designationValue = suggestion;
-                
+
                         controller.designationController.text =
                             designationValue!.designationName.toString();
                       },
@@ -165,7 +168,7 @@ class ClockedintaskScreen extends StatelessWidget {
                   )),
               const Spacer(),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -197,22 +200,6 @@ class ClockedintaskScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(
-          bottom: 7.w,
-        ),
-        child: FloatingActionButton(
-          elevation: 0,
-          tooltip: "Add Task",
-          onPressed: () {},
-          backgroundColor: kColorLightBlueAppBar,
-          child: Icon(
-            Icons.add_rounded,
-            color: kColorlightBlue,
-            size: 21.sp,
           ),
         ),
       ),

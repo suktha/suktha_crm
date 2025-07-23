@@ -10,11 +10,17 @@ import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
 import 'package:work_Force/view/screens/My_account/my_account_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/pre_sale_screen.dart';
 
-class BottomNavigationMainscreen extends StatelessWidget {
-  final int initialIndex;
-  BottomNavigationMainscreen({Key? key, this.initialIndex = 0})
-      : super(key: key);
+class BottomNavigationMainscreen extends StatefulWidget {
+  int? initialIndex;
+  BottomNavigationMainscreen({super.key, this.initialIndex});
 
+  @override
+  State<BottomNavigationMainscreen> createState() =>
+      _BottomNavigationMainscreenState();
+}
+
+class _BottomNavigationMainscreenState
+    extends State<BottomNavigationMainscreen> {
   final _screens = [
     const PreSaleScreen(),
     const HomeScreen(),
@@ -31,13 +37,18 @@ class BottomNavigationMainscreen extends StatelessWidget {
         icon: Icon(Icons.account_box_rounded), label: 'My Account'),
   ];
 
+  final nav = Get.find<NavigationController>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      nav.index.value = widget.initialIndex ?? 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final nav = Get.find<NavigationController>();
-
-    // — make sure the first build respects the initial index —
-    nav.index.value = initialIndex;
-
     return Obx(() => Scaffold(
           body: _screens[nav.index.value],
           bottomNavigationBar: BottomNavigationBar(

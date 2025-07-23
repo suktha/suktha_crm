@@ -1,5 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings, deprecated_member_use
-
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings, deprecated_member_use, library_prefixes
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -8,9 +7,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
@@ -25,7 +22,6 @@ import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
-import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/My_account/more_module/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
@@ -261,118 +257,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       SizedBox(
                                         width: 2.w,
                                       ),
-                                      // SizedBox(
-                                      //   width: 30.w,
-                                      //   child: Text(
-                                      //     "Welcome\n${homeController.username.value}..!!",
-                                      //     style: TextStyle(
-                                      //         fontSize: 17.sp,
-                                      //         overflow: TextOverflow.ellipsis,
-                                      //         fontWeight: FontWeight.bold,
-                                      //         color: kColorblack),
-                                      //   ),
-                                      // )
                                     ],
                                   ),
-                                  // Obx(() {
-                                  //   final imageData =
-                                  //       homeController.companyLogo.value;
-                                  //   if (imageData != null) {
-                                  //     return GestureDetector(
-                                  //       onTap: () {
-                                  //         showDialog(
-                                  //           context: context,
-                                  //           builder: (context) {
-                                  //             return UploadCompanyLogoWidget(
-                                  //               buttonText: "Change Logo",
-                                  //               ontap: () async {
-                                  //                 var file =
-                                  //                     await homeController
-                                  //                         .obtainImage(
-                                  //                             source:
-                                  //                                 ImageSource
-                                  //                                     .gallery);
-
-                                  //                 await homeController
-                                  //                     .uploadImage(file!);
-
-                                  //                 Get.back();
-                                  //               },
-                                  //             );
-                                  //           },
-                                  //         );
-                                  //       },
-                                  //       child: Hero(
-                                  //         tag: 'company_image',
-                                  //         child: Container(
-                                  //           // padding: EdgeInsets.all(3.w),
-                                  //           margin: EdgeInsets.all(2.w),
-                                  //           height: 10.h,
-                                  //           width: 35.w,
-                                  //           // width: 25.w,
-                                  //           decoration: BoxDecoration(
-                                  //               // boxShadow: kElevationToShadow[2],
-                                  //               // color: Colors.yellow,
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(5.w),
-                                  //               image: DecorationImage(
-                                  //                 image: MemoryImage(
-                                  //                     homeController
-                                  //                         .companyLogo.value!),
-                                  //                 // fit: BoxFit.cover,
-                                  //               )),
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   } else {
-                                  //     return GestureDetector(
-                                  //       onTap: () {
-                                  //         showDialog(
-                                  //           context: context,
-                                  //           builder: (context) {
-                                  //             return UploadCompanyLogoWidget(
-                                  //               buttonText: "Upload Logo",
-                                  //               ontap: () async {
-                                  //                 var file =
-                                  //                     await homeController
-                                  //                         .obtainImage(
-                                  //                             source:
-                                  //                                 ImageSource
-                                  //                                     .gallery);
-
-                                  //                 await homeController
-                                  //                     .uploadImage(file!);
-
-                                  //                 Get.back();
-                                  //               },
-                                  //             );
-                                  //           },
-                                  //         );
-                                  //       },
-                                  //       child: Hero(
-                                  //         tag: 'company_image',
-                                  //         child: Container(
-                                  //           // padding: EdgeInsets.all(3.w),
-                                  //           margin: EdgeInsets.all(2.w),
-                                  //           height: 10.h,
-                                  //           width: 35.w,
-                                  //           // width: 25.w,
-                                  //           decoration: BoxDecoration(
-                                  //             // boxShadow: kElevationToShadow[2],
-                                  //             // color: Colors.yellow,
-                                  //             borderRadius:
-                                  //                 BorderRadius.circular(5.w),
-                                  //             image: DecorationImage(
-                                  //               image: NetworkImage(
-                                  //                   "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
-                                  //               fit: BoxFit.cover,
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   }
-                                  // }),
                                   Spacer(),
                                   CircleAvatar(
                                     backgroundColor: kColorLightGrey,
@@ -425,113 +311,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         SizedBox(
                                           width: 3.w,
                                         ),
-                                        // SizedBox(
-                                        //     // width: 30.w,
-                                        //     child: Text(
-                                        //   "${homeController.username.value}..!!",
-                                        //   style: TextStyle(
-                                        //       fontSize: 17.sp,
-                                        //       overflow: TextOverflow.ellipsis,
-                                        //       fontWeight: FontWeight.bold,
-                                        //       color: kColorblack),
-                                        // )),
                                       ],
                                     ),
                                   ),
-
-                                  // Obx(() {
-                                  //   final imageData =
-                                  //       homeController.companyLogo.value;
-                                  //   if (imageData != null) {
-                                  //     return GestureDetector(
-                                  //       onTap: () {
-                                  //         showDialog(
-                                  //           context: context,
-                                  //           builder: (context) {
-                                  //             return UploadCompanyLogoWidget(
-                                  //               buttonText: "Change Logo",
-                                  //               ontap: () async {
-                                  //                 var file =
-                                  //                     await homeController
-                                  //                         .obtainImage(
-                                  //                             source:
-                                  //                                 ImageSource
-                                  //                                     .gallery);
-
-                                  //                 await homeController
-                                  //                     .uploadImage(file!);
-
-                                  //                 Get.back();
-                                  //               },
-                                  //             );
-                                  //           },
-                                  //         );
-                                  //       },
-                                  //       child: Hero(
-                                  //         tag: 'company_image',
-                                  //         child: Container(
-                                  //           // padding: EdgeInsets.all(3.w),
-                                  //           margin: EdgeInsets.all(2.w),
-                                  //           height: 10.h,
-                                  //           width: 29.w,
-                                  //           // width: 25.w,
-                                  //           decoration: BoxDecoration(
-                                  //               // boxShadow: kElevationToShadow[2],
-                                  //               // color: Colors.yellow,
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(5.w),
-                                  //               image: DecorationImage(
-                                  //                 image: MemoryImage(
-                                  //                     homeController
-                                  //                         .companyLogo.value!),
-                                  //                 // fit: BoxFit.cover,
-                                  //               )),
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   } else {
-                                  //     return GestureDetector(
-                                  //       onTap: () {
-                                  //         showDialog(
-                                  //           context: context,
-                                  //           builder: (context) {
-                                  //             return UploadCompanyLogoWidget(
-                                  //               buttonText: "Upload Logo",
-                                  //               ontap: () async {
-                                  //                 var file =
-                                  //                     await homeController
-                                  //                         .obtainImage(
-                                  //                             source:
-                                  //                                 ImageSource
-                                  //                                     .gallery);
-
-                                  //                 await homeController
-                                  //                     .uploadImage(file!);
-
-                                  //                 Get.back();
-                                  //               },
-                                  //             );
-                                  //           },
-                                  //         );
-                                  //       },
-                                  //       child: Hero(
-                                  //         tag: 'company_image',
-                                  //         child: Container(
-                                  //           decoration: BoxDecoration(
-                                  //             color: Colors.amberAccent,
-                                  //             borderRadius:
-                                  //                 BorderRadius.circular(5.w),
-                                  //             image: DecorationImage(
-                                  //               image: NetworkImage(
-                                  //                   "https://cdn.vectorstock.com/i/preview-1x/65/30/default-image-icon-missing-picture-page-vector-40546530.jpg"),
-                                  //               fit: BoxFit.fill,
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   }
-                                  // }),
                                   Spacer(),
                                   CircleAvatar(
                                     backgroundColor: kColorLightGrey,
@@ -553,9 +335,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                             : SizedBox(),
                       ),
-
-                      // title: Text(homeController.username.value,style: TextStyle(color: kColorblack),),
-
                       expandedHeight: 12.h,
                     ),
                     SliverToBoxAdapter(
@@ -581,7 +360,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             FadeInLeft(
                                 delay: Duration.zero,
                                 duration: Duration(milliseconds: 800),
-                                child: QuickTaskNotification()),
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 1.w, right: 1.w),
+                                  child: QuickTaskNotification(),
+                                )),
                             SizedBox(
                               height: 1.5.h,
                             ),
@@ -696,295 +479,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SizedBox(
                                     height: 3.h,
                                   ),
-                                  // FadeInUp(
-                                  //   delay: Duration(milliseconds: 600),
-                                  //   duration: Duration(milliseconds: 800),
-                                  //   child: Container(
-                                  //     // height: 80.h,
-                                  //     decoration: BoxDecoration(
-                                  //       color: Colors.lightBlue[50],
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(5.w),
-                                  //     ),
-                                  //     child: Padding(
-                                  //       padding: const EdgeInsets.all(8.0),
-                                  //       child: Column(
-                                  //         children: [
-                                  //           Row(
-                                  //             crossAxisAlignment:
-                                  //                 CrossAxisAlignment.start,
-                                  //             children: [
-                                  //               Column(
-                                  //                 children: [
-                                  //                   FadeInUp(
-                                  //                     delay: Duration(
-                                  //                         milliseconds: 400),
-                                  //                     duration: Duration(
-                                  //                         milliseconds: 800),
-                                  //                     child: ContainerCustom(
-                                  //                       height: 21.9.h,
-                                  //                       width: 45.w,
-                                  //                       title:
-                                  //                           "Today's Leads Amount",
-                                  //                       textColor:
-                                  //                           Colors.purple,
-                                  //                       containerColor: const [
-                                  //                         Colors.white,
-                                  //                         Colors.white
-                                  //                       ],
-                                  //                       details: Padding(
-                                  //                         padding:
-                                  //                             const EdgeInsets
-                                  //                                 .all(8.0),
-                                  //                         child: Column(
-                                  //                           crossAxisAlignment:
-                                  //                               CrossAxisAlignment
-                                  //                                   .start,
-                                  //                           children: [
-                                  //                             Obx(() =>
-                                  //                                 SizedBox(
-                                  //                                   width: 35.w,
-                                  //                                   child: Text(
-                                  //                                     "₹ ${leadController.totalLeadAmt.toString()}",
-                                  //                                     style: TextStyle(
-                                  //                                         fontSize: 17
-                                  //                                             .sp,
-                                  //                                         fontWeight:
-                                  //                                             FontWeight.bold),
-                                  //                                   ),
-                                  //                                 )),
-                                  //                             SizedBox(
-                                  //                               height: 1.h,
-                                  //                             ),
-                                  //                             Obx(() => Text(
-                                  //                                   "Lead count - ${leadController.filteredLeadList.length.toString()}",
-                                  //                                   style: TextStyle(
-                                  //                                       fontSize: 16
-                                  //                                           .sp,
-                                  //                                       fontWeight:
-                                  //                                           FontWeight.w600),
-                                  //                                 ))
-                                  //                           ],
-                                  //                         ),
-                                  //                       ),
-                                  //                     ),
-                                  //                   ),
-                                  //                   SizedBox(
-                                  //                     height: 1.h,
-                                  //                   ),
-                                  //                 ],
-                                  //               ),
-                                  //               Spacer(),
-                                  //               Column(
-                                  //                 children: [
-                                  //                   FadeInRight(
-                                  //                     delay: Duration(
-                                  //                         milliseconds: 400),
-                                  //                     duration: Duration(
-                                  //                         milliseconds: 800),
-                                  //                     child: GestureDetector(
-                                  //                       onTap: () {
-                                  //                         leadController
-                                  //                             .StatusfromPreSalesScreen
-                                  //                             .value = false;
-                                  //                         leadController
-                                  //                             .fromPreSalesScreen
-                                  //                             .value = false;
-                                  //                         Get.off(
-                                  //                             () =>
-                                  //                                 LeadManagementListScreen(
-                                  //                                   isFromHomeScreen:
-                                  //                                       true,
-                                  //                                 ),
-                                  //                             transition:
-                                  //                                 Transition
-                                  //                                     .fade,
-                                  //                             duration: Duration(
-                                  //                                 milliseconds:
-                                  //                                     600));
-                                  //                       },
-                                  //                       child: ContainerCustom(
-                                  //                         height: 10.5.h,
-                                  //                         width: 41.w,
-                                  //                         title: "All Leads",
-                                  //                         textColor:
-                                  //                             Colors.amber,
-                                  //                         containerColor: const [
-                                  //                           Colors.white,
-                                  //                           Colors.white
-                                  //                         ],
-                                  //                         details: Padding(
-                                  //                           padding:
-                                  //                               const EdgeInsets
-                                  //                                   .only(
-                                  //                                   left: 8.0,
-                                  //                                   right: 8),
-                                  //                           child: Column(
-                                  //                             mainAxisAlignment:
-                                  //                                 MainAxisAlignment
-                                  //                                     .spaceBetween,
-                                  //                             crossAxisAlignment:
-                                  //                                 CrossAxisAlignment
-                                  //                                     .start,
-                                  //                             children: [
-                                  //                               Obx(() => Text(
-                                  //                                     leadController
-                                  //                                         .totalLeadCount
-                                  //                                         .toString(),
-                                  //                                     style: TextStyle(
-                                  //                                         fontSize: 18
-                                  //                                             .sp,
-                                  //                                         fontWeight:
-                                  //                                             FontWeight.bold),
-                                  //                                   )),
-                                  //                             ],
-                                  //                           ),
-                                  //                         ),
-                                  //                       ),
-                                  //                     ),
-                                  //                   ),
-                                  //                   SizedBox(
-                                  //                     height: 1.h,
-                                  //                   ),
-                                  //                   FadeInRight(
-                                  //                     delay: Duration(
-                                  //                         milliseconds: 500),
-                                  //                     duration: Duration(
-                                  //                         milliseconds: 800),
-                                  //                     child: GestureDetector(
-                                  //                       onTap: () {
-                                  //                         leadController
-                                  //                             .StatusfromPreSalesScreen
-                                  //                             .value = true;
-                                  //                         Get.to(
-                                  //                             () =>
-                                  //                                 LeadManagementListScreen(
-                                  //                                   isFromHomeScreen:
-                                  //                                       true,
-                                  //                                 ),
-                                  //                             transition:
-                                  //                                 Transition
-                                  //                                     .fade,
-                                  //                             duration: Duration(
-                                  //                                 milliseconds:
-                                  //                                     600));
-                                  //                       },
-                                  //                       child: ContainerCustom(
-                                  //                         height: 10.5.h,
-                                  //                         width: 41.w,
-                                  //                         title: "New Leads",
-                                  //                         textColor:
-                                  //                             Colors.green,
-                                  //                         containerColor: const [
-                                  //                           Colors.white,
-                                  //                           Colors.white
-                                  //                         ],
-                                  //                         details: Padding(
-                                  //                           padding:
-                                  //                               const EdgeInsets
-                                  //                                   .only(
-                                  //                                   left: 8.0,
-                                  //                                   right: 8),
-                                  //                           child: Column(
-                                  //                             mainAxisAlignment:
-                                  //                                 MainAxisAlignment
-                                  //                                     .spaceBetween,
-                                  //                             crossAxisAlignment:
-                                  //                                 CrossAxisAlignment
-                                  //                                     .start,
-                                  //                             children: [
-                                  //                               Obx(() => Text(
-                                  //                                     leadController
-                                  //                                         .totalNewLeadsCount
-                                  //                                         .toString(),
-                                  //                                     style: TextStyle(
-                                  //                                         fontSize: 18
-                                  //                                             .sp,
-                                  //                                         fontWeight:
-                                  //                                             FontWeight.bold),
-                                  //                                   )),
-                                  //                             ],
-                                  //                           ),
-                                  //                         ),
-                                  //                       ),
-                                  //                     ),
-                                  //                   ),
-                                  //                 ],
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //           SizedBox(
-                                  //             height: 0.2.h,
-                                  //           ),
-                                  //           GestureDetector(
-                                  //             onTap: () {
-                                  //               missedFollowUpBottomSheet(
-                                  //                   context: context,
-                                  //                   controller: leadController);
-                                  //             },
-                                  //             child: FadeInLeft(
-                                  //               delay:
-                                  //                   Duration(milliseconds: 600),
-                                  //               duration:
-                                  //                   Duration(milliseconds: 800),
-                                  //               child: ContainerCustom(
-                                  //                 height: 10.h,
-                                  //                 width: double.infinity,
-                                  //                 title: "Missed Status",
-                                  //                 textColor: Colors.black,
-                                  //                 containerColor: const [
-                                  //                   Colors.white,
-                                  //                   Colors.white
-                                  //                 ],
-                                  //                 details: Padding(
-                                  //                   padding:
-                                  //                       const EdgeInsets.only(
-                                  //                           left: 8.0,
-                                  //                           right: 8),
-                                  //                   child: Row(
-                                  //                     children: [
-                                  //                       SizedBox(
-                                  //                         width: 35.w,
-                                  //                         child: Text(
-                                  //                           "Missed Follow Up",
-                                  //                           style: TextStyle(
-                                  //                               fontSize: 15.sp,
-                                  //                               fontWeight:
-                                  //                                   FontWeight
-                                  //                                       .w600,
-                                  //                               color: Colors
-                                  //                                   .amber
-                                  //                                   .shade900),
-                                  //                         ),
-                                  //                       ),
-                                  //                       Spacer(),
-                                  //                       Obx(() => Text(
-                                  //                             leadController
-                                  //                                 .missedFollowUpCount
-                                  //                                 .toString(),
-                                  //                             style: TextStyle(
-                                  //                                 fontSize:
-                                  //                                     20.sp,
-                                  //                                 fontWeight:
-                                  //                                     FontWeight
-                                  //                                         .bold,
-                                  //                                 color: Colors
-                                  //                                     .black),
-                                  //                           )),
-                                  //                       SizedBox(
-                                  //                         width: 2.h,
-                                  //                       )
-                                  //                     ],
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // )
                                 ],
                               ),
                             ),

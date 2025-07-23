@@ -77,6 +77,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               padding: const EdgeInsets.all(6.0),
               child: TaskTabContent(
                 controller: controller,
+                isFromClockIn: false,
               ),
             ),
             const Center(child: Text('Important')),
@@ -156,64 +157,44 @@ class TaskTabContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          isFromClockIn == true
-              ? const SizedBox()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 2.h,
-                        ),
-                        Text(
-                          'Today’s Task',
-                          style: TextStyle(
-                              fontSize: 17.sp, fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        const Text(
-                          'Wednesday, 11 May',
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0, left: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => AddTaskScreen(
+                          isEdit: false,
+                          Iscompleted: false,
+                        ));
+                    clearFunction(controller);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.blue.shade50,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3.w),
+                        side: BorderSide(
+                          color: Colors.blue.shade100,
+                        )),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(2.5.w),
+                    child: Text(
+                      'New Task',
+                      style:
+                          TextStyle(color: Colors.blue.shade800, fontSize: 16),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.to(() => AddTaskScreen(
-                              isEdit: false,
-                              Iscompleted: false,
-                            ));
-                        // If you want to clear the fields after navigating
-                        //
-                        clearFunction(controller);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Colors.blue.shade50,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3.w),
-                            side: BorderSide(
-                              color: Colors.blue.shade100,
-                            )),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'New Task',
-                          style: TextStyle(
-                              color: Colors.blue.shade800, fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-          isFromClockIn == true ? const SizedBox() : const SizedBox(height: 16),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.filter_list_rounded))
+              ],
+            ),
+          ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -223,31 +204,33 @@ class TaskTabContent extends StatelessWidget {
               // TaskFilterChip(label: 'Archived', count: 2),
             ],
           ),
-          const SizedBox(height: 16),
+           SizedBox(height: 3.w),
           Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: taskList.length,
               itemBuilder: (context, index) {
                 final task = taskList[index];
-                return Obx(
-                  () => TaskCard(
-                    title: task.title,
-                    subtitle: task.subtitle,
-                    time: task.time,
-                    completed: task.completed,
-                    isStarred: task.isStarred,
-                    assignedName: task.assignedName,
-                    tags: task.tags,
-                    tagColor: task.tagColor,
-                    isSelected: controller.selectedIndex.value == index,
-                    onSelect: () {
-                      if (isFromClockIn == true) {
-                        controller.selectedIndex.value = index;
-                      } else {}
-                    },
-                  ),
-                );
+                return Obx(() => TaskCard(
+                      title: task.title,
+                      subtitle: task.subtitle,
+                      isFromClockIn: isFromClockIn,
+                      time: task.time,
+                      completed: task.completed,
+                      isStarred: task.isStarred,
+                      assignedName: task.assignedName,
+                      tags: task.tags,
+                      tagColor: task.tagColor,
+                      isSelected: controller.selectedIndex.value == index,
+                      onSelect: () {
+                        if (isFromClockIn == true) {
+                          print("Selected Task: $isFromClockIn");
+                          controller.selectedIndex.value = index;
+                        } else {
+                          print("Selected Task 2: $isFromClockIn");
+                        }
+                      },
+                    ));
               },
             ),
           ),

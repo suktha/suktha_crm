@@ -14,6 +14,7 @@ class TaskCard extends StatefulWidget {
   bool completed;
   bool isStarred;
   bool? isSelected;
+  bool? isFromClockIn;
 
   VoidCallback? onSelect;
 
@@ -28,6 +29,7 @@ class TaskCard extends StatefulWidget {
       required this.tags,
       required this.tagColor,
       this.onSelect,
+      this.isFromClockIn,
       this.isSelected});
 
   @override
@@ -36,18 +38,29 @@ class TaskCard extends StatefulWidget {
 
 class _TaskCardState extends State<TaskCard> {
   @override
+  void initState() {
+    if (widget.isFromClockIn == false) {
+      widget.isSelected = false;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onSelect,
       child: Padding(
-        padding: const EdgeInsets.only(left: 2,right: 2),
+        padding: const EdgeInsets.only(left: 2, right: 2),
         child: Card(
-          color: widget.isSelected == true ? const Color.fromARGB(255, 245, 251, 255) : Colors.white,
+          color: widget.isSelected == true
+              ? const Color.fromARGB(255, 245, 251, 255)
+              : Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color:
-                    widget.isSelected == true ? Colors.blue : Colors.transparent,
+                color: widget.isSelected == true
+                    ? Colors.blue
+                    : Colors.transparent,
                 width: .5,
               )),
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -66,13 +79,14 @@ class _TaskCardState extends State<TaskCard> {
                           } else if (widget.completed == true) {
                             widget.completed = false;
                           }
-                          print("completedd---${widget.completed}");
+                          print("Completed---${widget.completed}");
                         });
                       },
                       child: Icon(
                         Icons.check_circle,
-                        color:
-                            widget.completed ? Colors.blue : Colors.grey.shade400,
+                        color: widget.completed
+                            ? Colors.blue
+                            : Colors.grey.shade400,
                       ),
                     ),
                     const SizedBox(
@@ -119,7 +133,8 @@ class _TaskCardState extends State<TaskCard> {
                     const Spacer(),
                     Text(
                       widget.assignedName,
-                      style:  TextStyle(color: Colors.grey.shade700, fontSize: 13),
+                      style:
+                          TextStyle(color: Colors.grey.shade700, fontSize: 13),
                     ),
                   ],
                 ),
@@ -143,7 +158,7 @@ class _TaskCardState extends State<TaskCard> {
                     // SizedBox(
                     //   width: 5.w,
                     // ),
-        
+
                     const Icon(
                       Icons.loop,
                       color: Colors.indigo,
