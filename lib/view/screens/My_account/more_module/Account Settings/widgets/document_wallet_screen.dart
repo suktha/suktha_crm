@@ -2,7 +2,6 @@
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -13,6 +12,7 @@ import 'package:work_Force/view/screens/My_account/more_module/Account%20Setting
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
+// ignore: must_be_immutable
 class DocumentWalletScreen extends StatelessWidget {
   final VoidCallback itemAddButton;
   String documentwallertId;
@@ -32,6 +32,7 @@ class DocumentWalletScreen extends StatelessWidget {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   // InAppWebViewController? _webViewController;
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -49,12 +50,18 @@ class DocumentWalletScreen extends StatelessWidget {
                   onTap: itemAddButton,
                   child: Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: kColorlightBlue),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kColorlightBlue),
                     child: Padding(
                       padding: const EdgeInsets.all(15),
                       child: Obx(() => Text(
                             "Upload Documents - (${controller.documentWalletList.length}/5)",
-                            style: TextStyle(fontSize: 15, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold, color: kColorwhite),
+                            style: TextStyle(
+                                fontSize: 15,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.bold,
+                                color: kColorwhite),
                             textAlign: TextAlign.center,
                           )),
                     ),
@@ -84,7 +91,9 @@ class DocumentWalletScreen extends StatelessWidget {
                               FadeIn(
                                 delay: const Duration(milliseconds: 300),
                                 duration: const Duration(milliseconds: 300),
-                                child: LottieBuilder.asset("assets/lottie/empty.json", height: 15.h),
+                                child: LottieBuilder.asset(
+                                    "assets/lottie/empty.json",
+                                    height: 15.h),
                               ),
                               SizedBox(
                                 height: 3.h,
@@ -94,7 +103,9 @@ class DocumentWalletScreen extends StatelessWidget {
                                 duration: const Duration(milliseconds: 500),
                                 child: Text(
                                   "Document List is Empty",
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15.sp),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.sp),
                                 ),
                               )
                             ],
@@ -107,7 +118,9 @@ class DocumentWalletScreen extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: controller.documentWalletList.length,
                             itemBuilder: (context, index) {
-                              documentwallertId = controller.documentWalletList[index].id.toString();
+                              documentwallertId = controller
+                                  .documentWalletList[index].id
+                                  .toString();
                               return SwipeActionCell(
                                 key: UniqueKey(),
                                 trailingActions: <SwipeAction>[
@@ -116,17 +129,27 @@ class DocumentWalletScreen extends StatelessWidget {
                                       backgroundRadius: 6.w,
                                       widthSpace: 20.w,
                                       title: "Delete",
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: kColorwhite),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: kColorwhite),
                                       onTap: (CompletionHandler handler) async {
                                         customDeleteAlertDialogue(
                                           context,
                                           () async {
-                                            List<String> payload = [controller.documentWalletList[index].name.toString()];
+                                            List<String> payload = [
+                                              controller
+                                                  .documentWalletList[index]
+                                                  .name
+                                                  .toString()
+                                            ];
 
                                             controller.deleteDocument(payload);
 
                                             Get.back();
-                                            customSnackbar("Delete", "Successfully Deleted", "error");
+                                            customSnackbar(
+                                                "Delete",
+                                                "Successfully Deleted",
+                                                "error");
                                           },
                                         );
                                       },
@@ -135,23 +158,34 @@ class DocumentWalletScreen extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     print("object");
-                                    print(controller.documentWalletList[index].fileURL!);
+                                    print(controller
+                                        .documentWalletList[index].fileURL!);
                                     Get.to(PDFScreen(
-                                      url: controller.documentWalletList[index].fileURL!,
+                                      url: controller
+                                          .documentWalletList[index].fileURL!,
                                     ));
                                   },
                                   child: Container(
-                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: Colors.grey.shade100),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.grey.shade100),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(height: 60, width: 40, child: Image.asset("assets/Images/pdf.png")),
+                                          SizedBox(
+                                              height: 60,
+                                              width: 40,
+                                              child: Image.asset(
+                                                  "assets/Images/pdf.png")),
                                           SizedBox(
                                               width: 70.w,
                                               child: Text(
-                                                controller.documentWalletList[index].name!,
+                                                controller
+                                                    .documentWalletList[index]
+                                                    .name!,
                                                 style: TextStyle(fontSize: 17),
                                               ))
                                         ],

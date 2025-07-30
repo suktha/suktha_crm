@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, avoid_print
+
 import 'package:animate_do/animate_do.dart';
 
 import 'package:flutter/material.dart';
@@ -1357,7 +1359,7 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
     controller.pincodeController.text = item.pinCode ?? "";
     controller.areaController.text = item.areaName ?? "";
 
-//   
+//
     if (item.cityId != null) {
       final citylist = await controller.getCityList("");
       final selectedCity = citylist.firstWhere(
@@ -1398,7 +1400,6 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
         item.email!.split(".com").first == "notnull@notnull"
             ? ""
             : item.email ?? "";
-    ;
 
     controller.websiteController.text = item.webSite ?? "";
     controller.contactPersonController.text = item.contactPersonName ?? "";

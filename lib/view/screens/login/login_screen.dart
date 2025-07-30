@@ -13,6 +13,8 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/controllers/Login_Controller.dart';
 import 'package:work_Force/controllers/subscribtion_controller.dart';
+import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';
+import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 import 'package:work_Force/view/screens/login/splash_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_loading_button.dart';
@@ -213,11 +215,11 @@ class _LoginPageState extends State<LoginPage> {
                                                   textColor: kColorwhite,
                                                   backgroundColor: kColorgrey,
                                                 );
-                                                // Get.to(RegisterScreen(),
-                                                //     duration: Duration(
-                                                //       milliseconds: 600,
-                                                //     ),
-                                                //     transition: Transition.rightToLeftWithFade);
+                                                Get.to(OnboardingScreen(),
+                                                    duration: Duration(
+                                                      milliseconds: 600,
+                                                    ),
+                                                    transition: Transition.rightToLeftWithFade);
                                               })
                                       ]),
                                     ),

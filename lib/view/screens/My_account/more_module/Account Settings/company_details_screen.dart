@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
-
-import 'dart:async';
 import 'dart:convert';
 import 'package:animate_do/animate_do.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';

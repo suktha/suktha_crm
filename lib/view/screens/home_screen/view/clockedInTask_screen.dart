@@ -186,7 +186,9 @@ class ClockedintaskScreen extends StatelessWidget {
                             // Close the ClockedInTaskScreen
                             customSnackbar(
                                 "Error", "Please select a task", "error");
-                          } else {}
+                          } else {
+                            
+                          }
                         } else {
                           customSnackbar(
                               "Error", "Please fill all fields", "error");
