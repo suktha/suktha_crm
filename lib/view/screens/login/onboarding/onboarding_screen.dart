@@ -1,7 +1,5 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
@@ -119,6 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       const SizedBox(height: 40),
+                      
                       Text(
                         onboardingData[index]['title']!,
                         style: const TextStyle(
@@ -173,7 +172,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.ease);
                           },
                           icon:  Icon(Icons.arrow_back_ios,
-                              color: Colors.grey,size: 16.sp,)):SizedBox(),
+                              color: Colors.grey,size: 16.sp,)):const SizedBox(),
                       const Spacer(),
                       SizedBox(
                         width: 30.w,
@@ -202,3 +201,201 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 }
+
+
+
+// class OnboardingScreen extends StatefulWidget {
+//   const OnboardingScreen({super.key});
+
+//   @override
+//   State<OnboardingScreen> createState() => _OnboardingScreenState();
+// }
+
+// class _OnboardingScreenState extends State<OnboardingScreen> {
+//   final PageController controller = PageController();
+//   int currentPage = 0;
+
+//   final List<Map<String, String>> onboardingData = [
+//     {
+//       "lottie": "assets/lottie/onboard_team.json",
+//       "title": "Welcome to Work Force",
+//       "subtitle":
+//           "Effortlessly manage your leads and teams in one place. Simplify daily operations with smart tools. Track every detail without the chaos. Get more done with less effort."
+//     },
+//     {
+//       "lottie": "assets/lottie/onboard_workflow.json",
+//       "title": "Organize Workflows",
+//       "subtitle":
+//           "Streamline your team's workflow with intuitive task management. Assign, update, and track tasks in real time. Stay focused and organized as your business scales. No task slips through the cracks."
+//     },
+//     {
+//       "lottie": "assets/lottie/onboard_graph.json",
+//       "title": "Smart Analytics",
+//       "subtitle":
+//           "Gain instant insights into your team's performance. Use data-driven dashboards to make better decisions. Spot trends, evaluate progress, and grow smarter. Track the real-time location of your field staff effortlessly.",
+//     },
+//   ];
+
+//   void nextPage() {
+//     if (currentPage < onboardingData.length - 1) {
+//       controller.nextPage(
+//           duration: const Duration(milliseconds: 300), curve: Curves.ease);
+//     } else {
+//       Get.to(RegistrationScreen(),
+//           duration: const Duration(milliseconds: 600),
+//           transition: Transition.rightToLeftWithFade);
+//     }
+//   }
+
+//   Widget buildIndicator(bool isActive) {
+//     return AnimatedContainer(
+//       duration: const Duration(milliseconds: 300),
+//       margin: const EdgeInsets.symmetric(horizontal: 4),
+//       width: isActive ? 11 : 8,
+//       height: isActive ? 11 : 8,
+//       decoration: BoxDecoration(
+//         color: isActive ? kColorlightBlue : Colors.grey.shade300,
+//         borderRadius: BorderRadius.circular(3.w),
+//       ),
+//     );
+//   }
+
+//   @override
+//  @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     body: Stack(
+//       children: [
+//         /// Fullscreen Lottie Background
+//         PageView.builder(
+//           controller: controller,
+//           itemCount: onboardingData.length,
+//           onPageChanged: (index) => setState(() => currentPage = index),
+//           itemBuilder: (_, index) {
+//             return Lottie.asset(
+//               onboardingData[index]['lottie']!,
+//               width: double.infinity,
+//               height: double.infinity,
+//               fit: BoxFit.cover,
+//             );
+//           },
+//         ),
+
+//         /// Overlay content (texts + buttons)
+//         Column(
+//           children: [
+//             SizedBox(height: 3.h),
+//             Padding(
+//               padding: EdgeInsets.symmetric(horizontal: 5.w),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     onboardingData[currentPage]['title']!,
+//                     style: TextStyle(
+//                       fontSize: 22.sp,
+//                       color: kColorlightBlue,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   SizedBox(height: 2.h),
+//                   Text(
+//                     onboardingData[currentPage]['subtitle']!,
+//                     style: TextStyle(
+//                       fontSize: 15.sp,
+//                       color: Colors.blue,
+//                     ),
+//                     textAlign: TextAlign.left,
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             const Spacer(),
+
+//             /// Page Indicator
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: List.generate(
+//                 onboardingData.length,
+//                 (index) => buildIndicator(currentPage == index),
+//               ),
+//             ),
+
+//             SizedBox(height: 2.h),
+
+//             /// Bottom Button Section
+//             Padding(
+//               padding: EdgeInsets.symmetric(horizontal: 5.w),
+//               child: currentPage == onboardingData.length - 1
+//                   ? ElevatedButton(
+//                       onPressed: nextPage,
+//                       style: ElevatedButton.styleFrom(
+//                         backgroundColor: kColorlightBlue,
+//                         padding: EdgeInsets.symmetric(vertical: 1.5.h),
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(3.w),
+//                         ),
+//                       ),
+//                       child: const Center(
+//                         child: Text(
+//                           "Get Started",
+//                           style: TextStyle(fontSize: 16),
+//                         ),
+//                       ),
+//                     )
+//                   : Row(
+//                       children: [
+//                         currentPage > 0
+//                             ? IconButton(
+//                               style: ElevatedButton.styleFrom(
+//                                   backgroundColor: Colors.black,
+//                                   shape: RoundedRectangleBorder(
+//                                     borderRadius: BorderRadius.circular(5.w),
+//                                     side: BorderSide(
+//                                       color: kColorlightBlue,
+//                                       width: 1,
+//                                     ),
+//                                   ),
+//                                   elevation: 0,
+//                                 ),
+
+//                                 onPressed: () {
+//                                   controller.previousPage(
+//                                     duration: const Duration(milliseconds: 300),
+//                                     curve: Curves.ease,
+//                                   );
+//                                 },
+//                                 icon: Icon(
+//                                   Icons.arrow_back_ios,
+//                                   color: Colors.black,
+//                                   size: 16.sp,
+//                                 ),
+//                               )
+//                             : const SizedBox(),
+//                         const Spacer(),
+//                         SizedBox(
+//                           width: 30.w,
+//                           child: ElevatedButton(
+//                             onPressed: nextPage,
+//                             style: ElevatedButton.styleFrom(
+//                               backgroundColor: kColorlightBlue,
+//                               padding: EdgeInsets.symmetric(vertical: 1.5.h),
+//                               shape: RoundedRectangleBorder(
+//                                 borderRadius: BorderRadius.circular(5.w),
+//                               ),
+//                             ),
+//                             child: const Text("Next"),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//             ),
+//             SizedBox(height: 4.h),
+//           ],
+//         ),
+//       ],
+//     ),
+//   );
+// }
+
+// }
