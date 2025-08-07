@@ -14,6 +14,7 @@ import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/controllers/Login_Controller.dart';
 import 'package:work_Force/controllers/subscribtion_controller.dart';
 import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';
+import 'package:work_Force/view/screens/login/registration/registration_onboard.dart';
 import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 import 'package:work_Force/view/screens/login/splash_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
@@ -205,17 +206,17 @@ class _LoginPageState extends State<LoginPage> {
                                                 color: Colors.blue),
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                Fluttertoast.showToast(
-                                                  msg:
-                                                      "This feature is in Progress",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.BOTTOM,
-                                                  timeInSecForIosWeb: 1,
-                                                  textColor: kColorwhite,
-                                                  backgroundColor: kColorgrey,
-                                                );
-                                                Get.to(OnboardingScreen(),
+                                                // Fluttertoast.showToast(
+                                                //   msg:
+                                                //       "This feature is in Progress",
+                                                //   toastLength:
+                                                //       Toast.LENGTH_SHORT,
+                                                //   gravity: ToastGravity.BOTTOM,
+                                                //   timeInSecForIosWeb: 1,
+                                                //   textColor: kColorwhite,
+                                                //   backgroundColor: kColorgrey,
+                                                // );
+                                                Get.to(RegistrationOnboard(),
                                                     duration: Duration(
                                                       milliseconds: 600,
                                                     ),

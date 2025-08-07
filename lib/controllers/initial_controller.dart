@@ -12,6 +12,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 import '../../../../Model/login_model.dart' as loginModel;
 
@@ -82,7 +83,7 @@ class InitialController extends GetxController {
     prefs.setBool("onboardKey", true);
 
     Future.delayed(const Duration(seconds: 2), () {
-      Get.offAll(() => const LoginPage(),
+      Get.offAll(() => const OnboardingScreen(),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 700));
     });

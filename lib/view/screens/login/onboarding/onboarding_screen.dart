@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/view/screens/login/login_screen.dart';
 import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       controller.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     } else {
-      Get.to(RegistrationScreen(),
+      Get.to(const LoginPage(),
           duration: const Duration(milliseconds: 600),
           transition: Transition.rightToLeftWithFade);
     }

@@ -149,22 +149,22 @@ class buildTextField extends StatelessWidget {
           labelText: label,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey.shade300, width: 1.0), // Default border
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(3.w),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue.shade300, width: 1.0), // Border when focused
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(3.w),
           ),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red, width: 1.0), // Border on validation error
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(3.w),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange, width: 1.0), // Focused error border
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(3.w),
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(3.w),
           ),
         ),
         validator: (value) {
