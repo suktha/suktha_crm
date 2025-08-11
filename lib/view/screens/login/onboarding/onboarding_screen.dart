@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
-import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

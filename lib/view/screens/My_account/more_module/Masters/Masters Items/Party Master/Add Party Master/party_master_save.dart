@@ -292,7 +292,7 @@ class _SavePartyMasterScreenState extends State<SavePartyMasterScreen> {
                                   currentBuyingPrice:
                                       materialPriceValue!.buyingPrice,
                                   currentSellingPrice:
-                                      materialPriceValue!.price ?? null,
+                                      materialPriceValue!.price,
                                   discountPercentage:
                                       materialPriceValue!.discountPercentage,
                                   id: null,

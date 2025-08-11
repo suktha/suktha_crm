@@ -13,13 +13,13 @@ class CustomAnimatedButton extends StatelessWidget {
   final RoundedLoadingButtonController controller;
 
   const CustomAnimatedButton({
-    Key? key,
+    super.key,
     required this.name,
     required this.ontap,
     required this.controller,
     required this.width,
     required this.height,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class CustomAnimatedButton extends StatelessWidget {
         animateOnTap: false,
         color: Colors.lightBlue,
         elevation: 10,
-        successColor: Color.fromARGB(255, 46, 209, 52),
+        successColor: const Color.fromARGB(255, 46, 209, 52),
         errorColor: Colors.red,
         failedIcon: Icons.sentiment_dissatisfied,
         controller: controller,

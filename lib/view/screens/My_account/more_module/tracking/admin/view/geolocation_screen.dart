@@ -566,7 +566,7 @@ class _UserLocationScreenState extends State<UserLocationScreen> {
   Future<Uint8List> createMarkerFromText(String text) async {
     final ui.PictureRecorder recorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(recorder);
-    final double size = 100.0;
+    const double size = 100.0;
 
     final Paint paint = Paint()..color = Colors.blueAccent;
     final Radius radius = Radius.circular(size / 2);

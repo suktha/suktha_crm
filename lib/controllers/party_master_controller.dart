@@ -526,7 +526,7 @@ class PartyMasterController extends GetxController {
 
   String getPlanStatus(
       {required DateTime startDate, required DateTime endDate}) {
-    if (startDate == null || endDate == null) return "Unknown";
+    if (endDate == null) return "Unknown";
 
     DateTime currentDate = DateTime.now();
 
@@ -735,7 +735,7 @@ class PartyMasterController extends GetxController {
 
     Dio dio = Dio();
 
-    var apiData = baseUrl + PurchaseOrderUrl + "/$id";
+    var apiData = "$baseUrl$PurchaseOrderUrl/$id";
 
     try {
       final response = await dio.get(apiData,
@@ -793,7 +793,7 @@ class PartyMasterController extends GetxController {
 
     Dio dio = Dio();
 
-    var apiData = baseUrl + invoiceUrl + "/$id";
+    var apiData = "$baseUrl$invoiceUrl/$id";
 
     print("apidata =========== $apiData");
 

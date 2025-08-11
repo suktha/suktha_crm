@@ -19,7 +19,7 @@ class CustomContactList extends StatefulWidget {
 
   final bool isEdit;
 
-  CustomContactList({
+  const CustomContactList({
     super.key,
     required this.controller,
     required this.isEdit,
@@ -172,7 +172,7 @@ class _CustomContactListState extends State<CustomContactList> {
                                             Obx(
                                               () => Padding(
                                                 padding: const EdgeInsets.only(left: 5.0, right: 5),
-                                                child: Container(
+                                                child: SizedBox(
                                                     // margin: EdgeInsets.all(2.w),
                                                     height: 7.h,
                                                     // width: 30.w,
@@ -213,7 +213,7 @@ class _CustomContactListState extends State<CustomContactList> {
                                             Obx(
                                               () => Padding(
                                                 padding: const EdgeInsets.only(left: 5.0, right: 5),
-                                                child: Container(
+                                                child: SizedBox(
                                                     // width: 30.w,
                                                     height: 7.h,
                                                     child: DropdownButton(
@@ -231,7 +231,7 @@ class _CustomContactListState extends State<CustomContactList> {
                                                         ),
                                                         ...widget.controller.designationList.map((item) => DropdownMenuItem<String>(
                                                               value: item.id.toString(),
-                                                              child: Text("${item.designationName}"),
+                                                              child: Text(item.designationName),
                                                             )),
                                                       ],
                                                       onChanged: (newValue) {

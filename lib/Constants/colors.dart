@@ -19,7 +19,7 @@ final Color kColorgreyShade400 = Colors.grey.shade400;
 final Color kColorgreyShade300 = Colors.grey.shade300;
 
 final Color kColorRed = Colors.red;
-final Color kColorLightGrey = Color(0xFFF7F7F7);
+const Color kColorLightGrey = Color(0xFFF7F7F7);
 
 //appbar Light blue color
-final Color kColorLightBlueAppBar = Color.fromARGB(255, 220, 246, 255);
+const Color kColorLightBlueAppBar = Color.fromARGB(255, 220, 246, 255);

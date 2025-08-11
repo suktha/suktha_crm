@@ -38,9 +38,9 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
 
   var numberField;
   List<String> phoneNumbers = [];
-  Set<String> nameList = Set();
-  Set<String> designationList = Set();
-  Set<String> companyNameList = Set();
+  Set<String> nameList = {};
+  Set<String> designationList = {};
+  Set<String> companyNameList = {};
   // List to store phone numbers
 
   @override
@@ -73,7 +73,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
   Future<String> _cropImage(File imageFile) async {
     var croppedImgae = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 85, ratioY: 54), // Credit card aspect ratio
+        aspectRatio: const CropAspectRatio(ratioX: 85, ratioY: 54), // Credit card aspect ratio
         compressQuality: 100,
         uiSettings: [
           AndroidUiSettings(
@@ -121,7 +121,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
         for (TextLine line in block.lines) {
           categorizeAndAssignFields(line.text, block.text);
 
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             controller.isExtractionCompleted.value = true;
           });
         }
@@ -146,7 +146,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
     RegExp companyName = RegExp(r'\b(?:limited|private|ltd|pvt)\b', caseSensitive: false);
 
     if (numberRegex.hasMatch(textLine)) {
-      print("number - " + textLine);
+      print("number - $textLine");
       // Iterable<RegExpMatch> matches = numberRegex.allMatches(textLine);
       // List<String> numbers = matches.map((match) => match.group(0)!).toList();
 
@@ -166,20 +166,20 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
     } else if (nameRegex.hasMatch(textLine)) {
       Iterable<RegExpMatch> matches = nameRegex.allMatches(textLine);
       Set<String> name = matches.map((match) => match.group(0)!).toSet();
-      print("name -" + name.toString());
+      print("name -$name");
 
       nameList.addAll(name);
     } else if (designationRegex.hasMatch(textLine)) {
       Iterable<RegExpMatch> matches = designationRegex.allMatches(textLine);
       Set<String> designation = matches.map((match) => match.group(0)!).toSet();
 
-      print("designation -" + designation.toString());
+      print("designation -$designation");
       designationList.addAll(designation);
     } else if (companyName.hasMatch(textLine)) {
       // Iterable<RegExpMatch> matches = companyName.allMatches(textLine);
       // Set<String> comapanyname = matches.map((match) => match.group(0)!).toSet();
 
-      print("company -" + textLine.toString());
+      print("company -$textLine");
 
       controller.companyNameController.text = textLine;
       // companyNameList.addAll(textLine);
@@ -201,20 +201,20 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                 size: 25.sp,
               ),
               onPressed: (() {
-                Get.to(() => PreSaleScreen(), transition: Transition.fade, duration: Duration(milliseconds: 600));
+                Get.to(() => const PreSaleScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
                 controller.isExtractionCompleted.value = false;
                 controller.isStartExtractingText.value = false;
               }),
             )),
         body: Obx(() {
-          return AnimatedSwitcher(duration: Duration(milliseconds: 600), child: bodyWidget());
+          return AnimatedSwitcher(duration: const Duration(milliseconds: 600), child: bodyWidget());
         }));
   }
 
   Widget bodyWidget() {
     if (controller.isStartExtractingText.value) {
       return AnimatedSwitcher(
-        duration: Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 600),
         child: controller.isExtractionCompleted.value == false
             ? Container(
                 child: Column(
@@ -222,7 +222,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                   Lottie.asset(
                     scanTextLottie,
                   ),
-                  Text("Extracting Details From Image")
+                  const Text("Extracting Details From Image")
                 ],
               ))
             : Padding(
@@ -235,10 +235,10 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                     ),
                     Expanded(
                       child: ListView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           FadeIn(
-                            duration: Duration(milliseconds: 300),
+                            duration: const Duration(milliseconds: 300),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -249,7 +249,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       builder: (context) {
                                         return AlertDialog(
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-                                          title: Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                          title: const Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                                           content: SizedBox(
                                             width: 100.w,
                                             child: Row(
@@ -327,7 +327,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                             height: 3.h,
                           ),
                           FadeIn(
-                            duration: Duration(milliseconds: 400),
+                            duration: const Duration(milliseconds: 400),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -340,7 +340,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       builder: (context) {
                                         return AlertDialog(
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-                                          title: Text('Extracted Text', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                          title: const Text('Extracted Text', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                                           content: SizedBox(
                                             // height: 20.h,
                                             width: 100.w,
@@ -348,7 +348,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                               maxLines: null,
                                               controller: controller.extractedTextController,
                                               decoration: InputDecoration(
-                                                  label: Text("Select Text"),
+                                                  label: const Text("Select Text"),
                                                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(3.w))),
                                             ),
                                           ),
@@ -365,11 +365,11 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                    Text("Copy All Text"),
+                                                    const Text("Copy All Text"),
                                                     SizedBox(
                                                       width: 2.w,
                                                     ),
-                                                    Icon(Icons.copy)
+                                                    const Icon(Icons.copy)
                                                   ],
                                                 ))
                                           ],
@@ -405,7 +405,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       builder: (context) {
                                         return AlertDialog(
                                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-                                          title: Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                          title: const Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                                           content: SizedBox(
                                             width: 100.w,
                                             child: Row(
@@ -530,7 +530,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                 //   ),
                                 // ),
                                 FadeIn(
-                                  duration: Duration(milliseconds: 700),
+                                  duration: const Duration(milliseconds: 700),
                                   child: CustomTextField(
                                       validator: (value) {
                                         return null;
@@ -541,7 +541,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       label: "Company Name"),
                                 ),
                                 FadeIn(
-                                  duration: Duration(milliseconds: 800),
+                                  duration: const Duration(milliseconds: 800),
                                   child: CustomTextField(
                                       validator: (value) {
                                         return null;
@@ -553,7 +553,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       label: "Address"),
                                 ),
                                 FadeIn(
-                                  duration: Duration(milliseconds: 900),
+                                  duration: const Duration(milliseconds: 900),
                                   child: CustomTextField(
                                       validator: (value) {
                                         return null;
@@ -564,7 +564,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       label: "Contact Number"),
                                 ),
                                 FadeIn(
-                                  duration: Duration(milliseconds: 1000),
+                                  duration: const Duration(milliseconds: 1000),
                                   child: CustomTextField(
                                       validator: (value) {
                                         return null;
@@ -575,7 +575,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                                       label: "Email"),
                                 ),
                                 FadeIn(
-                                  duration: Duration(milliseconds: 1100),
+                                  duration: const Duration(milliseconds: 1100),
                                   child: CustomTextField(
                                       validator: (value) {
                                         return null;
@@ -608,7 +608,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
       );
     }
     return FadeIn(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 2.w),
         child: Column(
@@ -630,7 +630,7 @@ class _CardScannerScreenState extends State<CardScannerScreen> {
                   builder: (context) {
                     return AlertDialog(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.w))),
-                      title: Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      title: const Text('Upload the Card!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       content: SizedBox(
                         width: 100.w,
                         child: Row(

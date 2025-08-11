@@ -73,27 +73,27 @@ class InvoiceTermsModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{};
-    json["paymentDueDate"] = this.paymentDueDate;
-    json["termsAndCondition"] = this.termsAndCondition;
-    json["eWayBill"] = this.eWayBill;
-    json["modeOfDispatch"] = this.modeOfDispatch;
-    json["vehicleNumber"] = this.vehicleNumber;
-    json["numberOfPackages"] = this.numberOfPackages;
-    json["documentThrough"] = this.documentThrough;
-    json["billToAddress"] = this.billToAddress;
-    json["shipToAddressLine1"] = this.shipToAddressLine1;
-    json["shipToAddressLine2"] = this.shipToAddressLine2;
-    json["shippingPincode"] = this.shippingPincode;
-    json["shippingGstin"] = this.shippingGstin;
-    json["shippingLocationId"] = this.shippingLocationId;
-    json["shippingStateId"] = this.shippingStateId;
-    json["finalDestination"] = this.finalDestination;
-    json["flightNum"] = this.flightNum;
-    json["preCarrier"] = this.preCarrier;
-    json["portOfLoading"] = this.portOfLoading;
-    json["portOfDischarge"] = this.portOfDischarge;
-    json["countryOfOriginOfGoods"] = this.countryOfOriginOfGoods;
-    json["countryOfFinalDestination"] = this.countryOfFinalDestination;
+    json["paymentDueDate"] = paymentDueDate;
+    json["termsAndCondition"] = termsAndCondition;
+    json["eWayBill"] = eWayBill;
+    json["modeOfDispatch"] = modeOfDispatch;
+    json["vehicleNumber"] = vehicleNumber;
+    json["numberOfPackages"] = numberOfPackages;
+    json["documentThrough"] = documentThrough;
+    json["billToAddress"] = billToAddress;
+    json["shipToAddressLine1"] = shipToAddressLine1;
+    json["shipToAddressLine2"] = shipToAddressLine2;
+    json["shippingPincode"] = shippingPincode;
+    json["shippingGstin"] = shippingGstin;
+    json["shippingLocationId"] = shippingLocationId;
+    json["shippingStateId"] = shippingStateId;
+    json["finalDestination"] = finalDestination;
+    json["flightNum"] = flightNum;
+    json["preCarrier"] = preCarrier;
+    json["portOfLoading"] = portOfLoading;
+    json["portOfDischarge"] = portOfDischarge;
+    json["countryOfOriginOfGoods"] = countryOfOriginOfGoods;
+    json["countryOfFinalDestination"] = countryOfFinalDestination;
     return json;
   }
 }

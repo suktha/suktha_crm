@@ -6,6 +6,12 @@ class RegistrationController extends GetxController {
   final companyNameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
+  final gstTypeController = TextEditingController();
+  final gstNumberController = TextEditingController();
+  final addressController = TextEditingController();
+  final cityController = TextEditingController();
+  final stateController = TextEditingController();
+  final nameController = TextEditingController();
 
   void goToNextScreen() {
     // if (companyNameController.text.isEmpty ||

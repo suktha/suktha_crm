@@ -17,7 +17,7 @@ import 'package:work_Force/view/widget/shimmer_loading.dart';
 import '../Add Party Master/party_master_add.dart';
 
 class PartyMasterScreen extends StatefulWidget {
-  PartyMasterScreen({
+  const PartyMasterScreen({
     super.key,
   });
 
@@ -209,7 +209,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                 ),
                 Obx(
                   () => controller.loading.value == false
-                      ? HomeLoading()
+                      ? const HomeLoading()
                       : controller.partyMasterList.isEmpty
                           ? Expanded(
                               child: Column(
@@ -921,7 +921,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
   }
 
   void scrollUp() {
-    final double start = 0;
+    const double start = 0;
     scrollcontroller.animateTo(start,
         duration: const Duration(seconds: 1), curve: Curves.easeIn);
   }

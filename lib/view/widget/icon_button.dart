@@ -5,11 +5,11 @@ import 'package:work_Force/Constants/colors.dart';
 
 class customIconButton extends StatelessWidget {
   customIconButton({
-    Key? key,
+    super.key,
     this.bgcolor,
     required this.ontap,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final VoidCallback ontap;
   Color? bgcolor;

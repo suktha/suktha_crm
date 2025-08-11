@@ -93,7 +93,7 @@ class GetPartyMasterController extends GetxController {
 
         Map<String, dynamic> data = response.data;
 
-        print("data-------${data}");
+        print("data-------$data");
 
         GetPartyMasterModel partyValue = GetPartyMasterModel.fromJson(data);
 

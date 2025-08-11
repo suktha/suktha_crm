@@ -88,7 +88,7 @@ class HomeController extends GetxController {
     } else {
       print("No roles assigned to the user.");
     }
-    print("isAdmin: ${isLoginIdIsAdmin}");
+    print("isAdmin: $isLoginIdIsAdmin");
 
     print("username ------------- ${username.value}");
   }

@@ -22,7 +22,7 @@ void DeleteAccountBottomSheet(BuildContext context, Widget reasons) {
                     ' Delete Account',
                     style: TextStyle(fontSize: 25, overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold, color: kColorblack),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   GestureDetector(
                       onTap: () {
                         Get.back();
@@ -39,13 +39,13 @@ void DeleteAccountBottomSheet(BuildContext context, Widget reasons) {
                   // IconButton(onPressed: () {}, icon: )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
                   width: 90.w,
                   child: Text(
-                    "We\'re really sorry to see you go.Are you sure you, want to delete your account? Once you confirm,your data will gone.",
+                    "We're really sorry to see you go.Are you sure you, want to delete your account? Once you confirm,your data will gone.",
                     style: TextStyle(color: Colors.grey.shade500, fontSize: 18),
                   )),
               Expanded(child: reasons)

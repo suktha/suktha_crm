@@ -39,6 +39,7 @@ class CheckInOutController extends GetxController {
     super.onClose();
   }
 
+  @override
   void onInit() {
     super.onInit();
     getDesignationList();

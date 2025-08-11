@@ -16,12 +16,12 @@ class TaxesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['rate'] = this.rate;
-    data['deleted'] = this.deleted;
-    data['taxTypeId'] = this.taxTypeId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['rate'] = rate;
+    data['deleted'] = deleted;
+    data['taxTypeId'] = taxTypeId;
     return data;
   }
 }

@@ -106,7 +106,7 @@ class UserProfileController extends GetxController {
 
     prefixList.addAll(itemList);
     prefixList.refresh();
-    print("prefixList------------${prefixList}");
+    print("prefixList------------$prefixList");
   }
 
   getGenderList() {
@@ -117,7 +117,7 @@ class UserProfileController extends GetxController {
 
     genderList.addAll(itemList);
     genderList.refresh();
-    print("genderList------------${genderList}");
+    print("genderList------------$genderList");
   }
 
   getEmployeeTypeList() {
@@ -129,7 +129,7 @@ class UserProfileController extends GetxController {
 
     employeeTypeList.addAll(itemList);
     employeeTypeList.refresh();
-    print("employeeTypeList------------${employeeTypeList}");
+    print("employeeTypeList------------$employeeTypeList");
   }
 
   RxList names = [].obs;
@@ -150,7 +150,7 @@ class UserProfileController extends GetxController {
   String datePareser(String date) {
     String isoDate = date;
 
-    print("incoming date" + date);
+    print("incoming date$date");
 
     // Parse the date
     DateTime parsedDate = DateTime.parse(isoDate);
@@ -183,6 +183,7 @@ class UserProfileController extends GetxController {
     }
   }
 
+  @override
   void onInit() {
     getUserRoleList("");
     getprefixList();
@@ -245,7 +246,7 @@ class UserProfileController extends GetxController {
       print(UserProfileList[0].name);
       print(UserProfileList.length);
       UserProfileList.refresh();
-      print("createdby------- ----${UserProfileList}");
+      print("createdby------- ----$UserProfileList");
 
       // customSnackbar("Success", "User profile Saved Successfully", "success");
     } catch (e) {
@@ -529,7 +530,7 @@ class UserProfileController extends GetxController {
   }
 
   updateUserProfile(UserModel item) async {
-    print("stateeeeee------" + stateId.value);
+    print("stateeeeee------${stateId.value}");
 
     int? tryParseInt(String? value) {
       if (value == null || value.isEmpty) {

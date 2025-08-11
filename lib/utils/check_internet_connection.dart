@@ -19,7 +19,7 @@ class ConnectivityService {
     if (results.contains(ConnectivityResult.mobile) || results.contains(ConnectivityResult.wifi)) {
       print("Connected");
     } else {
-      Get.to(NoInternetConnectionScreen());
+      Get.to(const NoInternetConnectionScreen());
     }
   }
 
@@ -35,7 +35,7 @@ class ConnectivityService {
       isInternet = true;
     } else {
       isInternet = false;
-      Get.to(NoInternetConnectionScreen());
+      Get.to(const NoInternetConnectionScreen());
     }
     return isInternet;
   }
@@ -92,7 +92,7 @@ class _NoInternetConnectionScreenState extends State<NoInternetConnectionScreen>
       },
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/Images/NoInternetBakcground.jpeg"), fit: BoxFit.cover)),
+          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/Images/NoInternetBakcground.jpeg"), fit: BoxFit.cover)),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

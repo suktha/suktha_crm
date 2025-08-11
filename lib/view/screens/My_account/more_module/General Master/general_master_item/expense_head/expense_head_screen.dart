@@ -14,7 +14,7 @@ import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 class ExpenseHeadScreen extends StatefulWidget {
-  ExpenseHeadScreen({super.key});
+  const ExpenseHeadScreen({super.key});
 
   @override
   State<ExpenseHeadScreen> createState() => _ExpenseHeadScreenState();

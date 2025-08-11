@@ -53,7 +53,7 @@ class LocationServices with WidgetsBindingObserver {
 
   // Method to initiate location fetching for foreground
   void _initForegroundLocationFetch() {
-    _timer = Timer.periodic(Duration(minutes: 1), (timer) async {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) async {
       _fetchAndSendLocation();
     });
   }
@@ -74,7 +74,7 @@ class LocationServices with WidgetsBindingObserver {
       Position position = await Geolocator.getCurrentPosition();
       _currentPosition = position;
 
-      print("--location-- fetch and send location --" + _currentPosition!.latitude.toString());
+      print("--location-- fetch and send location --${_currentPosition!.latitude}");
 
       // _sendLocationToController(position);
     } catch (e) {

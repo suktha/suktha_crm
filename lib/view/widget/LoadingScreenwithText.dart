@@ -160,7 +160,7 @@ class _loadingScreenWithTextState extends State<loadingScreenWithText> {
                           SizedBox(
                             width: width * 0.6,
                             child: Text(
-                              "Please Wait its Loading" + ("." * dotsCount),
+                              "Please Wait its Loading${"." * dotsCount}",
                               style: TextStyle(fontSize: textScaleFactor * 20, fontFamily: FontStyle.normal.name, color: kColorblack, decoration: TextDecoration.none),
                             ),
                           ),

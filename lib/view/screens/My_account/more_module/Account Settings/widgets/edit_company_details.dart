@@ -11,7 +11,7 @@ import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 
 CompanyDetailsBottomSheet(BuildContext context, CompanyModel companyDetails, SettingsController controller) {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   showModalBottomSheet(
     context: context,
@@ -25,7 +25,7 @@ CompanyDetailsBottomSheet(BuildContext context, CompanyModel companyDetails, Set
           child: Padding(
             padding: EdgeInsets.only(top: 6.h, left: 3.w, right: 3.w, bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -433,7 +433,7 @@ CompanyDetailsBottomSheet(BuildContext context, CompanyModel companyDetails, Set
                           ),
                           GestureDetector(
                             onTap: () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()) {
                                 final value = CompanyModel(
                                     address: controller.addressController.text,
                                     addressesListDTO: [],

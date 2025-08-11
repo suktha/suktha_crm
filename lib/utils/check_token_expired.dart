@@ -20,7 +20,7 @@ checkTokenExpired(int? statusCode) async {
 
     prefs.setBool("onboardKey", true);
 
-    Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+    Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
 
     // customSnackbar("Session TimeOut", "Please Login Again", "error");
   }

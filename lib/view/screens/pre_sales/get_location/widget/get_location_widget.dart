@@ -81,7 +81,7 @@ class _LocationWidgetState extends State<LocationWidget> {
             children: [
               Expanded(
                 flex: 7,
-                child: Container(
+                child: SizedBox(
                   height: 5.4.h,
                   child: TextField(
                     controller: locationController.searchController,
@@ -132,7 +132,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                 elevation: 5, // Adjust the shadow intensity as needed
               ).copyWith(
                 elevation: ButtonStyleButton.allOrNull(5.0), // Box shadow
-                shadowColor: MaterialStateProperty.all(Colors.grey.withOpacity(0.5)), // Color of the shadow
+                shadowColor: WidgetStateProperty.all(Colors.grey.withOpacity(0.5)), // Color of the shadow
               ),
               onPressed: () async {
                 print("index---${widget.index}");

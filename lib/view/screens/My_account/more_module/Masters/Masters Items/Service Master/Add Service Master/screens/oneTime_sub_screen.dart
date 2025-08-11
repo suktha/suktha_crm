@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/UOM_model.dart';
-import 'package:work_Force/Model/material_models.dart';
 import 'package:work_Force/Model/serviceStatusModel.dart';
 import 'package:work_Force/Model/service_category_model.dart';
 import 'package:work_Force/Model/service_execution_model.dart';
@@ -75,6 +74,12 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
               titleController: controller.nameController,
               label: "Service Name",
               isRequired: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Service Name is required";
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 8.0),
             buildTextField(
@@ -82,6 +87,10 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
               label: "SAC",
               keyboardType: TextInputType.number,
               isRequired: false,
+              validator: (value) {
+                
+                return null;
+              },
             ),
             if (widget.selectOption == "One Time") const SizedBox(height: 8.0),
             // Field 2
@@ -495,6 +504,9 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 titleController: controller.commissionController,
                 label: "Commission",
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  return null;
+                },
                 isRequired: false,
               ),
             if (widget.selectOption == "One Time") const SizedBox(height: 8.0),
@@ -504,6 +516,9 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 label: "Service Charge",
                 keyboardType: TextInputType.number,
                 isRequired: false,
+                  validator: (value) {
+                  return null;
+                },
               ),
             if (widget.selectOption == "One Time") const SizedBox(height: 8.0),
             // Field 6
@@ -599,11 +614,17 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 label: "Specification/Description",
                 maxLengthCount: 2000,
                 isRequired: false,
+                  validator: (value) {
+                  return null;
+                },
               ),
             // const SizedBox(height: 8.0),
             buildTextField(
                 titleController: controller.qualifiedTeamMembercontroller,
                 label: "Qualified Team Member",
+                  validator: (value) {
+                  return null;
+                },
                 functionOntap: () {
                   _showTeamMemberBottomSheet(
                       context: context, controller: controller);

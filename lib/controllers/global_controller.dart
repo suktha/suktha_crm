@@ -49,9 +49,9 @@ class GlobalController extends GetxController {
 
       List<MenuModel> menuListValue = (result).map((e) => MenuModel.fromJson(e)).toList();
 
-      menuListValue.forEach((element) {
+      for (var element in menuListValue) {
         log("menuListValue: ${element.name}");
-      });
+      }
 
       // log("These items are in the menu list matching : $menuListValue");
 
@@ -127,7 +127,7 @@ class GlobalController extends GetxController {
         sharedPreferences.setBool("onboardKey", true);
         Get.delete<SettingsController>();
 
-        Get.offAll(() => LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
+        Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
       }
     } on DioException catch (e) {
       await checkTokenExpired(e.response!.statusCode);

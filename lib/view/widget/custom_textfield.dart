@@ -119,6 +119,8 @@ class buildTextField extends StatelessWidget {
   bool isRequired = false;
   IconButton? suffixIcon;
   VoidCallback? functionOntap;
+    final FormFieldValidator validator;
+
   int? maxLengthCount;
   TextInputType? keyboardType;
   buildTextField({
@@ -130,6 +132,7 @@ class buildTextField extends StatelessWidget {
     this.keyboardType,
     this.maxLengthCount,
     this.suffixIcon,
+     required this.validator,
   });
 
   @override
@@ -167,12 +170,7 @@ class buildTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(3.w),
           ),
         ),
-        validator: (value) {
-          if (isRequired && (value == null || value.isEmpty)) {
-            return "$label is required";
-          }
-          return null;
-        },
+        validator: validator,
       ),
     );
   }

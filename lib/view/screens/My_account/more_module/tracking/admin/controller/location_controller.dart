@@ -21,11 +21,6 @@ import 'package:work_Force/view/screens/My_account/more_module/tracking/admin/mo
 class GeoLocationController extends GetxController {
   RxBool viewActivity = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // getdata();
-  }
 
   final LocationServices locService = LocationServices();
   var timelineItems = <Map<String, dynamic>>[].obs;
@@ -314,7 +309,7 @@ class GeoLocationController extends GetxController {
   ];
   void showPolylineForDate(DateTime selectedDate) async {
     clearPolylines();
-    List<LatLng> points = await getPolylinePointsForDate(selectedDate);
+    List<LatLng> points = getPolylinePointsForDate(selectedDate);
     if (points.isNotEmpty) {
       addPolyline(points);
     }

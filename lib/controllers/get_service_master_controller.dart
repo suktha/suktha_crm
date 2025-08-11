@@ -92,7 +92,7 @@ class GetServiceMasterController extends GetxController {
 
     Dio dio = Dio();
 
-    var apiData = baseUrl + "/material/recent/2/0/$sortWith/$sortDirection/$page/$limit?searchText=$query";
+    var apiData = "$baseUrl/material/recent/2/0/$sortWith/$sortDirection/$page/$limit?searchText=$query";
 
     print("url---------- $apiData");
 
@@ -141,7 +141,7 @@ class GetServiceMasterController extends GetxController {
 
     Dio dio = Dio();
 
-    var apiData = baseUrl + "/material/" + item.toString();
+    var apiData = "$baseUrl/material/$item";
 
     print(apiData);
 

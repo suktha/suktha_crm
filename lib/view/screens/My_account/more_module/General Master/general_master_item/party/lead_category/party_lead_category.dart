@@ -15,7 +15,7 @@ import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 class LeadCategoryMasterScreen extends StatefulWidget {
-  LeadCategoryMasterScreen({super.key});
+  const LeadCategoryMasterScreen({super.key});
 
   @override
   State<LeadCategoryMasterScreen> createState() =>

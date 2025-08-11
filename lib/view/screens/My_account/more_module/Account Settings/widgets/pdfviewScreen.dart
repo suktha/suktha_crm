@@ -18,7 +18,7 @@ Future<File> downloadFile(String url, String fileName) async {
 class PDFScreen extends StatefulWidget {
   final String url;
 
-  PDFScreen({required this.url});
+  const PDFScreen({super.key, required this.url});
 
   @override
   _PDFScreenState createState() => _PDFScreenState();
@@ -52,7 +52,7 @@ class _PDFScreenState extends State<PDFScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("View PDF"),
+          title: const Text("View PDF"),
           titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: 20),
           centerTitle: true,
           backgroundColor: kColorwhite,
@@ -95,13 +95,13 @@ class _PDFScreenState extends State<PDFScreen> {
                   },
                 ),
                 !_isReady
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : Container(),
               ],
             )
-          : Center(
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );

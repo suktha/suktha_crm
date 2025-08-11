@@ -60,7 +60,7 @@ class MaterialListCustom extends StatelessWidget {
               style: TextStyle(color: kColorblack, fontSize: 15.sp, fontWeight: FontWeight.normal),
             ),
             trailing: Text(
-              " ${amount}",
+              " $amount",
               style: TextStyle(color: kColorblack, fontSize: 16.sp, fontWeight: FontWeight.normal),
             ),
           )),
@@ -300,7 +300,7 @@ Future<dynamic> productDetailsPOPup(
                                                 DateFormat format = DateFormat("dd/MM/yyyy");
                                                 DateTime initialDate = DateTime.now();
 
-                                                if (startdateController!.text.isNotEmpty) {
+                                                if (startdateController.text.isNotEmpty) {
                                                   try {
                                                     initialDate = format.parse(startdateController.text);
                                                   } catch (e) {
@@ -454,7 +454,7 @@ Future<dynamic> productDetailsPOPup(
                                       icon: const Icon(Icons.date_range)),
                                   height: 6.h,
                                   validator: (value) {
-                                    if (startdateController.text.isNotEmpty && enddateController!.text.isNotEmpty) {
+                                    if (startdateController.text.isNotEmpty && enddateController.text.isNotEmpty) {
                                       try {
                                         DateTime startDate = DateFormat("dd/MM/yyyy").parse(startdateController.text);
                                         DateTime endDate = DateFormat("dd/MM/yyyy").parse(enddateController.text);

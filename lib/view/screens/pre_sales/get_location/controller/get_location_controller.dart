@@ -16,7 +16,7 @@ class GetLocationController extends GetxController {
   final TextEditingController longitudeController = TextEditingController();
 
   var currentPosition = Rxn<Position>();
-  var _currentAddress = "".obs;
+  final _currentAddress = "".obs;
 
   var searchResults = <Location>[].obs;
   var searchedAddress = "".obs;

@@ -11,7 +11,7 @@ class CustomPopup extends StatelessWidget {
   final VoidCallback onCancelPressed;
   final VoidCallback onUpdatePressed;
 
-  CustomPopup({
+  const CustomPopup({super.key, 
     required this.children,
     required this.title,
     required this.onCancelPressed,

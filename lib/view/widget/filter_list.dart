@@ -69,7 +69,7 @@ Future<dynamic> CustomFilterList({
           borderRadius: BorderRadius.circular(3.w),
         ),
         elevation: 6,
-        content: Container(
+        content: SizedBox(
           // height: 70.h,
           width: 100.w,
           child: Form(

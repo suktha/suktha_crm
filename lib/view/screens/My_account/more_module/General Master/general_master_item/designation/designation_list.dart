@@ -15,7 +15,7 @@ import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 // ignore: must_be_immutable
 class DesignationScreen extends StatefulWidget {
-  DesignationScreen({super.key});
+  const DesignationScreen({super.key});
 
   @override
   State<DesignationScreen> createState() => _DesignationScreenState();

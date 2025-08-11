@@ -17,7 +17,7 @@ import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 // ignore: must_be_immutable
 class AreaMasterScreen extends StatefulWidget {
-  AreaMasterScreen({super.key});
+  const AreaMasterScreen({super.key});
 
   @override
   State<AreaMasterScreen> createState() => _AreaMasterScreenState();
@@ -344,7 +344,7 @@ class _AreaMasterScreenState extends State<AreaMasterScreen> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   subtitle: Text(
-                                    "City : ${cityName}",
+                                    "City : $cityName",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500),
                                   ),

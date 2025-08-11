@@ -88,7 +88,7 @@ class UserManagementController extends GetxController {
       );
       print("getleadevent $value");
 
-      if (value != null && value.isNotEmpty) {
+      if (value.isNotEmpty) {
         // await Get.find<WebSocketService>().initializeConnection(leadId: leadId, userId: loginDetails.user!.id!);
 
         activeLeadData.value = {'leadId': leadId, 'leadName': leadName, 'leadNumber': leadNumber};
@@ -113,8 +113,9 @@ class UserManagementController extends GetxController {
         activeLeadData.value = null;
         return false;
       }
-    } else
+    } else {
       return false;
+    }
   }
 
   IconData getIconForEvent(String? eventName) {
@@ -325,7 +326,7 @@ class UserManagementController extends GetxController {
       "icon": Icons.task_alt,
       "color": Colors.green,
     });
-    print("In the login funcition -- " + isLoading.value.toString());
+    print("In the login funcition -- ${isLoading.value}");
   }
 
   logOut(String location) {
@@ -350,23 +351,23 @@ class UserManagementController extends GetxController {
   }
 
   getCurrentLocation() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
 
-    _serviceEnabled = await locationService.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await locationService.requestService();
-      if (!_serviceEnabled) {
+    serviceEnabled = await locationService.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await locationService.requestService();
+      if (!serviceEnabled) {
         print('Location services are disabled.');
         return;
       }
     }
 
     // Check for location permission
-    _permissionGranted = await locationService.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await locationService.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await locationService.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await locationService.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         print('Location permission denied.');
         return;
       }

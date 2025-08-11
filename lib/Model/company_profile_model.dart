@@ -1,4 +1,3 @@
-import 'package:work_Force/Model/get_party_master_model.dart';
 import 'package:work_Force/Model/party_contact_model.dart';
 
 class CompanyyProfileDetailsModel {

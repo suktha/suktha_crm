@@ -1,11 +1,8 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:work_Force/Model/transaction_type_model.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
@@ -14,7 +11,6 @@ import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
-import '../../../../Model/login_model.dart' as loginModel;
 
 class InitialController extends GetxController {
   @override

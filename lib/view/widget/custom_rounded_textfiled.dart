@@ -50,10 +50,10 @@ class CustomRoundedTextField extends StatelessWidget {
     required this.obscure,
     required this.controller,
     required this.label,
-    Key? key,
+    super.key,
     this.errortext,
     this.readonly,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class CustomRoundedTextField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: obscure,
         textCapitalization: TextCapitalization.sentences,
-        style: TextStyle(fontWeight: FontWeight.normal),
+        style: const TextStyle(fontWeight: FontWeight.normal),
         textInputAction: textInputAction,
         decoration: InputDecoration(
           hintText: hint,
@@ -87,15 +87,15 @@ class CustomRoundedTextField extends StatelessWidget {
           labelStyle: TextStyle(
             overflow: TextOverflow.fade,
             fontSize: 15.sp,
-            color: Color.fromARGB(255, 78, 78, 78),
+            color: const Color.fromARGB(255, 78, 78, 78),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.w),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: const BorderSide(color: Colors.red),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.w),
-            borderSide: BorderSide(color: Colors.red),
+            borderSide: const BorderSide(color: Colors.red),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.w),

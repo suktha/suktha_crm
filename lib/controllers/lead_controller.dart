@@ -214,9 +214,9 @@ class LeadController extends GetxController {
 
   var numberField;
   List<String> phoneNumbers = [];
-  Set<String> nameList = Set();
-  Set<String> designationList = Set();
-  Set<String> companyNameList = Set();
+  Set<String> nameList = {};
+  Set<String> designationList = {};
+  Set<String> companyNameList = {};
 
   RxBool isStartExtractingText = false.obs;
   RxBool isExtractionCompleted = false.obs;
@@ -264,7 +264,7 @@ class LeadController extends GetxController {
     var croppedImgae = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatio:
-            CropAspectRatio(ratioX: 85, ratioY: 54), // Credit card aspect ratio
+            const CropAspectRatio(ratioX: 85, ratioY: 54), // Credit card aspect ratio
         compressQuality: 100,
         uiSettings: [
           AndroidUiSettings(

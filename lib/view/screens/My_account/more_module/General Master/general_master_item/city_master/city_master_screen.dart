@@ -17,7 +17,7 @@ import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 // ignore: must_be_immutable
 class CityMasterScreen extends StatefulWidget {
-  CityMasterScreen({super.key});
+  const CityMasterScreen({super.key});
 
   @override
   State<CityMasterScreen> createState() => _CityMasterScreenState();

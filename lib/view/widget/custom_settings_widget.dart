@@ -29,7 +29,7 @@ class MoreListCustomWidgets extends StatelessWidget {
       leading: Icon(icon,color: Colors.blue,),
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-      trailing: Icon(Icons.keyboard_arrow_right_outlined),
+      trailing: const Icon(Icons.keyboard_arrow_right_outlined),
     );
   }
 }

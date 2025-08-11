@@ -43,7 +43,7 @@ class CalculationsCustom {
     print(grandTotalSum);
     print(roundedTotalAmt);
     double difference = grandTotalSum - roundedTotalAmt;
-    print("diffffrence----${difference}");
+    print("diffffrence----$difference");
     String roundedAmtString = difference >= 0 ? '-0.${(100 * difference).round()}' : '0.${(100 * -difference).round()}';
     return roundedAmtString;
   }

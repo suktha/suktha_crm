@@ -15,7 +15,7 @@ import 'package:work_Force/view/widget/filter_list.dart';
 import 'package:work_Force/view/widget/shimmer_loading.dart';
 
 class ServiceMasterScreen extends StatefulWidget {
-  ServiceMasterScreen({
+  const ServiceMasterScreen({
     super.key,
   });
 

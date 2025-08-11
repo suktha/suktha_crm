@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -13,9 +12,8 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/controllers/Login_Controller.dart';
 import 'package:work_Force/controllers/subscribtion_controller.dart';
-import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';
+import 'package:work_Force/view/screens/login/ForgotPasswordScreen/forgotpassword_screen.dart';
 import 'package:work_Force/view/screens/login/registration/registration_onboard.dart';
-import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 import 'package:work_Force/view/screens/login/splash_screen.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_loading_button.dart';
@@ -47,10 +45,10 @@ class _LoginPageState extends State<LoginPage> {
       // backgroundColor: Colors.indigo,
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
-      backgroundColor:const Color.fromARGB(255, 32, 60, 107),
+        backgroundColor: const Color.fromARGB(255, 32, 60, 107),
         elevation: 0,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(18.0.w), 
+          preferredSize: Size.fromHeight(18.0.w),
           child: Image.asset(
             logoIconwithTradeMark,
             width: double.infinity,
@@ -71,8 +69,6 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     SizedBox(height: 25.h),
 
-
-                  
                     // Spacer(),
                     Padding(
                       padding:
@@ -127,8 +123,6 @@ class _LoginPageState extends State<LoginPage> {
                                     }),
                                 label: "Password"),
                           ),
-
-                          
                           SizedBox(
                             height: 1.h,
                           ),
@@ -138,7 +132,11 @@ class _LoginPageState extends State<LoginPage> {
                             child: Align(
                                 alignment: Alignment.centerRight,
                                 child: GestureDetector(
-                                  // onTap: () => Get.to(() => ForgotPasswordScreen(), transition: Transition.cupertinoDialog, duration: Duration(milliseconds: 1000)),
+                                  onTap: () => Get.to(
+                                      () => ForgotPasswordScreen(),
+                                      transition:
+                                          Transition.rightToLeftWithFade,
+                                      duration: Duration(milliseconds: 1000)),
                                   child: Text(
                                     "Forgot Password?",
                                     style: TextStyle(
@@ -174,56 +172,40 @@ class _LoginPageState extends State<LoginPage> {
                               ? FadeIn(
                                   delay: const Duration(milliseconds: 1400),
                                   duration: const Duration(milliseconds: 1800),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      // Fluttertoast.showToast(
-                                      //   msg: "This feature is in Progress",
-                                      //   toastLength: Toast.LENGTH_SHORT,
-                                      //   gravity: ToastGravity.BOTTOM,
-                                      //   timeInSecForIosWeb: 1,
-                                      //   textColor: kColorwhite,
-                                      //   backgroundColor: kColorgrey,
-                                      // );
-                                      Get.to(SplashScreen(),
-                                          duration: Duration(
-                                            milliseconds: 600,
-                                          ),
-                                          transition: Transition.rightToLeftWithFade);
-                                    },
-                                    child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                            text: "Don't Have an Account ? ",
-                                            style: TextStyle(
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black)),
-                                        TextSpan(
-                                            text: "Register",
-                                            style: TextStyle(
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blue),
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                // Fluttertoast.showToast(
-                                                //   msg:
-                                                //       "This feature is in Progress",
-                                                //   toastLength:
-                                                //       Toast.LENGTH_SHORT,
-                                                //   gravity: ToastGravity.BOTTOM,
-                                                //   timeInSecForIosWeb: 1,
-                                                //   textColor: kColorwhite,
-                                                //   backgroundColor: kColorgrey,
-                                                // );
-                                                Get.to(RegistrationOnboard(),
-                                                    duration: Duration(
-                                                      milliseconds: 600,
-                                                    ),
-                                                    transition: Transition.rightToLeftWithFade);
-                                              })
-                                      ]),
-                                    ),
+                                  child: RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                          text: "Don't Have an Account ? ",
+                                          style: TextStyle(
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black)),
+                                      TextSpan(
+                                          text: "Register",
+                                          style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.blue),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              // Fluttertoast.showToast(
+                                              //   msg:
+                                              //       "This feature is in Progress",
+                                              //   toastLength:
+                                              //       Toast.LENGTH_SHORT,
+                                              //   gravity: ToastGravity.BOTTOM,
+                                              //   timeInSecForIosWeb: 1,
+                                              //   textColor: kColorwhite,
+                                              //   backgroundColor: kColorgrey,
+                                              // );
+                                              Get.to(RegistrationOnboard(),
+                                                  duration: Duration(
+                                                    milliseconds: 600,
+                                                  ),
+                                                  transition: Transition
+                                                      .rightToLeftWithFade);
+                                            })
+                                    ]),
                                   ),
                                 )
                               : SizedBox(),

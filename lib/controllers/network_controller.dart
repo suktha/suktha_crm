@@ -13,7 +13,7 @@ class NetworkController extends GetxController {
 
   void _updateConnectionStatus(List<ConnectivityResult> connectivityResults) {
     if (connectivityResults.contains(ConnectivityResult.none)) {
-      Get.to(() => NoInternetConnectionScreen());
+      Get.to(() => const NoInternetConnectionScreen());
 
       //use snackbar or other widget
     } else {

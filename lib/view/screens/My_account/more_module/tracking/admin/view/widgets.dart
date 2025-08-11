@@ -128,7 +128,7 @@ Widget buildDateButton(
 class DateHistoryWidget extends StatefulWidget {
   final Function(DateTime) onDateSelected;
 
-  DateHistoryWidget({required this.onDateSelected});
+  const DateHistoryWidget({super.key, required this.onDateSelected});
 
   @override
   _DateHistoryWidgetState createState() => _DateHistoryWidgetState();
@@ -157,7 +157,7 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,

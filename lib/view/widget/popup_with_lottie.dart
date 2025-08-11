@@ -29,7 +29,7 @@ Future<dynamic> popupWithLottie({required BuildContext context, required VoidCal
           child: Column(
             children: [
               lottie == null
-                  ? SizedBox()
+                  ? const SizedBox()
                   : LottieBuilder.asset(
                       lottie,
                       fit: BoxFit.cover,
@@ -40,14 +40,14 @@ Future<dynamic> popupWithLottie({required BuildContext context, required VoidCal
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Row(
                   children: [
                     // SizedBox(width: 2.w,),
                     lottie == null
-                        ? SizedBox()
+                        ? const SizedBox()
                         : CircleAvatar(
                             radius: 5.5.w,
                             backgroundColor: Colors.red,
@@ -59,7 +59,7 @@ Future<dynamic> popupWithLottie({required BuildContext context, required VoidCal
                                       color: kColorwhite,
                                     ))),
                           ),
-                    Spacer(),
+                    const Spacer(),
                     CircleAvatar(
                       radius: 5.5.w,
                       backgroundColor: Colors.lightBlue[300],

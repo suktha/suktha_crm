@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/bindings/initial_bindings.dart';
-import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/theme_controller.dart';
 import 'package:work_Force/firebase_options.dart';
 import 'package:work_Force/utils/Services/firebase_push_notification_services.dart';

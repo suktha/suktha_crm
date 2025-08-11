@@ -73,7 +73,7 @@ class DateClass {
     DateTime currentDate;
     DateTime? startDate;
 
-    print(" autoFillYear--${autoFillYear}");
+    print(" autoFillYear--$autoFillYear");
 
     log("Controller date - ${controller.text}");
 

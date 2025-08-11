@@ -14,7 +14,7 @@ import 'package:work_Force/view/widget/custom_textfield.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 
 class BankMasterScreen extends StatefulWidget {
-  BankMasterScreen({super.key});
+  const BankMasterScreen({super.key});
 
   @override
   State<BankMasterScreen> createState() => _BankMasterScreenState();

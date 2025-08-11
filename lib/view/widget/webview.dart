@@ -37,7 +37,7 @@ class _MyWebViewState extends State<MyWebView> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: refreshPdf, // Refresh PDF when pressed
           ),
         ],
@@ -48,12 +48,12 @@ class _MyWebViewState extends State<MyWebView> {
           children: [
             Expanded(
               key: _pdfKey,
-              child: PDF().cachedFromUrl(
+              child: const PDF().cachedFromUrl(
                 widget.url,
                 placeholder: (progress) => Center(
                   child: Text(
                     '$progress %',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                 ),
                 errorWidget: (error) => Center(
@@ -65,18 +65,18 @@ class _MyWebViewState extends State<MyWebView> {
               height: 7.h,
               padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 221, 221, 221),
+                color: const Color.fromARGB(255, 221, 221, 221),
                 borderRadius: BorderRadius.circular(3.w),
                 boxShadow: kElevationToShadow[2],
               ),
               child: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                       onPressed: () {
                         Get.back();
                       },
-                      child: Text("Back to App"))
+                      child: const Text("Back to App"))
                 ],
               ),
             )

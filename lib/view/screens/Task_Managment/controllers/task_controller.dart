@@ -43,7 +43,7 @@ class TaskController extends GetxController {
           : "${pickedTime.hour}:${pickedTime.minute.toString().padLeft(2, '0')} AM";
       timeController.text = formattedTime;
 
-      print("selected time -- ${timeController}");
+      print("selected time -- $timeController");
     }
   }
 

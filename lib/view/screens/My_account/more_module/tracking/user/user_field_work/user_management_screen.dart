@@ -48,7 +48,7 @@ final controller = Get.find<UserManagementController>();
             leading: IconButton(
                 icon: Icon(Icons.keyboard_arrow_left, color: kColorblack, size: 25),
                 onPressed: (() {
-                  print("In the backbutton -- " + controller.isLoading.value.toString());
+                  print("In the backbutton -- ${controller.isLoading.value}");
                   Get.back();
                 })),
           ),

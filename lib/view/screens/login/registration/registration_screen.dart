@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -38,6 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
@@ -77,7 +79,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
                       }
-                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      if (Validate().validateEmail(value) == false) {
                         return 'Please enter a valid email address';
                       }
                       return null;
@@ -141,7 +143,46 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   },
                 ),
                 SizedBox(
-                  height: 5.h,
+                  height: 4.h,
+                ),
+
+                RichText(text: TextSpan(
+                  text: "By signing up, you agree to our ",
+                  style: TextStyle(color: Colors.black, fontSize: 15.5.sp),
+                  children: [
+                    TextSpan(
+                      text: "Terms of Service",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: kColorlightBlue,
+                        color: kColorlightBlue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.5.sp,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // Handle Terms of Service tap
+                        },
+                    ),
+                    TextSpan(text: " and "),
+                    TextSpan(
+                      text: "Privacy Policy",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: kColorlightBlue,
+                        color: kColorlightBlue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.5.sp,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // Handle Privacy Policy tap
+                        },
+                    ),
+                  ],
+                )),
+                 SizedBox(
+                  height: 1.h,
                 ),
                 ElevatedButton(
                   onPressed: () {
