@@ -43,6 +43,7 @@ class ClockedintaskScreen extends StatelessWidget {
       ),
       body: Form(
         key: formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(

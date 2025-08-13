@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/view/screens/login/ForgotPasswordScreen/controller/forgotpassword_controller.dart';
 import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
@@ -14,9 +14,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final TextEditingController usernameController = TextEditingController();
-  bool isResetButtonEnabled = false;
-  final FocusNode focusNode = FocusNode();
+  ForgotpasswordController controller = Get.put(ForgotpasswordController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,23 +48,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
+        child: Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Text(
-                  isResetButtonEnabled == true
+                  controller.isResetButtonEnabled.value
                       ? "Code sent! Check your email to verify."
                       : "Enter your registered username, and we’ll mail \nyou a code to reset your password.",
                   style: TextStyle(
                     fontSize: 16.sp,
                     color: const Color.fromARGB(255, 28, 28, 28),
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w400,
                   ),
                   textAlign: TextAlign.center),
             ),
             SizedBox(height: 2.h),
-            isResetButtonEnabled == true
+            controller.isResetButtonEnabled.value
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -77,7 +76,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       SizedBox(height: 2.w),
                       buildTextField(
                           label: "Enter your code",
-                          controller: usernameController),
+                          controller: controller.OTPController),
                     ],
                   )
                 : Column(
@@ -91,23 +90,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       SizedBox(height: 2.w),
                       buildTextField(
                           label: "Enter your username",
-                          controller: usernameController),
+                          controller: controller.usernameController),
                     ],
                   ),
             SizedBox(height: 5.h),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                if (usernameController.text.isNotEmpty) {
-                  setState(() {
-                    isResetButtonEnabled = true;
-                    usernameController.clear();
-                    focusNode.unfocus();
-                  });
-                } else {
-                  customSnackbar("Error", "Please enter your username", "error");
-                  
-                }
+                if (controller.isResetButtonEnabled.value) {
+                      if (controller.OTPController.text.isEmpty) {
+                        customSnackbar("Error", "Please enter the code", "error");
+                      } else {
+                        print("OTP entered: ${controller.OTPController.text}");
+                        controller.submitOTP(
+                            controller.OTPController.text);
+                      }
+                    } else {
+                      if (controller.usernameController.text.isEmpty) {
+                        customSnackbar("Error", "Please enter your username", "error");
+                      } else {
+                        controller.getOtpWithRegisterdUsername(
+                            controller.usernameController.text);
+                      }
+                    }
                 // Handle forgot password logic here
               },
               style: ElevatedButton.styleFrom(
@@ -116,12 +121,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     borderRadius: BorderRadius.circular(3.w)),
               ),
               child: Text(
-                  isResetButtonEnabled == true ?   "Submit":'Reset Password',
+                  controller.isResetButtonEnabled.value
+                      ? "Submit"
+                      : 'Reset Password',
                   style: TextStyle(fontSize: 16.sp)),
             ),
             SizedBox(height: 3.h),
           ],
-        ),
+        ),)
       ),
     );
   }

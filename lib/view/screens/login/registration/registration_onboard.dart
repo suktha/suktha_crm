@@ -16,16 +16,28 @@ class RegistrationOnboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+            size: 17.sp,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 17,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // const Spacer(),
-              SizedBox(
-                height: 2.h,
-              ),
               Row(
                 children: [
                   Image.asset(
@@ -47,16 +59,12 @@ class RegistrationOnboard extends StatelessWidget {
                 "We're excited to have you here. Let's get your company set up.",
                 style: TextStyle(fontSize: 16.sp, color: Colors.grey[700]),
               ),
-
-              // const Spacer(),
-
               Lottie.asset(
                 "assets/lottie/register_lottie.json",
                 height: 30.h,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
-
               Flexible(
                 flex: 20,
                 child: SingleChildScrollView(
@@ -127,7 +135,6 @@ class RegistrationOnboard extends StatelessWidget {
                             }
                             if (Validate().validateMobile(value) == false) {
                               return "Invalid Phone Number";
-                              
                             }
                             return null;
                           },
@@ -162,7 +169,6 @@ class RegistrationOnboard extends StatelessWidget {
                   ),
                 ),
               ),
-
               const Spacer(),
               SizedBox(
                 width: double.infinity,

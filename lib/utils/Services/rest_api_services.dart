@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_adjacent_string_concatenation, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
@@ -22,37 +22,50 @@ Future<dynamic> apiCallService(
 ) async {
   final dio = Dio();
   final url = isAuth ? '$baseAuthUrl/auth$endpoint' : "$baseUrl$endpoint";
+  print("url: $isAuth");
 
-  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
   LoginModel? loginDetails;
-if (!isAuth) {
-  final userMapString = sharedPreferences.getString('userMap');
-  if (userMapString == null) {
-    throw Exception("User is not logged in or userMap is missing in SharedPreferences.");
-  }
+  if (!isAuth) {
+    final userMapString = sharedPreferences.getString('userMap');
+    if (userMapString == null) {
+      throw Exception(
+          "User is not logged in or userMap is missing in SharedPreferences.");
+    }
 
-  final logindecoded = json.decode(userMapString);
-  loginDetails = LoginModel.fromJson(logindecoded);
-}
-print("loginDetails: ${loginDetails?.toJson()}");
-print( "url: $url, method: $method, body: $body, queryParameters: $queryParameters, isAuth: $isAuth");
+    final logindecoded = json.decode(userMapString);
+    loginDetails = LoginModel.fromJson(logindecoded);
+  }
+  print("loginDetails: ${loginDetails?.toJson()}");
+  print(
+      "url: $url, method: $method, body: $body, queryParameters: $queryParameters, isAuth: $isAuth");
   try {
     late Response response;
-print("inside try");
+    print("inside try");
     if (method == 'GET') {
       print("inside get method");
       if (responseType == TheResponseType.bytes) {
         //any images or something
         response = await dio.get(url,
             options: Options(
-                responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null,
-                headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+                responseType: responseType == TheResponseType.bytes
+                    ? ResponseType.bytes
+                    : null,
+                headers: isAuth
+                    ? {}
+                    : {"Authorization": "Bearer ${loginDetails!.token}"}));
       } else {
         //normal get method
         response = await dio.get(url,
             data: body,
-            options:
-                Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}", "content-type": "application/json"}));
+            options: Options(
+                headers: isAuth
+                    ? {}
+                    : {
+                        "Authorization": "Bearer ${loginDetails!.token}",
+                        "content-type": "application/json"
+                      }));
       }
     } else if (method == 'POST') {
       if (responseType == TheResponseType.bytes) {
@@ -61,19 +74,34 @@ print("inside try");
             data: body,
             options: Options(
                 method: 'POST',
-                responseType: responseType == TheResponseType.bytes ? ResponseType.bytes : null,
-                headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+                responseType: responseType == TheResponseType.bytes
+                    ? ResponseType.bytes
+                    : null,
+                headers: isAuth
+                    ? {}
+                    : {"Authorization": "Bearer ${loginDetails!.token}"}));
       } else {
         response = await dio.post(url,
             queryParameters: queryParameters,
             data: body,
-            options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+            options: Options(
+                headers: isAuth
+                    ? {}
+                    : {"Authorization": "Bearer ${loginDetails!.token}"}));
       }
     } else if (method == 'PUT') {
-      response =
-          await dio.put(url, data: body, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+      response = await dio.put(url,
+          data: body,
+          options: Options(
+              headers: isAuth
+                  ? {}
+                  : {"Authorization": "Bearer ${loginDetails!.token}"}));
     } else if (method == 'DELETE') {
-      response = await dio.delete(url, options: Options(headers: isAuth ? {} : {"Authorization": "Bearer ${loginDetails!.token}"}));
+      response = await dio.delete(url,
+          options: Options(
+              headers: isAuth
+                  ? {}
+                  : {"Authorization": "Bearer ${loginDetails!.token}"}));
     }
 
     CustomPrint.printSuccess("Success: true, " +

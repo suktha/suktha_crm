@@ -33,6 +33,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios_rounded,
+                color: Colors.black, size: 17.sp)),
         iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(
@@ -146,7 +152,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 4.h,
                 ),
 
-                RichText(text: TextSpan(
+                RichText(
+                    text: TextSpan(
                   text: "By signing up, you agree to our ",
                   style: TextStyle(color: Colors.black, fontSize: 15.5.sp),
                   children: [
@@ -181,7 +188,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ],
                 )),
-                 SizedBox(
+                SizedBox(
                   height: 1.h,
                 ),
                 ElevatedButton(
@@ -248,7 +255,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-
   Widget buildDropdownField(
       {required String label, required List<String> items}) {
     String? selectedValue;
@@ -270,28 +276,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 }
 
-  Widget buildTextField({
-    required String label,
-    required TextEditingController controller,
-    bool obscureText = false,
-    Widget? suffixIcon,
-    Function(String)? onchanged,
-    TextInputType? keyboardType,
-    String? Function(String?)? validator,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: TextFormField(
-        onChanged: onchanged,
-        keyboardType: keyboardType,
-        controller: controller,
-        obscureText: obscureText,
-        validator: validator,
-        decoration: InputDecoration(
-          labelText: label,
-          suffixIcon: suffixIcon,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(3.w)),
-        ),
+Widget buildTextField({
+  required String label,
+  required TextEditingController controller,
+  bool obscureText = false,
+    bool bottomHeight = false,
+
+  Widget? suffixIcon,
+  int? maxLength,
+  Function(String)? onchanged,
+  TextInputType? keyboardType,
+  String? Function(String?)? validator,
+}) {
+  return Padding(
+    padding:  EdgeInsets.only(bottom:bottomHeight==true?0: 16),
+    child: TextFormField(
+      onChanged: onchanged,
+      keyboardType: keyboardType,
+      controller: controller,
+      obscureText: obscureText,
+      maxLength: maxLength,
+      validator: validator,
+      decoration: InputDecoration(
+        labelText: label,
+        suffixIcon: suffixIcon,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(3.w)),
       ),
-    );
-  }
+    ),
+  );
+}
