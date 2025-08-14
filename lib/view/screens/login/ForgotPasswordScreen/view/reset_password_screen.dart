@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/login/ForgotPasswordScreen/controller/forgotpassword_controller.dart';
 import 'package:work_Force/view/screens/login/registration/registration_screen.dart';
+import 'package:work_Force/view/widget/custom_textfield.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
@@ -56,9 +57,9 @@ class ResetPasswordScreen extends StatelessWidget {
                         children: [
                           buildTextField(
                               label: "New Password",
-                              controller: controller.newPasswordController,
+                              titleController: controller.newPasswordController,
                               obscureText: controller.isPasswordVisible.value,
-                              maxLength: 12,
+                              maxLengthCount: 12,
                               bottomHeight: true,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -79,9 +80,11 @@ class ResetPasswordScreen extends StatelessWidget {
                           SizedBox(height: 2.h),
                           buildTextField(
                               label: "Confirm Password",
-                              controller: controller.confirmPasswordController,
-                              obscureText: controller.isconfirmPasswordVisible.value,
-                              maxLength: 12,
+                              titleController:
+                                  controller.confirmPasswordController,
+                              obscureText:
+                                  controller.isconfirmPasswordVisible.value,
+                              maxLengthCount: 12,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "Please confirm your password";
@@ -95,11 +98,13 @@ class ResetPasswordScreen extends StatelessWidget {
                               },
                               suffixIcon: IconButton(
                                   onPressed: () {
-                                    controller.toggleconfirmPasswordVisibility();
+                                    controller
+                                        .toggleconfirmPasswordVisibility();
                                   },
-                                  icon: Icon(controller.isconfirmPasswordVisible.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility))),
+                                  icon: Icon(
+                                      controller.isconfirmPasswordVisible.value
+                                          ? Icons.visibility_off
+                                          : Icons.visibility))),
                         ],
                       ),
                     ),
@@ -109,10 +114,10 @@ class ResetPasswordScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                                              controller.resetpassword();
-
+                        controller.resetpassword();
                       } else {
-                        Get.snackbar("Error", "Please fill in all fields correctly",
+                        Get.snackbar(
+                            "Error", "Please fill in all fields correctly",
                             snackPosition: SnackPosition.BOTTOM);
                       }
                     },
@@ -123,7 +128,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     child: Text("Reset", style: TextStyle(fontSize: 16.sp)),
                   ),
-                  SizedBox(height: 2.h),
+                  SizedBox(height: 1.h),
                 ],
               )),
         ));

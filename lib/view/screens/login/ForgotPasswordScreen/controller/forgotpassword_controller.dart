@@ -3,7 +3,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/view/screens/login/ForgotPasswordScreen/view/reset_password_screen.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
@@ -13,8 +12,7 @@ class ForgotpasswordController extends GetxController {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController OTPController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   var isResetButtonEnabled = false.obs;
   final FocusNode focusNode = FocusNode();
@@ -36,6 +34,7 @@ class ForgotpasswordController extends GetxController {
   }
 
   String username = '';
+  RxString showRegisteredMail = "".obs;
 
   Dio dio = Dio();
   getOtpWithRegisterdUsername(String username) async {
@@ -56,13 +55,14 @@ class ForgotpasswordController extends GetxController {
         ),
       );
       print("Response: ${response.data}");
-      if (response.statusCode == 200 || response.data['responseStatus'] == 1) {
+      if (response.data['responseStatus'] == 1) {
         print("OTP sent successfully to $username");
+        showRegisteredMail.value = response.data["responseString"];
         customSnackbar("Success", response.data['responseString'], "success");
         toggleResetButton();
         usernameController.clear();
         focusNode.unfocus();
-      } else {
+      } else if (response.data['responseStatus'] == 0) {
         customSnackbar("Error", response.data['responseString'], "error");
         print("Failed to send OTP: ${response.data}");
       }
@@ -89,16 +89,15 @@ class ForgotpasswordController extends GetxController {
         ),
       );
       print("Response: ${response.data}");
-      if (response.statusCode == 200 || response.data['responseStatus'] == 1) {
+      if (response.data['responseStatus'] == 1) {
         print("OTP verified successfully for $username");
-                toggleResetButton();
+        toggleResetButton();
 
         customSnackbar("Success", response.data['responseString'], "success");
         Get.to(() => ResetPasswordScreen(),
             transition: Transition.rightToLeftWithFade,
             duration: const Duration(milliseconds: 1000));
-        // Navigate to reset password screen or perform any other action
-      } else {
+      } else if (response.data['responseStatus'] == 0) {
         customSnackbar("Error", response.data['responseString'], "error");
         print("Failed to verify OTP: ${response.data}");
       }
@@ -126,13 +125,13 @@ class ForgotpasswordController extends GetxController {
             },
           ));
       print("Response: ${response.data}");
-      if (response.statusCode == 200 || response.data['responseStatus'] == 1) {
+      if ( response.data['responseStatus'] == 1) {
         print("Password reset successfully for $username");
         Get.to(() => const LoginPage(),
             transition: Transition.rightToLeftWithFade,
             duration: const Duration(milliseconds: 1000));
         customSnackbar("Success", response.data['responseString'], "success");
-      } else {
+      } else if(response.data['responseStatus'] == 0) {
         customSnackbar("Error", response.data['responseString'], "error");
         print("Failed to reset password: ${response.data}");
       }

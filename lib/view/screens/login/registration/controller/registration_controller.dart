@@ -14,12 +14,7 @@ class RegistrationController extends GetxController {
   final nameController = TextEditingController();
 
   void goToNextScreen() {
-    // if (companyNameController.text.isEmpty ||
-    //     emailController.text.isEmpty ||
-    //     phoneController.text.isEmpty) {
-    //   Get.snackbar("Error", "Please fill in all fields");
-    //   return;
-    // }
+   
 
     Get.to(() => const RegistrationScreen(),
         transition: Transition.rightToLeftWithFade,

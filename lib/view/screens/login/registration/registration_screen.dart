@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/widget/custom_textfield.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -69,17 +70,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 buildTextField(
                   label: "User Name",
-                  controller: usernameController,
+                  titleController: usernameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your username';
                     }
                     return null;
-                  },
+                  }, 
                 ),
                 buildTextField(
                     label: "Email",
-                    controller: emailController,
+                    titleController: emailController,
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -92,13 +93,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }),
                 buildTextField(
                   label: "Password",
-                  controller: passwordController,
+                  titleController: passwordController,
                   obscureText: obscurePassword,
                   suffixIcon: IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     icon: Icon(
-                      obscurePassword ? Icons.visibility : Icons.visibility_off,
+                      obscurePassword ? Icons.visibility_off : Icons.visibility,
                       color: Colors.grey.shade400,
                     ),
                     onPressed: () {
@@ -118,9 +119,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 // Confirm Password Field
                 buildTextField(
                   label: "Confirm Password",
-                  controller: confirmPasswordController,
+                  titleController: confirmPasswordController,
                   obscureText: obscureConfirmPassword,
-                  onchanged: (value) {
+                  onChanged: (value) {
                     if (value.isNotEmpty && value != passwordController.text) {}
                   },
                   suffixIcon: IconButton(
@@ -128,8 +129,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     highlightColor: Colors.transparent,
                     icon: Icon(
                       obscureConfirmPassword
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: Colors.grey.shade400,
                     ),
                     onPressed: () {
@@ -200,7 +201,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kColorlightBlue,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity, 5.0.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(3.w),
                     ),
@@ -274,34 +275,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
   }
-}
-
-Widget buildTextField({
-  required String label,
-  required TextEditingController controller,
-  bool obscureText = false,
-    bool bottomHeight = false,
-
-  Widget? suffixIcon,
-  int? maxLength,
-  Function(String)? onchanged,
-  TextInputType? keyboardType,
-  String? Function(String?)? validator,
-}) {
-  return Padding(
-    padding:  EdgeInsets.only(bottom:bottomHeight==true?0: 16),
-    child: TextFormField(
-      onChanged: onchanged,
-      keyboardType: keyboardType,
-      controller: controller,
-      obscureText: obscureText,
-      maxLength: maxLength,
-      validator: validator,
-      decoration: InputDecoration(
-        labelText: label,
-        suffixIcon: suffixIcon,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(3.w)),
-      ),
-    ),
-  );
 }

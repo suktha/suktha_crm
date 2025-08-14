@@ -73,7 +73,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
             buildTextField(
               titleController: controller.nameController,
               label: "Service Name",
-              isRequired: true,
+              
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return "Service Name is required";
@@ -86,7 +86,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
               titleController: controller.sacController,
               label: "SAC",
               keyboardType: TextInputType.number,
-              isRequired: false,
+              
               validator: (value) {
                 
                 return null;
@@ -507,7 +507,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 validator: (value) {
                   return null;
                 },
-                isRequired: false,
+                
               ),
             if (widget.selectOption == "One Time") const SizedBox(height: 8.0),
             if (widget.selectOption == "One Time")
@@ -515,7 +515,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 titleController: controller.serviceChargeController,
                 label: "Service Charge",
                 keyboardType: TextInputType.number,
-                isRequired: false,
+                
                   validator: (value) {
                   return null;
                 },
@@ -613,7 +613,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                 titleController: controller.descriptionController,
                 label: "Specification/Description",
                 maxLengthCount: 2000,
-                isRequired: false,
+                
                   validator: (value) {
                   return null;
                 },
@@ -629,7 +629,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                   _showTeamMemberBottomSheet(
                       context: context, controller: controller);
                 },
-                isRequired: false,
+                
                 suffixIcon: IconButton(
                     onPressed: () {
                       _showTeamMemberBottomSheet(

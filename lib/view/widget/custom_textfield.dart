@@ -115,55 +115,64 @@ class CustomTextField extends StatelessWidget {
 
 class buildTextField extends StatelessWidget {
   String? label;
+  Key? valueKey;
   TextEditingController? titleController;
-  bool isRequired = false;
   IconButton? suffixIcon;
   VoidCallback? functionOntap;
-    final FormFieldValidator validator;
-
+  bool? bottomHeight = false;
+  final FormFieldValidator validator;
+  bool? obscureText = false;
   int? maxLengthCount;
   TextInputType? keyboardType;
-  buildTextField({
-    super.key,
-    this.titleController,
-    this.label,
-    this.functionOntap,
-    required this.isRequired,
-    this.keyboardType,
-    this.maxLengthCount,
-    this.suffixIcon,
-     required this.validator,
-  });
+  Function(String)? onChanged;
+  buildTextField(
+      {super.key,
+      this.titleController,
+      this.label,
+      this.functionOntap,
+      this.keyboardType,
+      this.maxLengthCount,
+      this.suffixIcon,
+      required this.validator,
+      this.obscureText,
+      this.onChanged,
+      this.valueKey,
+      this.bottomHeight});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
+      padding: EdgeInsets.only(bottom: bottomHeight ==true ? 0 : 12.0),
       child: TextFormField(
-        textCapitalization: TextCapitalization.sentences, // Capitalizes the first letter of each sentence
+        key: valueKey,
         maxLength: maxLengthCount,
-        // keyboardType: keyBoard,
         maxLines: label == "Specification/Description" ? null : 1,
         onTap: functionOntap,
         controller: titleController,
+        obscureText: obscureText ?? false,
         keyboardType: keyboardType,
+        onChanged: onChanged,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           labelText: label,
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade300, width: 1.0), // Default border
+            borderSide: BorderSide(
+                color: Colors.grey.shade300, width: 1.0), // Default border
             borderRadius: BorderRadius.circular(3.w),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue.shade300, width: 1.0), // Border when focused
+            borderSide: BorderSide(
+                color: Colors.blue.shade300, width: 1.0), // Border when focused
             borderRadius: BorderRadius.circular(3.w),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 1.0), // Border on validation error
+            borderSide: BorderSide(
+                color: Colors.red, width: 1.0), // Border on validation error
             borderRadius: BorderRadius.circular(3.w),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 1.0), // Focused error border
+            borderSide: BorderSide(
+                color: Colors.orange, width: 1.0), // Focused error border
             borderRadius: BorderRadius.circular(3.w),
           ),
           border: OutlineInputBorder(

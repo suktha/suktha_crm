@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/registration/controller/registration_controller.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 
 class RegistrationOnboard extends StatelessWidget {
@@ -59,12 +60,6 @@ class RegistrationOnboard extends StatelessWidget {
                 "We're excited to have you here. Let's get your company set up.",
                 style: TextStyle(fontSize: 16.sp, color: Colors.grey[700]),
               ),
-              Lottie.asset(
-                "assets/lottie/register_lottie.json",
-                height: 30.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
               Flexible(
                 flex: 20,
                 child: SingleChildScrollView(
@@ -74,11 +69,16 @@ class RegistrationOnboard extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
+                        Lottie.asset(
+                          "assets/lottie/register_lottie.json",
+                          height: 30.h,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                         SizedBox(
                           height: 2.h,
                         ),
                         buildTextField(
-                          isRequired: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Company Name is required";
@@ -90,7 +90,6 @@ class RegistrationOnboard extends StatelessWidget {
                           keyboardType: TextInputType.text,
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.gstTypeController,
                           label: "GST Type*",
                           validator: (value) {
@@ -101,19 +100,22 @@ class RegistrationOnboard extends StatelessWidget {
                           },
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.gstNumberController,
-                          label: "GST Number*",
+                          label: "GST Number(eg: 22AAAAA0000A1Z5)",
                           keyboardType: TextInputType.text,
+
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "GST Number is required";
+                              return null;
+                              
+                            }
+                             if (!Validate().validateGST(value)) {
+                              return "Invalid GST Number";
                             }
                             return null;
                           },
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.nameController,
                           label: "Your Name*",
                           keyboardType: TextInputType.name,
@@ -125,7 +127,6 @@ class RegistrationOnboard extends StatelessWidget {
                           },
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.phoneController,
                           label: "Phone Number*",
                           keyboardType: TextInputType.phone,
@@ -140,7 +141,6 @@ class RegistrationOnboard extends StatelessWidget {
                           },
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.stateController,
                           label: "State*",
                           keyboardType: TextInputType.text,
@@ -152,9 +152,9 @@ class RegistrationOnboard extends StatelessWidget {
                           },
                         ),
                         buildTextField(
-                          isRequired: true,
                           titleController: controller.addressController,
                           label: "Address*",
+                          maxLengthCount: 200,
                           keyboardType: TextInputType.streetAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -163,35 +163,46 @@ class RegistrationOnboard extends StatelessWidget {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 30),
+                        // const SizedBox(height: 30),
                       ],
                     ),
                   ),
                 ),
               ),
               const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
+
+              CustomButton(title: "Next", ontap: () {
                       controller.goToNextScreen();
+                 if (formKey.currentState!.validate()) {
                     } else {
                       Get.snackbar("Error", "Please fill in all fields",
                           snackPosition: SnackPosition.BOTTOM);
                     }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kColorlightBlue,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(3.w),
-                    ),
-                  ),
-                  child: Text("Next",
-                      style: TextStyle(color: Colors.white, fontSize: 16.sp)),
-                ),
-              ),
+                
+              }, width:double.infinity),
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       if (formKey.currentState!.validate()) {
+              //         controller.goToNextScreen();
+              //       } else {
+              //         Get.snackbar("Error", "Please fill in all fields",
+              //             snackPosition: SnackPosition.BOTTOM);
+              //       }
+              //     },
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: kColorlightBlue,
+              //       minimumSize: const Size(double.infinity, 50),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(3.w),
+              //       ),
+              //     ),
+              //     child: Text("Next",
+              //         style: TextStyle(color: Colors.white, fontSize: 16.sp)),
+              //   ),
+              // ),
+              SizedBox(height: 1.h,)
             ],
           ),
         ),

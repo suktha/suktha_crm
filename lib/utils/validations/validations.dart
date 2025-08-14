@@ -14,6 +14,17 @@ class Validate {
     return emailRegex.hasMatch(email);
   }
 
+  bool validateGST(String gst) {
+    // Regular expression pattern for GST validation
+    final RegExp gstRegex = RegExp(
+      r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z][0-9A-Z][0-9]$',
+      caseSensitive: false,
+      multiLine: false,
+    );
+
+    return gstRegex.hasMatch(gst);
+  }
+
   bool validateMobile(String mobile) {
     // Check if the mobile number contains only digits
     if (!RegExp(r'^[0-9]+$').hasMatch(mobile)) {
