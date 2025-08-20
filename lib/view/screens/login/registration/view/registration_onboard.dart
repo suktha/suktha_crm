@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/registration/controller/registration_controller.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
@@ -89,27 +88,64 @@ class RegistrationOnboard extends StatelessWidget {
                           label: "Company Name*",
                           keyboardType: TextInputType.text,
                         ),
-                        buildTextField(
-                          titleController: controller.gstTypeController,
-                          label: "GST Type*",
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "GST Type is required";
-                            }
-                            return null;
-                          },
+
+                       DropdownButtonFormField<int>(
+                            validator: (value) {
+                              if (value == null || value == 0) {
+                                return "GST Type is required";
+                              }
+                              return null;
+                            },
+                            decoration:
+                                customInputDecoration("GST Registration Type"),
+                           
+                            items: controller.registrationTypeList.map((gstType) {
+                              return DropdownMenuItem<int>(
+                                value: gstType['id'],
+                                child: Text(gstType['name'] ?? ""),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                controller.selectedRegistrationId.value =
+                                    value;
+                                print("Selected id: $value");
+                              }
+                            },
+                          ),
+                        
+                        //  Obx(() => DropdownButtonFormField(
+                        //       validator: (value) {
+                        //         if (value == null) {
+                        //           return "State is required";
+                        //         }
+                        //         return null;
+                        //       },
+                        //       decoration: customInputDecoration("State*"),
+                        //       items: controller.stateList.map(
+                        //         (state) {
+                        //           return DropdownMenuItem(
+                        //               value: state.id,
+                        //               child: Text(state.name ?? ""));
+                        //         },
+                        //       ).toList(),
+                        //       onChanged: (value) {
+                        //         controller.stateId.value = value ?? 0;
+                        //         print("id---$value");
+                        //       },
+                        //     )),
+                        SizedBox(
+                          height: 3.w,
                         ),
                         buildTextField(
                           titleController: controller.gstNumberController,
                           label: "GST Number(eg: 22AAAAA0000A1Z5)",
                           keyboardType: TextInputType.text,
-
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return null;
-                              
                             }
-                             if (!Validate().validateGST(value)) {
+                            if (!Validate().validateGST(value)) {
                               return "Invalid GST Number";
                             }
                             return null;
@@ -140,17 +176,41 @@ class RegistrationOnboard extends StatelessWidget {
                             return null;
                           },
                         ),
-                        buildTextField(
-                          titleController: controller.stateController,
-                          label: "State*",
-                          keyboardType: TextInputType.text,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "State is required";
-                            }
-                            return null;
-                          },
+                        Obx(() => DropdownButtonFormField(
+                              validator: (value) {
+                                if (value == null) {
+                                  return "State is required";
+                                }
+                                return null;
+                              },
+                              decoration: customInputDecoration("State*"),
+                              items: controller.stateList.map(
+                                (state) {
+                                  return DropdownMenuItem(
+                                      value: state.id,
+                                      child: Text(state.name ?? ""));
+                                },
+                              ).toList(),
+                              onChanged: (value) {
+                                controller.stateId.value = value ?? 0;
+                                print("id---$value");
+                              },
+                            )),
+                        SizedBox(
+                          height: 3.w,
                         ),
+
+                        // buildTextField(
+                        //   titleController: controller.stateController,
+                        //   label: "State*",
+                        //   keyboardType: TextInputType.text,
+                        //   validator: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       return "State is required";
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
                         buildTextField(
                           titleController: controller.addressController,
                           label: "Address*",
@@ -170,43 +230,61 @@ class RegistrationOnboard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-
-              CustomButton(title: "Next", ontap: () {
+              CustomButton(
+                  title: "Next",
+                  ontap: () {
+                    if (formKey.currentState!.validate()) {
                       controller.goToNextScreen();
-                 if (formKey.currentState!.validate()) {
                     } else {
                       Get.snackbar("Error", "Please fill in all fields",
-                          snackPosition: SnackPosition.BOTTOM);
+                          snackPosition: SnackPosition.TOP);
                     }
-                
-              }, width:double.infinity),
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       if (formKey.currentState!.validate()) {
-              //         controller.goToNextScreen();
-              //       } else {
-              //         Get.snackbar("Error", "Please fill in all fields",
-              //             snackPosition: SnackPosition.BOTTOM);
-              //       }
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: kColorlightBlue,
-              //       minimumSize: const Size(double.infinity, 50),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(3.w),
-              //       ),
-              //     ),
-              //     child: Text("Next",
-              //         style: TextStyle(color: Colors.white, fontSize: 16.sp)),
-              //   ),
-              // ),
-              SizedBox(height: 1.h,)
+                  },
+                  width: double.infinity),
+              SizedBox(
+                height: 1.h,
+              )
             ],
           ),
         ),
       ),
     );
   }
+}
+
+InputDecoration customInputDecoration(String label) {
+  return InputDecoration(
+    labelText: label,
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey.shade300,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(3.w),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.blue.shade300,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(3.w),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: Colors.red,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(3.w),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: Colors.orange,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(3.w),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(3.w),
+    ),
+  );
 }

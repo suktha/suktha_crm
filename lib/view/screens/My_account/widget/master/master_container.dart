@@ -46,11 +46,10 @@ class MasterContainer extends StatelessWidget {
                 height: 2.w,
               ),
               SizedBox(
-                width: 24.w,
+                width: 23.w,
                 child: Text(title,
                 textAlign: TextAlign.center,
                     style: TextStyle(
-                      
                         // fontWeight: FontWeight.w500,
                         fontSize: 16.sp,
                         color: kColorblack)),

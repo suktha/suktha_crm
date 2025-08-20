@@ -93,7 +93,6 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                       controller.partyMasterList.clear();
                       controller.getPartyMasterlist(
                           "", page, "asc", "name", false);
-
                     },
                     icon: Icon(
                       Icons.refresh,
@@ -111,7 +110,7 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                   controller.searchValue.value = "";
                   controller.searchController.clear();
                   Get.offAll(
-                      () =>  BottomNavigationMainscreen(
+                      () => BottomNavigationMainscreen(
                             initialIndex: 3,
                           ),
                       transition: Transition.fade,
@@ -220,7 +219,9 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                                       duration:
                                           const Duration(milliseconds: 300),
                                       child: LottieBuilder.asset(
-                                          "assets/lottie/empty.json",height: 15.h,)),
+                                        "assets/lottie/empty.json",
+                                        height: 15.h,
+                                      )),
                                   SizedBox(
                                     height: 3.h,
                                   ),
@@ -348,7 +349,8 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                                                         SizedBox(
                                                           width: 70.w,
                                                           child: Text(
-                                                            item.name ?? "Party Name", //name
+                                                            item.name ??
+                                                                "Party Name", //name
                                                             overflow:
                                                                 TextOverflow
                                                                     .ellipsis,
@@ -366,7 +368,8 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                                                             item.partyTypeName
                                                                 .toString(), //grand total amount ,
                                                             style: TextStyle(
-                                                                fontSize: 15.5.sp,
+                                                                fontSize:
+                                                                    15.5.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500),
@@ -534,7 +537,6 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                                                             ),
                                                             itemBuilder:
                                                                 (context) => [
-                                                             
                                                               PopupMenuItem(
                                                                 onTap: () {
                                                                   controller
@@ -679,7 +681,6 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
       ],
     );
   }
-
 
   Future<dynamic> customCreateTranscationDialog(
       BuildContext context, VoidCallback itemAddButton) {

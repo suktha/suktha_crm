@@ -8,6 +8,7 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/view/screens/Task_Managment/controllers/task_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
+import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
 import 'package:work_Force/view/screens/home_screen/controller/checkInOut_controller.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
@@ -188,6 +189,7 @@ class ClockedintaskScreen extends StatelessWidget {
                             customSnackbar(
                                 "Error", "Please select a task", "error");
                           } else {
+                           controller.toggleCheck();
                             
                           }
                         } else {

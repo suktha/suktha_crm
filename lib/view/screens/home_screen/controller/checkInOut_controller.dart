@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/clockedInTask_screen.dart';
 
 class CheckInOutController extends GetxController {
@@ -16,14 +17,17 @@ class CheckInOutController extends GetxController {
   void toggleCheck() {
     if (isClockedIn.value) {
       // Clocking out
+            print("Clocked1 : ${isClockedIn.value}");
+
       _timer?.cancel();
       workedDuration.value = DateTime.now().difference(startTime.value);
     } else {
       // Clocking in
       startTime.value = DateTime.now();
       elapsedTime.value = Duration.zero;
-      Get.to(() => ClockedintaskScreen());
 
+      Get.to(() => const TaskMapScreen(), transition: Transition.rightToLeft);
+      print("Clocked2 : ${isClockedIn.value}");
       _timer?.cancel();
 
       _timer = Timer.periodic(const Duration(seconds: 1), (_) {

@@ -2,11 +2,15 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
+import 'package:work_Force/view/screens/login/registration/controller/registration_controller.dart';
+import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -19,13 +23,7 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  bool obscurePassword = true;
-  bool obscureConfirmPassword = true;
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  final controller = Get.put(RegistrationController());
 
   @override
   Widget build(BuildContext context) {
@@ -70,18 +68,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 buildTextField(
                   label: "User Name",
-                  titleController: usernameController,
+                  titleController: controller.usernameController,
+                  onFieldSubmitted: (value) {
+                    controller.checkUsername(value);
+                  },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your username';
                     }
                     return null;
-                  }, 
+                  },
                 ),
                 buildTextField(
                     label: "Email",
-                    titleController: emailController,
+                    titleController: controller.emailController,
                     keyboardType: TextInputType.emailAddress,
+                    onFieldSubmitted: (value) {
+                      controller.checkEmail(value);
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -93,18 +97,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }),
                 buildTextField(
                   label: "Password",
-                  titleController: passwordController,
-                  obscureText: obscurePassword,
+                  titleController: controller.passwordController,
+                  obscureText: controller.obscurePassword,
                   suffixIcon: IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     icon: Icon(
-                      obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      controller.obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       color: Colors.grey.shade400,
                     ),
                     onPressed: () {
                       setState(() {
-                        obscurePassword = !obscurePassword;
+                        controller.obscurePassword =
+                            !controller.obscurePassword;
                       });
                     },
                   ),
@@ -119,23 +126,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 // Confirm Password Field
                 buildTextField(
                   label: "Confirm Password",
-                  titleController: confirmPasswordController,
-                  obscureText: obscureConfirmPassword,
+                  titleController: controller.confirmPasswordController,
+                  obscureText: controller.obscureConfirmPassword,
                   onChanged: (value) {
-                    if (value.isNotEmpty && value != passwordController.text) {}
+                    if (value.isNotEmpty &&
+                        value != controller.passwordController.text) {}
                   },
                   suffixIcon: IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     icon: Icon(
-                      obscureConfirmPassword
+                      controller.obscureConfirmPassword
                           ? Icons.visibility_off
                           : Icons.visibility,
                       color: Colors.grey.shade400,
                     ),
                     onPressed: () {
                       setState(() {
-                        obscureConfirmPassword = !obscureConfirmPassword;
+                        controller.obscureConfirmPassword =
+                            !controller.obscureConfirmPassword;
                       });
                     },
                   ),
@@ -143,7 +152,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     if (value == null || value.isEmpty) {
                       return "Please confirm your password";
                     }
-                    if (value != passwordController.text) {
+                    if (value != controller.passwordController.text) {
                       return "Passwords do not match";
                     }
                     return null;
@@ -195,7 +204,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      // Handle successful validation
+                      Fluttertoast.showToast(
+                        msg: "This feature is in Progress",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        textColor: kColorwhite,
+                        backgroundColor: kColorgrey,
+                      ); // subscriptionBottomSheet();
+
+                      controller.UserRegister();
                     }
                     // Your onPressed logic
                   },
@@ -210,7 +228,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Sign Up",
+                      Text("Subscribe",
                           style:
                               TextStyle(color: Colors.white, fontSize: 16.sp)),
                       SizedBox(width: 8),
@@ -253,6 +271,71 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  subscriptionBottomSheet() {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      isDismissible: true,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 1.h,
+                ),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            boxShadow: kElevationToShadow[1],
+                            borderRadius: BorderRadius.circular(16)),
+                        child: CircleAvatar(
+                          radius: 17,
+                          backgroundColor: kColorlightBlue,
+                          child: Icon(
+                            Icons.arrow_back_ios_rounded,
+                            size: 20,
+                            color: kColorwhite,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20.w,
+                    ),
+                    Text(
+                      "Subscription Plans",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 19.sp),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                CustomButton(
+                    title: "Pay Now", ontap: () {}, width: double.infinity),
+                SizedBox(
+                  height: 1.h,
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

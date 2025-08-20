@@ -87,9 +87,7 @@ Future<dynamic> CustomFilterList({
                           child: Text(
                             "Filter By",
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                      fontSize: 17.5.sp
-                            ),
+                                fontWeight: FontWeight.w600, fontSize: 17.5.sp),
                           ),
                         ),
                       ),
@@ -113,13 +111,10 @@ Future<dynamic> CustomFilterList({
                   Row(
                     children: [
                       isStatusNeeded == true
-                          ?  Text(
+                          ? Text(
                               "Status",
                               style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                                      fontSize: 17.sp
-
-                              ),
+                                  fontWeight: FontWeight.w500, fontSize: 17.sp),
                             )
                           : const SizedBox()
                     ],
@@ -128,12 +123,10 @@ Future<dynamic> CustomFilterList({
                     padding: EdgeInsets.all(2.w),
                     child: Column(children: customList),
                   ),
-                   Text(
+                  Text(
                     "Sort By",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17.sp
-                    ),
+                    style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 17.sp),
                   ),
                   Padding(
                     padding: EdgeInsets.all(2.w),
@@ -149,17 +142,25 @@ Future<dynamic> CustomFilterList({
                                   onTap: containerOnpressed,
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 300),
-                                    height: sortBy.value ? 5.h : 6.h,
+                                    height: sortBy.value ? 5.h : 5.5.h,
                                     decoration: BoxDecoration(
                                         boxShadow: kElevationToShadow[3],
-                                        border: Border.all(color: Colors.lightBlue.shade300),
-                                        borderRadius: BorderRadius.circular(3.w),
-                                        color: sortBy.value ? kColorwhite : Colors.lightBlue[300]),
+                                        border: sortBy.value
+                                            ? null
+                                            : Border.all(color: kColorlightBlue),
+                                        borderRadius:
+                                            BorderRadius.circular(3.w),
+                                        color: kColorwhite),
                                     width: sortBy.value ? 29.w : 30.w,
                                     child: Center(
                                       child: Text(
                                         'Ascending',
-                                        style: TextStyle(color: sortBy.value ? kColorblack : kColorwhite, fontWeight: FontWeight.bold, fontSize: 16.sp),
+                                        style: TextStyle(
+                                            color: sortBy.value
+                                                ? kColorgrey
+                                                : kColorblack,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16.sp),
                                       ),
                                     ),
                                   ),
@@ -168,17 +169,25 @@ Future<dynamic> CustomFilterList({
                                   onTap: containerOnpressed,
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 500),
-                                    height: sortBy.value ? 6.h : 5.h,
+                                    height: sortBy.value ? 5.5.h : 5.h,
                                     decoration: BoxDecoration(
                                         boxShadow: kElevationToShadow[3],
-                                        border: Border.all(color: Colors.lightBlue.shade300),
-                                        borderRadius: BorderRadius.circular(3.w),
-                                        color: sortBy.value ? Colors.lightBlue[300] : kColorwhite),
+                                        border: sortBy.value
+                                            ? Border.all(color: kColorlightBlue)
+                                            : null,
+                                        borderRadius:
+                                            BorderRadius.circular(3.w),
+                                        color: kColorwhite),
                                     width: sortBy.value ? 30.w : 29.w,
                                     child: Center(
                                       child: Text(
                                         'Descending',
-                                        style: TextStyle(color: sortBy.value ? kColorwhite : kColorblack, fontWeight: FontWeight.w600, fontSize: 16.sp),
+                                        style: TextStyle(
+                                            color: sortBy.value
+                                                ? kColorblack
+                                                : kColorgrey,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.sp),
                                       ),
                                     ),
                                   ),

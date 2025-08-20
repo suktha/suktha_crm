@@ -13,7 +13,7 @@ import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/controllers/Login_Controller.dart';
 import 'package:work_Force/controllers/subscribtion_controller.dart';
 import 'package:work_Force/view/screens/login/ForgotPasswordScreen/forgotpassword_screen.dart';
-import 'package:work_Force/view/screens/login/registration/registration_onboard.dart';
+import 'package:work_Force/view/screens/login/registration/view/registration_onboard.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_loading_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';

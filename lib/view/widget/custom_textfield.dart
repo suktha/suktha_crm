@@ -124,6 +124,7 @@ class buildTextField extends StatelessWidget {
   bool? obscureText = false;
   int? maxLengthCount;
   TextInputType? keyboardType;
+  Function(String)? onFieldSubmitted;
   Function(String)? onChanged;
   buildTextField(
       {super.key,
@@ -137,6 +138,7 @@ class buildTextField extends StatelessWidget {
       this.obscureText,
       this.onChanged,
       this.valueKey,
+      this.onFieldSubmitted,
       this.bottomHeight});
 
   @override
@@ -145,6 +147,7 @@ class buildTextField extends StatelessWidget {
       padding: EdgeInsets.only(bottom: bottomHeight ==true ? 0 : 12.0),
       child: TextFormField(
         key: valueKey,
+        onFieldSubmitted: onFieldSubmitted,
         maxLength: maxLengthCount,
         maxLines: label == "Specification/Description" ? null : 1,
         onTap: functionOntap,

@@ -13,6 +13,7 @@ const String baseAuthUrl = "https://api.test.brainibooks.com/core-erp"; //auth
 // const String baseAuthUrl = "https://api.uat.brainibooks.com/core-erp"; //auth        uat
 
 const String transactionNumberUrl = "/transaction-number";
+const String googleApiKey ="AIzaSyDBpJmXqS1uMJRs0dYXj-XB9dAL_mUy_6A"; // 🔑 Required for Google Maps
 
 // customer api.......................................
 const String customerListUrl = "/customer";
