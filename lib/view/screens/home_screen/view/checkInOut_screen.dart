@@ -7,8 +7,8 @@ import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
-import 'package:work_Force/view/screens/home_screen/controller/checkInOut_controller.dart';
-import 'package:work_Force/view/screens/home_screen/view/clockedInTask_screen.dart';
+import 'package:work_Force/view/screens/field_work/controller/checkInOut_controller.dart';
+import 'package:work_Force/view/screens/field_work/start_field_work/clockedInTask_screen.dart';
 
 class CheckInOutCard extends StatelessWidget {
   HomeController homeController;
@@ -121,7 +121,7 @@ class CheckInOutCard extends StatelessWidget {
                                 child: IconButton(
                                     tooltip: "View Clocked In Tasks",
                                     onPressed: () {
-                                      Get.to(() => const TaskMapScreen());
+                                      Get.to(() =>  TaskMapScreen());
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward_ios_rounded,
