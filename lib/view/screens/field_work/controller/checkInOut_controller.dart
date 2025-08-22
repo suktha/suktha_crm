@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
+import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/clockedInTask_screen.dart';
 
@@ -18,6 +21,7 @@ class CheckInOutController extends GetxController {
 
   final Rx<Duration> elapsedTime = Duration.zero.obs;
   Timer? _timer;
+  final textController = TextEditingController();
 
   GoogleMapController? mapController;
   StreamSubscription<Position>? positionStream;
@@ -43,7 +47,6 @@ class CheckInOutController extends GetxController {
     getDesignationList();
     _getCurrentLocation();
     _listenToLocationChanges();
-    taskTimeline.add("Task Started");
   }
 
   @override
@@ -53,7 +56,7 @@ class CheckInOutController extends GetxController {
     super.onClose();
   }
 
-   void addTimeline(String event) {
+  void addTimeline(String event) {
     final time = DateTime.now();
     final formatted =
         "$event at ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
@@ -165,6 +168,7 @@ class CheckInOutController extends GetxController {
       designationIdName.value = "";
     }
     taskTimeline.add("Task Ended");
+    toggleCheck();
   }
 
   void toggleCheck() {
@@ -174,12 +178,15 @@ class CheckInOutController extends GetxController {
 
       _timer?.cancel();
       workedDuration.value = DateTime.now().difference(startTime.value);
+      // Get.offAll(()=>BottomNavigationMainscreen(initialIndex: 1,));  
     } else {
       // Clocking in
       startTime.value = DateTime.now();
       elapsedTime.value = Duration.zero;
 
-      Get.to(() => TaskMapScreen(), transition: Transition.rightToLeft);
+      Get.to(() => const TaskMapScreen(), transition: Transition.rightToLeft);
+          taskTimeline.add("Task Started");
+
       print("Clocked2 : ${isClockedIn.value}");
       _timer?.cancel();
 
