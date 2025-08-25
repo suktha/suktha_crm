@@ -11,6 +11,7 @@ import 'package:work_Force/controllers/party_master_controller.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.dart';
 import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Party%20Master/View%20Party%20Master/open_party_master.dart';
 import 'package:work_Force/view/widget/LoadingScreenwithText.dart';
+import 'package:work_Force/view/widget/custom_dropdown.dart';
 import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 import 'package:work_Force/view/widget/filter_list.dart';
 import 'package:work_Force/view/widget/shimmer_loading.dart';
@@ -27,9 +28,6 @@ class PartyMasterScreen extends StatefulWidget {
 
 class _PartyMasterScreenState extends State<PartyMasterScreen> {
   final controller = Get.put(GetPartyMasterController());
-  // final cashVouchercontroller = Get.put(GetCashVoucherController());
-  // final chequeVouchercontroller = Get.put(GetChequeVoucherController());
-
   final partyController = Get.put(PartyMasterController());
   final scrollcontroller = ScrollController();
 
@@ -90,6 +88,10 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
                       controller.searchValue.value = "";
                       controller.searchController.clear();
                       page = 0;
+                      controller.filterOptionId.value = 0;
+                      controller.partyTypeId.value = "";
+                      controller.selectedFilterOption.value = "";
+                      controller.selectedPartyTypeValue.value = "";
                       controller.partyMasterList.clear();
                       controller.getPartyMasterlist(
                           "", page, "asc", "name", false);
@@ -101,9 +103,9 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
               ],
               leading: IconButton(
                 icon: Icon(
-                  Icons.keyboard_arrow_left,
+                  Icons.keyboard_arrow_left_rounded,
                   color: kColorblack,
-                  size: 25.sp,
+                  size: 23.sp,
                 ),
                 onPressed: (() {
                   controller.partyMasterList.clear();
@@ -788,7 +790,43 @@ class _PartyMasterScreenState extends State<PartyMasterScreen> {
     return CustomFilterList(
       context: context,
       isStatusNeeded: false,
-      customList: [],
+      customList: [
+        Obx(() => CustomDropdown(
+              value: controller.selectedFilterOption.value,
+              items: controller.filterOptions
+                  .map((element) => element["name"].toString())
+                  .toList(),
+              hintText: "Select filter options",
+              onChanged: (value) {
+                controller.selectedFilterOption.value = value!;
+                final selectedItem = controller.filterOptions
+                    .firstWhere((element) => element["name"] == value);
+                controller.filterOptionId.value =
+                    int.tryParse(selectedItem["id"].toString()) ?? 0;
+                print(
+                    "selected party type---${controller.selectedFilterOption}--${controller.filterOptionId}");
+              },
+            )),
+        SizedBox(
+          height: 1.h,
+        ),
+        Obx(() => CustomDropdown(
+              value: controller.selectedPartyTypeValue.value,
+              items: controller.partyType
+                  .map((element) => element["name"].toString())
+                  .toList(),
+              hintText: "Party Type",
+              onChanged: (value) {
+                controller.selectedPartyTypeValue.value = value!;
+                final selectedItem = controller.partyType
+                    .firstWhere((element) => element["name"] == value);
+                controller.partyTypeId.value = selectedItem["id"].toString();
+
+                print(
+                    "selected party type---${controller.selectedPartyTypeValue}--${controller.partyTypeId}");
+              },
+            )),
+      ],
       sortColumnList: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -107,9 +107,9 @@ class _AreaMasterScreenState extends State<AreaMasterScreen> {
             elevation: 0,
             leading: IconButton(
               icon: Icon(
-                Icons.keyboard_arrow_left,
+                Icons.keyboard_arrow_left_rounded,
                 color: kColorblack,
-                size: 25.sp,
+                size: 23.sp,
               ),
               onPressed: (() {
                 controller.searchController.clear();

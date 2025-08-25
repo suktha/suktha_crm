@@ -138,7 +138,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                       },
                       child: CircleAvatar(
                         backgroundColor: kColorwhite,
-                        child: Icon(Icons.keyboard_arrow_left),
+                        child: Icon(Icons.keyboard_arrow_left_rounded),
                       ),
                     ),
                   ),

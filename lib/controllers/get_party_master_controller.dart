@@ -29,12 +29,36 @@ class GetPartyMasterController extends GetxController {
   // RxList<PartyMasterListModel> partyMasterList = <PartyMasterListModel>[].obs;
   // RxList<Map<String, dynamic>> itemData = <Map<String, dynamic>>[].obs;
 
+  var filterOptions = [
+    {"id": 0, "name": 'All'},
+    {"id": 1, "name": 'Party Name'},
+    {"id": 2, "name": 'Party Code'},
+    {"id": 3, "name": 'Vendor Code'},
+    {"id": 4, "name": 'PIN Code'},
+    {"id": 5, "name": 'Contact Number'},
+    {"id": 6, "name": 'City'},
+    {"id": 7, "name": 'State'},
+    {"id": 8, "name": 'Country'},
+    {"id": 9, "name": 'Email'}
+  ].obs;
+  var partyType = [
+    {"id": 0, "name": 'Both'},
+    {"id": 1, "name": 'Customer'},
+    {"id": 2, "name": 'Supplier'}
+  ].obs;
+
+  RxString partyTypeId = "".obs;
+  RxInt filterOptionId = 0.obs;
+
   RxBool loading = false.obs;
   RxBool hasMore = true.obs;
   RxBool listLoad = false.obs;
   RxBool hidefloatingButton = true.obs;
   RxBool materialImageIschecked = false.obs;
   RxString searchValue = "".obs;
+  RxString selectedPartyTypeValue = "".obs;
+  RxString selectedFilterOption = "".obs;
+
   RxString sortdirection = "desc".obs;
   RxString sortwith = "name".obs;
   RxList<String> selectedStatuses = <String>[].obs;
@@ -61,8 +85,10 @@ class GetPartyMasterController extends GetxController {
 
   RxList<PartyWithPriceLists> partyMasterList = <PartyWithPriceLists>[].obs;
 
-  Future<List<PartyWithPriceLists>> getPartyMasterlist(String query, int page, String sortDirection, String sortWith, bool isFilter) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  Future<List<PartyWithPriceLists>> getPartyMasterlist(String query, int page,
+      String sortDirection, String sortWith, bool isFilter) async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -73,12 +99,21 @@ class GetPartyMasterController extends GetxController {
 
     const limit = 10;
 
-    var apiData = "$baseUrl/parties/recent/$sortWith/$sortDirection/$page/$limit?searchText=$query";
+    print("partyTypeId-------${partyTypeId.value}");
+    print("filterOptionId-------${filterOptionId.value}");
+    if (partyTypeId.value == "0" || partyTypeId.value == "") {
+      partyTypeId.value = "1,2";
+    }
+
+    var apiData =
+        "$baseUrl/parties/recent/$sortWith/$sortDirection/$page/$limit?searchText=$query&partyTypeId=${partyTypeId.value}&filterId=${filterOptionId.value}";
 
     print("api url ----------------- $apiData");
 
     try {
-      final response = await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer ${loginDetails.token}"}));
+      final response = await dio.get(apiData,
+          options: Options(
+              headers: {"Authorization": "Bearer ${loginDetails.token}"}));
 
       print(response.statusCode);
 
@@ -240,7 +275,8 @@ class GetPartyMasterController extends GetxController {
     bool isPopup,
     PartyDTO? SavedPurchaseResult,
   ) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -254,15 +290,19 @@ class GetPartyMasterController extends GetxController {
     print(apiData);
 
     try {
-      final response = await dio.delete(apiData, options: Options(headers: {"Authorization": "Bearer ${loginDetails.token}"}));
+      final response = await dio.delete(apiData,
+          options: Options(
+              headers: {"Authorization": "Bearer ${loginDetails.token}"}));
       print(response.data);
       if (response.data['responseStatus'] == 1) {
         isPopup == true ? Get.back() : null;
-        customSnackbar("Deleted", "Party Master has been deleted Successfully", "success");
+        customSnackbar(
+            "Deleted", "Party Master has been deleted Successfully", "success");
         getPartyMasterlist("", 0, "desc", "name", false);
       } else {
         print(response.data['responseStatus']);
-        customSnackbar("Can't Delete", "Can't Delete Older Party Master", "error");
+        customSnackbar(
+            "Can't Delete", "Can't Delete Older Party Master", "error");
       }
       print(response.statusCode);
     } on DioException catch (e) {
@@ -274,7 +314,8 @@ class GetPartyMasterController extends GetxController {
   Future closePO(
     id,
   ) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     String? token = sharedPreferences.getString('token');
 
@@ -285,8 +326,11 @@ class GetPartyMasterController extends GetxController {
     Dio dio = Dio();
 
     try {
-      final response =
-          await dio.get(apiData, options: Options(headers: {"Authorization": "Bearer $token", "content-type": "application/json"}));
+      final response = await dio.get(apiData,
+          options: Options(headers: {
+            "Authorization": "Bearer $token",
+            "content-type": "application/json"
+          }));
 
       await checkTokenExpired(response.statusCode);
       if (response.statusCode == 200) {
@@ -303,6 +347,4 @@ class GetPartyMasterController extends GetxController {
       print(e);
     }
   }
-
-  
 }

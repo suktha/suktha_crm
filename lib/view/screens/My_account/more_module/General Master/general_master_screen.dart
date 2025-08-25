@@ -42,9 +42,9 @@ class _GeneralMasterScreenState extends State<GeneralMasterScreen> {
           elevation: 0,
           leading: IconButton(
             icon: Icon(
-              Icons.keyboard_arrow_left,
+              Icons.keyboard_arrow_left_rounded,
               color: kColorblack,
-              size: 25.sp,
+              size: 23.sp,
             ),
             onPressed: (() {
               Get.to(() =>  BottomNavigationMainscreen(initialIndex: 3),

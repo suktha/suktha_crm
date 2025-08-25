@@ -283,6 +283,7 @@ class _TaskMapScreenState extends State<TaskMapScreen> {
                                     /// Event Text
                                     Expanded(
                                       child: Container(
+                                        // height: 6.h,
                                         decoration: BoxDecoration(
                                           color: isLast
                                               ? Colors.blue.shade50
@@ -292,17 +293,34 @@ class _TaskMapScreenState extends State<TaskMapScreen> {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(10.0),
-                                          child: Text(
-                                            controller.taskTimeline[index],
-                                            style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: isLast
-                                                  ? FontWeight.bold
-                                                  : FontWeight.w500,
-                                              color: isLast
-                                                  ? Colors.blue
-                                                  : Colors.black,
-                                            ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                controller.taskTimeline[index],
+                                                style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: isLast
+                                                      ? FontWeight.bold
+                                                      : FontWeight.w500,
+                                                  color: isLast
+                                                      ? Colors.blue
+                                                      : Colors.black,
+                                                ),
+                                              ),
+                                               Text(
+                                                "Description of event in detail",
+                                                style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  fontWeight:  FontWeight.w400,
+                                                  color: isLast
+                                                      ? Colors.blue
+                                                      : Colors.black,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),

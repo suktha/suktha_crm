@@ -63,7 +63,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
               ],
               leading: IconButton(
                 icon: Icon(
-                  Icons.keyboard_arrow_left,
+                  Icons.keyboard_arrow_left_rounded,
                   color: kColorblack,
                   size: 25,
                 ),

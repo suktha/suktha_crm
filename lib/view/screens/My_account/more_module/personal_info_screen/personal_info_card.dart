@@ -79,7 +79,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         elevation: 0,
         leading: IconButton(
           icon:
-              Icon(Icons.keyboard_arrow_left, size: 24.sp, color: kColorblack),
+              Icon(Icons.keyboard_arrow_left_rounded, size: 24.sp, color: kColorblack),
           onPressed: Get.back,
         ),
       ),

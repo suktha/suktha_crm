@@ -1,8 +1,6 @@
-// ignore_for_file: avoid_print
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -10,9 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
-import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
-import 'package:work_Force/view/screens/field_work/start_field_work/clockedInTask_screen.dart';
 
 class CheckInOutController extends GetxController {
   var isClockedIn = false.obs;
