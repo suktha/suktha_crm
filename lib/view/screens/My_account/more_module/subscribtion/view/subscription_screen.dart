@@ -78,7 +78,7 @@ class _SunscriptionDetailsScreenState extends State<SunscriptionDetailsScreen> {
                     height: height * 0.01,
                   ),
                   Text(
-                    "Manage your Suktha Subscription",
+                    "Manage your Work force Subscription",
                     style: TextStyle(
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w400,

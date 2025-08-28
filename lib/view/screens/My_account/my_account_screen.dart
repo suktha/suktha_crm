@@ -132,7 +132,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 243, 243, 243),
       appBar: AppBar(
-         automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         title: Text("Profile"),
         titleTextStyle: TextStyle(
             color: kColorblack, fontWeight: FontWeight.bold, fontSize: 20.sp),
@@ -378,7 +378,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     MoreListCustomWidgets(
                       width: 16.0,
                       title: "Refer & Earn",
-                      icon: Icons.share_outlined,
+                      icon: Icons.emoji_emotions_outlined,
                       ontap: () {},
                     ),
                     MoreListCustomWidgets(
