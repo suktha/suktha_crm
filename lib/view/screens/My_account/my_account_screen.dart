@@ -18,8 +18,10 @@ import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/view/screens/My_account/more_module/personal_info_screen/personal_info_card.dart';
-import 'package:work_Force/view/screens/My_account/widget/master/master_container.dart';
-import 'package:work_Force/view/screens/My_account/widget/custom_activity_container.dart';
+import 'package:work_Force/view/screens/My_account/more_module/settings/view/settings_screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/subscribtion/view/subscription_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/master/master_container.dart';
+import 'package:work_Force/view/screens/My_account/view/custom_activity_container.dart';
 import 'package:work_Force/view/screens/My_account/more_module/Account%20Settings/company_details_screen.dart';
 import 'package:work_Force/view/screens/My_account/more_module/General%20Master/general_master_screen.dart';
 import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
@@ -354,7 +356,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     MoreListCustomWidgets(
                       width: 16.0,
                       title: "Personal Information",
-                      icon: Icons.person,
+                      icon: Icons.person_outline,
                       ontap: () {
                         Get.to(() => PersonalInformationScreen(),
                             duration: const Duration(milliseconds: 400),
@@ -375,24 +377,28 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     MoreListCustomWidgets(
                       width: 16.0,
-                      title: "Help & Support",
-                      icon: Icons.support_agent_rounded,
+                      title: "Refer & Earn",
+                      icon: Icons.share_outlined,
                       ontap: () {},
                     ),
                     MoreListCustomWidgets(
                       width: 16.0,
                       title: "Subscription Details",
-                      icon: Icons.subscriptions_rounded,
-                      ontap: () {},
+                      icon: Icons.subscriptions_outlined,
+                      ontap: () {
+                        Get.to(() => SunscriptionDetailsScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
                     ),
                     MoreListCustomWidgets(
                       width: 16.0,
                       title: "Settings",
-                      icon: Icons.settings_rounded,
+                      icon: Icons.settings_outlined,
                       ontap: () {
-                        // Get.to(() => PersonalInformationScreen(),
-                        //     duration: const Duration(milliseconds: 400),
-                        //     transition: Transition.rightToLeft);
+                        Get.to(() => SettingsScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
                       },
                     ),
                     ListTile(

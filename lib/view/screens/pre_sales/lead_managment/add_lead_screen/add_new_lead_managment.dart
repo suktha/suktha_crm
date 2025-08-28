@@ -1468,7 +1468,7 @@ class _NewLeadManagementAddScreenState
                                                                             .shade600,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w400),
                                                               ),
                                                               // SizedBox(
                                                               //   width: 2.w,
@@ -2798,7 +2798,7 @@ class _NewLeadManagementAddScreenState
                                                                             .shade600,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w400),
                                                               ),
                                                               Spacer(),
                                                               Container(
@@ -3110,7 +3110,7 @@ class _NewLeadManagementAddScreenState
                                                                             .shade600,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w400),
                                                               ),
                                                               Spacer(),
                                                               Container(
@@ -3535,7 +3535,7 @@ class _NewLeadManagementAddScreenState
                                                                             .shade600,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w400),
                                                               ),
                                                               Spacer(),
                                                               Container(
@@ -3814,7 +3814,7 @@ class _NewLeadManagementAddScreenState
                                                                             .shade600,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold),
+                                                                            .w400),
                                                               ),
                                                               Spacer(),
                                                               Container(
