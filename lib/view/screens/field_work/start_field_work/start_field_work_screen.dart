@@ -8,14 +8,9 @@ import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainscreen.d
 import 'package:work_Force/view/screens/field_work/controller/checkInOut_controller.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 
-class TaskMapScreen extends StatefulWidget {
-  const TaskMapScreen({super.key});
+class TaskMapScreen extends StatelessWidget {
+   TaskMapScreen({super.key});
 
-  @override
-  State<TaskMapScreen> createState() => _TaskMapScreenState();
-}
-
-class _TaskMapScreenState extends State<TaskMapScreen> {
   final CheckInOutController controller = Get.find<CheckInOutController>();
 
   @override
@@ -41,9 +36,12 @@ class _TaskMapScreenState extends State<TaskMapScreen> {
               ),
               transition: Transition.rightToLeft,
             );
-            controller.taskTimeline.clear();
-            controller.textController.clear();
-            controller.selectedAction.value = "";
+            if (controller.isClockedIn.value) {
+            } else {
+              controller.taskTimeline.clear();
+              controller.textController.clear();
+              controller.selectedAction.value = "";
+            }
           },
         ),
         actions: [
@@ -294,7 +292,8 @@ class _TaskMapScreenState extends State<TaskMapScreen> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(10.0),
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
@@ -310,11 +309,11 @@ class _TaskMapScreenState extends State<TaskMapScreen> {
                                                       : Colors.black,
                                                 ),
                                               ),
-                                               Text(
+                                              Text(
                                                 "Description of event in detail",
                                                 style: TextStyle(
                                                   fontSize: 14.sp,
-                                                  fontWeight:  FontWeight.w400,
+                                                  fontWeight: FontWeight.w400,
                                                   color: isLast
                                                       ? Colors.blue
                                                       : Colors.black,

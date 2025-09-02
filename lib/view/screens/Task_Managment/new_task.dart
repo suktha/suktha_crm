@@ -35,7 +35,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     return DefaultTabController(
       length: 6,
       child: Scaffold(
-        backgroundColor: kColorLightGrey,
+        backgroundColor: kColorwhite,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text("Tasks Managment",

@@ -60,7 +60,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
         return value == true;
       },
       child: Scaffold(
-          backgroundColor: Color.fromARGB(255, 243, 243, 243),
+          backgroundColor: kColorwhite,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: const Text(" Pre Sales"),
@@ -69,7 +69,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 20.sp),
             centerTitle: false,
-            backgroundColor: Color.fromARGB(255, 243, 243, 243),
+            backgroundColor: kColorwhite,
             elevation: 0,
             actions: [
               IconButton(
@@ -1436,8 +1436,7 @@ class ContainerCustom extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 2),
-          // boxShadow: kElevationToShadow[1],
+          boxShadow: kElevationToShadow[1],
           borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             colors: containerColor, // Gradient colors

@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -41,8 +42,8 @@ class CheckInOutController extends GetxController {
   void onInit() {
     super.onInit();
     getDesignationList();
-    _getCurrentLocation();
-    _listenToLocationChanges();
+    getCurrentLocation();
+    listenToLocationChanges();
   }
 
   @override
@@ -60,7 +61,7 @@ class CheckInOutController extends GetxController {
   }
 
   /// Get current user location
-  Future<void> _getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) return;
 
@@ -78,7 +79,7 @@ class CheckInOutController extends GetxController {
   }
 
   /// Listen to live updates
-  void _listenToLocationChanges() {
+  void listenToLocationChanges() {
     positionStream = Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
         accuracy: LocationAccuracy.bestForNavigation,
@@ -180,7 +181,7 @@ class CheckInOutController extends GetxController {
       startTime.value = DateTime.now();
       elapsedTime.value = Duration.zero;
 
-      Get.to(() => const TaskMapScreen(), transition: Transition.rightToLeft);
+      Get.to(() =>  TaskMapScreen(), transition: Transition.rightToLeft);
           taskTimeline.add("Task Started");
 
       print("Clocked2 : ${isClockedIn.value}");

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
-import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_settings_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -37,11 +36,14 @@ class SettingsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 2.h,),
-                Center(
+            SizedBox(
+              height: 2.h,
+            ),
+            Center(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(5.w),
-                child: Image.asset("assets/Images/profile_pic.jpg", height: 18.h)),
+                  borderRadius: BorderRadius.circular(5.w),
+                  child: Image.asset("assets/Images/profile_pic.jpg",
+                      height: 18.h)),
             ),
             SizedBox(
               height: 1.h,
@@ -55,12 +57,6 @@ class SettingsScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
-            ),
-            MoreListCustomWidgets(
-              width: 16.0,
-              title: "Financial year master",
-              icon: Icons.calendar_today_outlined,
-              ontap: () {},
             ),
             MoreListCustomWidgets(
               width: 16.0,
@@ -82,8 +78,20 @@ class SettingsScreen extends StatelessWidget {
             ),
             MoreListCustomWidgets(
               width: 16.0,
+              title: "Financial year master",
+              icon: Icons.calendar_view_month,
+              ontap: () {},
+            ),
+            MoreListCustomWidgets(
+              width: 16.0,
               title: "About Us",
               icon: Icons.info_outline,
+              ontap: () {},
+            ),
+            MoreListCustomWidgets(
+              width: 16.0,
+              title: "Log Out",
+              icon: Icons.logout,
               ontap: () {},
             ),
             Padding(
@@ -96,7 +104,6 @@ class SettingsScreen extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-           
             MoreListCustomWidgets(
               width: 16.0,
               title: "Report a Bug",
@@ -113,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  CustomButton(title: "LOGOUT", ontap: () {}, width: 50.w),
+                  // CustomButton(title: "LOGOUT", ontap: () {}, width: 50.w),
                   // SizedBox(height: 1.h,),
                   TextButton(
                     onPressed: () {},

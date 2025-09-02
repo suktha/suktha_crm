@@ -13,8 +13,6 @@ class PersonalInformationScreen extends StatefulWidget {
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  // Controllers
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _employeeIdController = TextEditingController();
@@ -49,7 +47,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     }
   }
 
-  InputDecoration _inputDecoration(String label, IconData icon) =>
+  InputDecoration inputDecoration(String label, IconData icon) =>
       InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon),
@@ -61,7 +59,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: kColorLightGrey),
+          borderSide: const BorderSide(color: kColorLightGrey),
         ),
       );
 
@@ -78,8 +76,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         backgroundColor: kColorwhite,
         elevation: 0,
         leading: IconButton(
-          icon:
-              Icon(Icons.keyboard_arrow_left_rounded, size: 24.sp, color: kColorblack),
+          icon: Icon(Icons.keyboard_arrow_left_rounded,
+              size: 24.sp, color: kColorblack),
           onPressed: Get.back,
         ),
       ),
@@ -95,85 +93,86 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       // --- Avatar & header --- //
-                      
-              
+
                       // --- Card with inputs --- //
                       Card(
                         elevation: 1,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 4.w, vertical: 2.h),
                           child: Column(
                             children: [
                               // Name
                               TextFormField(
                                 controller: _nameController,
-                                decoration: _inputDecoration(
+                                decoration: inputDecoration(
                                     'Name', Icons.person_outline_rounded),
-                                validator: (v) => (v == null || v.trim().isEmpty)
-                                    ? 'Enter name'
-                                    : null,
+                                validator: (v) =>
+                                    (v == null || v.trim().isEmpty)
+                                        ? 'Enter name'
+                                        : null,
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Email
                               TextFormField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
-                                decoration:
-                                    _inputDecoration('Email', Icons.email_rounded),
+                                decoration: inputDecoration(
+                                    'Email', Icons.email_rounded),
                                 validator: (v) {
                                   if (v == null || v.trim().isEmpty) {
                                     return 'Enter email';
                                   }
-                                  final reg =
-                                      RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$');
+                                  final reg = RegExp(
+                                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}\$');
                                   return reg.hasMatch(v.trim())
                                       ? null
                                       : 'Invalid email';
                                 },
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Employee ID
                               TextFormField(
                                 controller: _employeeIdController,
-                                decoration: _inputDecoration(
+                                decoration: inputDecoration(
                                     'Employee ID', Icons.badge_rounded),
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Phone
                               TextFormField(
                                 controller: _phoneController,
                                 keyboardType: TextInputType.phone,
-                                decoration:
-                                    _inputDecoration('Phone', Icons.phone_rounded),
+                                decoration: inputDecoration(
+                                    'Phone', Icons.phone_rounded),
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Mobile
                               TextFormField(
                                 controller: _mobileController,
                                 keyboardType: TextInputType.phone,
-                                decoration: _inputDecoration(
+                                decoration: inputDecoration(
                                     'Mobile Number', Icons.smartphone_rounded),
-                                validator: (v) => (v == null || v.trim().isEmpty)
-                                    ? 'Enter mobile'
-                                    : null,
+                                validator: (v) =>
+                                    (v == null || v.trim().isEmpty)
+                                        ? 'Enter mobile'
+                                        : null,
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Designation
                               DropdownButtonFormField<String>(
                                 value: _selectedDesignation,
                                 items: _designations
-                                    .map((d) =>
-                                        DropdownMenuItem(value: d, child: Text(d)))
+                                    .map((d) => DropdownMenuItem(
+                                        value: d, child: Text(d)))
                                     .toList(),
-                                decoration: _inputDecoration(
+                                decoration: inputDecoration(
                                     'Designation', Icons.work_outline_rounded),
                                 onChanged: (v) =>
                                     setState(() => _selectedDesignation = v),
@@ -181,48 +180,45 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                                     v == null ? 'Select designation' : null,
                               ),
                               SizedBox(height: 2.h),
-              
+
                               // Address
                               TextFormField(
                                 controller: _addressController,
                                 maxLines: 4,
-                                decoration: _inputDecoration(
+                                decoration: inputDecoration(
                                     'Address', Icons.home_work_outlined),
-                                validator: (v) => (v == null || v.trim().isEmpty)
-                                    ? 'Enter address'
-                                    : null,
+                                validator: (v) =>
+                                    (v == null || v.trim().isEmpty)
+                                        ? 'Enter address'
+                                        : null,
                               ),
                             ],
                           ),
                         ),
                       ),
-                      // SizedBox(height: 17.h),
-              
-                      // --- Save button --- //
-                     
                     ],
                   ),
                 ),
               ),
             ),
-             Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 5.h,
-                          child: ElevatedButton(
-                            onPressed: _submitForm,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: kColorlightBlue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              elevation: 2,
-                            ),
-                            child: Text('Save', style: TextStyle(fontSize: 17.sp)),
-                          ),
-                        ),
-                      ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 5.h,
+                child: ElevatedButton(
+                  onPressed: _submitForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kColorlightBlue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    elevation: 2,
+                  ),
+                  child: Text('Save', style: TextStyle(fontSize: 17.sp)),
+                ),
+              ),
+            ),
           ],
         ),
       ),
