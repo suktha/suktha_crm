@@ -17,6 +17,7 @@ import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/view/screens/My_account/more_module/Refer_and_earn/view/refer_and_earn_screen.dart';
 import 'package:work_Force/view/screens/My_account/more_module/personal_info_screen/personal_info_card.dart';
 import 'package:work_Force/view/screens/My_account/more_module/settings/view/settings_screen.dart';
 import 'package:work_Force/view/screens/My_account/more_module/subscribtion/view/subscription_screen.dart';
@@ -379,7 +380,11 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       width: 16.0,
                       title: "Refer & Earn",
                       icon: Icons.emoji_emotions_outlined,
-                      ontap: () {},
+                      ontap: () {
+                        Get.to(() => ReferAndEarnScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
                     ),
                     MoreListCustomWidgets(
                       width: 16.0,

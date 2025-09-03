@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/view/screens/My_account/more_module/settings/view/feedback/feedback_screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/settings/view/notification/notification_settings_screen.dart';
+import 'package:work_Force/view/screens/My_account/more_module/settings/view/report_bug/report_bug_screen.dart';
 import 'package:work_Force/view/widget/custom_settings_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -62,7 +65,11 @@ class SettingsScreen extends StatelessWidget {
               width: 16.0,
               title: "Notification Settings",
               icon: Icons.notifications_outlined,
-              ontap: () {},
+              ontap: () {
+                Get.to(() => const NotificationSettingsScreen(),
+                    duration: const Duration(milliseconds: 400),
+                    transition: Transition.rightToLeft);
+              },
             ),
             MoreListCustomWidgets(
               width: 16.0,
@@ -88,12 +95,6 @@ class SettingsScreen extends StatelessWidget {
               icon: Icons.info_outline,
               ontap: () {},
             ),
-            MoreListCustomWidgets(
-              width: 16.0,
-              title: "Log Out",
-              icon: Icons.logout,
-              ontap: () {},
-            ),
             Padding(
               padding: EdgeInsets.only(left: 4.5.w, top: 2.h, bottom: 1.h),
               child: Text(
@@ -108,13 +109,21 @@ class SettingsScreen extends StatelessWidget {
               width: 16.0,
               title: "Report a Bug",
               icon: Icons.bug_report_outlined,
-              ontap: () {},
+              ontap: () {
+                   Get.to(() =>  ReportBugScreen(),
+                    duration: const Duration(milliseconds: 400),
+                    transition: Transition.rightToLeft);
+              },
             ),
             MoreListCustomWidgets(
               width: 16.0,
               title: "Send Feedback",
               icon: Icons.feedback_outlined,
-              ontap: () {},
+              ontap: () {
+                  Get.to(() =>  const FeedBackScreen(),
+                    duration: const Duration(milliseconds: 400),
+                    transition: Transition.rightToLeft);
+              },
             ),
             const Spacer(),
             Center(
