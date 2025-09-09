@@ -15,9 +15,7 @@ class ClockedintaskScreen extends StatelessWidget {
   ClockedintaskScreen({super.key});
   CheckInOutController controller = Get.find<CheckInOutController>();
   final TaskController taskController = Get.put(TaskController());
-
   DesignationModel? designationValue;
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override

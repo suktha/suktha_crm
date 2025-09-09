@@ -23,7 +23,7 @@ class ConnectivityService {
     }
   }
 
-  void dispose() {
+  void dispose() {  
     _subscription.cancel();
   }
 
@@ -119,7 +119,7 @@ class _NoInternetConnectionScreenState extends State<NoInternetConnectionScreen>
                   width: 70.w,
                   child: Text(
                     "Please check your Internet connection and try again",
-                    style: TextStyle(fontSize: 12.sp, color: kColorblack45, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 15.sp, color: kColorblack45, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
                   ),
                 ),

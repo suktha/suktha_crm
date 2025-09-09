@@ -180,6 +180,8 @@ class CheckInOutController extends GetxController {
       // Clocking in
       startTime.value = DateTime.now();
       elapsedTime.value = Duration.zero;
+      designationController.clear();
+      designationIdName.value = "";
 
       Get.to(() =>  TaskMapScreen(), transition: Transition.rightToLeft);
           taskTimeline.add("Task Started");

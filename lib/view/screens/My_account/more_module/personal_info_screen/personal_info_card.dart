@@ -92,7 +92,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // --- Avatar & header --- //
 
                       // --- Card with inputs --- //
                       Card(
@@ -201,6 +200,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 ),
               ),
             ),
+            spacer(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(

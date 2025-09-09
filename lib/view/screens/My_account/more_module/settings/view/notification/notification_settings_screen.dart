@@ -31,7 +31,7 @@ class _NotificationSettingsScreenState
           'Notification Settings',
         ),
         titleTextStyle: TextStyle(
-            color: kColorblack, fontSize: 19.sp, fontWeight: FontWeight.w600),
+            color: kColorblack, fontSize: 18.sp, fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios_rounded,
