@@ -16,7 +16,7 @@ import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/utils/api/po.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
 import 'package:work_Force/view/widget/snackbar.dart';
 import '../../../../../../../Model/type_model.dart';
 import 'package:http/http.dart' as http;

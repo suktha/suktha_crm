@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:work_Force/utils/Services/permission_services.dart';
-import 'package:work_Force/view/screens/My_account/more_module/tracking/admin/controller/location_controller.dart';
-import 'package:work_Force/view/screens/My_account/more_module/tracking/admin/model/live_location_model.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/controller/location_controller.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/model/live_location_model.dart';
 
 class LocationServices with WidgetsBindingObserver {
   Timer? _timer;

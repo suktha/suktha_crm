@@ -17,18 +17,18 @@ import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Refer_and_earn/view/refer_and_earn_screen.dart';
-import 'package:work_Force/view/screens/My_account/more_module/personal_info_screen/personal_info_card.dart';
-import 'package:work_Force/view/screens/My_account/more_module/settings/view/settings_screen.dart';
-import 'package:work_Force/view/screens/My_account/more_module/subscribtion/view/subscription_screen.dart';
-import 'package:work_Force/view/screens/My_account/view/master/master_container.dart';
-import 'package:work_Force/view/screens/My_account/view/custom_activity_container.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Account%20Settings/company_details_screen.dart';
-import 'package:work_Force/view/screens/My_account/more_module/General%20Master/general_master_screen.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Party%20Master/View%20Party%20Master/list_party_master.dart';
-import 'package:work_Force/view/screens/My_account/more_module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
-import 'package:work_Force/view/screens/My_account/more_module/user_profile/view/user_profile_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/module/more/Refer_and_earn/view/refer_and_earn_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/module/more/personal_info_screen/personal_info_card.dart';
+import 'package:work_Force/view/screens/My_account/view/module/more/settings/view/settings_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/module/more/subscribtion/view/subscription_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/widgets/master/master_container.dart';
+import 'package:work_Force/view/screens/My_account/view/widgets/custom_activity_container.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Company%20Account%20Settings/company_details_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/General%20Master/general_master_screen.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Party%20Master/View%20Party%20Master/list_party_master.dart';
+import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
+import 'package:work_Force/view/screens/field_work/user_profile/view/user_profile_screen.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:work_Force/view/widget/custom_settings_widget.dart';
@@ -44,7 +44,7 @@ class MyAccountScreen extends StatefulWidget {
 class _MyAccountScreenState extends State<MyAccountScreen> {
   final HomeController homeController = Get.find<HomeController>();
   final globalController = Get.find<GlobalController>();
-  final settingsController = Get.put(SettingsController());
+  final settingsController = Get.find<SettingsController>();
 
   CompanyModel? companyDetails;
 

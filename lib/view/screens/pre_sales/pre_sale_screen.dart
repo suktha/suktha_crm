@@ -25,7 +25,7 @@ class PreSaleScreen extends StatefulWidget {
 }
 
 class _PreSaleScreenState extends State<PreSaleScreen> {
-  final controller = Get.put(GetLeadController());
+  final controller = Get.find<GetLeadController>();
   final contactController = Get.put(LeadContactDetaisController());
   int? touchedIndex; // Store the index of the touched section
   String centerText = ""; // Store the text to display in the center

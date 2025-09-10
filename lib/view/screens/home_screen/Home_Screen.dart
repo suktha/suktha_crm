@@ -24,7 +24,7 @@ import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
-import 'package:work_Force/view/screens/My_account/more_module/tracking/user/user_field_work/user_management_controller.dart';
+import 'package:work_Force/view/screens/field_work/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/notification_screen.dart';
@@ -77,14 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   late List<BarChartGroupData> showingBarGroups;
-  final homeController = Get.put(HomeController());
-  final initialController = Get.put(InitialController());
-  final userManagementController = Get.put(UserManagementController());
+  final homeController = Get.find<HomeController>();
 
   final leadController = Get.put(GetLeadController());
   final contactController = Get.put(LeadContactDetaisController());
-  final settingsController = Get.put(SettingsController());
-  final globalController = Get.put(GlobalController());
 
   final GlobalKey _checkInCardKey = GlobalKey();
   final GlobalKey _createTaskKey = GlobalKey();
