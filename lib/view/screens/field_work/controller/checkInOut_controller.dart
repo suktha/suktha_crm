@@ -9,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:work_Force/Model/designation_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
+import 'package:work_Force/view/screens/field_work/Task_Report/task_report_screen.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
 
 class CheckInOutController extends GetxController {
@@ -30,6 +31,8 @@ class CheckInOutController extends GetxController {
   var polylines = <Polyline>{}.obs;
   var polylineCoordinates = <LatLng>[].obs;
   var taskTimeline = <String>[].obs;
+
+
 
   var actionList = [
     "Meeting Started",
@@ -165,6 +168,12 @@ class CheckInOutController extends GetxController {
       designationIdName.value = "";
     }
     taskTimeline.add("Task Ended");
+  //   Get.to(() => TaskReportScreen(), arguments: {
+  //   'isAdmin': "isAdmin", // pass if user is admin
+  //   'taskTimeline': taskTimeline,
+  //   'currentLocation': currentLocation.value,
+  //   'allWorkers': allWorkers // List of all workers with location if admin
+  // });
     toggleCheck();
   }
 

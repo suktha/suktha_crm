@@ -7,12 +7,15 @@ import 'package:work_Force/Model/live_location_model.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/Model/user_role_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 
 class FieldWorkController extends GetxController {
   @override
   void onInit() {
     getUserRoleList("");
+    loadActiveUsers();
 
     super.onInit();
   }
@@ -32,6 +35,36 @@ class FieldWorkController extends GetxController {
   var filteredUserList = <UserModel>[].obs;
 
   RxList<UserModel> liveUserList = <UserModel>[].obs;
+
+   var isExpanded = false.obs;
+  var activeUsers = <Marker>{}.obs;
+
+  void toggleMapSize() {
+    isExpanded.value = !isExpanded.value;
+  }
+
+  void loadActiveUsers() {
+    // Example: Add dummy active users as markers
+    activeUsers.clear();
+    activeUsers.addAll([
+      const Marker(
+        
+        markerId: MarkerId('user1'),
+        position: LatLng(37.7749, -122.4194),
+        infoWindow: InfoWindow(title: 'User 1'),
+      ),
+      const Marker(
+        markerId: MarkerId('user2'),
+        position: LatLng(37.7849, -122.4094),
+        infoWindow: InfoWindow(title: 'User 2'),
+      ),
+      const Marker(
+        markerId: MarkerId('user3'),
+        position: LatLng(37.7649, -122.4294),
+        infoWindow: InfoWindow(title: 'User 3'),
+      ),
+    ]);
+  }
 
   getUserList() async {
     print("getUserList called");

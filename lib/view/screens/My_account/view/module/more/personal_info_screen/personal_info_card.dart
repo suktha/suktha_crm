@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/view/widget/custom_button.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({super.key});
@@ -12,7 +13,7 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _employeeIdController = TextEditingController();
@@ -30,7 +31,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   String? _selectedDesignation;
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       final profileData = {
         'name': _nameController.text.trim(),
         'email': _emailController.text.trim(),
@@ -88,11 +89,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Form(
-                  key: _formKey,
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-
                       // --- Card with inputs --- //
                       Card(
                         elevation: 1,
@@ -201,21 +202,20 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+                right: 8.0,
+              ),
               child: SizedBox(
                 width: double.infinity,
                 height: 5.h,
-                child: ElevatedButton(
-                  onPressed: _submitForm,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kColorlightBlue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    elevation: 2,
-                  ),
-                  child: Text('Save', style: TextStyle(fontSize: 17.sp)),
+                child: CustomButton(
+                  title: "Save",
+                  ontap: _submitForm,
+                  width: double.infinity,
                 ),
+
+               
               ),
             ),
           ],

@@ -1,16 +1,22 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables, camel_case_types, avoid_print, deprecated_member_use
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Constants/images.dart';
+import 'package:work_Force/Model/login_model.dart' as loginModel;
 import 'package:work_Force/Model/user_model.dart';
+import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/utils/Services/websocket_location_services.dart';
 import 'package:work_Force/view/screens/field_work/tracking/admin/controller/filed_work_controller.dart';
 import 'package:work_Force/view/screens/field_work/tracking/admin/controller/location_controller.dart';
@@ -19,6 +25,7 @@ import 'package:work_Force/view/widget/snackbar.dart';
 
 import '../../../../../../utils/responsive_utils.dart';
 import 'geolocation_screen.dart';
+
 class UserFieldWorkScreen extends StatefulWidget {
   const UserFieldWorkScreen({super.key});
 
@@ -28,7 +35,55 @@ class UserFieldWorkScreen extends StatefulWidget {
 
 class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   final FieldWorkController controller = Get.put(FieldWorkController());
-  GeoLocationController geoLocationController = Get.find<GeoLocationController>();
+  GeoLocationController geoLocationController =
+      Get.find<GeoLocationController>();
+  final homeController = Get.find<HomeController>();
+
+  getdata() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
+    final loginDetails = loginModel.LoginModel.fromJson(logindecoded);
+
+    setState(() {
+      homeController.username.value = loginDetails.user!.username ?? "";
+    });
+
+    if (loginDetails.user!.roles != null) {
+      for (var role in loginDetails.user!.roles!) {
+        print("user role id-----${role.roleType!.id}");
+        // bool isAdminIdmatches = userList.any(
+        //   (element) => element.roleIds?.contains(role.id) ?? false,
+        // );
+
+        if (role.roleType!.id == 1) {
+          homeController.isLoginIdIsAdmin.value = true;
+          homeController.isLoginIdIsbranchmanger.value = true;
+          print("Role admin ${role.roleType!.id} exists in userList.");
+        } else if (role.roleType!.id == 4) {
+          homeController.isLoginIdIsbranchmanger.value = true;
+          homeController.isLoginIdIsAdmin.value = false;
+          print("Role branch  ${role.roleType!.id} exists in userList.");
+        } else {
+          homeController.isLoginIdIsAdmin.value = false;
+          homeController.isLoginIdIsbranchmanger.value = false;
+          print("Role ID ${role.roleType!.id} doesn't exist in userList.");
+        }
+
+        log("is admin logged in - " +
+            homeController.isLoginIdIsAdmin.value.toString());
+
+        sharedPreferences.setBool(
+            "isAdmin", homeController.isLoginIdIsAdmin.value);
+      }
+    } else {
+      print("No roles assigned to the user.");
+    }
+    print("isAdmin: ${homeController.isLoginIdIsAdmin}");
+
+    print("username ------------- ${homeController.username.value}");
+  }
 
   @override
   void initState() {
@@ -41,13 +96,16 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   Widget build(BuildContext context) {
     double width = ResponsiveUtils.screenWidth(context);
     double height = ResponsiveUtils.screenHeight(context);
-
+    
     return Stack(
       children: [
         Scaffold(
           appBar: AppBar(
-              title: const Text("Field Sales"),
-              titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: width * 0.055),
+              title: const Text("Field Report"),
+              titleTextStyle: TextStyle(
+                  color: kColorblack,
+                  fontWeight: FontWeight.bold,
+                  fontSize: width * 0.055),
               centerTitle: true,
               backgroundColor: kColorwhite,
               elevation: 0,
@@ -69,62 +127,118 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                 ),
                 onPressed: (() {
                   Get.back();
+                  controller.isExpanded.value=false;
                 }),
               )),
-          body: DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(width * 0.02),
-                        height: height * 0.06,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(width * 0.03),
-                        ),
-                        child: TextField(
-                          onChanged: (value) async {
-                            controller.filteredUserList.value =
-                                controller.userList.where((user) => user.name!.toLowerCase().contains(value.toLowerCase())).toList();
-                          },
-                          // controller: controller.searchController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                            ),
-                            hintText: 'Search Here',
-                            hintStyle: TextStyle(color: kColorblack45),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(width * 0.02),
+                      height: height * 0.06,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(width * 0.03),
+                      ),
+                      child: TextField(
+                        onChanged: (value) async {
+                          controller.filteredUserList.value = controller
+                              .userList
+                              .where((user) => user.name!
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()))
+                              .toList();
+                        },
+                        // controller: controller.searchController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
                           ),
+                          hintText: 'Search Here',
+                          hintStyle: TextStyle(color: kColorblack45),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
                         ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            
+              Obx(() {
+                 controller.isExpanded.value==false
+                    ? Text(" Track active field users", 
+              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.normal, color: Colors.grey.shade600)): SizedBox();
+                double availableHeight = MediaQuery.of(context).size.height -
+        MediaQuery.of(context).padding.top -
+        kToolbarHeight;
+                return   AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                height: controller.isExpanded.value
+                    ? availableHeight/1.1
+                    : availableHeight / 4,
+                width: double.infinity,
+                child: Stack(
+                  children: [
+                    GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(37.7749, -122.4194),
+                        zoom: 12,
+                      ),
+                      markers: controller.activeUsers,
+                      myLocationButtonEnabled: false,
+                      zoomControlsEnabled: true,
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: FloatingActionButton(
+                        mini: true,
+                        backgroundColor: kColorLightGrey,
+                        onPressed: () {
+                          controller.toggleMapSize();
+                          if (controller.isExpanded.value) {
+                            controller.loadActiveUsers();
+                          }
+                        },
+                        child: Icon(controller.isExpanded.value
+                            ? Icons.fullscreen_exit
+                            : Icons.fullscreen,color: Colors.grey.shade700,),
                       ),
                     ),
                   ],
                 ),
-                Obx(() => Expanded(
-                      child: userListView(
-                        userList: controller.filteredUserList,
-                        width: width,
-                        controller: controller,
-                        height: height,
-                        onTapUser: (item, index) async {
-                          controller.timelineItems.clear();
-                          geoLocationController.userLocations.clear();
-                          await Get.find<WebSocketService>().initializeConnection(userId: item.id, leadId: null);
+              );
+              }),
+              Obx(() => Expanded(
+                    child: userListView(
+                      userList: controller.filteredUserList,
+                      width: width,
+                      controller: controller,
+                      height: height,
+                      onTapUser: (item, index) async {
+                        controller.timelineItems.clear();
+                        geoLocationController.userLocations.clear();
+                        await Get.find<WebSocketService>().initializeConnection(
+                            userId: item.id, leadId: null);
 
-                          // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
-                          showUserBottomSheet(context: context, item: item, index: index, width: width, height: height, isActive: true);
-                        },
-                        onDelete: (index) {
-                          // controller.deleteLiveUser(index);
-                        },
-                      ),
-                    )),
-              ],
-            ),
+                        // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
+                        showUserBottomSheet(
+                            context: context,
+                            item: item,
+                            index: index,
+                            width: width,
+                            height: height,
+                            isActive: true);
+                      },
+                      onDelete: (index) {
+                        // controller.deleteLiveUser(index);
+                      },
+                    ),
+                  )),
+            ],
           ),
         ),
         Obx(() => Visibility(
@@ -145,10 +259,15 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
     );
   }
 
-  Color getRandomLightColor(int index) {
-    // Generate a unique hue based on the index
-    double hue = (index * 137.5) % 360; // 137.5 degrees apart ensures good separation
-    return HSVColor.fromAHSV(1, hue, 0.3, 0.5).toColor();
+  String getImageForIndex(int index) {
+    final List<String> images = [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'
+          'https://writestylesonline.com/wp-content/uploads/2018/11/Three-Statistics-That-Will-Make-You-Rethink-Your-Professional-Profile-Picture.jpg',
+      'https://media.gettyimages.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=gi&k=20&c=LsB3LmCoN69U82LEYU78IC2tNwOMjy7LJlmEj30UOSs=',
+    ];
+    return images[
+        index % images.length]; // Loops through images if index is large
   }
 
   void showUserBottomSheet(
@@ -171,16 +290,24 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
               ListTile(
                   leading: CircleAvatar(
                       radius: width * 0.06,
-                      backgroundColor: getRandomLightColor(index),
-                      child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey)),
-                  title: Text(item.name!, style: TextStyle(fontWeight: FontWeight.bold, fontSize: width * 0.045)),
-                  trailing: Text(item.active == 1 ? "Active" : "Inactive")),
+                      backgroundImage: NetworkImage(getImageForIndex(index))),
+                  title: Text(item.name!,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: width * 0.045)),
+                  trailing: Text(
+                    item.active == 1 ? "Active" : "Inactive",
+                    style: TextStyle(
+                        color: item.active == 1 ? Colors.green : kColorblack),
+                  )),
               SizedBox(height: height * 0.02),
 
               DateHistoryWidget(
                 onDateSelected: (selectedDate) async {
-                  print("Selected Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}");
-                  await controller.GetLeadEventByUser(userId: item.id!, eventDate: selectedDate.toString());
+                  print(
+                      "Selected Date: ${DateFormat('yyyy-MM-dd').format(selectedDate)}");
+                  await controller.GetLeadEventByUser(
+                      userId: item.id!, eventDate: selectedDate.toString());
                 },
               ),
 
@@ -199,7 +326,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                   final allItems = controller.timelineItems;
                   List<Widget> children = [];
 
-                  List<Map<String, dynamic>> currentTripEvents = []; // to store only events of current trip
+                  List<Map<String, dynamic>> currentTripEvents =
+                      []; // to store only events of current trip
 
                   for (int i = 0; i < allItems.length; i++) {
                     var item = allItems[i];
@@ -212,7 +340,9 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                       }
 
                       String transId = item['transId'] ?? '';
-                      String leadNumber = transId.isNotEmpty ? (controller.leadNames[transId] ?? "Loading Lead...") : "Unknown Lead";
+                      String leadNumber = transId.isNotEmpty
+                          ? (controller.leadNames[transId] ?? "Loading Lead...")
+                          : "Unknown Lead";
 
                       // 🛡 Now add header
                       children.add(
@@ -236,7 +366,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
 
                   // 🛡 After loop, if any pending events (Trip 3 case), draw them
                   if (currentTripEvents.isNotEmpty) {
-                    print("last one"  "${currentTripEvents.length - 1}");
+                    print("last one" "${currentTripEvents.length - 1}");
                     children.addAll(buildTripTimeline(currentTripEvents));
                   }
 
@@ -268,7 +398,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                               final allItems = controller.timelineItems;
 
                               int headerCount = 0;
-                              final latestTripTimeline = <Map<String, dynamic>>[];
+                              final latestTripTimeline =
+                                  <Map<String, dynamic>>[];
 
                               for (final item in allItems) {
                                 if (item['isHeader'] == true) {
@@ -280,7 +411,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                 if (headerCount == 1) {
                                   latestTripTimeline.add(item);
                                 }
-                                print("latestTripTimeline: $latestTripTimeline");
+                                print(
+                                    "latestTripTimeline: $latestTripTimeline");
                               }
                               var latestTrip = latestTripTimeline.last;
                               var latestTripDate = latestTrip['time'];
@@ -322,7 +454,10 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                 timeout.cancel();
                                 listener();
                                 Get.back(); // Close dialog
-                                customSnackbar("Cancelled", "You cancelled the connection attempt.", "warning");
+                                customSnackbar(
+                                    "Cancelled",
+                                    "You cancelled the connection attempt.",
+                                    "warning");
                               }
 
                               showLoadingDialogWithStages(
@@ -334,11 +469,17 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                               timeout = Timer(const Duration(seconds: 40), () {
                                 listener();
                                 Get.back();
-                                customSnackbar("Timeout", "Unable to connect with user. Please try again later.", "error");
+                                customSnackbar(
+                                    "Timeout",
+                                    "Unable to connect with user. Please try again later.",
+                                    "error");
                               });
 
-                              listener = ever(geoLocationController.userLocations, (list) async {
-                                  print("Triggered! userLocations: $list"); // DEBUG LOG
+                              listener =
+                                  ever(geoLocationController.userLocations,
+                                      (list) async {
+                                print(
+                                    "Triggered! userLocations: $list"); // DEBUG LOG
 
                                 if ((list as List).isNotEmpty) {
                                   timeout.cancel();
@@ -346,13 +487,16 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                   Get.back(); // Close loading
 
                                   showSuccessDialog();
-                                  await Future.delayed(const Duration(seconds: 2));
+                                  await Future.delayed(
+                                      const Duration(seconds: 2));
                                   Get.back(); // Close success
 
                                   Get.to(
-                                    () => UserLocationScreen(timelineEvents: latestTripTimeline),
+                                    () => UserLocationScreen(
+                                        timelineEvents: latestTripTimeline),
                                     transition: Transition.fade,
-                                    duration: const Duration(milliseconds: 1000),
+                                    duration:
+                                        const Duration(milliseconds: 1000),
                                   );
                                 }
                               });
@@ -412,7 +556,8 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
           });
 
           return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -423,20 +568,24 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                 Text(
                   messages[currentIndex],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 20),
                 currentIndex == messages.length - 1
                     ? ElevatedButton.icon(
                         onPressed: onCancel,
                         icon: Icon(Icons.cancel, color: Colors.white),
-                        label: Text("Cancel", style: TextStyle(color: Colors.white)),
+                        label: Text("Cancel",
+                            style: TextStyle(color: Colors.white)),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.redAccent,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30), // Rounded edges
+                            borderRadius:
+                                BorderRadius.circular(30), // Rounded edges
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 12),
                           elevation: 3,
                         ),
                       )
@@ -510,11 +659,14 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
               ),
               SizedBox(height: 10),
               GestureDetector(
-                onTap: () => controller.openGoogleMaps(event['latitude'], event['longitude']),
+                onTap: () => controller.openGoogleMaps(
+                    event['latitude'], event['longitude']),
                 child: Text(
                   "View Location",
                   style: TextStyle(
-                    shadows: [Shadow(color: Colors.blue, offset: Offset(0, -5))],
+                    shadows: [
+                      Shadow(color: Colors.blue, offset: Offset(0, -5))
+                    ],
                     color: Colors.transparent,
                     decoration: TextDecoration.underline,
                     decorationColor: Colors.blue,
@@ -662,7 +814,8 @@ class customTabBarWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           title,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
         ),
       ),
     );

@@ -1132,18 +1132,15 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen> {
                 ? SizedBox()
                 : FadeInUp(
                     child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: CustomButton(
-                          width: 50.w,
-                          title: "Save",
-                          color: const Color.fromARGB(255, 58, 192, 255),
-                          textcolor: kColorwhite,
-                          ontap: () {
-                            controller.saveCompanyDetails(
-                                controller.deletedbranchIds);
-                          },
-                        ),
+                      child: CustomButton(
+                        width: 50.w,
+                        title: "Save",
+                        color: const Color.fromARGB(255, 58, 192, 255),
+                        textcolor: kColorwhite,
+                        ontap: () {
+                          controller.saveCompanyDetails(
+                              controller.deletedbranchIds);
+                        },
                       ),
                     ),
                   )

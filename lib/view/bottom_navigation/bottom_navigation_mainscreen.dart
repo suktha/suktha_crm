@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
+import 'package:work_Force/controllers/chatbot_controller.dart';
+import 'package:work_Force/view/bottom_navigation/chatBot_overlay.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/new_task.dart';
 import 'package:work_Force/view/screens/home_screen/Home_Screen.dart';
@@ -38,13 +40,22 @@ class _BottomNavigationMainscreenState
   ];
 
   final nav = Get.find<NavigationController>();
+  final chatBotController = Get.find<ChatBotController>();
+  final chatBotOverlay = ChatBotOverlay();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       nav.index.value = widget.initialIndex ?? 0;
+      // chatBotOverlay.show(context);
     });
+  }
+
+  @override
+  void dispose() {
+    chatBotOverlay.hide();
+    super.dispose();
   }
 
   @override
@@ -55,13 +66,13 @@ class _BottomNavigationMainscreenState
             currentIndex: nav.index.value,
             onTap: nav.changeTab,
             items: _navItems,
-            backgroundColor: kColorwhite,
+            backgroundColor: Colors.white,
             elevation: 0,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: kColorblack,
-            unselectedItemColor: const Color.fromARGB(255, 99, 99, 99),
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey,
             unselectedLabelStyle:
                 TextStyle(fontWeight: FontWeight.w500, fontSize: 13.sp),
             selectedLabelStyle:

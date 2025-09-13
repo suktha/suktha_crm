@@ -199,9 +199,7 @@ class ClockedintaskScreen extends StatelessWidget {
                               color: kColorwhite))),
                 ),
               ),
-              SizedBox(
-                height: 1.h,
-              ),
+             
             ],
           ),
         ),

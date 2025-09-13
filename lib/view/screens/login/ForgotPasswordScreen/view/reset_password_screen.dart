@@ -128,7 +128,6 @@ class ResetPasswordScreen extends StatelessWidget {
                     ),
                     child: Text("Reset", style: TextStyle(fontSize: 16.sp)),
                   ),
-                  SizedBox(height: 1.h),
                 ],
               )),
         ));

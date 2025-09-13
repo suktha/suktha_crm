@@ -328,9 +328,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Spacer(),
                 CustomButton(
                     title: "Pay Now", ontap: () {}, width: double.infinity),
-                SizedBox(
-                  height: 1.h,
-                )
+               
               ],
             ),
           ),

@@ -67,7 +67,7 @@ final controller = Get.find<UserManagementController>();
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(leadValue.leadGenerationNumber!, style: TextStyle(fontSize: width * 0.04)),
+                          Text(leadValue.leadGenerationNumber??"", style: TextStyle(fontSize: width * 0.04)),
                           SizedBox(
                             height: height * 0.01,
                           ),

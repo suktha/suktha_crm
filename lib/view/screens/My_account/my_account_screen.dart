@@ -17,12 +17,12 @@ import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/global_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
+import 'package:work_Force/view/screens/My_account/view/master/master_container.dart';
 import 'package:work_Force/view/screens/My_account/view/module/more/Refer_and_earn/view/refer_and_earn_screen.dart';
 import 'package:work_Force/view/screens/My_account/view/module/more/personal_info_screen/personal_info_card.dart';
 import 'package:work_Force/view/screens/My_account/view/module/more/settings/view/settings_screen.dart';
 import 'package:work_Force/view/screens/My_account/view/module/more/subscribtion/view/subscription_screen.dart';
-import 'package:work_Force/view/screens/My_account/view/widgets/master/master_container.dart';
-import 'package:work_Force/view/screens/My_account/view/widgets/custom_activity_container.dart';
+import 'package:work_Force/view/screens/My_account/widgets/custom_activity_container.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Company%20Account%20Settings/company_details_screen.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/General%20Master/general_master_screen.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
@@ -131,7 +131,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 243, 243, 243),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text("Profile"),
@@ -148,12 +147,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // AdminProfileCard(
-              //   adminName: "Kavya",
-              //   profileImageUrl:
-              //       "https://as1.ftcdn.net/v2/jpg/03/27/38/68/1000_F_327386893_gwsXr7LjjicyMy1V03pYtgAY5YJiIGip.jpg",
-              //   role: "Admin",
-              // ),
               FadeInDown(
                 delay: Duration.zero,
                 duration: Duration(milliseconds: 800),
@@ -273,7 +266,6 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       scrollDirection: Axis.horizontal,
                       physics: BouncingScrollPhysics(),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           MasterContainer(
                             onTapFunction: () {

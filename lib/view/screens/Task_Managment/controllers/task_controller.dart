@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:record/record.dart';
 import 'package:intl/intl.dart';
 
 class TaskController extends GetxController {
@@ -10,12 +13,13 @@ class TaskController extends GetxController {
 
   RxString formattedSelectedDate = "".obs;
   RxBool isCompletedSelected = true.obs;
-    RxBool isFromClockIn = true.obs;
+  RxBool isFromClockIn = true.obs;
 
   RxInt selectedIndex = (-1).obs;
 
   TextEditingController taskNameController = TextEditingController();
   TextEditingController priorityController = TextEditingController();
+  final TextEditingController textController = TextEditingController();
 
   final TextEditingController taskTypeController = TextEditingController();
   final TextEditingController statusController = TextEditingController();
@@ -32,7 +36,8 @@ class TaskController extends GetxController {
     initializeTimeSlots();
   }
 
-  void selectTime(BuildContext context, TextEditingController timeController) async {
+  void selectTime(
+      BuildContext context, TextEditingController timeController) async {
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
@@ -51,7 +56,8 @@ class TaskController extends GetxController {
     for (int i = 0; i < 24; i++) {
       DateTime time = DateTime(today.year, today.month, today.day, i);
       String timeLabel = DateFormat('hh:mm a').format(time);
-      timeSlots.add({'time': time, 'timeLabel': timeLabel, 'tasks': <Task>[].obs});
+      timeSlots
+          .add({'time': time, 'timeLabel': timeLabel, 'tasks': <Task>[].obs});
     }
     print("time slot  -- ${timeSlots.toJson()}");
   }
@@ -65,7 +71,8 @@ class TaskController extends GetxController {
         return;
       }
     }
-    print("No matching time slot found for ${DateFormat('hh:mm a').format(taskTime)}");
+    print(
+        "No matching time slot found for ${DateFormat('hh:mm a').format(taskTime)}");
   }
 
   void deleteTask(Task task) {
@@ -84,10 +91,52 @@ class TaskController extends GetxController {
   List<Task> getTasksForSelectedDate(String SelectedDate) {
     timeSlots.clear();
     for (var slot in timeSlots) {
-      tasksForSelectedDate.addAll((slot['tasks'] as RxList<Task>).where((task) => task.date == SelectedDate).toList());
+      tasksForSelectedDate.addAll((slot['tasks'] as RxList<Task>)
+          .where((task) => task.date == SelectedDate)
+          .toList());
     }
 
     return tasksForSelectedDate;
+  }
+
+  RxBool isRecording = false.obs;
+  RxString audioFilePath = ''.obs;
+
+  final AudioRecorder _record = AudioRecorder();
+
+  Future<void> startRecording() async {
+    // Check permissions
+    if (await Permission.microphone.request() != PermissionStatus.granted) {
+      print("Microphone permission denied");
+      return;
+    }
+
+    final directory = Directory.systemTemp;
+    final path =
+        '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.m4a';
+
+    audioFilePath.value = '';
+
+     await _record.start(const RecordConfig(), path: path);
+
+
+    isRecording.value = true;
+  }
+
+  Future<void> stopRecording() async {
+    final path = await _record.stop();
+    if (path != null) {
+      audioFilePath.value = path;
+    }
+    isRecording.value = false;
+  }
+
+  Future<void> toggleRecording() async {
+    if (isRecording.value) {
+      await stopRecording();
+    } else {
+      await startRecording();
+    }
   }
 }
 

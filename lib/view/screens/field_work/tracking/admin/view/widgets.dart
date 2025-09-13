@@ -51,8 +51,9 @@ Widget userListView({
                 ),
                 leading: CircleAvatar(
                   radius: width * 0.06,
-                  backgroundColor: getRandomLightColor(index),
-                  child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey),
+                  // backgroundColor: getRandomLightColor(index),
+                  backgroundImage:  NetworkImage(getImageForIndex(index)),
+                  // child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey),
                 ),
                 // trailing: Text(item.),
               ),
@@ -62,6 +63,17 @@ Widget userListView({
       );
     },
   );
+}
+
+
+  String getImageForIndex(int index) {
+  final List<String> images = [
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'
+    'https://writestylesonline.com/wp-content/uploads/2018/11/Three-Statistics-That-Will-Make-You-Rethink-Your-Professional-Profile-Picture.jpg',
+    'https://media.gettyimages.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=gi&k=20&c=LsB3LmCoN69U82LEYU78IC2tNwOMjy7LJlmEj30UOSs=',
+  ];
+  return images[index % images.length]; // Loops through images if index is large
 }
 
 Color getRandomLightColor(int index) {
@@ -175,11 +187,12 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
             },
             child: Container(
               width: 60,
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 8),
               margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.black : Colors.grey[200],
+                color: isSelected ? Colors.blue.shade50 : Colors.grey[100],
                 borderRadius: BorderRadius.circular(12),
+                border: isSelected ? Border.all(color: Colors.blue, ) : null,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -187,7 +200,7 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
                   Text(
                     DateFormat('MMM').format(date).toUpperCase(),
                     style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black54,
+                      color: isSelected ? Colors.blue : Colors.black54,
                       fontSize: 12,
                     ),
                   ),
@@ -195,7 +208,7 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
                   Text(
                     DateFormat('d').format(date),
                     style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black87,
+                      color: isSelected ? Colors.blue : Colors.black87,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -204,7 +217,7 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
                   Text(
                     DateFormat('E').format(date).toUpperCase(),
                     style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.black54,
+                      color: isSelected ? Colors.blue : Colors.black54,
                       fontSize: 12,
                     ),
                   ),

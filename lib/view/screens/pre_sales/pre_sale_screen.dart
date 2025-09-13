@@ -1104,9 +1104,7 @@ class _PreSaleScreenState extends State<PreSaleScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 1.h,
-                        ),
+                       
                       ],
                     ),
                   ),

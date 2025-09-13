@@ -79,6 +79,9 @@ dependencies:
   timeago: ^3.7.1
   showcaseview: ^4.0.1
   flutter_polyline_points: ^3.0.1
+  speech_to_text: ^7.3.0
+  record: ^6.1.1
+  just_audio: ^0.10.5
 
   
 

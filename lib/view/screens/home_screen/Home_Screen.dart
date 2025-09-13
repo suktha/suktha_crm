@@ -15,6 +15,7 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Constants/images.dart';
 import 'package:work_Force/Constants/shared_pref_keys.dart';
 import 'package:work_Force/Model/company_model.dart';
+import 'package:work_Force/Model/lead_model.dart';
 import 'package:work_Force/controllers/Home_controller.dart';
 import 'package:work_Force/controllers/get_lead_controller.dart';
 import 'package:work_Force/controllers/global_controller.dart';
@@ -23,9 +24,14 @@ import 'package:work_Force/controllers/lead_contact_details_controller.dart';
 import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/Services/sharedpref_services.dart';
 import 'package:work_Force/utils/Date.dart';
+import 'package:work_Force/view/bottom_navigation/chatBot_overlay.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';
+import 'package:work_Force/view/screens/field_work/Task_Report/task_report_screen.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/view/user_field_work_screen.dart';
 import 'package:work_Force/view/screens/field_work/tracking/user/user_field_work/user_management_controller.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
+import 'package:work_Force/view/screens/field_work/tracking/user/user_field_work/user_management_screen.dart';
+import 'package:work_Force/view/screens/home_screen/view/chatbot.dart';
 import 'package:work_Force/view/screens/home_screen/view/checkInOut_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/notification_screen.dart';
 import 'package:work_Force/view/screens/home_screen/view/quick_task_screen.dart';
@@ -45,6 +51,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final chatBotOverlay = ChatBotOverlay();
+  LeadModel? leadModel;
   var items = ['3', '6', '9', '12'];
   final Map<String, dynamic> userProgress = {
     "name": "Karan",
@@ -191,7 +199,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return ShowCaseWidget(builder: (context) {
       if (!showcaseStarted) {
         showcaseStarted = true;
-
         // Delay the call to ensure context is ready
         // Future.delayed(Duration(milliseconds: 300), () {
         //   ShowCaseWidget.of(context).startShowCase([
@@ -318,7 +325,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: kColorLightGrey,
                           child: IconButton(
                               onPressed: () {
-                                Get.to(NotificationHistoryScreen());
+                            
+                                Get.to(UserFieldWorkScreen(
+                                ),
+                                    duration: const Duration(milliseconds: 400),
+                                    transition: Transition.rightToLeft);
                               },
                               icon: Icon(
                                 Icons.notifications_none_rounded,
@@ -372,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         backgroundColor: kColorLightGrey,
                         child: IconButton(
                             onPressed: () {
-                              Get.to(NotificationHistoryScreen(),
+                              Get.to(TaskReportScreen(),
                                   duration: const Duration(milliseconds: 400),
                                   transition: Transition.rightToLeft);
                             },

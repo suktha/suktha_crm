@@ -241,9 +241,7 @@ class RegistrationOnboard extends StatelessWidget {
                     }
                   },
                   width: double.infinity),
-              SizedBox(
-                height: 1.h,
-              )
+           
             ],
           ),
         ),
