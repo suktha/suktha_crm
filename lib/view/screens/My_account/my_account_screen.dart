@@ -28,6 +28,7 @@ import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%2
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Party%20Master/View%20Party%20Master/list_party_master.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/view/user_field_work_screen.dart';
 import 'package:work_Force/view/screens/field_work/user_profile/view/user_profile_screen.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
 import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
@@ -44,7 +45,7 @@ class MyAccountScreen extends StatefulWidget {
 class _MyAccountScreenState extends State<MyAccountScreen> {
   final HomeController homeController = Get.find<HomeController>();
   final globalController = Get.find<GlobalController>();
-  final settingsController = Get.find<SettingsController>();
+  final settingsController = Get.put(SettingsController());
 
   CompanyModel? companyDetails;
 
@@ -345,6 +346,16 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                     ),
                     SizedBox(
                       height: 2.h,
+                    ),
+                    MoreListCustomWidgets(
+                      width: 16.0,
+                      title: "Field Report",
+                      icon: Icons.location_history_outlined,
+                      ontap: () {
+                        Get.to(() => UserFieldWorkScreen(),
+                            duration: const Duration(milliseconds: 400),
+                            transition: Transition.rightToLeft);
+                      },
                     ),
                     MoreListCustomWidgets(
                       width: 16.0,

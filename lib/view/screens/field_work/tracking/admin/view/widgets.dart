@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/Model/user_model.dart';
 import 'package:work_Force/view/screens/field_work/tracking/admin/controller/filed_work_controller.dart';
@@ -10,6 +11,7 @@ import 'package:work_Force/view/widget/deleteAlertDialogue.dart';
 Widget userListView({
   required List<UserModel> userList,
   required double width,
+  required bool isAdmin,
   required FieldWorkController controller,
   required double height,
   required Function(UserModel item, int index) onTapUser,
@@ -36,26 +38,56 @@ Widget userListView({
           ),
         ],
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: height * 0.01, horizontal: width * 0.02),
+          padding: EdgeInsets.symmetric(
+              vertical: height * 0.01, horizontal: width * 0.02),
           child: GestureDetector(
             onTap: () => onTapUser(item, index),
             child: Container(
-              child: ListTile(
-                title: Text(
-                  item.name ?? '',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: width * 0.047),
+              decoration: BoxDecoration(
+                  border: isAdmin == true
+                      ? null
+                      : Border.all(color: kColorLightGrey),
+                  borderRadius: BorderRadius.circular(3.w)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(3.w),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        item.name ?? '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: width * 0.047),
+                      ),
+                      subtitle: Text(
+                        controller.getUserRoleNames(item.roleIds!),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: width * 0.035),
+                      ),
+                      leading: CircleAvatar(
+                        radius: width * 0.06,
+                        // backgroundColor: getRandomLightColor(index),
+                        backgroundImage: NetworkImage(getImageForIndex(index)),
+                        // child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey),
+                      ),
+                      // trailing: Text(item.),
+                    ),
+                    isAdmin == true
+                        ? SizedBox()
+                        : Image.network(
+                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNzcTZRLiRwTZ5zW4PONZiDTGv2AXbTkiG3w&s",
+                            // "https://st2.depositphotos.com/1502311/12020/v/450/depositphotos_120207758-stock-illustration-city-map-with-pointers-vector.jpg",
+                            // "https://st2.depositphotos.com/52259964/47727/v/600/depositphotos_477274956-stock-illustration-hands-holds-tablet-map-navigation.jpg",
+                            // "https://st4.depositphotos.com/11953928/28671/v/600/depositphotos_286719318-stock-illustration-technology-device-modern-smartphone-cartoon.jpg",
+                            // "https://i0.wp.com/www.smartprix.com/bytes/wp-content/uploads/2024/04/google-maps-ev-car-charging-station.jpeg?ssl=1&quality=80&w=800",
+                            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMTxcPGNMAO6P83x6N9Y82BV1lriTDDrOXeGKl3pQO6D1uIEyEr2SogL3faNpisqNx5fw&usqp=CAU",
+                            height: 15.h,
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                          )
+                  ],
                 ),
-                subtitle: Text(
-                  controller.getUserRoleNames(item.roleIds!),
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: width * 0.035),
-                ),
-                leading: CircleAvatar(
-                  radius: width * 0.06,
-                  // backgroundColor: getRandomLightColor(index),
-                  backgroundImage:  NetworkImage(getImageForIndex(index)),
-                  // child: Icon(Icons.person_pin, size: width * 0.07, color: kColorLightGrey),
-                ),
-                // trailing: Text(item.),
               ),
             ),
           ),
@@ -65,20 +97,21 @@ Widget userListView({
   );
 }
 
-
-  String getImageForIndex(int index) {
+String getImageForIndex(int index) {
   final List<String> images = [
     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     'https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D'
-    'https://writestylesonline.com/wp-content/uploads/2018/11/Three-Statistics-That-Will-Make-You-Rethink-Your-Professional-Profile-Picture.jpg',
+        'https://writestylesonline.com/wp-content/uploads/2018/11/Three-Statistics-That-Will-Make-You-Rethink-Your-Professional-Profile-Picture.jpg',
     'https://media.gettyimages.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=gi&k=20&c=LsB3LmCoN69U82LEYU78IC2tNwOMjy7LJlmEj30UOSs=',
   ];
-  return images[index % images.length]; // Loops through images if index is large
+  return images[
+      index % images.length]; // Loops through images if index is large
 }
 
 Color getRandomLightColor(int index) {
   // Generate a unique hue based on the index
-  double hue = (index * 137.5) % 360; // 137.5 degrees apart ensures good separation
+  double hue =
+      (index * 137.5) % 360; // 137.5 degrees apart ensures good separation
   return HSVColor.fromAHSV(1, hue, 0.3, 0.5).toColor();
 }
 
@@ -114,7 +147,9 @@ Widget buildDateButton(
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: controller.selectedTitle.value == title ? Colors.blue : Colors.grey[300],
+        color: controller.selectedTitle.value == title
+            ? Colors.blue
+            : Colors.grey[300],
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           if (controller.selectedTitle.value == title)
@@ -129,7 +164,9 @@ Widget buildDateButton(
       child: Text(
         title,
         style: TextStyle(
-          color: controller.selectedTitle.value == title ? Colors.white : Colors.black87,
+          color: controller.selectedTitle.value == title
+              ? Colors.white
+              : Colors.black87,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -192,7 +229,11 @@ class _DateHistoryWidgetState extends State<DateHistoryWidget> {
               decoration: BoxDecoration(
                 color: isSelected ? Colors.blue.shade50 : Colors.grey[100],
                 borderRadius: BorderRadius.circular(12),
-                border: isSelected ? Border.all(color: Colors.blue, ) : null,
+                border: isSelected
+                    ? Border.all(
+                        color: Colors.blue,
+                      )
+                    : null,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

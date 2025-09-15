@@ -9,8 +9,6 @@ import 'package:work_Force/Model/user_role_model.dart';
 import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
-
 class FieldWorkController extends GetxController {
   @override
   void onInit() {
@@ -36,7 +34,7 @@ class FieldWorkController extends GetxController {
 
   RxList<UserModel> liveUserList = <UserModel>[].obs;
 
-   var isExpanded = false.obs;
+  var isExpanded = false.obs;
   var activeUsers = <Marker>{}.obs;
 
   void toggleMapSize() {
@@ -48,7 +46,6 @@ class FieldWorkController extends GetxController {
     activeUsers.clear();
     activeUsers.addAll([
       const Marker(
-        
         markerId: MarkerId('user1'),
         position: LatLng(37.7749, -122.4194),
         infoWindow: InfoWindow(title: 'User 1'),
@@ -66,30 +63,53 @@ class FieldWorkController extends GetxController {
     ]);
   }
 
-  getUserList() async {
+  RxInt loggedUserId = 0.obs;
+
+  getUserList(isAdmin) async {
     print("getUserList called");
     isPageLoading.value = true;
-    List<dynamic> responseValue = await apiCallService("/users", 'GET', {}, TheResponseType.list, {}, false);
+    List<dynamic> responseValue = await apiCallService(
+        "/users", 'GET', {}, TheResponseType.list, {}, false);
 
-    List<UserModel> activeUsers = (responseValue).map((e) => UserModel.fromJson(e)).where((user) => user.active == 1).toList();
-    activeUsers.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
-     List<UserModel>  activeUserWithout9999 = activeUsers.where((user) => user.id != 9999).toList();
+    List<UserModel> activeUsers = (responseValue)
+        .map((e) => UserModel.fromJson(e))
+        .where((user) => user.active == 1)
+        .toList();
+    activeUsers
+        .sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+    List<UserModel> activeUserWithout9999 =
+        activeUsers.where((user) => user.id != 9999).toList();
 
     userList.clear();
 
     userList.value = activeUserWithout9999;
     userList.refresh();
+    print("loggedUserId---$loggedUserId");
 
-    filteredUserList.clear();
-    filteredUserList.value = activeUserWithout9999;
-    filteredUserList.refresh();
+    if (isAdmin == true) {
+      filteredUserList.clear();
+      filteredUserList.value = activeUserWithout9999;
+      filteredUserList.refresh();
+    } else {
+      print("inside else ---");
+      var filtered = activeUserWithout9999.where((element) {
+        print(element.id);
+        print(element.name);
+        return element.id == loggedUserId.value;
+      }).toList();
+
+      print("Filtered list: $filtered");
+      filteredUserList.value = filtered;
+      filteredUserList.refresh();
+    }
 
     isPageLoading.value = false;
 
     return userList;
   }
 
-  Future<Map<String, dynamic>> GetLeadEventByUser({required int userId, required String eventDate, String? transId}) async {
+  Future<Map<String, dynamic>> GetLeadEventByUser(
+      {required int userId, required String eventDate, String? transId}) async {
     if (userId == 0) {
       return {};
     }
@@ -103,7 +123,8 @@ class FieldWorkController extends GetxController {
     };
 
     try {
-      dynamic result = await apiCallService(apiUrl, "GET", mapValue, TheResponseType.map, {}, false);
+      dynamic result = await apiCallService(
+          apiUrl, "GET", mapValue, TheResponseType.map, {}, false);
 
       await loadEvents(result);
 
@@ -148,7 +169,8 @@ class FieldWorkController extends GetxController {
 
         for (var event in events) {
           timelineItems.add({
-            "action": event.eventDisplayName ?? event.eventName ?? "Unknown Event",
+            "action":
+                event.eventDisplayName ?? event.eventName ?? "Unknown Event",
             "time": event.eventDateTime ?? DateTime.now(),
             "latitude": event.latitude,
             "longitude": event.longitude,
@@ -214,7 +236,8 @@ class FieldWorkController extends GetxController {
 // key = transId, value = lead name (from API)
 
   getLeadDetails({required String transId}) async {
-    var responseValue = await apiCallService("/lead-gen/$transId", 'GET', {}, TheResponseType.map, {}, false);
+    var responseValue = await apiCallService(
+        "/lead-gen/$transId", 'GET', {}, TheResponseType.map, {}, false);
 
     if (responseValue != null && responseValue is Map<String, dynamic>) {
       String leadName = responseValue['leadName'] ?? "Unknown Lead";
@@ -242,8 +265,14 @@ class FieldWorkController extends GetxController {
 
   Future<List<UserRoleModel>> getUserRoleList(String query) async {
     List<dynamic> responseValue = await apiCallService(
-        "/user-roles", 'GET', {}, TheResponseType.list, {}, false); //--url, Method, body, responsetype, query parameter, isAuth
-    List<UserRoleModel> userDatas = (responseValue).map((e) => UserRoleModel.fromJson(e)).toList();
+        "/user-roles",
+        'GET',
+        {},
+        TheResponseType.list,
+        {},
+        false); //--url, Method, body, responsetype, query parameter, isAuth
+    List<UserRoleModel> userDatas =
+        (responseValue).map((e) => UserRoleModel.fromJson(e)).toList();
 
     userRoleList.value = userDatas;
     userRoleList.refresh();
@@ -256,6 +285,9 @@ class FieldWorkController extends GetxController {
       return "";
     }
 
-    return userRoleList.where((model) => userRoleIds.contains(model.id)).map((e) => e.role).join(', ');
+    return userRoleList
+        .where((model) => userRoleIds.contains(model.id))
+        .map((e) => e.role)
+        .join(', ');
   }
 }

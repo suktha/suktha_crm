@@ -51,12 +51,15 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
     });
 
     if (loginDetails.user!.roles != null) {
+      print("role id----${loginDetails.user!.id}");
+      print("role-name----${loginDetails.user!.name}");
+
+      controller.loggedUserId.value = loginDetails.user!.id!;
       for (var role in loginDetails.user!.roles!) {
         print("user role id-----${role.roleType!.id}");
         // bool isAdminIdmatches = userList.any(
         //   (element) => element.roleIds?.contains(role.id) ?? false,
         // );
-
         if (role.roleType!.id == 1) {
           homeController.isLoginIdIsAdmin.value = true;
           homeController.isLoginIdIsbranchmanger.value = true;
@@ -71,8 +74,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
           print("Role ID ${role.roleType!.id} doesn't exist in userList.");
         }
 
-        log("is admin logged in - " +
-            homeController.isLoginIdIsAdmin.value.toString());
+        log("is admin logged in - ${homeController.isLoginIdIsAdmin.value}");
 
         sharedPreferences.setBool(
             "isAdmin", homeController.isLoginIdIsAdmin.value);
@@ -89,158 +91,203 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
   void initState() {
     super.initState();
     controller.getUserRoleList("");
-    controller.getUserList();
+    controller.getUserList(homeController.isLoginIdIsAdmin.value);
+    getdata();
   }
 
   @override
   Widget build(BuildContext context) {
     double width = ResponsiveUtils.screenWidth(context);
     double height = ResponsiveUtils.screenHeight(context);
-    
+
     return Stack(
       children: [
         Scaffold(
-          appBar: AppBar(
-              title: const Text("Field Report"),
-              titleTextStyle: TextStyle(
-                  color: kColorblack,
-                  fontWeight: FontWeight.bold,
-                  fontSize: width * 0.055),
-              centerTitle: true,
-              backgroundColor: kColorwhite,
-              elevation: 0,
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      controller.getUserList();
-                    },
-                    icon: Icon(
-                      Icons.refresh,
-                      color: kColorblack,
-                    ))
-              ],
-              leading: IconButton(
-                icon: Icon(
-                  Icons.keyboard_arrow_left_rounded,
-                  color: kColorblack,
-                  size: 25,
-                ),
-                onPressed: (() {
-                  Get.back();
-                  controller.isExpanded.value=false;
-                }),
-              )),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(width * 0.02),
-                      height: height * 0.06,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(width * 0.03),
-                      ),
-                      child: TextField(
-                        onChanged: (value) async {
-                          controller.filteredUserList.value = controller
-                              .userList
-                              .where((user) => user.name!
-                                  .toLowerCase()
-                                  .contains(value.toLowerCase()))
-                              .toList();
-                        },
-                        // controller: controller.searchController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: 'Search Here',
-                          hintStyle: TextStyle(color: kColorblack45),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                        ),
-                      ),
-                    ),
-                  ),
+            appBar: AppBar(
+                title: const Text("Field Report"),
+                titleTextStyle: TextStyle(
+                    color: kColorblack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: width * 0.055),
+                centerTitle: true,
+                backgroundColor: kColorwhite,
+                elevation: 0,
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        controller
+                            .getUserList(homeController.isLoginIdIsAdmin.value);
+                      },
+                      icon: Icon(
+                        Icons.refresh,
+                        color: kColorblack,
+                      ))
                 ],
-              ),
-            
-              Obx(() {
-                 controller.isExpanded.value==false
-                    ? Text(" Track active field users", 
-              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.normal, color: Colors.grey.shade600)): SizedBox();
-                double availableHeight = MediaQuery.of(context).size.height -
-        MediaQuery.of(context).padding.top -
-        kToolbarHeight;
-                return   AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                height: controller.isExpanded.value
-                    ? availableHeight/1.1
-                    : availableHeight / 4,
-                width: double.infinity,
-                child: Stack(
-                  children: [
-                    GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(37.7749, -122.4194),
-                        zoom: 12,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.keyboard_arrow_left_rounded,
+                    color: kColorblack,
+                    size: 25,
+                  ),
+                  onPressed: (() {
+                    Get.back();
+                    controller.isExpanded.value = false;
+                  }),
+                )),
+            body: homeController.isLoginIdIsAdmin.value == true
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.all(width * 0.02),
+                              height: height * 0.06,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius:
+                                    BorderRadius.circular(width * 0.03),
+                              ),
+                              child: TextField(
+                                onChanged: (value) async {
+                                  controller.filteredUserList.value = controller
+                                      .userList
+                                      .where((user) => user.name!
+                                          .toLowerCase()
+                                          .contains(value.toLowerCase()))
+                                      .toList();
+                                },
+                                // controller: controller.searchController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  hintText: 'Search Here',
+                                  hintStyle: TextStyle(color: kColorblack45),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 20),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      markers: controller.activeUsers,
-                      myLocationButtonEnabled: false,
-                      zoomControlsEnabled: true,
-                    ),
-                    Positioned(
-                      right: 10,
-                      top: 10,
-                      child: FloatingActionButton(
-                        mini: true,
-                        backgroundColor: kColorLightGrey,
-                        onPressed: () {
-                          controller.toggleMapSize();
-                          if (controller.isExpanded.value) {
-                            controller.loadActiveUsers();
-                          }
-                        },
-                        child: Icon(controller.isExpanded.value
-                            ? Icons.fullscreen_exit
-                            : Icons.fullscreen,color: Colors.grey.shade700,),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-              }),
-              Obx(() => Expanded(
-                    child: userListView(
-                      userList: controller.filteredUserList,
-                      width: width,
-                      controller: controller,
-                      height: height,
-                      onTapUser: (item, index) async {
-                        controller.timelineItems.clear();
-                        geoLocationController.userLocations.clear();
-                        await Get.find<WebSocketService>().initializeConnection(
-                            userId: item.id, leadId: null);
+                      Obx(() {
+                        controller.isExpanded.value == false
+                            ? Text(" Track active field users",
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.grey.shade600))
+                            : SizedBox();
+                        double availableHeight =
+                            MediaQuery.of(context).size.height -
+                                MediaQuery.of(context).padding.top -
+                                kToolbarHeight;
+                        return AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          height: controller.isExpanded.value
+                              ? availableHeight / 1.1
+                              : availableHeight / 4,
+                          width: double.infinity,
+                          child: Stack(
+                            children: [
+                              GoogleMap(
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(37.7749, -122.4194),
+                                  zoom: 12,
+                                ),
+                                markers: controller.activeUsers,
+                                myLocationButtonEnabled: false,
+                                zoomControlsEnabled: true,
+                              ),
+                              Positioned(
+                                right: 10,
+                                top: 10,
+                                child: FloatingActionButton(
+                                  mini: true,
+                                  backgroundColor: kColorLightGrey,
+                                  onPressed: () {
+                                    controller.toggleMapSize();
+                                    if (controller.isExpanded.value) {
+                                      controller.loadActiveUsers();
+                                    }
+                                  },
+                                  child: Icon(
+                                    controller.isExpanded.value
+                                        ? Icons.fullscreen_exit
+                                        : Icons.fullscreen,
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                      Obx(() => Expanded(
+                            child: userListView(
+                              isAdmin: homeController.isLoginIdIsAdmin.value,
+                              userList: controller.filteredUserList,
+                              width: width,
+                              controller: controller,
+                              height: height,
+                              onTapUser: (item, index) async {
+                                controller.timelineItems.clear();
+                                geoLocationController.userLocations.clear();
+                                await Get.find<WebSocketService>()
+                                    .initializeConnection(
+                                        userId: item.id, leadId: null);
 
-                        // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
-                        showUserBottomSheet(
-                            context: context,
-                            item: item,
-                            index: index,
-                            width: width,
-                            height: height,
-                            isActive: true);
-                      },
-                      onDelete: (index) {
-                        // controller.deleteLiveUser(index);
-                      },
-                    ),
+                                // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
+                                showUserBottomSheet(
+                                    context: context,
+                                    item: item,
+                                    index: index,
+                                    width: width,
+                                    height: height,
+                                    isActive: true);
+                              },
+                              onDelete: (index) {
+                                // controller.deleteLiveUser(index);
+                              },
+                            ),
+                          )),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Obx(() => Expanded(
+                            child: userListView(
+                              isAdmin: homeController.isLoginIdIsAdmin.value,
+                              userList: controller.filteredUserList,
+                              width: width,
+                              controller: controller,
+                              height: height,
+                              onTapUser: (item, index) async {
+                                controller.timelineItems.clear();
+                                geoLocationController.userLocations.clear();
+                                await Get.find<WebSocketService>()
+                                    .initializeConnection(
+                                        userId: item.id, leadId: null);
+
+                                // controller.GetLeadEventByUser(userId: item.id!, eventDate: DateTime.now().toString());
+                                showUserBottomSheet(
+                                    context: context,
+                                    item: item,
+                                    index: index,
+                                    width: width,
+                                    height: height,
+                                    isActive: true);
+                              },
+                              onDelete: (index) {
+                                // controller.deleteLiveUser(index);
+                              },
+                            ),
+                          )),
+                    ],
                   )),
-            ],
-          ),
-        ),
         Obx(() => Visibility(
               visible: controller.isPageLoading.value,
               child: Positioned.fill(

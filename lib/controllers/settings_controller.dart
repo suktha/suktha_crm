@@ -39,7 +39,7 @@ import '../../../utils/Services/rest_api_services.dart';
 class SettingsController extends GetxController {
   @override
   void onInit() async {
-    print("settings controller init");
+    print("settings controller1 init");
     super.onInit();
     // getCompanyDetails();
     getPartyBankDetails();

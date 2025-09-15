@@ -325,9 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: kColorLightGrey,
                           child: IconButton(
                               onPressed: () {
-                            
-                                Get.to(UserFieldWorkScreen(
-                                ),
+                                Get.to(NotificationHistoryScreen(),
                                     duration: const Duration(milliseconds: 400),
                                     transition: Transition.rightToLeft);
                               },
@@ -383,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         backgroundColor: kColorLightGrey,
                         child: IconButton(
                             onPressed: () {
-                              Get.to(TaskReportScreen(),
+                              Get.to(NotificationHistoryScreen(),
                                   duration: const Duration(milliseconds: 400),
                                   transition: Transition.rightToLeft);
                             },

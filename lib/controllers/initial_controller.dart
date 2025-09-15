@@ -82,7 +82,7 @@ class InitialController extends GetxController {
   
 
   void navToMain() {
-    Get.put(SettingsController());
+    // Get.put(SettingsController());
 
     Future.delayed(const Duration(seconds: 1), () async {
       Get.offAll(

@@ -125,7 +125,7 @@ class GlobalController extends GetxController {
         await sharedPreferences.clear();
 
         sharedPreferences.setBool("onboardKey", true);
-        Get.delete<SettingsController>();
+        // Get.delete<SettingsController>();
 
         Get.offAll(() => const LoginPage(), transition: Transition.fade, duration: const Duration(milliseconds: 1000));
       }

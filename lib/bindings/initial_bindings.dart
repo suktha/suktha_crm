@@ -15,8 +15,9 @@ class InitialBinding extends Bindings {
   void dependencies() {
     Get.put(GlobalController());
     Get.put(ChatBotController());
+    // Get.put(SettingsController());
+    Get.lazyPut<SettingsController>(() => SettingsController());
 
-    Get.put(SettingsController());
     Get.put(GetLeadController());
     Get.put<NavigationController>(NavigationController());
     Get.put<GeoLocationController>(GeoLocationController());

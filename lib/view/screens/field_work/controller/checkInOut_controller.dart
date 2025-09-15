@@ -11,6 +11,7 @@ import 'package:work_Force/utils/Services/rest_api_services.dart';
 import 'package:work_Force/utils/api/common_api.dart';
 import 'package:work_Force/view/screens/field_work/Task_Report/task_report_screen.dart';
 import 'package:work_Force/view/screens/field_work/start_field_work/start_field_work_screen.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/view/user_field_work_screen.dart';
 
 class CheckInOutController extends GetxController {
   var isClockedIn = false.obs;
@@ -31,8 +32,6 @@ class CheckInOutController extends GetxController {
   var polylines = <Polyline>{}.obs;
   var polylineCoordinates = <LatLng>[].obs;
   var taskTimeline = <String>[].obs;
-
-
 
   var actionList = [
     "Meeting Started",
@@ -168,12 +167,9 @@ class CheckInOutController extends GetxController {
       designationIdName.value = "";
     }
     taskTimeline.add("Task Ended");
-  //   Get.to(() => TaskReportScreen(), arguments: {
-  //   'isAdmin': "isAdmin", // pass if user is admin
-  //   'taskTimeline': taskTimeline,
-  //   'currentLocation': currentLocation.value,
-  //   'allWorkers': allWorkers // List of all workers with location if admin
-  // });
+    Get.to(
+      () => const UserFieldWorkScreen(),
+    );
     toggleCheck();
   }
 
@@ -184,7 +180,7 @@ class CheckInOutController extends GetxController {
 
       _timer?.cancel();
       workedDuration.value = DateTime.now().difference(startTime.value);
-      // Get.offAll(()=>BottomNavigationMainscreen(initialIndex: 1,));  
+      // Get.offAll(()=>BottomNavigationMainscreen(initialIndex: 1,));
     } else {
       // Clocking in
       startTime.value = DateTime.now();
@@ -192,8 +188,8 @@ class CheckInOutController extends GetxController {
       designationController.clear();
       designationIdName.value = "";
 
-      Get.to(() =>  TaskMapScreen(), transition: Transition.rightToLeft);
-          taskTimeline.add("Task Started");
+      Get.to(() => TaskMapScreen(), transition: Transition.rightToLeft);
+      taskTimeline.add("Task Started");
 
       print("Clocked2 : ${isClockedIn.value}");
       _timer?.cancel();
