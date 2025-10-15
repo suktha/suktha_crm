@@ -54,7 +54,7 @@ class _AddServiceMasterScreenState extends State<AddServiceMasterScreen> {
                     padding: EdgeInsets.only(right: 2.w),
                     child: IconButton(
                       onPressed: () {
-                        Get.offAll(ServiceMasterScreen());
+                        Get.offAll(const ServiceMasterScreen());
                       },
                       icon: Icon(
                         Icons.close,

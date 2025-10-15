@@ -174,7 +174,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                         ],
                       ),
                       Obx(() {
-                        controller.isExpanded.value == false
+                        controller.isExpanded.value
                             ? Text(" Track active field users",
                                 style: TextStyle(
                                     fontSize: 17.sp,
@@ -201,6 +201,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                 markers: controller.activeUsers,
                                 myLocationButtonEnabled: false,
                                 zoomControlsEnabled: true,
+                                onTap: (_) => controller.clearSelection(),
                               ),
                               Positioned(
                                 right: 10,
@@ -222,6 +223,42 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                                   ),
                                 ),
                               ),
+                              Obx(() {
+                                final selected = controller.selectedUser.value;
+                                if (selected == null)
+                                  return const SizedBox.shrink();
+
+                                return Positioned(
+                                  bottom: 20,
+                                  left: 20,
+                                  right: 20,
+                                  child: Card(
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundColor: Colors.indigo,
+                                          child: Icon(Icons.person,
+                                              color: Colors.white),
+                                        ),
+                                        title: Text(selected['name'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16)),
+                                        subtitle: Text(selected['address']),
+                                        trailing: IconButton(
+                                          icon: const Icon(Icons.close),
+                                          onPressed: controller.clearSelection,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
                             ],
                           ),
                         );

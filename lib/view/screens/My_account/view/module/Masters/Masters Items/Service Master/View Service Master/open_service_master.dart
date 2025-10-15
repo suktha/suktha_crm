@@ -49,7 +49,7 @@ class OpenServiceMasterScreen extends StatelessWidget {
               size: 23.sp,
             ),
             onPressed: (() {
-              Get.to(() => ServiceMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
+              Get.to(() => const ServiceMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
             }),
           )),
       body: Column(
@@ -111,7 +111,7 @@ class OpenServiceMasterScreen extends StatelessWidget {
                     width: 50.w,
                     title: "Back",
                     ontap: () {
-                      Get.off(() => ServiceMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
+                      Get.off(() => const ServiceMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
                     },
                     color: kColorwhite,
                   ),

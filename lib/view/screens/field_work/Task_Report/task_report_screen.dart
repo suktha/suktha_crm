@@ -4,17 +4,18 @@ import 'package:intl/intl.dart';
 import 'package:work_Force/view/screens/field_work/Task_Report/controller/task_report_controller.dart';
 
 class TaskReportScreen extends StatelessWidget {
-  final TaskReportController controller = Get.put(TaskReportController());
+  TaskReportScreen({super.key});
 
+  final TaskReportController controller = Get.put(TaskReportController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Task Report"),
+        title: const Text("Task Report"),
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             height: 100,
             child: Obx(() {
               return ListView.builder(
@@ -35,9 +36,10 @@ class TaskReportScreen extends StatelessWidget {
                       controller.selectDate(item['fullDate']!);
                     },
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       width: 55,
-                      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 10),
                       decoration: BoxDecoration(
                         color: isSelected ? Colors.blue : Colors.grey[200],
                         borderRadius: BorderRadius.circular(10),
@@ -54,7 +56,7 @@ class TaskReportScreen extends StatelessWidget {
                                 color: isSelected ? Colors.red : Colors.black,
                               ),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               item['weekday']!,
                               style: TextStyle(
@@ -72,16 +74,16 @@ class TaskReportScreen extends StatelessWidget {
               );
             }),
           ),
-
-          Divider(),
-
+          const Divider(),
           Obx(() {
-            String formattedDate = DateFormat('yyyy-MM-dd').format(controller.selectedDate.value);
+            String formattedDate =
+                DateFormat('yyyy-MM-dd').format(controller.selectedDate.value);
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 "Selected Date: $formattedDate",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             );
           }),

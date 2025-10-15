@@ -89,7 +89,7 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
                   padding: EdgeInsets.only(right: 2.w),
                   child: IconButton(
                     onPressed: () {
-                      Get.offAll(PartyMasterScreen());
+                      Get.offAll(const PartyMasterScreen());
                     },
                     icon: Icon(
                       Icons.close,
@@ -113,7 +113,7 @@ class _AddPartyMasterScreenState extends State<AddPartyMasterScreen> {
                   size: 23.sp,
                 ),
                 onPressed: (() {
-                  Get.offAll(PartyMasterScreen());
+                  Get.offAll(const PartyMasterScreen());
                 }),
               )),
           body: SafeArea(

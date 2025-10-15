@@ -35,7 +35,7 @@ class MasterController extends GetxController {
     {
       "title": "Party",
       "icon": Icons.pages_rounded,
-      "screen": PartyMasterScreen(),
+      "screen": const PartyMasterScreen(),
     },
     {
       "title": "Material",
@@ -45,7 +45,7 @@ class MasterController extends GetxController {
     {
       "title": "Service",
       "icon": Icons.supervised_user_circle_sharp,
-      "screen": ServiceMasterScreen(),
+      "screen": const ServiceMasterScreen(),
     },
    
   ];

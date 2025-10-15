@@ -21,6 +21,7 @@ class CheckInOutController extends GetxController {
   final Rx<Duration> elapsedTime = Duration.zero.obs;
   Timer? _timer;
   final textController = TextEditingController();
+  final descriptionController = TextEditingController();
 
   GoogleMapController? mapController;
   StreamSubscription<Position>? positionStream;
@@ -57,8 +58,9 @@ class CheckInOutController extends GetxController {
 
   void addTimeline(String event) {
     final time = DateTime.now();
+    //${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}
     final formatted =
-        "$event at ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+        event;
     taskTimeline.add(formatted);
   }
 

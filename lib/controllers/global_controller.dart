@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:work_Force/Constants/shared_pref_keys.dart';
 import 'package:work_Force/Model/login_model.dart';
-import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/utils/check_token_expired.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 import 'package:work_Force/view/widget/snackbar.dart';

@@ -392,7 +392,7 @@ class _BuildOneTimeAndSubScreenState extends State<BuildOneTimeAndSubScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(2.w),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: CircularProgressIndicator(
                                               color: kColorLightBlueAppBar,
                                             ),

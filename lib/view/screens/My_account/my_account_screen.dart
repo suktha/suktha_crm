@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -28,6 +27,8 @@ import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%2
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Material%20Master/View%20Material%20Master/list_material_master.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Party%20Master/View%20Party%20Master/list_party_master.dart';
 import 'package:work_Force/view/screens/My_account/view/module/Masters/Masters%20Items/Service%20Master/View%20Service%20Master/list_service_master.dart';
+import 'package:work_Force/view/screens/field_work/start_field_work/glow_container.dart';
+import 'package:work_Force/view/screens/field_work/tracking/admin/view/field_graphical_report/field_work_graphical_report.dart';
 import 'package:work_Force/view/screens/field_work/tracking/admin/view/user_field_work_screen.dart';
 import 'package:work_Force/view/screens/field_work/user_profile/view/user_profile_screen.dart';
 import 'package:work_Force/view/screens/Task_Managment/view/add_task_screen.dart';
@@ -338,7 +339,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      " More",
+                      " More ",
                       style: TextStyle(
                           color: kColorblack,
                           fontWeight: FontWeight.bold,
@@ -352,7 +353,7 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
                       title: "Field Report",
                       icon: Icons.location_history_outlined,
                       ontap: () {
-                        Get.to(() => UserFieldWorkScreen(),
+                        Get.to(() => FieldWorkGraphicalReport(),
                             duration: const Duration(milliseconds: 400),
                             transition: Transition.rightToLeft);
                       },

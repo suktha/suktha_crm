@@ -9,7 +9,6 @@ import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/utils/validations/validations.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 import 'package:work_Force/view/screens/login/registration/controller/registration_controller.dart';
-import 'package:work_Force/view/screens/pre_sales/lead_managment/view_lead_managment/view_lead_management.dart';
 import 'package:work_Force/view/widget/custom_button.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 

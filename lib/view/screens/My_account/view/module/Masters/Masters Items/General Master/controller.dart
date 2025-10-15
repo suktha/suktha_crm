@@ -60,17 +60,17 @@ class GeneralMasterListController extends GetxController {
     {
       "title": "City Master",
       "icon": Icons.list_alt,
-      "screen": CityMasterScreen(),
+      "screen": const CityMasterScreen(),
     },
     {
       "title": "Area Master",
       "icon": Icons.list_alt,
-      "screen": AreaMasterScreen(),
+      "screen": const AreaMasterScreen(),
     },
     {
       "title": "Bank Master",
       "icon": Icons.list_alt,
-      "screen": BankMasterScreen(),
+      "screen": const BankMasterScreen(),
     },
     {
       "title": "Department",
@@ -80,12 +80,12 @@ class GeneralMasterListController extends GetxController {
     {
       "title": "Designation",
       "icon": Icons.list_alt,
-      "screen": DesignationScreen(),
+      "screen": const DesignationScreen(),
     },
     {
       "title": "Party/Lead Category",
       "icon": Icons.list_alt,
-      "screen": LeadCategoryMasterScreen(),
+      "screen": const LeadCategoryMasterScreen(),
     },
     {
       "title": "Industry Segment",
@@ -95,7 +95,7 @@ class GeneralMasterListController extends GetxController {
     {
       "title": "Expense Head",
       "icon": Icons.list_alt,
-      "screen": ExpenseHeadScreen(),
+      "screen": const ExpenseHeadScreen(),
     },
     {
       "title": "Reason",

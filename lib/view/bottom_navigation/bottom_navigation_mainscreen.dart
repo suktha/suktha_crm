@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/controllers/chatbot_controller.dart';
 import 'package:work_Force/view/bottom_navigation/chatBot_overlay.dart';
 import 'package:work_Force/view/bottom_navigation/navbar_controller.dart';

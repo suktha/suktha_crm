@@ -3,12 +3,16 @@ allprojects {
         google()
         mavenCentral()
     }
+
+    // Exclude unwanted plugins to avoid Java version issue
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }

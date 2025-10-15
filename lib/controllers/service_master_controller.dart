@@ -615,7 +615,7 @@ class ServiceMasterController extends GetxController {
         customSnackbar("Success", "successfully Saved", "success");
 
    
-        Get.offAll(() => ServiceMasterScreen(),
+        Get.offAll(() => const ServiceMasterScreen(),
               transition: Transition.fade,
               duration: const Duration(milliseconds: 600));
       } else {
@@ -683,7 +683,7 @@ class ServiceMasterController extends GetxController {
 
         customSnackbar("Success", "successfully Saved", "success");
 
-        Get.offAll(() => ServiceMasterScreen(),
+        Get.offAll(() => const ServiceMasterScreen(),
             transition: Transition.fade,
             duration: const Duration(milliseconds: 600));
       } else {

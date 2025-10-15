@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:work_Force/Constants/colors.dart';
 import 'package:work_Force/view/screens/login/ForgotPasswordScreen/controller/forgotpassword_controller.dart';
-import 'package:work_Force/view/screens/login/registration/view/registration_screen.dart';
 import 'package:work_Force/view/widget/custom_textfield.dart';
 
 class ResetPasswordScreen extends StatelessWidget {

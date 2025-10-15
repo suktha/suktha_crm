@@ -150,7 +150,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
               : const SizedBox(),
           Container(
             width: double.infinity,
-            decoration: BoxDecoration(color: kColorLightGrey),
+            decoration: const BoxDecoration(color: kColorLightGrey),
             child: Obx(() => Padding(
                   padding: const EdgeInsets.only(left: 19.0, right: 15, top: 10, bottom: 10),
                   child: Text(

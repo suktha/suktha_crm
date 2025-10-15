@@ -103,7 +103,7 @@ class _SavePartyMasterScreenState extends State<SavePartyMasterScreen> {
                   padding: EdgeInsets.only(right: 2.w),
                   child: IconButton(
                     onPressed: () {
-                      Get.offAll(PartyMasterScreen());
+                      Get.offAll(const PartyMasterScreen());
                     },
                     icon: Icon(
                       Icons.close,

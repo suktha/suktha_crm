@@ -51,7 +51,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                     size: 23.sp,
                   ),
                   onPressed: (() {
-                    Get.to(() => PartyMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
+                    Get.to(() => const PartyMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
                   }),
                 )),
           ),
@@ -281,7 +281,7 @@ class OpenPartyMasterScreen extends StatelessWidget {
                         width: 50.w,
                         title: "Back",
                         ontap: () {
-                          Get.off(() => PartyMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
+                          Get.off(() => const PartyMasterScreen(), transition: Transition.fade, duration: const Duration(milliseconds: 600));
                         },
                         color: kColorwhite,
                       ),

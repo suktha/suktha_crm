@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:work_Force/Model/live_location_model.dart';
@@ -31,6 +32,7 @@ class FieldWorkController extends GetxController {
 
   RxList<UserModel> userList = <UserModel>[].obs;
   var filteredUserList = <UserModel>[].obs;
+  var selectedUser = Rxn<Map<String, dynamic>>(); // store user + address
 
   RxList<UserModel> liveUserList = <UserModel>[].obs;
 
@@ -41,25 +43,54 @@ class FieldWorkController extends GetxController {
     isExpanded.value = !isExpanded.value;
   }
 
+  Future<void> onMarkerTap(String name, double lat, double lng) async {
+    if (isExpanded.value == false) {
+      toggleMapSize();
+    }
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
+      final place = placemarks.first;
+      final address =
+          '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.country}';
+
+      selectedUser.value = {
+        'name': name,
+        'lat': lat,
+        'lng': lng,
+        'address': address,
+      };
+    } catch (e) {
+      selectedUser.value = {
+        'name': name,
+        'lat': lat,
+        'lng': lng,
+        'address': 'Address not found',
+      };
+    }
+  }
+
+  void clearSelection() => selectedUser.value = null;
+
   void loadActiveUsers() {
     // Example: Add dummy active users as markers
     activeUsers.clear();
     activeUsers.addAll([
-      const Marker(
-        markerId: MarkerId('user1'),
-        position: LatLng(37.7749, -122.4194),
-        infoWindow: InfoWindow(title: 'User 1'),
+      Marker(
+        markerId: const MarkerId('user1'),
+        position: const LatLng(37.7749, -122.4194),
+        infoWindow: const InfoWindow(title: 'Sooraj S'),
+        onTap: () => onMarkerTap('Sooraj S', 37.7749, -122.4194),
       ),
-      const Marker(
-        markerId: MarkerId('user2'),
-        position: LatLng(37.7849, -122.4094),
-        infoWindow: InfoWindow(title: 'User 2'),
-      ),
-      const Marker(
-        markerId: MarkerId('user3'),
-        position: LatLng(37.7649, -122.4294),
-        infoWindow: InfoWindow(title: 'User 3'),
-      ),
+      Marker(
+          markerId: const MarkerId('user2'),
+          position: const LatLng(37.7849, -122.4094),
+          infoWindow: const InfoWindow(title: 'Antony'),
+          onTap: () => onMarkerTap('Antony', 37.7849, -122.4094)),
+      Marker(
+          markerId: const MarkerId('user3'),
+          position: const LatLng(37.7649, -122.4294),
+          infoWindow: const InfoWindow(title: 'Krithika'),
+          onTap: () => onMarkerTap('Krithika', 37.7649, -122.4294)),
     ]);
   }
 

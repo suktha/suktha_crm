@@ -526,8 +526,6 @@ class PartyMasterController extends GetxController {
 
   String getPlanStatus(
       {required DateTime startDate, required DateTime endDate}) {
-    if (endDate == null) return "Unknown";
-
     DateTime currentDate = DateTime.now();
 
     if (currentDate.isBefore(startDate)) {
@@ -1587,7 +1585,7 @@ class PartyMasterController extends GetxController {
 
         customSnackbar("Success", "successfully Saved", "success");
 
-        Get.offAll(() => PartyMasterScreen(),
+        Get.offAll(() => const PartyMasterScreen(),
             transition: Transition.fade,
             duration: const Duration(milliseconds: 600));
       } else {

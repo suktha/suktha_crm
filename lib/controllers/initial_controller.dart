@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:work_Force/controllers/settings_controller.dart';
 import 'package:work_Force/view/bottom_navigation/bottom_navigation_mainScreen.dart';
 import 'package:work_Force/view/screens/login/login_screen.dart';
 import 'package:work_Force/view/screens/login/onboarding/onboarding_screen.dart';

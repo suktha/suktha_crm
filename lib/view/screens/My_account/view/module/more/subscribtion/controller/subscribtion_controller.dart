@@ -10,6 +10,7 @@ class SubscriptionController extends GetxController {
   SubscriptionDetailsModel? subscriptionDetails;
   RxList<SubHistoryModel> subHistoryList = <SubHistoryModel>[].obs;
 
+  @override
   void onInit() {
     getSubscriptionDetails();
     super.onInit();
@@ -32,7 +33,7 @@ class SubscriptionController extends GetxController {
           response.map((e) => SubHistoryModel.fromJson(e)).toList();
       subHistoryList.value = userDatas;
       subHistoryList.refresh();
-      print("list data- SubHistoryModel-----${subHistoryList}");
+      print("list data- SubHistoryModel-----$subHistoryList");
     } catch (e) {
       print("errorrr ---$e");
     }
