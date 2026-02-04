@@ -8,9 +8,8 @@ import 'package:work_Force/view/widget/snackbar.dart';
 
 class InitialController extends GetxController {
   @override
-  void onInit() {
-    super.onInit();
-   
+  void onReady() {
+    super.onReady();
     checkLastLoginTime();
   }
 
@@ -29,14 +28,20 @@ class InitialController extends GetxController {
     final value = prefs.getBool('loginsuccess');
     final onboardvalue = prefs.getBool("onboardKey");
 
-    final lastLoginTime =
-        DateTime.parse(lastLoginTimeString ?? DateTime.now().toString());
+    DateTime lastLoginTime;
+    if (lastLoginTimeString == null) {
+      lastLoginTime = DateTime.now();
+    } else {
+      lastLoginTime = DateTime.tryParse(lastLoginTimeString) ?? DateTime.now();
+    }
+
     final difference = DateTime.now().difference(lastLoginTime);
 
     print(difference.inHours);
 
     if (difference.inHours >= 24) {
-      await prefs.clear();
+      await prefs.remove('loginsuccess');
+      await prefs.remove('_lastLoginTime');
 
       Get.offAll(() => const LoginPage(),
           transition: Transition.fade,
@@ -78,14 +83,14 @@ class InitialController extends GetxController {
     });
   }
 
-  
-
   void navToMain() {
     // Get.put(SettingsController());
 
     Future.delayed(const Duration(seconds: 1), () async {
       Get.offAll(
-          () => BottomNavigationMainscreen(initialIndex: 1,),
+          () => BottomNavigationMainscreen(
+                initialIndex: 1,
+              ),
           transition: Transition.fade,
           duration: const Duration(milliseconds: 700));
     });

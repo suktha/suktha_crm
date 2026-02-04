@@ -42,6 +42,7 @@ class GetLeadController extends GetxController {
   RxBool isSelectedFollowUpDate = false.obs;
   List isStatusSelected = <bool>[].obs;
   var selectedIndex = (-1).obs;
+  RxString centerText = "".obs;
 
   RxBool isNavigateFromHome = false.obs;
 

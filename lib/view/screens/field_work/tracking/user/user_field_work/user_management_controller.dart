@@ -24,18 +24,23 @@ class UserManagementController extends GetxController {
 
   final Location locationService = Location();
 
-  final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
+  final RoundedLoadingButtonController btnController =
+      RoundedLoadingButtonController();
 
   var currentLocation = Rxn<LocationData>();
 
   Rxn<Map<String, String>> activeLeadData = Rxn<Map<String, String>>();
 
   bool get isFieldWorkActive => activeLeadData.value != null;
-  RxBool isFieldWorkLive=false.obs;
+  RxBool isFieldWorkLive = false.obs;
 
-  bool isFieldWorkForThisLead(String leadId) => activeLeadData.value?['leadId'] == leadId;
+  bool isFieldWorkForThisLead(String leadId) =>
+      activeLeadData.value?['leadId'] == leadId;
 
-  void startFieldWork({required String leadId, required String leadName, required String leadNumber}) async {
+  void startFieldWork(
+      {required String leadId,
+      required String leadName,
+      required String leadNumber}) async {
     activeLeadData.value = {
       'leadId': leadId,
       'leadName': leadName,
@@ -61,13 +66,10 @@ class UserManagementController extends GetxController {
     await prefs.remove('liveLocLeadName');
     await prefs.remove('liveLocLeadNumber');
 
-     Get.find<WebSocketService>().disconnect();
-
-    
+    Get.find<WebSocketService>().disconnect();
   }
 
   Future<bool> checkLeadIsActive() async {
-    
     print("🟢 started checking.....");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? leadId = prefs.getString('liveLocLeadId');
@@ -91,12 +93,17 @@ class UserManagementController extends GetxController {
       if (value.isNotEmpty) {
         // await Get.find<WebSocketService>().initializeConnection(leadId: leadId, userId: loginDetails.user!.id!);
 
-        activeLeadData.value = {'leadId': leadId, 'leadName': leadName, 'leadNumber': leadNumber};
+        activeLeadData.value = {
+          'leadId': leadId,
+          'leadName': leadName,
+          'leadNumber': leadNumber
+        };
         final dataList = value['1'] as List;
 
         timelineItems.assignAll(
           dataList.map((eventJson) {
-            final model = LiveLocationModel.fromJson(eventJson as Map<String, dynamic>);
+            final model =
+                LiveLocationModel.fromJson(eventJson as Map<String, dynamic>);
 
             return {
               "action": model.eventDisplayName ?? model.eventName ?? "Unknown",
@@ -182,15 +189,13 @@ class UserManagementController extends GetxController {
     Color color;
 
     await getCurrentLocation();
-                                      
 
- isFieldWorkLive.value = true;
+    isFieldWorkLive.value = true;
     if (action == "Started") {
       isUserLoggedIn.value = true;
       timelineItems.clear();
-    }else  if (action == "Ended") {
-     isFieldWorkLive.value = false;
-
+    } else if (action == "Ended") {
+      isFieldWorkLive.value = false;
     }
 
     switch (action) {
@@ -261,7 +266,8 @@ class UserManagementController extends GetxController {
     required String leadId,
     String? reasonId,
   }) async {
-    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
 
     final logindecoded = json.decode(sharedPreferences.getString('userMap')!);
     final loginDetails = LoginModel.fromJson(logindecoded);
@@ -308,7 +314,8 @@ class UserManagementController extends GetxController {
       destinationUrl: "",
     );
 
-    dynamic result = await apiCallService(apiUrl, "POST", mapValue.toJson(), TheResponseType.map, {}, false);
+    dynamic result = await apiCallService(
+        apiUrl, "POST", mapValue.toJson(), TheResponseType.map, {}, false);
 
     print("Update success: $result");
   }
@@ -384,7 +391,8 @@ class UserManagementController extends GetxController {
   }
 
   openGoogleMaps(double endLat, double endLng) async {
-    final url = 'https://www.google.com/maps/dir/?api=1&destination=$endLat,$endLng&travelmode=driving';
+    final url =
+        'https://www.google.com/maps/dir/?api=1&destination=$endLat,$endLng&travelmode=driving';
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {

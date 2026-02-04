@@ -156,14 +156,15 @@ class TaskMapScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 2.w),
                         Text(
-                          "Company: XYZ Pvt Ltd",
+                          "XYZ technolgies Private Ltd",
                           style: TextStyle(
                             fontSize: 15.sp,
                             color: Colors.grey[700],
                           ),
                         ),
+                        SizedBox(height: 1.w),
                         Text(
-                          "Title: Client Discussion",
+                          "Client Review and Feedback",
                           style: TextStyle(
                             fontSize: 15.sp,
                             color: Colors.grey[700],
@@ -227,25 +228,32 @@ class TaskMapScreen extends StatelessWidget {
                                                   ? null
                                                   : controller
                                                       .selectedAction.value,
-                                              items: controller.actionList
-                                                  .map(
-                                                    (item) => DropdownMenuItem(
-                                                      value: item,
-                                                      child: Text(item),
-                                                    ),
-                                                  )
-                                                  .toList(),
+                                              items: controller.textController
+                                                      .text.isEmpty
+                                                  ? controller.actionList
+                                                      .map(
+                                                        (item) =>
+                                                            DropdownMenuItem(
+                                                          value: item,
+                                                          child: Text(item),
+                                                        ),
+                                                      )
+                                                      .toList()
+                                                  : [],
                                               onChanged: (value) {
                                                 if (value != null) {
                                                   controller.selectedAction
                                                       .value = value;
+
                                                   // controller.textController.text =
                                                   //     value;
                                                 }
                                               },
                                             ),
                                           ),
-                                            SizedBox(height: 2.w  ,),
+                                          SizedBox(
+                                            height: 2.w,
+                                          ),
                                           TextField(
                                             controller:
                                                 controller.textController,
@@ -253,7 +261,9 @@ class TaskMapScreen extends StatelessWidget {
                                               hintText: "Custom event ",
                                             ),
                                           ),
-                                          SizedBox(height: 2.w  ,),
+                                          SizedBox(
+                                            height: 2.w,
+                                          ),
                                           TextField(
                                             controller: controller
                                                 .descriptionController,
@@ -268,12 +278,12 @@ class TaskMapScreen extends StatelessWidget {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                           Get.back();
-                                           controller.textController.clear();
-                                            controller.descriptionController.clear();
-                                            controller.selectedAction.value = "";
+                                          Get.back();
+                                          controller.textController.clear();
+                                          controller.descriptionController
+                                              .clear();
+                                          controller.selectedAction.value = "";
                                         },
-                                          
                                         child: const Text("Cancel"),
                                       ),
                                       ElevatedButton(
@@ -288,20 +298,32 @@ class TaskMapScreen extends StatelessWidget {
                                           if (controller.textController.text
                                               .trim()
                                               .isNotEmpty) {
-                                            if (controller.selectedAction.value
-                                                .isNotEmpty) {
-                                              controller.addTimeline(
-                                                controller.selectedAction.value,
-                                              );
-                                            }
                                             controller.addTimeline(
                                               controller.textController.text
                                                   .trim(),
                                             );
                                             Get.back();
                                             controller.textController.clear();
-                                            controller.descriptionController.clear();
-                                            controller.selectedAction.value = "";
+                                            controller.descriptionController
+                                                .clear();
+                                            controller.selectedAction.value =
+                                                "";
+                                          } else if (controller.selectedAction
+                                              .value.isNotEmpty) {
+                                            controller.addTimeline(
+                                              controller.selectedAction.value,
+                                            );
+                                            Get.back();
+                                            controller.textController.clear();
+                                            controller.descriptionController
+                                                .clear();
+                                            controller.selectedAction.value =
+                                                "";
+                                          } else {
+                                            customSnackbar(
+                                                "Error",
+                                                "Please select/enter event name",
+                                                "error");
                                           }
                                         },
                                         child: const Text("Add"),
@@ -524,47 +546,6 @@ class TaskMapScreen extends StatelessWidget {
                                       ),
                                     ),
                                   )
-
-                                  // Expanded(
-                                  //   child: Container(
-                                  //     margin: EdgeInsets.only(top: 2.w),
-                                  //     decoration: BoxDecoration(
-                                  //       color: isLast
-                                  //           ? Colors.blue.shade50
-                                  //           : Colors.grey.shade100,
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(8),
-                                  //     ),
-                                  //     child: Padding(
-                                  //       padding: const EdgeInsets.all(10.0),
-                                  //       child: Column(
-                                  //         crossAxisAlignment:
-                                  //             CrossAxisAlignment.start,
-                                  //         children: [
-                                  //           Text(
-                                  //             controller.taskTimeline[index],
-                                  //             style: TextStyle(
-                                  //               fontSize: 15.sp,
-                                  //               fontWeight: isLast
-                                  //                   ? FontWeight.bold
-                                  //                   : FontWeight.w500,
-                                  //               color: isLast
-                                  //                   ? Colors.blue
-                                  //                   : Colors.black,
-                                  //             ),
-                                  //           ),
-                                  //           Text(
-                                  //             "Description of event in detail",
-                                  //             style: TextStyle(
-                                  //               fontSize: 13.sp,
-                                  //               color: Colors.grey[700],
-                                  //             ),
-                                  //           ),
-                                  //         ],
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                 ],
                               );
                             },
@@ -576,8 +557,6 @@ class TaskMapScreen extends StatelessWidget {
                 );
               },
             ),
-
-            /// ZOOM BUTTONS ABOVE MAP
             Positioned(
               top: 10,
               right: 10,

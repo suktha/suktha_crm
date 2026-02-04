@@ -40,7 +40,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.example.work_Force"
-    compileSdkVersion 35
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {

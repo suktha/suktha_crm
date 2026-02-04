@@ -10,6 +10,7 @@ class CustomAnimatedButton extends StatelessWidget {
   final double width;
   final double height;
   final RoundedLoadingButtonController controller;
+  final Color? color;
 
   const CustomAnimatedButton({
     super.key,
@@ -18,6 +19,7 @@ class CustomAnimatedButton extends StatelessWidget {
     required this.controller,
     required this.width,
     required this.height,
+    this.color,
   });
 
   @override
@@ -27,17 +29,20 @@ class CustomAnimatedButton extends StatelessWidget {
       child: RoundedLoadingButton(
         height: height,
         width: width,
-        // completionCurve: Curves.fastOutSlowIn,
         successIcon: Icons.sentiment_satisfied_alt,
         animateOnTap: false,
-        color: Colors.lightBlue,
+        color: color ?? Colors.lightBlue,
         elevation: 10,
         successColor: const Color.fromARGB(255, 46, 209, 52),
         errorColor: Colors.red,
         failedIcon: Icons.sentiment_dissatisfied,
         controller: controller,
         onPressed: ontap,
-        child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, color: kColorwhite, fontSize: 16.sp)),
+        child: Text(name,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kColorwhite,
+                fontSize: 16.sp)),
       ),
     );
   }

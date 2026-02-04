@@ -21,12 +21,11 @@ import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 import '../../../../../../Constants/colors.dart';
 import '../../../../../../utils/responsive_utils.dart';
 
-
 class UserManagementScreen extends StatelessWidget {
   final LeadModel leadValue;
   UserManagementScreen({super.key, required this.leadValue});
 
-final controller = Get.find<UserManagementController>();
+  final controller = Get.find<UserManagementController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +40,16 @@ final controller = Get.find<UserManagementController>();
           backgroundColor: Color.fromARGB(255, 241, 241, 241),
           appBar: AppBar(
             title: const Text("User Field Management"),
-            titleTextStyle: TextStyle(color: kColorblack, fontWeight: FontWeight.bold, fontSize: width * 0.05),
+            titleTextStyle: TextStyle(
+                color: kColorblack,
+                fontWeight: FontWeight.bold,
+                fontSize: width * 0.05),
             centerTitle: true,
             backgroundColor: Color.fromARGB(255, 241, 241, 241),
             elevation: 0,
             leading: IconButton(
-                icon: Icon(Icons.keyboard_arrow_left_rounded, color: kColorblack, size: 25),
+                icon: Icon(Icons.keyboard_arrow_left_rounded,
+                    color: kColorblack, size: 25),
                 onPressed: (() {
                   print("In the backbutton -- ${controller.isLoading.value}");
                   Get.back();
@@ -58,7 +61,9 @@ final controller = Get.find<UserManagementController>();
               width: width,
               margin: EdgeInsets.all(width * 0.04),
               padding: EdgeInsets.all(width * 0.05),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(width * 0.05), color: kColorwhite),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(width * 0.05),
+                  color: kColorwhite),
               child: Column(
                 children: [
                   Row(
@@ -67,7 +72,8 @@ final controller = Get.find<UserManagementController>();
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(leadValue.leadGenerationNumber??"", style: TextStyle(fontSize: width * 0.04)),
+                          Text(leadValue.leadGenerationNumber ?? "",
+                              style: TextStyle(fontSize: width * 0.04)),
                           SizedBox(
                             height: height * 0.01,
                           ),
@@ -75,7 +81,9 @@ final controller = Get.find<UserManagementController>();
                             width: 65.w,
                             child: Text(
                               "Follow-up with ${leadValue.leadName}",
-                              style: TextStyle(fontSize: width * 0.05, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: width * 0.05,
+                                  fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
@@ -83,16 +91,22 @@ final controller = Get.find<UserManagementController>();
                       Container(
                         // height: height * 0.06,
                         width: width * 0.15,
-                        padding: EdgeInsets.symmetric(vertical: height * 0.02, horizontal: width * 0.005),
+                        padding: EdgeInsets.symmetric(
+                            vertical: height * 0.02, horizontal: width * 0.005),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(width * 0.08), boxShadow: kElevationToShadow[1], color: kColorlightBlue300),
+                            borderRadius: BorderRadius.circular(width * 0.08),
+                            boxShadow: kElevationToShadow[1],
+                            color: kColorlightBlue300),
                         child: Center(
                           child: Text(
                             // DateFormat('MMM').format(
                             //   DateTime.parse(leadValue.followUpDate!),
                             // ),
                             "Jun\n10\nSat",
-                            style: TextStyle(fontSize: width * 0.035, fontWeight: FontWeight.bold, color: kColorwhite),
+                            style: TextStyle(
+                                fontSize: width * 0.035,
+                                fontWeight: FontWeight.bold,
+                                color: kColorwhite),
                           ),
                         ),
                       )
@@ -128,7 +142,8 @@ final controller = Get.find<UserManagementController>();
                         onTap: () {
                           if (leadValue.leadGeoLocation != null) {
                             print("data is not available");
-                            List<String> latLong = leadValue.leadGeoLocation.split(",");
+                            List<String> latLong =
+                                leadValue.leadGeoLocation.split(",");
 
                             controller.openGoogleMaps(
                               double.parse(latLong[1]),
@@ -136,7 +151,8 @@ final controller = Get.find<UserManagementController>();
                             );
                           } else {
                             print("data is not available");
-                            customSnackbar("Not Avaiaable", "Location is not Available", "error");
+                            customSnackbar("Not Avaiaable",
+                                "Location is not Available", "error");
                           }
                         },
                         childWidget: Image.asset(
@@ -156,7 +172,9 @@ final controller = Get.find<UserManagementController>();
                     physics: BouncingScrollPhysics(),
                     child: Column(
                       children: <Widget>[
-                        for (int i = 0; i < controller.timelineItems.length; i++)
+                        for (int i = 0;
+                            i < controller.timelineItems.length;
+                            i++)
                           TimelineTile(
                             alignment: TimelineAlign.start,
                             isFirst: i == 0,
@@ -202,7 +220,10 @@ final controller = Get.find<UserManagementController>();
                                       // );
 
                                       controller.openGoogleMaps(
-                                          controller.timelineItems[i]['latitude'], controller.timelineItems[i]['longitude']);
+                                          controller.timelineItems[i]
+                                              ['latitude'],
+                                          controller.timelineItems[i]
+                                              ['longitude']);
                                     },
                                     child: Text(
                                       "View Location",
@@ -225,10 +246,14 @@ final controller = Get.find<UserManagementController>();
                             ),
                             indicatorStyle: IndicatorStyle(
                               width: 30,
-                              color: controller.timelineItems[i]['color'] ?? Colors.white,
+                              color: controller.timelineItems[i]['color'] ??
+                                  Colors.white,
                               padding: EdgeInsets.all(8),
-                              iconStyle:
-                                  IconStyle(color: Colors.white, iconData: controller.timelineItems[i]['icon'] ?? Icons.ac_unit_rounded),
+                              iconStyle: IconStyle(
+                                  color: Colors.white,
+                                  iconData: controller.timelineItems[i]
+                                          ['icon'] ??
+                                      Icons.ac_unit_rounded),
                             ),
                           )
                       ],
@@ -240,7 +265,8 @@ final controller = Get.find<UserManagementController>();
             ),
 
             GestureDetector(
-              onTap: () => showAddItemDialog(context: context, btnController1: controller.btnController),
+              onTap: () => showAddItemDialog(
+                  context: context, btnController1: controller.btnController),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -250,7 +276,10 @@ final controller = Get.find<UserManagementController>();
                   ),
                   Text(
                     "Add Events",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
                   )
                 ],
               ),
@@ -274,8 +303,11 @@ final controller = Get.find<UserManagementController>();
                         height: height * 0.1,
                         width: width,
                         margin: EdgeInsets.all(width * 0.04),
-                        padding: EdgeInsets.symmetric(vertical: height * 0.02, horizontal: width * 0.05),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(width * 0.05), color: kColorwhite),
+                        padding: EdgeInsets.symmetric(
+                            vertical: height * 0.02, horizontal: width * 0.05),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(width * 0.05),
+                            color: kColorwhite),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           // crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,9 +316,10 @@ final controller = Get.find<UserManagementController>();
                               title: "Log Out",
                               ontap: () {
                                 Get.find<WebSocketService>().disconnect();
-                                 controller.addTimelineItem(action: "Ended", leadValue: leadValue);
+                                controller.addTimelineItem(
+                                    action: "Ended", leadValue: leadValue);
                                 controller.stopFieldWork();
-                                
+
                                 Get.back();
                               },
                               width: width * 0.3,
@@ -313,7 +346,8 @@ final controller = Get.find<UserManagementController>();
                     FadeIn(
                       delay: const Duration(milliseconds: 300),
                       duration: const Duration(milliseconds: 300),
-                      child: lt.LottieBuilder.asset("assets/lottie/geolocation.json"),
+                      child: lt.LottieBuilder.asset(
+                          "assets/lottie/geolocation.json"),
                     ),
                     SizedBox(
                       height: 5.h,
@@ -323,8 +357,11 @@ final controller = Get.find<UserManagementController>();
                       duration: const Duration(milliseconds: 500),
                       child: Text(
                         "Updating user locations,\nHold on a second...",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 14.sp, decoration: TextDecoration.none),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,
+                            fontSize: 14.sp,
+                            decoration: TextDecoration.none),
                         textAlign: TextAlign.center,
                       ),
                     )
@@ -336,7 +373,9 @@ final controller = Get.find<UserManagementController>();
     );
   }
 
-  void showAddItemDialog({required BuildContext context, required RoundedLoadingButtonController btnController1}) {
+  void showAddItemDialog(
+      {required BuildContext context,
+      required RoundedLoadingButtonController btnController1}) {
     String? selectedAction;
     String? notes;
 
@@ -346,7 +385,8 @@ final controller = Get.find<UserManagementController>();
         scrollable: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         titlePadding: const EdgeInsets.all(20),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         backgroundColor: Colors.white,
         actionsPadding: EdgeInsets.all(20),
         title: Text(
@@ -447,7 +487,9 @@ final controller = Get.find<UserManagementController>();
                 );
               }
             },
-            child: Text("Done", style: TextStyle(fontWeight: FontWeight.bold, color: kColorwhite)),
+            child: Text("Done",
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: kColorwhite)),
           ),
         ],
       ),
@@ -475,7 +517,8 @@ class UserContactsIcon extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width * 0.19,
-        padding: EdgeInsets.symmetric(vertical: height * 0.02, horizontal: width * 0.004),
+        padding: EdgeInsets.symmetric(
+            vertical: height * 0.02, horizontal: width * 0.004),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(width * 0.08),
             // boxShadow: kElevationToShadow[1],

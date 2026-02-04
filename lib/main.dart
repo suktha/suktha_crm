@@ -16,11 +16,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Get.putAsync(() => PermissionServices().init());
-  LocalNotificationService localNotificationService =
-      LocalNotificationService();
-  await localNotificationService.init();
+  // LocalNotificationService localNotificationService =
+  //     LocalNotificationService();
+  // await localNotificationService.init();
   await SharedPreferencesService.instance.init();
-  await FirebasePushNotificationServices().initNotification();
+  // await FirebasePushNotificationServices().initNotification();
 
   runApp(const MyApp());
 }

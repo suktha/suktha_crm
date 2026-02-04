@@ -587,140 +587,139 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                               textColor: kColorwhite,
                               backgroundColor: kColorgrey,
                             );
-                      showModalBottomSheet(
+                            showModalBottomSheet(
+                              isScrollControlled: false,
+                              context: context,
+                              builder: (context) {
+                                final isActive =
+                                    userManagementController.isFieldWorkActive;
+                                final isForThisLead = userManagementController
+                                    .isFieldWorkForThisLead(item.id!);
+                                userManagementController.isFieldWorkLive.value =
+                                    true;
 
-                        isScrollControlled: false,
-                        context: context,
-                        builder: (context) {
-                          final isActive =
-                              userManagementController.isFieldWorkActive;
-                          final isForThisLead = userManagementController
-                              .isFieldWorkForThisLead(item.id!);
-                          userManagementController.isFieldWorkLive.value =
-                              true;
-
-                          return Container(
-                            margin: EdgeInsets.all(width * 0.03),
-                            padding: EdgeInsets.all(width * 0.02),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Field Work of ${item.leadGenerationNumber}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(height: 1.h),
-                                if (isActive && !isForThisLead)
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16),
-                                    child: Center(
-                                      child: Text(
-                                        "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
+                                return Container(
+                                  margin: EdgeInsets.all(width * 0.03),
+                                  padding: EdgeInsets.all(width * 0.02),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Field Work of ${item.leadGenerationNumber}",
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                        textAlign: TextAlign.center,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
                                       ),
-                                    ),
-                                  )
-                                else
-                                  Center(
-                                    child: Row(
-                                      mainAxisAlignment: isForThisLead
-                                          ? MainAxisAlignment.spaceEvenly
-                                          : MainAxisAlignment.center,
-                                      children: [
-                                        if (!isActive)
-                                          CustomButton(
-                                            title: "Start",
-                                            ontap: () async {
-                                              await Get.find<
-                                                      WebSocketService>()
-                                                  .initializeConnection(
-                                                      leadId: item.id!,
-                                                      userId:
-                                                          item.userId);
-
-                                              userManagementController
-                                                  .addTimelineItem(
-                                                      action: "Started",
-                                                      leadValue: item);
-
-                                              userManagementController
-                                                  .isLoading.value = true;
-                                              userManagementController
-                                                  .startFieldWork(
-                                                      leadId: item.id!,
-                                                      leadName:
-                                                          item.leadName ??
-                                                              '',
-                                                      leadNumber:
-                                                          item.leadGenerationNumber ??
-                                                              '');
-
-                                              Get.to(() =>
-                                                      UserManagementScreen(
-                                                          leadValue:
-                                                              item))!
-                                                  .then((value) =>
-                                                      Get.back());
-                                            },
-                                            width: width * 0.3,
-                                            color: Colors.green,
-                                            textcolor: Colors.white,
+                                      SizedBox(height: 1.h),
+                                      if (isActive && !isForThisLead)
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 16),
+                                          child: Center(
+                                            child: Text(
+                                              "Field work is already running for Lead #${userManagementController.activeLeadNumber} (${userManagementController.activeLeadName}).",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
                                           ),
-                                        if (isForThisLead)
-                                          CustomButton(
-                                            title: "View",
-                                            ontap: () {
-                                              Get.to(() =>
-                                                      UserManagementScreen(
-                                                          leadValue:
-                                                              item))!
-                                                  .then((value) {
-                                                userManagementController
-                                                    .isLoading
-                                                    .value = false;
-                                                Get.back();
-                                              });
-                                            },
-                                            width: width * 0.3,
-                                            color: kColorlightBlue,
-                                            textcolor: Colors.white,
+                                        )
+                                      else
+                                        Center(
+                                          child: Row(
+                                            mainAxisAlignment: isForThisLead
+                                                ? MainAxisAlignment.spaceEvenly
+                                                : MainAxisAlignment.center,
+                                            children: [
+                                              if (!isActive)
+                                                CustomButton(
+                                                  title: "Start",
+                                                  ontap: () async {
+                                                    await Get.find<
+                                                            WebSocketService>()
+                                                        .initializeConnection(
+                                                            leadId: item.id!,
+                                                            userId:
+                                                                item.userId);
+
+                                                    userManagementController
+                                                        .addTimelineItem(
+                                                            action: "Started",
+                                                            leadValue: item);
+
+                                                    userManagementController
+                                                        .isLoading.value = true;
+                                                    userManagementController
+                                                        .startFieldWork(
+                                                            leadId: item.id!,
+                                                            leadName:
+                                                                item.leadName ??
+                                                                    '',
+                                                            leadNumber:
+                                                                item.leadGenerationNumber ??
+                                                                    '');
+
+                                                    Get.to(() =>
+                                                            UserManagementScreen(
+                                                                leadValue:
+                                                                    item))!
+                                                        .then((value) =>
+                                                            Get.back());
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: Colors.green,
+                                                  textcolor: Colors.white,
+                                                ),
+                                              if (isForThisLead)
+                                                CustomButton(
+                                                  title: "View",
+                                                  ontap: () {
+                                                    Get.to(() =>
+                                                            UserManagementScreen(
+                                                                leadValue:
+                                                                    item))!
+                                                        .then((value) {
+                                                      userManagementController
+                                                          .isLoading
+                                                          .value = false;
+                                                      Get.back();
+                                                    });
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: kColorlightBlue,
+                                                  textcolor: Colors.white,
+                                                ),
+                                              if (isForThisLead)
+                                                CustomButton(
+                                                  title: "Stop",
+                                                  ontap: () async {
+                                                    await userManagementController
+                                                        .logOut(
+                                                            "location is bnglr");
+                                                    userManagementController
+                                                        .stopFieldWork();
+                                                    Get.back();
+                                                  },
+                                                  width: width * 0.3,
+                                                  color: Colors.red,
+                                                  textcolor: Colors.white,
+                                                ),
+                                            ],
                                           ),
-                                        if (isForThisLead)
-                                          CustomButton(
-                                            title: "Stop",
-                                            ontap: () async {
-                                              await userManagementController
-                                                  .logOut(
-                                                      "location is bnglr");
-                                              userManagementController
-                                                  .stopFieldWork();
-                                              Get.back();
-                                            },
-                                            width: width * 0.3,
-                                            color: Colors.red,
-                                            textcolor: Colors.white,
-                                          ),
-                                      ],
-                                    ),
+                                        ),
+                                    ],
                                   ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                      },
-                      icon: Icon(
-                        Icons.track_changes,
-                        color: kColorblack,
-                      )),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            Icons.track_changes,
+                            color: kColorblack,
+                          )),
                       PopupMenuButton(
                           icon: Icon(
                             Icons.menu,

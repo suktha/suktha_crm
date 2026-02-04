@@ -41,182 +41,250 @@ class _LoginPageState extends State<LoginPage> {
     final controller = Get.put(LoginController());
 
     return Scaffold(
-      // backgroundColor: Colors.indigo,
-      // resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 32, 60, 107),
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(18.0.w),
-          child: Image.asset(
-            logoIconwithTradeMark,
-            width: double.infinity,
-            fit: BoxFit.cover,
+      backgroundColor: Colors.white, // Clean white background for ERP standard
+      body: Stack(
+        children: [
+          // 2. Decorative elements (circles) - Subtle for Professional Look
+          Positioned(
+            top: -10.h,
+            left: -10.w,
+            child: Container(
+              width: 50.w,
+              height: 50.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue.withOpacity(0.2), // Very subtle brand color
+              ),
+            ),
           ),
-        ),
-      ),
+          Positioned(
+            bottom: -5.h,
+            right: -5.w,
+            child: Container(
+              width: 70.w,
+              height: 70.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue.withOpacity(0.1), // Very subtle brand color
+              ),
+            ),
+          ),
 
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Obx(
-            () => AutofillGroup(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(height: 25.h),
-
-                    // Spacer(),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
-                      child: Column(
-                        children: [
-                          FadeIn(
-                            delay: const Duration(milliseconds: 1100),
-                            duration: const Duration(milliseconds: 1200),
-                            child: CustomTextField(
-                              multilines: 1,
-                              textCapitalization: TextCapitalization.none,
-                              textInputAction: TextInputAction.next,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please Enter Username';
-                                }
-                                return null;
-                              },
-                              controller: controller.usernameController,
-                              obscure: false,
-                              label: "Username",
-                              autofillHints: const [AutofillHints.username],
-                            ),
+          // 3. Content - Clean Professional Card/Layout
+          SafeArea(
+            child: Center(
+              child: AutofillGroup(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Logo / Branding
+                      FadeInDown(
+                        duration: const Duration(milliseconds: 1000),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                           ),
-                          FadeIn(
-                            delay: const Duration(milliseconds: 1200),
-                            duration: const Duration(milliseconds: 1400),
-                            child: CustomTextField(
-                                multilines: 1,
-                                textCapitalization: TextCapitalization.none,
-                                textInputAction: TextInputAction.done,
-                                autofillHints: const [AutofillHints.password],
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Please Enter Password';
-                                  }
-                                  return null;
-                                },
-                                controller: controller.passwordController,
-                                obscure: controller.obscureText.value,
-                                suffixIcon: IconButton(
-                                    splashColor: kColortransparent,
-                                    highlightColor: kColortransparent,
-                                    icon: Icon(
-                                        controller.obscureText.value == true
-                                            ? Icons.visibility
-                                            : Icons.visibility_off),
-                                    onPressed: () {
-                                      controller.obscureText.value =
-                                          !controller.obscureText.value;
-                                    }),
-                                label: "Password"),
+                          child: Image.asset(
+                            logoIconwithTradeMark2,
+                            fit: BoxFit.cover,
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          FadeIn(
-                            delay: const Duration(milliseconds: 1200),
-                            duration: const Duration(milliseconds: 1400),
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () => Get.to(
-                                      () => ForgotPasswordScreen(),
-                                      transition:
-                                          Transition.rightToLeftWithFade,
-                                      duration: Duration(milliseconds: 1000)),
-                                  child: Text(
-                                    "Forgot Password?",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: fontsize.sp),
-                                  ),
-                                )),
-                          ),
-                          SizedBox(height: 5.h),
-                          FadeIn(
-                            delay: const Duration(milliseconds: 1300),
-                            duration: const Duration(milliseconds: 1600),
-                            child: CustomAnimatedButton(
-                              height: 6.h,
-                              width: 40.w,
-                              controller: controller.btnController1,
-                              name: "Sign In",
-                              ontap: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  await controller.loginData(
-                                      controller.btnController1, context);
-
-                                  if (controller.isSubscriptionEnded.value ==
-                                      true) {
-                                    susbcripionEndPopup(context, controller);
-                                  }
-                                }
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 20.h),
-                          Platform.isAndroid
-                              ? FadeIn(
-                                  delay: const Duration(milliseconds: 1400),
-                                  duration: const Duration(milliseconds: 1800),
-                                  child: RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                          text: "Don't Have an Account ? ",
-                                          style: TextStyle(
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black)),
-                                      TextSpan(
-                                          text: "Register",
-                                          style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.blue),
-                                          recognizer: TapGestureRecognizer()
-                                            ..onTap = () {
-                                              // Fluttertoast.showToast(
-                                              //   msg:
-                                              //       "This feature is in Progress",
-                                              //   toastLength:
-                                              //       Toast.LENGTH_SHORT,
-                                              //   gravity: ToastGravity.BOTTOM,
-                                              //   timeInSecForIosWeb: 1,
-                                              //   textColor: kColorwhite,
-                                              //   backgroundColor: kColorgrey,
-                                              // );
-                                              Get.to(RegistrationOnboard(),
-                                                  duration: Duration(
-                                                    milliseconds: 600,
-                                                  ),
-                                                  transition: Transition
-                                                      .rightToLeftWithFade);
-                                            })
-                                    ]),
-                                  ),
-                                )
-                              : SizedBox(),
-                        ],
+                        ),
                       ),
-                    )
-                  ],
+                      SizedBox(height: 4.h),
+
+                      // Login Form Container - Clean Card or Just Form
+                      FadeInUp(
+                        duration: const Duration(milliseconds: 1200),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.w, vertical: 5.h),
+                          // Optional: Add a subtle card effect if preferred, or keep flat on white
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              // Soft shadow to separate form
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
+                              border: Border.all(color: Colors.grey.shade100)),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Welcome Back",
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(
+                                        0xFF2C3E50), // Professional Dark Blue/Grey
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                SizedBox(height: 1.h),
+                                Text(
+                                  "Sign in to your account",
+                                  style: TextStyle(
+                                    fontSize: 11.sp,
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                                SizedBox(height: 4.h),
+
+                                // Username Field
+                                CustomTextField(
+                                  multilines: 1,
+                                  textCapitalization: TextCapitalization.none,
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please Enter Username';
+                                    }
+                                    return null;
+                                  },
+                                  controller: controller.usernameController,
+                                  obscure: false,
+                                  label: "Username",
+                                  autofillHints: const [AutofillHints.username],
+                                  textColor: Colors.black87, // Dark text
+                                  labelColor: Colors
+                                      .grey.shade700, // Standard grey label
+                                  hintColor: Colors.grey.shade400,
+                                ),
+                                SizedBox(height: 2.h),
+
+                                // Password Field
+                                Obx(() => CustomTextField(
+                                      multilines: 1,
+                                      textCapitalization:
+                                          TextCapitalization.none,
+                                      textInputAction: TextInputAction.done,
+                                      autofillHints: const [
+                                        AutofillHints.password
+                                      ],
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please Enter Password';
+                                        }
+                                        return null;
+                                      },
+                                      controller: controller.passwordController,
+                                      obscure: controller.obscureText.value,
+                                      suffixIcon: IconButton(
+                                          splashColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          icon: Icon(
+                                              controller.obscureText.value ==
+                                                      true
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                              color: Colors.grey.shade600),
+                                          onPressed: () {
+                                            controller.obscureText.value =
+                                                !controller.obscureText.value;
+                                          }),
+                                      label: "Password",
+                                      textColor: Colors.black87,
+                                      labelColor: Colors.grey.shade700,
+                                      hintColor: Colors.grey.shade400,
+                                    )),
+                                SizedBox(height: 1.5.h),
+
+                                // Forgot Password
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: GestureDetector(
+                                      onTap: () => Get.to(
+                                          () => ForgotPasswordScreen(),
+                                          transition:
+                                              Transition.rightToLeftWithFade,
+                                          duration:
+                                              Duration(milliseconds: 1000)),
+                                      child: Text(
+                                        "Forgot Password?",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.blue
+                                                .shade700, // Standard Link Color
+                                            fontSize: fontsize.sp),
+                                      ),
+                                    )),
+                                SizedBox(height: 5.h),
+
+                                // Sign In Button
+                                CustomAnimatedButton(
+                                  height: 6.h,
+                                  width: 70.w,
+                                  controller: controller.btnController1,
+                                  name: "Sign In",
+                                  color: const Color(
+                                      0xFF1E88E5), // Professional Blue
+                                  ontap: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      await controller.loginData(
+                                          controller.btnController1, context);
+
+                                      if (controller
+                                              .isSubscriptionEnded.value ==
+                                          true) {
+                                        susbcripionEndPopup(
+                                            context, controller);
+                                      }
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 4.h),
+
+                      // Register Link
+                      Platform.isAndroid
+                          ? FadeInUp(
+                              delay: const Duration(milliseconds: 1400),
+                              child: RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                      text: "Don't Have an Account ? ",
+                                      style: TextStyle(
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey.shade800)),
+                                  TextSpan(
+                                      text: "Register",
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue.shade700),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Get.to(RegistrationOnboard(),
+                                              duration: Duration(
+                                                milliseconds: 600,
+                                              ),
+                                              transition: Transition
+                                                  .rightToLeftWithFade);
+                                        })
+                                ]),
+                              ),
+                            )
+                          : SizedBox(),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

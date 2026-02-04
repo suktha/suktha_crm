@@ -14,6 +14,7 @@ class TaskController extends GetxController {
   RxString formattedSelectedDate = "".obs;
   RxBool isCompletedSelected = true.obs;
   RxBool isFromClockIn = true.obs;
+  // late RecorderController recorderController;
 
   RxInt selectedIndex = (-1).obs;
 
@@ -100,14 +101,12 @@ class TaskController extends GetxController {
   }
 
   RxBool isRecording = false.obs;
-  RxString audioFilePath = ''.obs;
+  RxList<VoiceNote> voiceNotes = <VoiceNote>[].obs;
+  DateTime? _recordingStartTime;
 
   final AudioRecorder _record = AudioRecorder();
-
   Future<void> startRecording() async {
-    // Check permissions
     if (await Permission.microphone.request() != PermissionStatus.granted) {
-      print("Microphone permission denied");
       return;
     }
 
@@ -115,19 +114,30 @@ class TaskController extends GetxController {
     final path =
         '${directory.path}/${DateTime.now().millisecondsSinceEpoch}.m4a';
 
-    audioFilePath.value = '';
+    _recordingStartTime = DateTime.now();
 
-     await _record.start(const RecordConfig(), path: path);
-
+    await _record.start(
+      const RecordConfig(),
+      path: path,
+    );
 
     isRecording.value = true;
   }
 
   Future<void> stopRecording() async {
     final path = await _record.stop();
-    if (path != null) {
-      audioFilePath.value = path;
+
+    if (path != null && _recordingStartTime != null) {
+      final duration = DateTime.now().difference(_recordingStartTime!);
+
+      voiceNotes.add(
+        VoiceNote(
+          path: path,
+          duration: duration,
+        ),
+      );
     }
+
     isRecording.value = false;
   }
 
@@ -157,5 +167,16 @@ class Task {
     this.color,
     this.priority,
     this.priorityColor,
+  });
+}
+
+class VoiceNote {
+  final String path;
+  final Duration duration;
+  RxBool isPlaying = false.obs;
+
+  VoiceNote({
+    required this.path,
+    required this.duration,
   });
 }

@@ -56,7 +56,14 @@ class CustomTextField extends StatelessWidget {
     super.key,
     this.errortext,
     this.readonly,
+    this.textColor,
+    this.labelColor,
+    this.hintColor,
   });
+
+  final Color? textColor;
+  final Color? labelColor;
+  final Color? hintColor;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +86,14 @@ class CustomTextField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: obscure,
         textCapitalization: textCapitalization!,
-        style: TextStyle(fontWeight: FontWeight.normal),
+        style: TextStyle(
+          fontWeight: FontWeight.normal,
+          color: textColor, // Use custom text color if provided
+        ),
         textInputAction: textInputAction,
         decoration: InputDecoration(
           hintText: hint,
+          hintStyle: hintColor != null ? TextStyle(color: hintColor) : null,
           contentPadding: EdgeInsets.all(2.w),
           floatingLabelBehavior: labelBehavior,
           suffixIcon: suffixIcon,
@@ -90,7 +101,7 @@ class CustomTextField extends StatelessWidget {
           labelStyle: TextStyle(
             overflow: TextOverflow.fade,
             fontSize: 16.sp,
-            color: Color.fromARGB(255, 78, 78, 78),
+            color: labelColor ?? Color.fromARGB(255, 78, 78, 78),
           ),
           focusedErrorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
@@ -102,10 +113,10 @@ class CustomTextField extends StatelessWidget {
             borderSide: BorderSide(color: kColorgrey),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: kColorgrey),
+            borderSide: BorderSide(color: labelColor ?? kColorgrey),
           ),
           border: UnderlineInputBorder(
-            borderSide: BorderSide(color: kColorgrey),
+            borderSide: BorderSide(color: labelColor ?? kColorgrey),
           ),
         ),
       ),
@@ -144,7 +155,7 @@ class buildTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: bottomHeight ==true ? 0 : 12.0),
+      padding: EdgeInsets.only(bottom: bottomHeight == true ? 0 : 12.0),
       child: TextFormField(
         key: valueKey,
         onFieldSubmitted: onFieldSubmitted,

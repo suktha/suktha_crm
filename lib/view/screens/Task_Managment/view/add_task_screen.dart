@@ -61,50 +61,163 @@ class AddTaskScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Obx(() {
-                      return Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              controller: controller.textController,
-                              decoration: const InputDecoration(
-                                labelText: "Type or record voice",
-                                border: OutlineInputBorder(),
+                      return controller.isRecording.value
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 12),
+                              decoration: BoxDecoration(
+                                color: Colors.black87,
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  controller.isRecording.value
-                                      ? Icons.stop
-                                      : Icons.mic,
-                                  color: controller.isRecording.value
-                                      ? Colors.red
-                                      : Colors.blue,
-                                ),
-                                onPressed: () => controller.toggleRecording(),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.mic, color: Colors.red),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Row(
+                                      children: List.generate(
+                                        20,
+                                        (i) => Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 2),
+                                          width: 3,
+                                          height: (i % 6 + 8).toDouble(),
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.stop,
+                                        color: Colors.red),
+                                    onPressed: controller.toggleRecording,
+                                  ),
+                                ],
                               ),
-                              if (controller.audioFilePath.isNotEmpty)
-                                IconButton(
-                                  icon: const Icon(Icons.play_arrow),
-                                  onPressed: () async {
-                                    try {
-                                      await player.setFilePath(
-                                          controller.audioFilePath.value);
-                                      player.play();
-                                    } catch (e) {
-                                      print("Error playing audio: $e");
-                                    }
-                                  },
-                                )
-                            ],
-                          )
-                        ],
-                      );
+                            )
+                          : IconButton(
+                              icon: const Icon(Icons.mic, color: Colors.blue),
+                              onPressed: controller.toggleRecording,
+                            );
                     }),
+                    SizedBox(
+                        height: 200,
+                        child: Obx(() {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.voiceNotes.length,
+                            itemBuilder: (context, index) {
+                              final note = controller.voiceNotes[index];
+
+                              return Container(
+                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade100,
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                                child: Row(
+                                  children: [
+                                    /// ▶️ Play / Pause
+                                    Obx(() => IconButton(
+                                          icon: Icon(
+                                            note.isPlaying.value
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
+                                            color: Colors.blue,
+                                          ),
+                                          onPressed: () async {
+                                            note.isPlaying.toggle();
+                                            // connect audio player here
+                                          },
+                                        )),
+
+                                    /// Fake waveform (UI only)
+                                    Expanded(
+                                      child: Row(
+                                        children: List.generate(
+                                          16,
+                                          (i) => Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 2),
+                                            width: 3,
+                                            height: (i % 5 + 6).toDouble(),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blueAccent,
+                                              borderRadius:
+                                                  BorderRadius.circular(2),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    /// Duration
+                                    Text(
+                                      "${note.duration.inSeconds}s",
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+
+                                    /// 🗑 Delete
+                                    IconButton(
+                                      icon: const Icon(Icons.delete_outline),
+                                      onPressed: () {
+                                        controller.voiceNotes.removeAt(index);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        })),
+                    // Obx(() {
+                    //   return Row(
+                    //     children: [
+                    //       Expanded(
+                    //         child: TextField(
+                    //           controller: controller.textController,
+                    //           decoration: const InputDecoration(
+                    //             labelText: "Type or record voice",
+                    //             border: OutlineInputBorder(),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       const SizedBox(width: 10),
+                    //       Column(
+                    //         mainAxisSize: MainAxisSize.min,
+                    //         children: [
+                    //           IconButton(
+                    //             icon: Icon(
+                    //               controller.isRecording.value
+                    //                   ? Icons.stop
+                    //                   : Icons.mic,
+                    //               color: controller.isRecording.value
+                    //                   ? Colors.red
+                    //                   : Colors.blue,
+                    //             ),
+                    //             onPressed: () => controller.toggleRecording(),
+                    //           ),
+                    //           if (controller.audioFilePath.isNotEmpty)
+                    //             IconButton(
+                    //               icon: const Icon(Icons.play_arrow),
+                    //               onPressed: () async {
+                    //                 try {
+                    //                   await player.setFilePath(
+                    //                       controller.audioFilePath.value);
+                    //                   player.play();
+                    //                 } catch (e) {
+                    //                   print("Error playing audio: $e");
+                    //                 }
+                    //               },
+                    //             )
+                    //         ],
+                    //       )
+                    //     ],
+                    //   );
+                    // }),
+
                     CustomTextField(
                         validator: (value) {
                           return null;

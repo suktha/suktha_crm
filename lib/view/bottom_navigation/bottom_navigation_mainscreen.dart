@@ -39,8 +39,8 @@ class _BottomNavigationMainscreenState
   ];
 
   final nav = Get.find<NavigationController>();
-  final chatBotController = Get.find<ChatBotController>();
-  final chatBotOverlay = ChatBotOverlay();
+  // final chatBotController = Get.find<ChatBotController>();
+  // final chatBotOverlay = ChatBotOverlay();
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _BottomNavigationMainscreenState
 
   @override
   void dispose() {
-    chatBotOverlay.hide();
+    // chatBotOverlay.hide();
     super.dispose();
   }
 

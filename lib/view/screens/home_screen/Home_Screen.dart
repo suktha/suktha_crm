@@ -43,7 +43,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final chatBotOverlay = ChatBotOverlay();
+  // final chatBotOverlay = ChatBotOverlay();
   LeadModel? leadModel;
   var items = ['3', '6', '9', '12'];
   final Map<String, dynamic> userProgress = {

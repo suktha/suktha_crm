@@ -10,7 +10,8 @@ void backgroundNotificationTapHandler(NotificationResponse details) {
 }
 
 class LocalNotificationService {
-  static final LocalNotificationService _instance = LocalNotificationService._internal();
+  static final LocalNotificationService _instance =
+      LocalNotificationService._internal();
 
   factory LocalNotificationService() {
     return _instance;
@@ -18,9 +19,11 @@ class LocalNotificationService {
 
   LocalNotificationService._internal();
 
-  final FlutterLocalNotificationsPlugin _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-  final AndroidNotificationChannel _androidChannel = const AndroidNotificationChannel(
+  final AndroidNotificationChannel _androidChannel =
+      const AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Notifications',
     description: 'This channel is used for important notifications',
@@ -32,7 +35,8 @@ class LocalNotificationService {
     tz.initializeTimeZones();
 
     // Initialize local notifications for Android and iOS
-    const androidInitSettings = AndroidInitializationSettings('suktha_logo');
+    const androidInitSettings =
+        AndroidInitializationSettings('ic_notification');
     const iosInitSettings = DarwinInitializationSettings();
 
     const initSettings = InitializationSettings(
@@ -41,14 +45,19 @@ class LocalNotificationService {
     );
 
     // Initialize the local notifications plugin
-    await _localNotificationsPlugin.initialize(initSettings, onDidReceiveNotificationResponse: (details) {
+    await _localNotificationsPlugin.initialize(initSettings,
+        onDidReceiveNotificationResponse: (details) {
       // Foreground notification tap handling
       print('Foreground notification tapped');
       onSelectNotification(details.payload); // Call handler for foreground
-    }, onDidReceiveBackgroundNotificationResponse: backgroundNotificationTapHandler);
+    },
+        onDidReceiveBackgroundNotificationResponse:
+            backgroundNotificationTapHandler);
 
     // Create the notification channel for Android
-    final platform = _localNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+    final platform =
+        _localNotificationsPlugin.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
     await platform?.createNotificationChannel(_androidChannel);
   }
 
@@ -66,7 +75,8 @@ class LocalNotificationService {
   // Cancel a notification by its lead's hashCode ID
   Future<void> cancelLeadNotification(String leadId) async {
     await _localNotificationsPlugin.cancel(leadId.hashCode);
-    scheduledNotificationIds.remove(leadId.hashCode); // Remove the hashCode ID from the set
+    scheduledNotificationIds
+        .remove(leadId.hashCode); // Remove the hashCode ID from the set
   }
 
   // Schedule a notification for a specific date and time
@@ -89,7 +99,7 @@ class LocalNotificationService {
           channelDescription: _androidChannel.description,
           importance: Importance.max,
           priority: Priority.high,
-          icon: 'suktha_logo',
+          icon: 'ic_notification',
         ),
         iOS: const DarwinNotificationDetails(),
       ),
@@ -118,7 +128,7 @@ class LocalNotificationService {
             channelDescription: _androidChannel.description,
             importance: Importance.max,
             priority: Priority.high,
-            icon: 'suktha_logo',
+            icon: 'ic_notification',
           ),
           iOS: const DarwinNotificationDetails(),
         ),
