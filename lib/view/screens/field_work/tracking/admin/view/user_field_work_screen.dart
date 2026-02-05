@@ -121,7 +121,20 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                       icon: Icon(
                         Icons.refresh,
                         color: kColorblack,
-                      ))
+                      )),
+                  Obx(
+                    () => controller.isExpanded.value == true
+                        ? SizedBox()
+                        : IconButton(
+                            onPressed: () {
+                              controller.showSearchBarFunction();
+                              // controller.toggleMapSize();
+                            },
+                            icon: Icon(
+                              Icons.search,
+                              color: kColorblack,
+                            )),
+                  )
                 ],
                 leading: IconButton(
                   icon: Icon(
@@ -138,41 +151,45 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(width * 0.02),
-                              height: height * 0.06,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius:
-                                    BorderRadius.circular(width * 0.03),
-                              ),
-                              child: TextField(
-                                onChanged: (value) async {
-                                  controller.filteredUserList.value = controller
-                                      .userList
-                                      .where((user) => user.name!
-                                          .toLowerCase()
-                                          .contains(value.toLowerCase()))
-                                      .toList();
-                                },
-                                // controller: controller.searchController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
+                      Obx(() => controller.showSearchBar.value
+                          ? Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.all(width * 0.02),
+                                    height: height * 0.06,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius:
+                                          BorderRadius.circular(width * 0.03),
+                                    ),
+                                    child: TextField(
+                                      onChanged: (value) async {
+                                        controller.filteredUserList.value =
+                                            controller.userList
+                                                .where((user) => user.name!
+                                                    .toLowerCase()
+                                                    .contains(
+                                                        value.toLowerCase()))
+                                                .toList();
+                                      },
+                                      // controller: controller.searchController,
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                        ),
+                                        hintText: 'Search Here',
+                                        hintStyle:
+                                            TextStyle(color: kColorblack45),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                      ),
+                                    ),
                                   ),
-                                  hintText: 'Search Here',
-                                  hintStyle: TextStyle(color: kColorblack45),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 20),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                              ],
+                            )
+                          : SizedBox()),
                       Obx(() {
                         controller.isExpanded.value
                             ? Text(" Track active field users",
@@ -188,7 +205,7 @@ class _UserFieldWorkScreenState extends State<UserFieldWorkScreen> {
                         return AnimatedContainer(
                           duration: Duration(milliseconds: 300),
                           height: controller.isExpanded.value
-                              ? availableHeight / 1.1
+                              ? availableHeight / 1
                               : availableHeight / 4,
                           width: double.infinity,
                           child: Stack(

@@ -27,6 +27,12 @@ class FieldWorkController extends GetxController {
   RxBool isPageLoading = false.obs;
   RxBool isAdminConnected = false.obs;
 
+  RxBool showSearchBar = false.obs;
+
+  void showSearchBarFunction() {
+    showSearchBar.value = !showSearchBar.value;
+  }
+
   var selectedTitle = "Today".obs;
   var selectedDate = DateTime.now().obs;
 

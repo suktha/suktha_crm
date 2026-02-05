@@ -26,7 +26,7 @@ class PreSaleScreen extends StatefulWidget {
 
 class _PreSaleScreenState extends State<PreSaleScreen>
     with TickerProviderStateMixin {
-  final controller = Get.find<GetLeadController>();
+  final controller = Get.put(GetLeadController());
   final contactController = Get.put(LeadContactDetaisController());
   int? touchedIndex;
   String centerText = "";
@@ -74,11 +74,10 @@ class _PreSaleScreenState extends State<PreSaleScreen>
                 child: Container(
                   margin: EdgeInsets.only(right: 2.w),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF4facfe), Color(0xFF00f2fe)],
+                      ),
+                      shape: BoxShape.circle),
                   child: InkWell(
                     onTap: () {
                       controller.fromPreSalesScreen.value = false;
@@ -87,8 +86,8 @@ class _PreSaleScreenState extends State<PreSaleScreen>
                           transition: Transition.fade,
                           duration: const Duration(milliseconds: 600));
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: Icon(Icons.list_rounded, color: Colors.white),
                     ),
                   ),
@@ -338,8 +337,8 @@ class _PreSaleScreenState extends State<PreSaleScreen>
                                         Get.off(
                                             () => LeadManagementListScreen(),
                                             transition: Transition.fade,
-                                            duration:
-                                                const Duration(milliseconds: 600));
+                                            duration: const Duration(
+                                                milliseconds: 600));
                                       },
                                       child: buildKPICard(
                                         height: 11.h,
@@ -370,8 +369,8 @@ class _PreSaleScreenState extends State<PreSaleScreen>
                                             .value = true;
                                         Get.to(() => LeadManagementListScreen(),
                                             transition: Transition.fade,
-                                            duration:
-                                                const Duration(milliseconds: 600));
+                                            duration: const Duration(
+                                                milliseconds: 600));
                                       },
                                       child: buildKPICard(
                                         height: 11.h,
@@ -409,7 +408,10 @@ class _PreSaleScreenState extends State<PreSaleScreen>
                             child: buildKPICard(
                               height: 10.h,
                               title: "Missed Follow Up",
-                              gradient: [const Color(0xFFfa709a), const Color(0xFFfee140)],
+                              gradient: [
+                                const Color(0xFFfa709a),
+                                const Color(0xFFfee140)
+                              ],
                               icon: Icons.warning_amber_rounded,
                               child: Row(
                                 mainAxisAlignment:

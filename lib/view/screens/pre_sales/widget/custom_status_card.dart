@@ -68,7 +68,7 @@ class StatusSection extends StatelessWidget {
                         Icons.follow_the_signs_rounded,
                         "Follow Up Required",
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
                       _item(
                         "Converted",
                         controller.convertedCount,
@@ -76,7 +76,7 @@ class StatusSection extends StatelessWidget {
                         Icons.check_circle_rounded,
                         "Converted",
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
                       _item(
                         "Not Converted",
                         controller.notConvertedCount,
@@ -84,7 +84,7 @@ class StatusSection extends StatelessWidget {
                         Icons.cancel_rounded,
                         "Not Converted",
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
                       _item(
                         "Interested",
                         controller.interestedCount,
@@ -112,17 +112,17 @@ class StatusSection extends StatelessWidget {
                         {
                           "label": "Converted",
                           "value": controller.convertedCount.value,
-                          "color": Colors.green,
+                          "color": const Color.fromARGB(255, 22, 221, 29),
                         },
                         {
                           "label": "Not Converted",
                           "value": controller.notConvertedCount.value,
-                          "color": Colors.red,
+                          "color": const Color.fromARGB(255, 214, 35, 22),
                         },
                         {
                           "label": "Interested",
                           "value": controller.interestedCount.value,
-                          "color": Colors.amber,
+                          "color": const Color.fromARGB(255, 239, 190, 44),
                         },
                       ].where((e) => e["value"] as int > 0).toList();
 
@@ -157,7 +157,7 @@ class StatusSection extends StatelessWidget {
                                 return PieChartSectionData(
                                   value: (e["value"] as int).toDouble(),
                                   color: e["color"] as Color,
-                                  radius: 45,
+                                  radius: 30,
                                   title: '',
                                 );
                               }).toList(),

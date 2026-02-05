@@ -52,6 +52,7 @@ class HomeController extends GetxController {
   RxString companyImage = "".obs;
   RxBool isLoginIdIsAdmin = false.obs;
   RxBool isLoginIdIsbranchmanger = false.obs;
+  
 
   getdata() async {
     final SharedPreferences sharedPreferences =

@@ -72,6 +72,98 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
     }
   }
 
+  
+
+  IconData _getStatusIcon(String? status) {
+    switch (status) {
+      case "Converted":
+        return Icons.check_circle_rounded;
+      case "Not Converted":
+        return Icons.cancel_rounded;
+      case "Follow Up Required":
+        return Icons.schedule_rounded;
+      case "New":
+        return Icons.fiber_new_rounded;
+      default:
+        return Icons.info_rounded;
+    }
+  }
+
+  Widget _buildInfoRow(IconData icon, String label, String value, Color color) {
+    return Row(
+      children: [
+        Expanded(
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "$label: ",
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey[700],
+                  ),
+                ),
+                TextSpan(
+                  text: value,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButton({
+    required IconData icon,
+    required Color color,
+    required String tooltip,
+    required VoidCallback onPressed,
+    bool isMenu = false,
+    List<PopupMenuEntry<dynamic>>? menuItems,
+  }) {
+    if (isMenu && menuItems != null) {
+      return PopupMenuButton(
+        icon: Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Icon(
+            icon,
+            color: color,
+            size: 20.sp,
+          ),
+        ),
+        tooltip: tooltip,
+        itemBuilder: (context) => menuItems,
+      );
+    }
+
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(2.w),
+        child: Container(
+          padding: EdgeInsets.all(2.w),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(4.w),
+          ),
+          child: Icon(
+            icon,
+            color: color,
+            size: 20.sp,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -139,39 +231,30 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
             backgroundColor: kColorwhite,
             elevation: 0,
             actions: [
-              IconButton(
-                  onPressed: () {
-                    controller.isPageLoading.value = false;
-                    controller.listLoad.value = false;
-                    controller.StatusfromPreSalesScreen.value = false;
-                    controller.hasMore.value = true;
-                    controller.isCalledGetAllLeads.value = false;
-                    widget.isFromHomeScreen = false;
-                    controller.sortdirection.value = "desc";
-                    controller.sortwith.value = "leadGenerationDate";
-                    controller.filter.value = "";
-                    controller.isFilter.value = false;
-                    controller.selectedStatusId.value = "0";
-                    controller.selectedStatus.value = "";
-                    controller.searchValue.value = "";
-                    controller.searchController.clear();
-                    page = 1;
-                    controller.leadList.clear();
-                    controller.getLeadList(
-                        controller.searchValue.value,
-                        page,
-                        "desc",
-                        "leadGenerationDate",
-                        "",
-                        false,
-                        "0",
-                        controller.selectedStatusId.value,
-                        "");
-                  },
-                  icon: Icon(
-                    Icons.refresh,
-                    color: kColorblack,
-                  ))
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    margin: EdgeInsets.only(right: 2.w),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF4facfe), Color(0xFF00f2fe)],
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: InkWell(
+                          borderRadius: BorderRadius.circular(30),
+                          onTap: () {
+                            leadAddDialog(context);
+                          },
+                          child: Icon(
+                            Icons.add_circle_outline_rounded,
+                            color: kColorwhite,
+                            size: 35,
+                          )),
+                    )),
+              )
             ],
             leading: IconButton(
               icon: Icon(
@@ -235,7 +318,10 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                       delay: const Duration(milliseconds: 300),
                                       duration:
                                           const Duration(milliseconds: 300),
-                                      child: LottieBuilder.asset(emptyLottie)),
+                                      child: LottieBuilder.asset(
+                                        emptyLottie,
+                                        width: 70.w,
+                                      )),
                                   SizedBox(
                                     height: 3.h,
                                   ),
@@ -246,7 +332,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                       "Your Lead is Empty",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 17.sp),
+                                          fontSize: 15.sp),
                                     ),
                                   )
                                 ],
@@ -293,7 +379,7 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                     separatorBuilder: (context, index) =>
                                         Divider(
                                       thickness: 1,
-                                      color: kColorgrey,
+                                      color: kColorgrey.withValues(alpha: 0.3),
                                     ),
                                     controller: scrollcontroller,
                                     itemCount: controller.leadList.length + 1,
@@ -325,19 +411,6 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                               ),
                             ),
                 ),
-                Stack(
-                  children: [
-                    Positioned(
-                      child: CustomButton(
-                        ontap: () {
-                          leadAddDialog(context);
-                        },
-                        title: "Create New Lead",
-                        width: 95.w,
-                      ),
-                    )
-                  ],
-                ),
               ],
             ),
           ),
@@ -363,146 +436,271 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
         },
         onLongPress: () {},
         child: Container(
-          color: kColorwhite,
-          // height: 26.h,
+          margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.white.withValues(alpha: 0.95),
+                Colors.white.withValues(alpha: 0.85),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(4.w),
+            border: Border.all(
+              color: Colors.lightBlue.withValues(alpha: 0.2),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.lightBlue.withValues(alpha: 0.08),
+                blurRadius: 20,
+                offset: Offset(0, 8),
+                spreadRadius: 0,
+              ),
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 10,
+                offset: Offset(0, 4),
+                spreadRadius: 0,
+              ),
+            ],
+          ),
           child: Padding(
-            padding: EdgeInsets.only(top: 2.5.h, left: 4.w, right: 2.h),
+            padding: EdgeInsets.all(4.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SizedBox(
-                    child: Text(
-                      "Lead No: ${item.leadGenerationNumber ?? ""}", // ,
-                      style: TextStyle(
-                        fontSize: 16.5.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 1.h,
-                ),
+                // Lead Number with enhanced styling
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 45.w,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 3.w, vertical: 0.8.h),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.lightBlue.withValues(alpha: 0.15),
+                            Colors.lightBlue.withValues(alpha: 0.08),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(2.w),
+                        border: Border.all(
+                          color: Colors.lightBlue.withValues(alpha: 0.3),
+                          width: 1,
+                        ),
+                      ),
                       child: Text(
-                        "${item.leadName} ", //name
-                        overflow: TextOverflow.ellipsis,
+                        "Lead No: ${item.leadGenerationNumber ?? ""}",
                         style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.lightBlue[800],
+                          letterSpacing: 0.3,
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      child: Text(
-                        item.statusName ?? "",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w500,
-                            color: getStatusColor(item.statusName)),
-                      ),
-                    ),
-                  ],
-                ),
-                // item.assignedToId != null
-                //     ? Align(
-                //         alignment: Alignment.topLeft,
-                //         child: SizedBox(
-                //           child: item.assignedToId == null
-                //               ? SizedBox()
-                //               : Text("Assigned to " +
-                //                   (controller.userList.firstWhere((user) => user.id == item.assignedToId).name ?? "Unknown")),
-                //         ))
-                //     : SizedBox(),
-                SizedBox(height: 1.h),
-
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SizedBox(
-                    child: item.followUpDate == null
-                        ? SizedBox()
-                        : Text(
-                            "Lead Date : " +
-                                DateClass()
-                                    .showDate(item.leadGenerationDate ?? ""),
-                          ),
-                  ),
-                ),
-                SizedBox(height: 1.h),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: SizedBox(
-                    child: item.followUpDate == null
-                        ? SizedBox()
-                        : Text(
-                            "FollowUp Date : " +
-                                DateClass().showDate(item.followUpDate ?? ""),
-                          ),
-                  ),
-                ),
-                // SizedBox(height: 1.h),
-                // Align(
-                //   alignment: Alignment.topLeft,
-                //   child: SizedBox(
-                //     child: Text(
-                //       "Product : " + item.produ,
-                //     ),
-                //   ),
-                // ),
-                SizedBox(height: 1.h),
-                Row(
-                  mainAxisAlignment: item.email != null && item.email != ""
-                      ? MainAxisAlignment.spaceBetween
-                      : MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.call_outlined, size: 17.sp),
-                        SizedBox(width: 1.h),
-                        Text(item.mobileNo ?? ""), // mobile number
-                      ],
-                    ),
-                    SizedBox(height: 1.h),
-                    item.email != null && item.email != ""
-                        ? Row(children: [
-                            Icon(Icons.mail_outline_rounded, size: 17.sp),
-                            SizedBox(width: 1.h),
-                            Text(item.email?.split(".com").first ==
-                                    "notnull@notnull"
-                                ? ""
-                                : item.email == null
-                                    ? ""
-                                    : item.email == ""
-                                        ? ""
-                                        : item.email.toString())
-                          ])
-                        : SizedBox(),
+                    Spacer(),
+                    Text(
+                      DateClass().showDate(item.leadGenerationDate ?? ""),
+                    )
                   ],
                 ),
                 SizedBox(height: 2.h),
+
+                // Lead Name and Status Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${item.leadName}",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.black87,
+                              height: 1.3,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
+                          if (item.followUpDate != null) SizedBox(height: 1.h),
+                          if (item.followUpDate != null)
+                            _buildInfoRow(
+                              Icons.event_repeat_rounded,
+                              "Follow-Up",
+                              DateClass().showDate(item.followUpDate ?? ""),
+                              Colors.orange[700]!,
+                            ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.h),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            getStatusColor(item.statusName)
+                                .withValues(alpha: 0.9),
+                            getStatusColor(item.statusName)
+                                .withValues(alpha: 0.7),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(4.w),
+                        boxShadow: [
+                          BoxShadow(
+                            color: getStatusColor(item.statusName)
+                                .withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            _getStatusIcon(item.statusName),
+                            color: Colors.white,
+                            size: 17.sp,
+                          ),
+                          SizedBox(width: 1.w),
+                          Text(
+                            item.statusName ?? "",
+                            style: TextStyle(
+                              fontSize: 13.5.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 1.5.h),
+
+                // Date Information with icons
+
+                // Contact Information
                 Container(
-                  // width: 100.w,
-                  margin: EdgeInsets.only(bottom: 1.h),
+                  padding: EdgeInsets.all(2.5.w),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: const [
-                          Color.fromARGB(255, 229, 246, 255),
-                          Color.fromARGB(255, 246, 246, 246)
-                        ]),
+                    color: Colors.grey[50],
                     borderRadius: BorderRadius.circular(2.w),
-                    color: kColorwhite,
-                    // boxShadow: kElevationToShadow[8]
+                    border: Border.all(
+                      color: Colors.grey[200]!,
+                      width: 1,
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
+                      // Phone
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(1.5.w),
+                              decoration: BoxDecoration(
+                                color: Colors.green[50],
+                                borderRadius: BorderRadius.circular(1.5.w),
+                              ),
+                              child: Icon(
+                                Icons.call_rounded,
+                                size: 16.sp,
+                                color: Colors.green[700],
+                              ),
+                            ),
+                            SizedBox(width: 2.w),
+                            Expanded(
+                              child: Text(
+                                item.mobileNo ?? "",
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Email
+                      if (item.email != null &&
+                          item.email != "" &&
+                          item.email?.split(".com").first != "notnull@notnull")
+                        Expanded(
+                          child: Row(
+                            children: [
+                              SizedBox(width: 2.w),
+                              Container(
+                                padding: EdgeInsets.all(1.5.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[50],
+                                  borderRadius: BorderRadius.circular(1.5.w),
+                                ),
+                                child: Icon(
+                                  Icons.mail_rounded,
+                                  size: 16.sp,
+                                  color: Colors.blue[700],
+                                ),
+                              ),
+                              SizedBox(width: 2.w),
+                              Expanded(
+                                child: Text(
+                                  item.email.toString(),
+                                  style: TextStyle(
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 1.h),
+                Container(
+                  // decoration: BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //     begin: Alignment.topLeft,
+                  //     end: Alignment.bottomRight,
+                  //     colors: [
+                  //       Colors.lightBlue.withValues(alpha: 0.12),
+                  //       Colors.blue.withValues(alpha: 0.08),
+                  //     ],
+                  //   ),
+                  //   borderRadius: BorderRadius.circular(3.w),
+                  //   border: Border.all(
+                  //     color: Colors.lightBlue.withValues(alpha: 0.25),
+                  //     width: 1,
+                  //   ),
+                  // ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 1.w, vertical: 1.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildActionButton(
+                          icon: Icons.edit_rounded,
+                          color: Colors.blue,
+                          tooltip: "Edit Lead",
                           onPressed: () async {
                             Get.to(
                                 () => NewLeadManagementAddScreen(
@@ -514,12 +712,20 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                 duration: Duration(milliseconds: 500),
                                 transition: Transition.rightToLeft);
                           },
-                          tooltip: "Edit your lead",
-                          icon: Icon(
-                            Icons.edit,
-                            color: kColorblack,
-                          )),
-                      IconButton(
+                        ),
+                        _buildActionButton(
+                          icon: item.leadGeoLocation == null ||
+                                  item.leadGeoLocation == "${null},${null}"
+                              ? Icons.add_location_alt_rounded
+                              : Icons.location_on_rounded,
+                          color: item.leadGeoLocation == null ||
+                                  item.leadGeoLocation == "${null},${null}"
+                              ? Colors.orange
+                              : Colors.green,
+                          tooltip: item.leadGeoLocation == null ||
+                                  item.leadGeoLocation == "${null},${null}"
+                              ? "Add Location"
+                              : "View Location",
                           onPressed: () async {
                             if (item.leadGeoLocation == null ||
                                 item.leadGeoLocation == "${null},${null}") {
@@ -561,23 +767,25 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                                   lat ?? 0.0, long ?? 0.0);
                             }
                           },
-                          icon: item.leadGeoLocation == null ||
-                                  item.leadGeoLocation == "${null},${null}"
-                              ? Icon(Icons.add_location_alt, color: kColorblack)
-                              : Icon(Icons.location_on, color: Colors.green)),
-                      IconButton(
-                        onPressed: () async {
-                          print("pressed");
-                          controller.getLeadHistory(item.id ?? "");
-                          await bottomSheetHistoryCustom(context, item, width,
-                              () async {
-                            controller.LeadHistoryLists.clear();
-                            await controller.getLeadHistory(item.id ?? "");
-                          }, controller);
-                        },
-                        icon: Icon(Icons.history, color: kColorblack),
-                      ),
-                      IconButton(
+                        ),
+                        _buildActionButton(
+                          icon: Icons.history_rounded,
+                          color: Colors.purple,
+                          tooltip: "Lead History",
+                          onPressed: () async {
+                            print("pressed");
+                            controller.getLeadHistory(item.id ?? "");
+                            await bottomSheetHistoryCustom(context, item, width,
+                                () async {
+                              controller.LeadHistoryLists.clear();
+                              await controller.getLeadHistory(item.id ?? "");
+                            }, controller);
+                          },
+                        ),
+                        _buildActionButton(
+                          icon: Icons.track_changes_rounded,
+                          color: Colors.indigo,
+                          tooltip: "Field Work",
                           onPressed: () async {
                             Fluttertoast.showToast(
                               msg: "This feature is in Progress",
@@ -716,263 +924,261 @@ class _LeadManagementListScreenState extends State<LeadManagementListScreen> {
                               },
                             );
                           },
-                          icon: Icon(
-                            Icons.track_changes,
-                            color: kColorblack,
-                          )),
-                      PopupMenuButton(
-                          icon: Icon(
-                            Icons.menu,
-                            color: kColorblack,
-                          ),
-                          itemBuilder: (context) => [
-                                PopupMenuItem(
-                                  onTap: () async {
-                                    await controller.getDocumentWalletList(
-                                        leadId: item.id!);
-                                    showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      builder: (context) {
-                                        return LeadDocumentWalletScreen(
-                                            controller: controller,
-                                            leadValue: item);
-                                      },
-                                    );
+                        ),
+                        _buildActionButton(
+                          icon: Icons.more_vert_rounded,
+                          color: Colors.grey[700]!,
+                          tooltip: "More Options",
+                          onPressed: () {
+                            // This will be handled by PopupMenuButton
+                          },
+                          isMenu: true,
+                          menuItems: [
+                            PopupMenuItem(
+                              onTap: () async {
+                                await controller.getDocumentWalletList(
+                                    leadId: item.id!);
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  builder: (context) {
+                                    return LeadDocumentWalletScreen(
+                                        controller: controller,
+                                        leadValue: item);
                                   },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.upload_file,
-                                          color: kColorblack),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        "Document wallet",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.upload_file, color: kColorblack),
+                                  SizedBox(
+                                    width: 2.h,
                                   ),
-                                ),
-                                PopupMenuItem(
-                                  onTap: () async {
-                                    print("pressed");
-                                    controller.getLeadHistory(item.id ?? "");
-                                    await bottomSheetHistoryCustom(
-                                        context, item, width, () async {
-                                      controller.LeadHistoryLists.clear();
-                                      await controller
-                                          .getLeadHistory(item.id ?? "");
-                                    }, controller);
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.history, color: kColorblack),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        "Lead Progress Tracker",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
+                                  Text(
+                                    "Document wallet",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                PopupMenuItem(
-                                  onTap: () async {
-                                    print("pressed");
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              onTap: () async {
+                                print("pressed");
+                                controller.getLeadHistory(item.id ?? "");
+                                await bottomSheetHistoryCustom(
+                                    context, item, width, () async {
+                                  controller.LeadHistoryLists.clear();
+                                  await controller
+                                      .getLeadHistory(item.id ?? "");
+                                }, controller);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.history, color: kColorblack),
+                                  SizedBox(
+                                    width: 2.h,
+                                  ),
+                                  Text(
+                                    "Lead Progress Tracker",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              onTap: () async {
+                                print("pressed");
 
-                                    await controller.getSharedDocHistory(
-                                        leadId: item.id!);
-                                    showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        isDismissible: true,
-                                        isScrollControlled: true,
-                                        useSafeArea: true,
-                                        builder: (context) {
-                                          return ShareDocNdHistory(
-                                            controller: controller,
-                                            leadValue: item,
-                                          );
-                                        });
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.share_outlined,
-                                          color: kColorblack),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        "Share Document & History",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                PopupMenuItem(
-                                  onTap: () async {
-                                    print("pressed");
-                                    print(item.leadGeoLocation);
-                                    if (item.leadGeoLocation == null ||
-                                        item.leadGeoLocation ==
-                                            "${null},${null}") {
-                                      // Location not added yet, so add location
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        useSafeArea: true,
-                                        builder: (context) => LocationWidget(
-                                          index: index,
-                                          LeadValueList: controller.leadList,
-                                          leadValue: item,
-                                          IsClikedLocation: true,
-                                          materialList:
-                                              controller.materialLists,
-                                          serviceList: controller.serviceLists,
-                                        ),
+                                await controller.getSharedDocHistory(
+                                    leadId: item.id!);
+                                showModalBottomSheet(
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    isDismissible: true,
+                                    isScrollControlled: true,
+                                    useSafeArea: true,
+                                    builder: (context) {
+                                      return ShareDocNdHistory(
+                                        controller: controller,
+                                        leadValue: item,
                                       );
-                                      // locController.getCurrentLocation(item);
-                                    } else {
-                                      List<String> latLong =
-                                          item.leadGeoLocation.split(",");
-                                      locController.latitudeController.text =
-                                          latLong[1];
-                                      locController.longitudeController.text =
-                                          latLong[0];
-                                      print(
-                                          "location latitude ${locController.latitudeController.text}");
-                                      print(
-                                          "location longitude ${locController.longitudeController.text}");
+                                    });
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.share_outlined,
+                                      color: kColorblack),
+                                  SizedBox(
+                                    width: 2.h,
+                                  ),
+                                  Text(
+                                    "Share Document & History",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              onTap: () async {
+                                print("pressed");
+                                print(item.leadGeoLocation);
+                                if (item.leadGeoLocation == null ||
+                                    item.leadGeoLocation == "${null},${null}") {
+                                  // Location not added yet, so add location
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    useSafeArea: true,
+                                    builder: (context) => LocationWidget(
+                                      index: index,
+                                      LeadValueList: controller.leadList,
+                                      leadValue: item,
+                                      IsClikedLocation: true,
+                                      materialList: controller.materialLists,
+                                      serviceList: controller.serviceLists,
+                                    ),
+                                  );
+                                  // locController.getCurrentLocation(item);
+                                } else {
+                                  List<String> latLong =
+                                      item.leadGeoLocation.split(",");
+                                  locController.latitudeController.text =
+                                      latLong[1];
+                                  locController.longitudeController.text =
+                                      latLong[0];
+                                  print(
+                                      "location latitude ${locController.latitudeController.text}");
+                                  print(
+                                      "location longitude ${locController.longitudeController.text}");
 
-                                      var lat = double.tryParse(locController
-                                          .latitudeController.text);
-                                      var long = double.tryParse(locController
-                                          .longitudeController.text);
+                                  var lat = double.tryParse(
+                                      locController.latitudeController.text);
+                                  var long = double.tryParse(
+                                      locController.longitudeController.text);
 
-                                      // Location already added, so get location and open maps
-                                      await locController.openGoogleMaps(
-                                          lat ?? 0.0, long ?? 0.0);
-                                    }
-                                    // controller.getLeadHistory(item.id ?? "");
-                                  },
-                                  child: Row(
-                                    children: [
-                                      item.leadGeoLocation == null ||
-                                              item.leadGeoLocation ==
-                                                  "${null},${null}"
-                                          ? Icon(Icons.add_location_alt,
-                                              color: kColorblack)
-                                          : Icon(Icons.location_on,
-                                              color: Colors.green),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        item.leadGeoLocation == null ||
+                                  // Location already added, so get location and open maps
+                                  await locController.openGoogleMaps(
+                                      lat ?? 0.0, long ?? 0.0);
+                                }
+                                // controller.getLeadHistory(item.id ?? "");
+                              },
+                              child: Row(
+                                children: [
+                                  item.leadGeoLocation == null ||
+                                          item.leadGeoLocation ==
+                                              "${null},${null}"
+                                      ? Icon(Icons.add_location_alt,
+                                          color: kColorblack)
+                                      : Icon(Icons.location_on,
+                                          color: Colors.green),
+                                  SizedBox(
+                                    width: 2.h,
+                                  ),
+                                  Text(
+                                    item.leadGeoLocation == null ||
+                                            item.leadGeoLocation ==
+                                                "${null},${null}"
+                                        ? "Add location"
+                                        : "View location",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: item.leadGeoLocation == null ||
                                                 item.leadGeoLocation ==
                                                     "${null},${null}"
-                                            ? "Add location"
-                                            : "View location",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color:
-                                                item.leadGeoLocation == null ||
-                                                        item.leadGeoLocation ==
-                                                            "${null},${null}"
-                                                    ? Colors.black
-                                                    : Colors.green),
-                                      ),
-                                    ],
+                                            ? Colors.black
+                                            : Colors.green),
                                   ),
-                                ),
-                                PopupMenuItem(
-                                  enabled: item.leadGeoLocation != null,
-                                  onTap: () async {
-                                    print("pressed");
-                                    print(item.leadGeoLocation);
+                                ],
+                              ),
+                            ),
+                            PopupMenuItem(
+                              enabled: item.leadGeoLocation != null,
+                              onTap: () async {
+                                print("pressed");
+                                print(item.leadGeoLocation);
 
-                                    // Location not added yet, so add location
-                                    showModalBottomSheet(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      useSafeArea: true,
-                                      builder: (context) => LocationWidget(
-                                        index: index,
-                                        LeadValueList: controller.leadList,
-                                        leadValue: item,
-                                        IsClikedLocation: true,
-                                        materialList: controller.materialLists,
-                                        serviceList: controller.serviceLists,
-                                      ),
-                                    );
-                                    // locController.getCurrentLocation(item);
+                                // Location not added yet, so add location
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  useSafeArea: true,
+                                  builder: (context) => LocationWidget(
+                                    index: index,
+                                    LeadValueList: controller.leadList,
+                                    leadValue: item,
+                                    IsClikedLocation: true,
+                                    materialList: controller.materialLists,
+                                    serviceList: controller.serviceLists,
+                                  ),
+                                );
+                                // locController.getCurrentLocation(item);
 
-                                    // controller.getLeadHistory(item.id ?? "");
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.add_location_alt,
-                                          color: kColorblack),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        "Update Location",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
+                                // controller.getLeadHistory(item.id ?? "");
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add_location_alt,
+                                      color: kColorblack),
+                                  SizedBox(
+                                    width: 2.h,
                                   ),
-                                ),
-                                // PopupMenuItem(
-                                //   child: Row(
-                                //     children: [
-                                //       Icon(Icons.edit, color: kColorblack),
-                                //       SizedBox(
-                                //         width: 2.h,
-                                //       ),
-                                //       Text(
-                                //         "Edit",
-                                //         style: TextStyle(
-                                //           fontWeight: FontWeight.bold,
-                                //         ),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
-                                PopupMenuItem(
-                                  onTap: () {
-                                    print("id-----${item.id ?? ""}");
-                                    controller.deleteLead(item.id ?? "");
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.delete, color: kColorRed),
-                                      SizedBox(
-                                        width: 2.h,
-                                      ),
-                                      Text(
-                                        "Delete",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: kColorRed),
-                                      ),
-                                    ],
+                                  Text(
+                                    "Update Location",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                )
-                              ]),
-                    ],
+                                ],
+                              ),
+                            ),
+                            // PopupMenuItem(
+                            //   child: Row(
+                            //     children: [
+                            //       Icon(Icons.edit, color: kColorblack),
+                            //       SizedBox(
+                            //         width: 2.h,
+                            //       ),
+                            //       Text(
+                            //         "Edit",
+                            //         style: TextStyle(
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            PopupMenuItem(
+                              onTap: () {
+                                print("id-----${item.id ?? ""}");
+                                controller.deleteLead(item.id ?? "");
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(Icons.delete, color: kColorRed),
+                                  SizedBox(
+                                    width: 2.h,
+                                  ),
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: kColorRed),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
